@@ -1,0 +1,26 @@
+
+INSERT_UPDATE DroolsRule;code[unique=true];uuid;rulePackage;active[default=false];maxAllowedRuns;globals;ruleType(code)[default=DEFAULT];currentVersion[default=false];
+;01agendafilter-limitexecutionsrule.drl;01agendafilter-limitexecutionsrule;de.hybris.platform.droolsruleengineservices.test;false;5;addOrderDiscountRAOAction->addOrderDiscountRAOAction;
+
+# load the drl content into the rules
+UPDATE DroolsRule;code[unique=true];ruleContent;active[default=false];currentVersion[default=false];
+;01agendafilter-limitexecutionsrule.drl;"package de.hybris.platform.droolsruleengineservices.test
+import java.math.*;
+import de.hybris.platform.ruleengineservices.rao.*;
+import de.hybris.platform.ruleengineservices.rrd.*;
+
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderDiscountRAOAction;
+
+global AddOrderDiscountRAOAction addOrderDiscountRAOAction;
+rule ""01agendafilter-limitexecutionsrule""
+@ruleCode(""01agendafilter-limitexecutionsrule.drl"")
+    when
+        $config : RuleConfigurationRRD(ruleCode == ""01agendafilter-limitexecutionsrule.drl"")
+    	$cart : CartRAO()
+		$result : RuleEngineResultRAO()
+    then
+    	addOrderDiscountRAOAction.addOrderLevelDiscount($cart, false, new BigDecimal(""00.00""), $result, kcontext);
+end
+";true;true;
+INSERT_UPDATE DroolsKIEBase;name[unique=true];kieModule(name)[unique=true];rules(code)[mode=append];
+;rules-base-junit;rules-module-junit;01agendafilter-limitexecutionsrule.drl

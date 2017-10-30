@@ -1,0 +1,7 @@
+<div class="ySEBooleanField">
+    <span class="y-toggle y-toggle-lg">
+        <input type="checkbox" id="{{field.qualifier}}-checkbox" class="ySEBooleanField__input" placeholder="{{field.tooltip| translate}}" name="{{field.qualifier}}" data-ng-disabled="!field.editable" data-ng-model="model[qualifier]" />
+        <label class="ySEBooleanField__label" for="{{field.qualifier}}-checkbox"></label>
+        <p data-ng-if="field.labelText && !model[qualifier]" class="ySEBooleanField__text">{{field.labelText| translate}}</p>
+    </span>
+</div>

@@ -1,0 +1,114 @@
+<div id="editConfigurationsBody" class="manage-customization">
+
+    <h2 class="text-capitalize h2-color--grey-font" ng-bind="catalogName"></h2>
+
+    <div class="input-group customization-search">
+        <span class="input-group-addon glyphicon glyphicon-search ySESearchIcon"></span>
+        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="{{ 'personalization.manager.modal.search.placeholder' | translate}}" ng-model="search.name" ng-keyup="searchInputKeypress($event)"></input>
+    </div>
+    <div ng-show="isFilterEnabled()">
+        <div class="search-results">
+            <span ng-bind="filteredCustomizationsCount"></span>
+            <span data-translate="personalization.manager.modal.search.result.label"></span>
+        </div>
+    </div>
+
+    <div class="categoryTable">
+        <!-- headers -->
+        <div class="row row-reset-margin tablehead hidden-xs">
+            <div class="col-xs-8 text-left" data-translate="personalization.manager.modal.grid.header.customization"></div>
+            <div class="col-xs-2 text-left" data-translate="personalization.manager.modal.grid.header.variations"></div>
+            <div class="col-xs-2 text-left" data-translate="personalization.manager.modal.grid.header.components"></div>
+        </div>
+
+        <div class="row row-reset-margin">
+            <div class="col-xs-12 col-reset-padding">
+                <button class="y-add y-add-btn button-margin" type="button" data-ng-click="openNewModal();">
+                    <span class="hyicon hyicon-add" data-translate="personalization.manager.modal.add.button"></span>
+                </button>
+            </div>
+        </div>
+
+        <div data-ng-repeat="customization in customizations" ng-init="isCollapsed=true">
+            <div class="row row-reset-margin customizationLayout divider">
+                <div class="col-xs-half text-right" ng-click="isCollapsed=! isCollapsed; customizationClickAction(customization)">
+                    <a class="btn btn-link category-toggle">
+                        <span class="glyphicon glyphicon-chevron-down "></span>
+                    </a>
+                </div>
+                <div class="col-xs-8 pull-left text-left" ng-click="isCollapsed=! isCollapsed; customizationClickAction(customization)">
+                    <p class="primaryData customization-rank-{{customization.rank}}-row ">
+                        <span class="categoryName personalizationsmartedit-customization-code ">{{customization.name}}</span>
+                    </p>
+                </div>
+                <div class="col-xs-2 pull-left text-left">
+                    <p>{{customization.variations.length || 0}}</p>
+                </div>
+                <div class="col-xs-half col-offset-1 pull-right">
+                    <button type="button" class="btn btn-link dropdown-toggle pull-right" data-toggle="dropdown">
+                        <span class="hyicon hyicon-more"></span>
+                    </button>
+                    <ul class="dropdown-menu pull-right text-left" role="menu">
+                        <li>
+                            <a class="customization-edit-button" ng-click="editCustomizationAction(customization)" data-translate="personalization.manager.modal.button.edit"></a>
+                        </li>
+                        <li>
+                            <a class="customization-delete-button" ng-click="deleteCustomizationAction(customization)" data-translate="personalization.manager.modal.button.delete"></a>
+                        </li>
+                        <li ng-class="isFilterEnabled() || $first ? 'disabled' : '' ">
+                            <a class="customization-move-up-button" ng-click="setCustomizationRank(customization, -1, $event, $first)" data-translate="personalization.manager.modal.button.moveup"></a>
+                        </li>
+                        <li ng-class="isFilterEnabled() || $last ? 'disabled' : '' ">
+                            <a class="customization-move-down-button" ng-click="setCustomizationRank(customization, 1, $event, $last)" data-translate="personalization.manager.modal.button.movedown"></a>
+                        </li>
+                    </ul>
+                </div>
+                <!--end col-sm-5 for contextual menu-->
+            </div>
+            <!--end customizationLayout-->
+
+            <div collapse="isCollapsed">
+                <div ng-repeat="variation in customization.variations">
+                    <div class="variationLayout divider">
+                        <div class="row row-reset-margin variation-rank-{{variation.rank}}-row">
+                            <div class="col-xs-half"></div>
+                            <div class="col-xs-10 text-left">
+                                <span>{{variation.name}}</span>
+                            </div>
+                            <div class="col-xs-1 text-left ">
+                                <span>{{variation.numberOfComponents}}</span>
+                            </div>
+                            <div class="col-xs-half pull-right">
+                                <button type="button" class="btn btn-link dropdown-toggle pull-right" data-toggle="dropdown">
+                                    <span class="hyicon hyicon-more"></span>
+                                </button>
+                                <ul class="dropdown-menu text-left pull-right" role="menu">
+                                    <li>
+                                        <a class="customization-edit-button" ng-click="editVariationAction(customization, variation)" data-translate="personalization.manager.modal.button.edit"></a>
+                                    </li>
+                                    <li ng-class="customization.variations.length < 2 ? 'disabled' : '' ">
+                                        <a class="customization-delete-button" ng-click="deleteVariationAction(customization, variation, $event)" data-translate="personalization.manager.modal.button.delete"></a>
+                                    </li>
+                                    <li ng-class="$first ? 'disabled' : '' ">
+                                        <a class="variation-move-down-button" ng-click="setVariationRank(customization, variation, -1, $event, $first)" data-translate="personalization.manager.modal.button.moveup"></a>
+                                    </li>
+                                    <li ng-class="$last ? 'disabled' : '' ">
+                                        <a class="variation-move-down-button" ng-click="setVariationRank(customization, variation, 1, $event, $last)" data-translate="personalization.manager.modal.button.movedown"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--end col-sm-2 for contextual menu-->
+                        </div>
+                        <!--end variation-rank-->
+                    </div>
+                    <!--end variationLayout-->
+                </div>
+                <!--end variation-repeat-->
+            </div>
+            <!--end collapse-->
+        </div>
+        <!--end customization-repeat-->
+    </div>
+    <!--end categoryTable-->
+    <personalizationsmartedit-pagination pages="pagination.pages " current-page="pagination.currentPage " page-sizes="pagination.pageSizes " current-size="pagination.currentSize " pages-offset="pagination.pagesOffset " callback="paginationCallback " />
+</div>

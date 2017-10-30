@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+-->
+<!--
+ All hybris buildcallbacks.xml macrodefinitions:
+
+ Build/Documentation
+
+	 before/after ant macro "clean"
+		 <macrodef name="rulebuilderbackoffice_before_clean"/>
+		 <macrodef name="rulebuilderbackoffice_after_clean"/>
+
+	 before/after ant macro "build"
+		 <macrodef name="rulebuilderbackoffice_before_build"/>
+		 <macrodef name="rulebuilderbackoffice_after_build"/>
+
+	 before/after ant macro "compile_core" - the core module of the extension
+		 <macrodef name="rulebuilderbackoffice_before_compile_core">
+		 <macrodef name="rulebuilderbackoffice_after_compile_core">
+
+	 before/after ant macro "compile_web" - the web module of the extension
+		 <macrodef name="rulebuilderbackoffice_before_compile_web" />
+		 <macrodef name="rulebuilderbackoffice_after_compile_web" />
+
+	 before/after ant macro "compile_hmc" - the hmc module of the extension
+		 <macrodef name="rulebuilderbackoffice_before_compile_hmc" />
+		 <macrodef name="rulebuilderbackoffice_after_compile_hmc" />
+
+ Preparing extension
+
+	 will be called in the beginning of the ant call and only once (also when using multiple
+	 ant targets e.g. ant build yunittest)
+		 <macrodef name="rulebuilderbackoffice_only_once_prepare"/>
+
+ Creating ear module/production
+
+	 before/after ant macro "ear"
+		 <macrodef name="rulebuilderbackoffice_before_ear"/>
+		 <macrodef name="rulebuilderbackoffice_after_ear"/>
+
+	 before/after ant macro "production" - for hybris server only
+		 <macrodef name="rulebuilderbackoffice_before_production" />
+		 <macrodef name="rulebuilderbackoffice_after_production" />
+
+ JUnit Test
+
+	 before/after ant macro "yunitinit"
+		 <macrodef name="rulebuilderbackoffice_before_yunitinit" />
+		 <macrodef name="rulebuilderbackoffice_after_yunitinit" />
+
+	 before/after ant macro "yunit"
+		 <macrodef name="rulebuilderbackoffice_before_yunit" />
+		 <macrodef name="rulebuilderbackoffice_after_yunit" />
+
+ Distribution package
+
+ 	 before/after ant macro "dist" - internal target; only for use when platform is available in source code
+		 <macrodef name="rulebuilderbackoffice_after_dist"/>
+		 <macrodef name="rulebuilderbackoffice_before_dist"/>
+
+	 before/after ant macro "dist_copy" - internal target; only for use when platform is available in source code
+		 <macrodef name="rulebuilderbackoffice_before_dist_copy"/>
+		 <macrodef name="rulebuilderbackoffice_after_dist_copy"/>
+
+ 	 With these filters you can override the default extension filters defined in platform/resources/ant/dist/filtersets.xml
+ 	  	 <patternset id="extension.rulebuilderbackoffice.binary.filter">
+ 	  	  	 <patternset refid="extension.filter" />
+ 	  	  	 <exclude name="**/*-source.jar" />
+ 	  	 </patternset>
+ 	  	 <patternset id="extension.rulebuilderbackoffice.source.filter">
+ 	  	  	 <exclude name="**/bin/**" />
+ 	  	 </patternset>
+
+ Backoffice module
+
+ 	 before/after ant macro "backoffice" - internal target; only for use when extensin is a backoffice module
+		 <macrodef name="rulebuilderbackoffice_before_clean_backoffice"/>
+		 <macrodef name="rulebuilderbackoffice_after_clean_backoffice"/>
+		 <macrodef name="rulebuilderbackoffice_before_compile_backoffice"/>
+		 <macrodef name="rulebuilderbackoffice_after_compile_backoffice"/>
+
+--><project name="rulebuilderbackoffice_buildcallbacks">
+	<property name="rulebuilderbackofficeWebFragmentSrc" value="${ext.rulebuilderbackoffice.path}/resources/web-fragment.xml"/>
+	<property name="rulebuilderbackofficeWebFragmentDestJar" value="${ext.backoffice.path}/web/webroot/WEB-INF/lib/webfragmentExt_rulebuilderbackoffice.jar"/>
+
+	
+
+	
+
+	<macrodef name="rulebuilderbackoffice_after_clean">
+		<sequential>
+			<rulebuilderbackoffice_remove_web_fragment/>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="rulebuilderbackoffice_after_build">
+		<sequential>
+			<rulebuilderbackoffice_remove_web_fragment/>
+			<rulebuilderbackoffice_create_web_fragment/>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="rulebuilderbackoffice_remove_web_fragment">
+		<sequential>
+			<if>
+				<available file="${rulebuilderbackofficeWebFragmentDestJar}"/>
+				<then>
+					<delete file="${rulebuilderbackofficeWebFragmentDestJar}"/>
+				</then>
+			</if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="rulebuilderbackoffice_create_web_fragment">
+		<sequential>
+			<if>
+				<available file="${rulebuilderbackofficeWebFragmentSrc}"/>
+				<then>
+					<sequential>
+						<jar destfile="${rulebuilderbackofficeWebFragmentDestJar}">
+							<metainf file="${rulebuilderbackofficeWebFragmentSrc}"/>
+						</jar>
+					</sequential>
+				</then>
+			</if>
+		</sequential>
+	</macrodef>
+</project>

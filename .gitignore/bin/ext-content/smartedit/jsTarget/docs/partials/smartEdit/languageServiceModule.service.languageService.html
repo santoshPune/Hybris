@@ -1,0 +1,80 @@
+<h1><code ng:non-bindable="">languageService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">languageServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-page"><p>The Language Service fetches all languages for a specified site using REST service calls to the cmswebservices languages API.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_getbrowserlanguageisocode">getBrowserLanguageIsoCode()</h3>
+<div class="getbrowserlanguageisocode"><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-getbrowserlanguageisocode-page"><p>Uses the browser&#39;s current locale to determine the selected language ISO code.</p>
+</div><h5 id="methods_getbrowserlanguageisocode_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-getbrowserlanguageisocode-page"><p>The language ISO code of the browser&#39;s currently selected locale.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getbrowserlocale">getBrowserLocale()</h3>
+<div class="getbrowserlocale"><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-getbrowserlocale-page"><p>determines the browser locale in the format en_US</p>
+</div><h5 id="methods_getbrowserlocale_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-getbrowserlocale-page"><p>the browser locale</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getlanguagesforsite">getLanguagesForSite(siteUID)</h3>
+<div class="getlanguagesforsite"><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-getlanguagesforsite-page"><p>Fetches a list of language descriptors for the specified storefront site UID. The object containing the list of sites is fetched
+using REST calls to the cmswebservices languages API.</p>
+</div><h5 id="methods_getlanguagesforsite_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>siteUID</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-getlanguagesforsite-page"><p>the site unique identifier.</p>
+</div></td></tr></tbody></table><h5 id="methods_getlanguagesforsite_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-getlanguagesforsite-page"><p>An array of language descriptors. Each descriptor provides the following language
+properties: isocode, nativeName, name, active, and required.
+format:
+<pre class="prettyprint linenums">
+[{
+  language: 'en',
+  required: true
+ }, {
+  language: 'fr',
+ }]
+</pre>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getresolvelocale">getResolveLocale()</h3>
+<div class="getresolvelocale"><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-getresolvelocale-page"><p>Resolve the user preference tooling locale. It determines in the
+following order:</p>
+<ol>
+<li>Check if the user has previously selected the language</li>
+<li>Check if the user browser locale is supported in the system</li>
+</ol>
+</div><h5 id="methods_getresolvelocale_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-getresolvelocale-page"><p>the locale</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_gettoolinglanguages">getToolingLanguages()</h3>
+<div class="gettoolinglanguages"><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-gettoolinglanguages-page"><p>Retrieves a list of language descriptors using REST calls to the smarteditwebservices i18n API.</p>
+</div><h5 id="methods_gettoolinglanguages_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-gettoolinglanguages-page"><p>An array of language descriptors. Each descriptor provides the following language
+properties: isocode, name
+format:
+<pre class="prettyprint linenums">
+[{
+  isoCode: 'en',
+  name: 'English'
+ }, {
+  isoCode: 'fr',
+  name: 'French'
+ }]
+</pre>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_registerswitchlanguage">registerSwitchLanguage()</h3>
+<div class="registerswitchlanguage"><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-registerswitchlanguage-page"><p>Register a callback function to the gateway in order to switch the tooling language</p>
+</div></div>
+</li>
+<li><h3 id="methods_setselectedlanguage">setSelectedLanguage(the)</h3>
+<div class="setselectedlanguage"><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-setselectedlanguage-page"><p>Set the user preference language in the storage service</p>
+</div><h5 id="methods_setselectedlanguage_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>the</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="languageservicemodule-service-page languageservicemodule-service-languageservice-setselectedlanguage-page"><p>language object to be saved. the object contains the following properties:isoCode and name.
+<pre class="prettyprint linenums">
+{
+isoCode:'fr',
+name: 'French'
+}
+</pre>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

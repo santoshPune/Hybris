@@ -1,0 +1,21 @@
+package de.hybris.platform.ruleengineservices.test
+
+import java.math.*;
+import de.hybris.platform.ruleengineservices.rao.*;
+import de.hybris.platform.ruleengineservices.rule.evaluation.*;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+import java.util.ArrayList;
+
+global AddFixedPriceEntryDiscountRAOAction addFixedPriceEntryDiscountRAOAction;
+
+salience 10;
+
+rule "moreEntriesAllConsumed"
+@ruleCode("moreEntriesAllConsumed.drl")
+    when
+        $entries : ArrayList(size > 0) from collect( OrderEntryRAO(product.getCode()=="1422222" || product.getCode()=="123456" || product.getCode()=="654321" , quantity > 0) )
+		$config : RuleConfigurationRRD(ruleCode == "moreEntriesAllConsumed.drl")
+		$result : RuleEngineResultRAO()
+    then
+    	addFixedPriceEntryDiscountRAOAction.addFixedPriceEntryDiscounts($entries, new BigDecimal("50.00"), $result, kcontext);
+end

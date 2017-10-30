@@ -1,0 +1,2 @@
+INSERT_UPDATE OAuthClientDetails;clientId[unique=true];resourceIds;scope;authorizedGrantTypes;accessTokenValiditySeconds
+;smartedit;hybris;basic;password;3600

@@ -1,0 +1,27 @@
+<div>
+    <ul class="nav nav-tabs">
+        <li ng-if="tabsList.length!=numTabsDisplayed" data-ng-repeat="tab in tabsList.slice( 0, numTabsDisplayed-1 ) track by $index" data-ng-class="{'active': tab.active }" data-tab-id="{{tab.id}}">
+            <a data-ng-class="{'sm-tab-error': tab.hasErrors}" data-ng-click="selectTab(tab)" data-ng-if="!tab.message">{{tab.title | translate}}</a>
+            <a data-ng-class="{'sm-tab-error': tab.hasErrors}" data-ng-click="selectTab(tab)" data-ng-if="tab.message" data-popover="{{tab.message}}" data-popover-trigger="mouseenter">{{tab.title | translate}}</a>
+        </li>
+        <li ng-if="tabsList.length==numTabsDisplayed" data-ng-repeat="tab in tabsList.slice( 0, numTabsDisplayed ) track by $index" data-ng-class="{'active': tab.active }" data-tab-id="{{tab.id}}">
+            <a data-ng-class="{'sm-tab-error': tab.hasErrors}" data-ng-click="selectTab(tab)" data-ng-if="!tab.message">{{tab.title | translate}}</a>
+            <a data-ng-class="{'sm-tab-error': tab.hasErrors}" data-ng-click="selectTab(tab)" data-ng-if="tab.message" data-popover="{{tab.message}}" data-popover-trigger="mouseenter">{{tab.title | translate}}</a>
+        </li>
+        <li data-ng-if="tabsList.length > numTabsDisplayed" class="dropdown" data-ng-class="{'active': tabsList.indexOf(selectedTab) >= numTabsDisplayed}">
+            <a data-ng-class="{'sm-tab-error': dropDownHasErrors()}" class="dropdown-toggle" data-toggle="dropdown" data-translate="ytabset.tabs.more">
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li ng-if="tabsList.length!=numTabsDisplayed" data-ng-repeat="tab in tabsList.slice( numTabsDisplayed-1)" data-tab-id="{{tab.id}}">
+                    <a data-ng-class="{'sm-tab-error': tab.hasErrors}" data-ng-click="selectTab(tab)">{{tab.title | translate}}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <div>
+        <y-tab data-ng-repeat="tab in tabsList" ng-show="tab.active" data-tab-id="{{tab.id}}" content="tab.templateUrl" data-model="model" tab-control="tabControl">
+        </y-tab>
+    </div>
+</div>

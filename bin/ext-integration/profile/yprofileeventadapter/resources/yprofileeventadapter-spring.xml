@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:int="http://www.springframework.org/schema/integration"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+
+
+           http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+	<bean id="trackingEventHandler" class="com.hybris.yprofile.handler.TrackingEventHandler">
+		<constructor-arg ref="csvMapper"/>
+		<constructor-arg ref="trackingEventCsvOrderedFields"/>
+		<constructor-arg ref="profileTrackingEventConverter"/>
+		<property name="profileTrackingEventService" ref="profileTrackingService" />
+	</bean>
+
+	<int:poller default="true" fixed-delay="50"/>
+
+	<int:channel id="receiveEvents" />
+	<int:channel id="handleEvents">
+		<int:queue />
+	</int:channel>
+
+	<int:service-activator input-channel="trackingEventCsvPublishChannel" output-channel="receiveEvents" ref="trackingEventHandler" method="receiveEvent"/>
+
+	<int:service-activator input-channel="receiveEvents" output-channel="handleEvents" ref="trackingEventHandler" method="handleEvent" />
+
+	<alias name="defaultProfileTrackingService" alias="profileTrackingService"/>
+	<bean id="defaultProfileTrackingService" class="com.hybris.yprofile.services.DefaultProfileTrackingEventService">
+		<property name="charonFactory" ref="profileCharonFactory"/>
+		<property name="profileConfigurationService" ref="profileConfigurationService"/>
+	</bean>
+
+	<!---->
+
+	<bean id="profileTrackingEventPopulator" class="com.hybris.yprofile.populators.TrackingEventPopulator"/>
+
+	<bean id="profileTrackingEventProductDataPopulator" class="com.hybris.yprofile.populators.TrackingEventProductDataPopulator">
+		<property name="catalogVersionService" ref="catalogVersionService"/>
+		<property name="categoryService" ref="categoryService"/>
+		<property name="productService" ref="productService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="profileConfigurationService" ref="profileConfigurationService"/>
+	</bean>
+
+	<bean id="profileTrackingEventConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.hybris.yprofile.dto.TrackingEvent"/>
+		<property name="populators">
+			<list>
+				<ref bean="profileTrackingEventPopulator"/>
+				<ref bean="profileTrackingEventProductDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,5 @@
+
+$defaultPassword=12341234
+
+INSERT_UPDATE Employee;uid[unique=true];name;groups(uid)[mode=append];password[default=$defaultPassword];
+;RegApproverA;Bruce Rivers;b2bregistrationapprovergroup;

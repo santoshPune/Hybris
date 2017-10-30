@@ -1,0 +1,11 @@
+<div dropdown is-open="status.isopen" auto-close="disabled" class="ySEPerspectiveSelector">
+    <button type="button" class="btn btn-default yHybridAction" dropdown-toggle ng-disabled="disabled " aria-pressed="false">
+        <span class="btn-text">{{perspectiveData.activePerspective.name | translate}}</span>
+        <span class="hyicon hyicon-arrow "></span>
+    </button>
+    <ul class="dropdown-menu bottom btn-block ySEPerspectiveList" role="menu">
+        <li ng-repeat="choice in getPerspectives()" class="item ySEPerspectiveList--item" data-ng-click="selectPerspective(choice.key)">
+            <a href data-ng-click="selectPerspective(choice.key);">{{choice.name | translate}}</a>
+        </li>
+    </ul>
+</div>

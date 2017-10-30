@@ -1,0 +1,18 @@
+<div class="slot-visibility-button-template">
+	<div class="btn-group slot-visibility-button-template__btn-group" dropdown dropdown-append-to-body is-open="ctrl.isComponentListOpened">
+		<button type="button" class="btn btn-primary dropdown-toggle slot-visibility-button-template__btn" 
+				data-ng-click="ctrl.openHiddenComponentList($event)"
+				data-ng-if="ctrl.buttonVisible" id="slot-visibility-button-{{::ctrl.slotId}}">
+			<img class="slot-visibility-button-template__btn__img " data-ng-src="{{ ctrl.eyeImageUrl }}"/>{{ ::ctrl.hiddenComponentCount }}
+		</button>
+		<ul class="dropdown-menu dropdown-menu-right slot-visibility-button-template__menu" role="menu" id="slot-visibility-list-{{::ctrl.slotId}}">
+			<lh class="slot-visibility-button-template__menu__title">
+				<p class="slot-visibility-button-template__menu__title__text">{{'slotvisibility.list.title' | translate}}</p>
+				<img class="slot-visibility-button-template__menu__title__close-btn" data-ng-src="{{ ::ctrl.closeImageUrl }}" data-ng-click="ctrl.closeHiddenComponentList($event)"/>
+			</lh>
+			<li class="slot-visibility-component slot-visibility-button-template__menu__component" data-ng-repeat="component in ctrl.hiddenComponents">
+				<slot-visibility-component data-component="component" data-slot-id="{{::ctrl.slotId}}"></slot-visibility-component>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>dummy storefront</title>
+    <script src="../../../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../../../bower_components/jquery-ui/jquery-ui.min.js"></script>
+
+    <script src="../../../../buildArtifacts/static-resources/webApplicationInjector.js"></script>
+ 	<link rel="stylesheet" href="../../../../buildArtifacts/static-resources/thirdparties/bootstrap/dist/css/bootstrap.min.css">
+
+    <style type="text/css">
+    .ySEIconBckg {
+        background-color: #00c6ff;
+    }
+    
+    .smartedit-page-uid-homepage {
+        margin: 50px;
+    }
+    
+    .smartEditComponent,
+    .secondarySlot {}
+    
+    .smartEditComponent .smartEditComponent {
+        border-style: solid;
+        border-color: red
+    }
+    
+    #secondaryComponent1,
+    #secondaryComponent2 {
+        border-style: solid;
+        border-color: green
+    }
+    
+    .over-slot-enabled {
+        border-style: dashed;
+        background-color: #6699cc;
+    }
+    
+    .over-slot-disabled {
+        border-style: dashed;
+        background-color: #c12e2a;
+    }
+    
+    .eligible-slot {
+        min-height: 100px;
+        border-style: dotted;
+    }
+    </style>
+</head>
+
+<body class="smartedit-page-uid-homepage">
+    <label>storefront with alternate layout</label>
+    <div class="smartEditComponent" id="slot1" data-smartedit-component-type="ContentSlot" data-smartedit-component-id="topHeaderSlot">
+
+        <div class="smartEditComponent" id="component1" data-smartedit-component-type="SimpleResponsiveBannerComponent" data-smartedit-component-id="component1" data-ng-model="component1">
+            <div class="box">
+                <p>test component 1</p>
+            </div>
+        </div>
+
+        <div class="smartEditComponent" id="component2" data-smartedit-component-type="componentType2" data-smartedit-component-id="component2" data-ng-model="component2">
+            <div class="box">
+                <p>test component 2</p>
+            </div>
+        </div>
+        <div class="smartEditComponent" id="component3" data-smartedit-component-type="componentType3" data-smartedit-component-id="component3" data-ng-model="component3">
+            <div class="box">
+                <p>test component 3</p>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+    <div class="smartEditComponent" id="slot4" data-smartedit-component-type="ContentSlot" data-smartedit-component-id="otherSlot">
+    </div>
+
+    <hr/>
+    <div class="smartEditComponent" id="slot2" data-smartedit-component-type="ContentSlot" data-smartedit-component-id="bottomHeaderSlot">
+        <div class="smartEditComponent" id="component4" data-smartedit-component-type="componentType4" data-smartedit-component-id="component4" data-ng-model="component4">
+            <div class="box">
+                <p>test component 4</p>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+    <div class="smartEditComponent" id="slot3" data-smartedit-component-type="ContentSlot" data-smartedit-component-id="footerSlot">
+        <div class="smartEditComponent" id="component5" data-smartedit-component-type="componentType5" data-smartedit-component-id="component5" data-ng-model="component5">
+            <div class="box">
+                <p>test component 5</p>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="secondarySlot" id="secondarySlot1">
+        <div class="secondaryComponent" id="secondaryComponent1">
+            <div class="box">
+                <p>test component 5</p>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="secondarySlot" id="secondarySlot2">
+        <div class="secondaryComponent" id="secondaryComponent2">
+            <div class="box">
+                <p>test component 6</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

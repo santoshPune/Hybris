@@ -1,0 +1,288 @@
+@import (reference) "../../../web/webroot/static-resources/thirdparties/bootstrap/less/bootstrap.less";
+@import (reference) "../../../web/webroot/static-resources/thirdparties/bootstrap/less/responsive-utilities.less";
+@import (reference) "../../../web/webroot/static-resources/thirdparties/bootstrap/less/utilities.less";
+@import (reference) "../../../web/webroot/static-resources/thirdparties/bootstrap/less/variables.less";
+@import (reference) "variables.less";
+
+h1, h2, h3, h4, h5, h6, #experience-selector-btn{
+    font-family: "Open Sans", sans-serif;
+}
+
+.ySEGenericEditor{
+    .clearfix();
+    padding: @grid-gutter-width 0 0 0;
+}
+
+.ySErow{
+    padding-bottom: @grid-gutter-width;
+}
+
+localized-element{
+
+    .nav-tabs>li{
+        border-top: 1px solid #a1aebd;
+        border-bottom: 1px solid #a1aebd;
+        border-left: 1px solid #a1aebd;
+        font-weight: bold;
+    }
+
+    .nav-tabs>li:last-of-type{
+        border-right: 1px solid #a1aebd;
+    }
+
+    .nav-tabs>li.active{
+        background-color: #0486E0;
+        border-color: #0486E0;
+        a{
+          color: #ffffff;
+        }
+        a.sm-tab-error{
+            color: #FF3B30;
+        }
+    }
+
+    ul.nav-tabs>.dropdown{
+        ul>li{
+            background-color: #ffffff;
+            a{
+                color: #0486E0;
+            }
+        }
+
+        a.sm-tab-error{
+            color: #FF3B30;
+        }
+    }
+}
+
+
+.ySErow{
+    .make-row();
+}
+
+experience-selector{
+    @grid-selector-columns: 6;
+
+    label{
+        color: #ffffff;
+        font-weight: normal;
+    }
+
+    .ySEGenericEditor{
+        padding: 0;
+        form{
+            padding-bottom: 0;
+            padding-left: 0;
+            .modal-header{
+                background-color: inherit;
+                padding-left: 50px;
+                padding-right: 50px;
+            }
+        }
+    }
+
+    .ySErow{
+        .make-sm-column(@grid-selector-columns);
+        height: 100px;
+        margin-left: 0;
+        margin-right: 0;
+
+        &:nth-of-type(even){
+            padding-left: 50px;
+            padding-right: 30px;
+
+        }
+        &:nth-of-type(odd){
+            padding-left: 30px;
+            padding-right: 50px;
+        }
+    }
+
+    .ySEBtnRow{
+        background: inherit;
+        .make-sm-column(12);
+    }
+}
+
+.ySEDateField{
+    width: 100%;
+
+    input{
+        border-right: none;
+    }
+
+    .input-group-addon{
+        background-color: #ffffff;
+        color: #32a0ec;
+        border-bottom: 1px solid #d4d7dc;
+        border-top: 1px solid #d4d7dc;
+        margin-top: 0px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -moz-box-shadow:  inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow:  inset 0 1px 1px rgba(0,0,0,.075);
+        border-radius: 0;
+    }
+
+    span.glyphicon{
+        font-size: 1.1em;
+    }
+
+    .bootstrap-datetimepicker-widget.dropdown-menu{
+        background-color: #ffffff;
+        color:#000000;//IE
+        color: initial;
+    }
+}
+
+.ySEDateField.ySEDataDisabled .form-control{
+    border-right: 1px solid #d4d7dc;
+    border-radius: 0;
+}
+
+experience-selector-button .dropdown-menu.yDdResolution {
+    margin-top: 1px;
+    border-top: none;
+    padding-bottom: 0px;
+    border-bottom: 0;
+    border-right: 0;
+}
+
+experience-selector-button>div.open{
+    background-color: #32a0ec;
+    color: #ffffff;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+    padding-left: 0px;
+
+    #experience-selector-btn span{
+        color: #ffffff;
+    }
+}
+
+experience-selector-button>div{
+    text-align: left;
+    display: inline-block;
+}
+
+generic-editor-field input.form-control,
+generic-editor-field .select2-container .select2-choice,
+generic-editor-field .select2-container .select2-choices,
+generic-editor-field .select2-container .select2-choices .select2-search-field input {
+    border-radius: 0;
+}
+
+generic-editor-field .select2-container .select2-choice.ui-select-match{
+    height:auto;/*overwrite techne*/
+}
+
+generic-editor-field .error-input{
+}
+
+generic-editor form label{
+    font-family: @font-open-sans;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+smartedit-tabset ul.nav.nav-tabs>li>a{
+    font-family: @font-open-sans;
+    font-size: 15px;
+}
+
+smartedit-tabset ul.nav.nav-tabs>li{
+    min-width: 30px;
+}
+
+localized-element smartedit-tabset ul.nav.nav-tabs>li.dropdown{
+    border-right-color: transparent;
+    border-top-color:transparent;
+    border-bottom-color: transparent;
+
+    a{
+        color: #0486e0;
+        .caret{
+            margin-left: 10px;
+            border-top:6px dashed;
+            border-left:6px solid transparent;
+            border-right: 6px solid transparent;
+        }
+    }
+}
+
+localized-element smartedit-tabset ul.nav.nav-tabs>li>{
+
+    a{
+        font-family: @font-open-sans;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    ul.dropdown{
+        margin-top: 0;
+    }
+}
+
+generic-editor-field .ySEField .ySEFieldPrefix{
+    padding-bottom: 10px;
+}
+
+generic-editor-field .ySEField .ySEFieldPostfix{
+    padding-top: 20px;
+}
+
+.modal-dialog .modal-body{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+experience-selector-button experience-selector .modal-header h4.modal-title {
+    font-family: @font-open-sans;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+experience-selector-button experience-selector .ySErow label{
+    font-family: @font-open-sans;
+    font-size: 13px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+experience-selector .ySErow generic-editor-field {
+    .select2-container .select2-choice,
+    .select2-container .select2-choices,
+    .select2-container .select2-choices .select2-search-field input,
+    .ySEDateField .form-control{
+        font-family: @font-open-sans;
+        font-size: 15px;
+        font-weight: 500;
+        color: #27394f;
+    }
+}
+
+.yWebsiteSelectBtn{
+    width: 100%;
+}
+
+.ySEpreview{
+    width: 100%;
+}
+
+#experience-selector-btn{
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.ySEpreview.open .yDdResolution{
+    border-top: 1px solid;
+}
+
+body.mce-content-body {
+    padding-top: 0;
+}
+
+.ySEBooleanField__text{
+    display: inline-block;
+    margin-bottom: 0;
+}

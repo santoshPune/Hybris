@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.6.4.201503051146-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[true]]></enableImports>
+	<configs>
+		<config>resources/warehousingwebservices-spring.xml</config>
+		<config>web/webroot/WEB-INF/warehousingwebservices-web-spring.xml</config>
+		<config>web/webroot/WEB-INF/config/security-spring.xml</config>
+		<config>web/webroot/WEB-INF/config/error-config-spring.xml</config>
+	</configs>
+	<autoconfigs>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>
+

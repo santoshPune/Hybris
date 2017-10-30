@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+$catalog=yaasProductCatalog
+$catelogVersion=Online
+$currency=USD
+
+INSERT_UPDATE Y2YStreamConfigurationContainer;id[unique=true];catalogVersion(catalog(id),version);feed;pool;
+;y2ySyncPrice;$catalog:$catelogVersion;Y2YSYNC_PRICE_FEED;Y2YSYNC_PRICE_POOL
+
+
+INSERT_UPDATE Y2YStreamConfiguration;streamId[unique=true];container(id);itemTypeForStream(code);dataHubType;whereClause;versionSelectClause;catalogVersion(catalog(id),version);infoExpression[default=''];
+;productPriceStream;y2ySyncPrice;PriceRow;PriceRowRaw;{currency} IN ({{SELECT {CR:PK} FROM {Currency AS CR} WHERE {CR:isocode}='$currency'}}) AND {productId} IN ({{SELECT {P:code} FROM {Product AS P}, {CatalogVersion AS CV}, {Catalog AS CA} WHERE {P:catalogVersion}={CV:PK} AND {CV:catalog}={CA:PK} AND {CA:id}='$catalog' AND {CV:version}='$catelogVersion'}});;$catalog:$catelogVersion;"#{getProductId()}:#{getPrice()}:#{getCurrency().getIsocode()}";
+
+INSERT_UPDATE Y2YColumnDefinition;position[unique=true];attributeDescriptor(enclosingType(code),qualifier);impexHeader;streamConfiguration(streamId)[unique=true];columnName;language(isocode)[default=en]
+;0;PriceRow:productId;productId[unique=true];productPriceStream;r_productId;
+;1;PriceRow:currency;currency(isocode)[unique=true];productPriceStream;r_currency;
+;2;PriceRow:price;price[translator=de.hybris.platform.fractussyncservices.translator.FractussyncPriceTranslator];productPriceStream;r_price;
+;3;PriceRow:unit;unit(code[unique=true,default=pieces]);productPriceStream;r_unit;
+;4;PriceRow:unitFactor;unitFactor;productPriceStream;r_unitFactor;
+;5;PriceRow:startTime;startTime;productPriceStream;r_startTime;
+;6;PriceRow:endTime;endTime;productPriceStream;r_endTime;
+;7;PriceRow:pk;pk;productPriceStream;r_ecpId;
+;8;;@application[translator=de.hybris.platform.fractussyncservices.translator.FractusApplicationTranslator];productPriceStream;r_yaasApplication;
+
+
+INSERT_UPDATE Y2YSyncJob;code[unique=true];streamConfigurationContainer(id);syncType(code)
+;y2ySyncPriceJob;y2ySyncPrice;DataHub
+
+INSERT_UPDATE Y2YSyncCronJob;code[unique=true];singleExecutable;job(code);sessionLanguage(isocode)
+;y2ySyncToDataHubPriceCronJob;false;y2ySyncPriceJob;en
+

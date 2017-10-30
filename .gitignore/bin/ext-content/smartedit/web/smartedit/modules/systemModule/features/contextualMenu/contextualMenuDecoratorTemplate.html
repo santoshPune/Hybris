@@ -1,0 +1,42 @@
+<div class="cmsx-ctx-wrapper1">
+    <div class="cmsx-ctx-wrapper2">
+        <div class="decorative-top-border decorative-border" data-ng-if="ctrl.active"></div>
+        <div class="decorative-right-border decorative-border" data-ng-if="ctrl.active"></div>
+        <div class="decorative-bottom-border decorative-border" data-ng-if="ctrl.active"></div>
+        <div class="decorative-left-border decorative-border" data-ng-if="ctrl.active"></div>
+        <div class="contextualMenuOverlay" data-ng-show="ctrl.showOverlay() || ctrl.status.isopen">
+            <div data-ng-repeat="item in ctrl.getItems().leftMenuItems" class="btn btn-primary cmsx-ctx-btns" data-ng-init="itemsrc = item.iconIdle" data-ng-mouseout="itemsrc = item.iconIdle" data-ng-mouseover="itemsrc = item.iconNonIdle">
+                <span id="{{item.i18nKey | translate}}-{{ctrl.smarteditComponentId}}-{{ctrl.smarteditComponentType}}-{{$index}}" data-ng-if="item.iconIdle && ctrl.isHybrisIcon(item.displayClass)" data-ng-click="ctrl.triggerItemCallback(item, $event)" data-contextual-menu-item="" data-item="item" data-component-id="{{ctrl.smarteditComponentId}}" data-component-type="{{ctrl.smarteditComponentType}}" data-container-id="{{ctrl.smarteditContainerId}}" data-container-type="{{ctrl.smarteditContainerType}}" class="ng-class:{clickable:true}">
+                    <img data-ng-src="{{itemsrc}}" id="{{item.i18nKey | translate}}-{{ctrl.smarteditComponentId}}-{{ctrl.smarteditComponentType}}-{{$index}}" title="{{item.i18nKey | translate}}" />
+                </span>
+                <img id="{{item.i18nKey | translate}}-{{ctrl.smarteditComponentId}}-{{ctrl.smarteditComponentType}}-{{$index}}" title="{{item.i18nKey | translate}}" data-ng-if="item.iconIdle && !ctrl.isHybrisIcon(item.displayClass)" class="{{item.displayClass}}" data-ng-class="{clickable:true}" data-ng-click="ctrl.triggerItemCallback(item, $event)" data-ng-src="{{itemsrc}}" data-contextual-menu-item="" data-item="item" data-component-id="{{ctrl.smarteditComponentId}}" data-component-type="{{ctrl.smarteditComponentType}}" data-container-id="{{ctrl.smarteditContainerId}}" data-container-type="{{ctrl.smarteditContainerType}}" />
+            </div>
+            <div data-ng-if="ctrl.getItems().moreMenuItems.length > 0" class="cmsx-ctx-more">
+
+                <div class="btn-group yCmsCtxMenu" dropdown is-open="ctrl.status.isopen" dropdown-append-to-body data-ng-init="itemsrc = ctrl.moreButton.iconIdle" data-ng-mouseout="itemsrc = ctrl.moreButton.iconIdle" data-ng-mouseover="itemsrc = ctrl.moreButton.iconNonIdle">
+
+                    <button type="button" class="cmsx-ctx-more-btn pull-right" dropdown-toggle data-ng-click="ctrl.toggleDropdown($event)">
+                        <img title="{{ctrl.moreButton.i18nKey | translate}}" data-ng-src="{{ctrl.status.isopen? ctrl.moreButton.iconNonIdle : itemsrc}}" data-ng-class="{noboxshadow:ctrl.status.isopen}" />
+                    </button>
+                    <ul class="dropdown-menu" id="{{::ctrl.smarteditComponentId}}-{{::ctrl.smarteditComponentType}}-more-menu" role="menu">
+                        <li data-ng-repeat="item in ctrl.getItems().moreMenuItems">
+                            <a data-ng-click="ctrl.triggerItemCallback(item, $event)" data-item="item" data-smartedit-id="{{ctrl.smarteditComponentId}}" data-smartedit-type="{{ctrl.smarteditComponentType}}">
+                                <span data-ng-if="item.iconIdle && ctrl.isHybrisIcon(item.displayClass)" data-ng-click="ctrl.triggerItemCallback(item, $event)" data-contextual-menu-item="" data-item="item" data-component-id="{{ctrl.smarteditComponentId}}" data-component-type="{{ctrl.smarteditComponentType}}" data-container-id="{{ctrl.smarteditContainerId}}" data-container-type="{{ctrl.smarteditContainerType}}" class="ng-class:{clickable:true}">
+                                    <img class="cmsx-ctx-menu-more-icon" data-ng-src="{{itemsrc}}" id="{{item.i18nKey | translate}}-{{ctrl.smarteditComponentId}}-{{ctrl.smarteditComponentType}}-{{$index}}" title="{{item.i18nKey | translate}}" />
+
+                                </span>
+                                <!--<span class="icontext {{item.displayClass}}" data-ng-if="item.iconIdle && !ctrl.isHybrisIcon(item.displayClass)" />-->
+                                <img id="{{item.i18nKey | translate}}-{{ctrl.smarteditComponentId}}-{{ctrl.smarteditComponentType}}-{{$index}}" title="{{item.i18nKey | translate}}" class="cmsx-ctx-menu-more-icon" data-ng-if="item.smallIcon && !ctrl.isHybrisIcon(item.smallIcon)" data-ng-src="{{item.smallIcon}}" />
+                                <span class="labeltext">{{item.i18nKey | translate}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="contextualmenuBackground"></div>
+        </div>
+        <div class="yWrapperData">
+            <div data-ng-transclude></div>
+        </div>
+    </div>
+</div>

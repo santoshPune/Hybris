@@ -1,0 +1,21 @@
+<div ng-controller="topToolbarMenuController" dropdown is-open="status.isopen" auto-close="disabled" class="ySEComponentMenuW">
+    <button type="button" class="btn btn-default yHybridAction ySEComponentMenuW--button personalizationsmarteditTopToolbarButton" dropdown-toggle ng-disabled="disabled" aria-pressed="false">
+        <img data-ng-src="../personalizationsmartedit/icons/icon_library.png" />
+        <span class="ySEComponentMenuW--button--txt" data-translate="personalization.manager.toolbar"></span>
+    </button>
+    <ul ng-if="status.isopen" class="dropdown-menu btn-block ySEComponentMenu ySEComponentMenu-customized" role="menu" ng-click="preventDefault($event);">
+        <div class="ySEComponentMenu-headers">
+            <h2 class="text-uppercase h2" data-translate="personalization.right.toolbar.library.name"></h2>
+            <small class="small" data-translate="personalization.topmenu.library.info"></small>
+        </div>
+        <li class="divider divider-lefttoolbar">
+        </li>
+        <li class="item ySEComponentMenuList--item">
+            <a class="ySEComponentMenu-anchor" id="personalizationsmartedit-right-toolbar-customization-anchor" data-translate="personalization.topmenu.library.manager.name" data-ng-click="managerViewClick()"></a>
+        </li>
+        <li class="divider divider-lefttoolbar"></li>
+        <li class="item ySEComponentMenuList--item">
+            <a class="ySEComponentMenu-anchor" id="personalizationsmartedit-right-toolbar-customization-anchor" data-translate="personalization.manager.modal.add.button" data-ng-click="createCustomizationClick()"></a>
+        </li>
+    </ul>
+</div>

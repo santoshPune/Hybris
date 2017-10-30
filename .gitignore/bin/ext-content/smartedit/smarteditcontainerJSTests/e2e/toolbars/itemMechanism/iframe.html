@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <base href="/web/webroot/" />
+
+    <!--3rd prty libs-->
+    <script src="static-resources/thirdparties/jquery/dist/jquery.min.js"></script>
+    <script src="static-resources/thirdparties/angular/angular.js"></script>
+    <script src="static-resources/thirdparties/angular-cookies/angular-cookies.js"></script>
+    <script src="static-resources/thirdparties/angular-route/angular-route.js"></script>
+    <script src="static-resources/thirdparties/angular-resource/angular-resource.js"></script>
+    <script src="static-resources/thirdparties/angular-sanitize/angular-sanitize.min.js"></script>
+
+    <script src="static-resources/thirdparties/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="static-resources/thirdparties/angular-mocks/angular-mocks.js"></script>
+    <script src="static-resources/thirdparties/angular-translate/angular-translate.min.js"></script>
+    <script src="static-resources/thirdparties/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+
+    <!-- 3rd party css -->
+    <link rel="stylesheet" href="static-resources/dist/smartedit/css/inner-styling.css">
+    <link rel="stylesheet" href="static-resources/dist/smartedit/css/outer-styling.css">
+
+    <!--libs-->
+
+    <script src="../../../web/common/services/functions.js"></script>
+    <script src="../../../web/common/services/eventservice.js"></script>
+    <script src="../../../web/common/services/gatewayFactory.js"></script>
+    <script src="../../../web/common/services/gatewayProxy.js"></script>
+    <script src="../../../web/common/core/services/toolbarServiceInterface.js"></script>
+    <script src="../../../web/common/services/loadConfigurationsService.js"></script>
+    <script src="../../../web/common/services/resourceLocations.js"></script>
+    <script src="../../../web/common/services/restServiceFactory.js"></script>
+    <script src="../../../web/common/services/languageService.js"></script>
+    <script src="../../../web/common/services/interceptorHelper.js"></script>
+    <script src="../../../web/common/services/i18nInterceptor.js"></script>
+    <script src="../../../web/common/services/translateService.js"></script>
+    <script src="../../../web/smartedit/modules/systemModule/services/toolbar/toolbar.js"></script>
+    <script>
+    angular.module('sharedDataServiceModule', []).factory('sharedDataService', function() {
+        return {
+            set: function() {}
+        }
+    })
+    </script>
+    <script src="../../smarteditcontainerJSTests/e2e/toolbars/itemMechanism/innerapp.js"></script>
+</head>
+
+
+
+<body data-ng-app="innerapp" data-ng-controller="defaultController" data-smartedit-ready="true">
+    <label>Smart edit (this is an iFrame !)</label>
+    <br/>
+    <button id="sendActionsInner" class="btg btg-default" data-ng-click="sendActions()">Send Actions to Outer</button>
+    <label id="message">{{message}}</label>
+
+    <br />
+    <button id="removeAction" class="btg btg-default" data-ng-click="removeAction()">Remove Action Outer</button>
+</body>
+
+</html>

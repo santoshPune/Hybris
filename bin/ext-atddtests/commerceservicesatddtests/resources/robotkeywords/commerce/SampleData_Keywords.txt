@@ -1,0 +1,13 @@
+*** Settings ***
+Resource          impex/Impex_Keywords.txt
+
+*** Keywords ***
+
+import commerce sample data
+	[Documentation]    Imports the commerceservices test data
+	import impex from resource "/impex/commerce/testCommerceServices.csv"
+
+import commerce checkout sample data
+	[Documentation]    Imports the commerceservices checkout test data
+	import impex from resource "/impex/commerce/testCheckout.csv"
+	

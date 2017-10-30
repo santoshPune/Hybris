@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<!-- Validators -->
+
+	<alias name="defaultComponentValidatorFactory" alias="cmsComponentValidatorFactory" />
+	<util:map id="defaultComponentValidatorFactory">
+		
+		<entry value-ref="cmsBasicCompositeValidator">
+			<key>
+				<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.AbstractCMSComponentData</value>
+			</key>
+		</entry>
+		
+		<entry value-ref="cmsParagraphCompositeValidator">
+			<key>
+				<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.CMSParagraphComponentData</value>
+			</key>
+		</entry>
+
+		<entry value-ref="cmsSimpleBannerCompositeValidator">
+			<key>
+				<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.SimpleBannerComponentData</value>
+			</key>
+		</entry>
+
+		<entry value-ref="cmsBannerCompositeValidator">
+			<key>
+				<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.BannerComponentData</value>
+			</key>
+		</entry>
+
+		<entry value-ref="cmsLinkCompositeValidator">
+			<key>
+				<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.CMSLinkComponentData</value>
+			</key>
+		</entry>
+
+		<entry value-ref="simpleResponsiveCompositeValidator">
+			<key>
+				<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.SimpleResponsiveBannerComponentData</value>
+			</key>
+		</entry>
+
+	</util:map>
+
+	<alias name="defaultFacadeValidationService" alias="facadeValidationService" />
+	<bean id="defaultFacadeValidationService" class="de.hybris.platform.cmswebservices.common.facade.validator.impl.DefaultFacadeValidationService">
+		<property name="validatorErrorFactory" ref="validatorErrorFactory" />
+	</bean>
+
+	<alias name="defaultValidatorErrorFactory" alias="validatorErrorFactory" />
+	<bean id="defaultValidatorErrorFactory" class="de.hybris.platform.cmswebservices.factory.impl.DefaultErrorFactory">
+	</bean>
+
+	<alias name="defaultValidationDtoFactory" alias="validationDtoFactory" />
+	<bean id="defaultValidationDtoFactory" class="de.hybris.platform.cmswebservices.common.facade.validator.ValidationDtoFactory">
+		<property name="cmsAdminContentSlotService" ref="cmsAdminContentSlotService" />
+		<property name="cmsAdminComponentService" ref="cmsAdminComponentService" />
+		<property name="cmsAdminPageService" ref="cmsAdminPageService"/>
+	</bean>
+
+	<alias name="defaultBaseComponentValidator" alias="baseComponentValidator" />
+	<bean id="defaultBaseComponentValidator" class="de.hybris.platform.cmswebservices.items.facade.validator.BaseComponentValidator">
+		<property name="validStringLengthPredicate" ref="validStringLengthPredicate" />
+	</bean>
+
+	<alias name="defaultSyncJobRequestValidator" alias="syncJobRequestValidator" />
+	<bean id="defaultSyncJobRequestValidator" class="de.hybris.platform.cmswebservices.synchronization.facade.validator.SyncJobRequestValidator">
+		<property name="catalogVersionService" ref="catalogVersionService" />
+	</bean>
+
+	<alias name="defaultSimpleBannerComponentValidator" alias="simpleBannerComponentValidator" />
+	<bean id="defaultSimpleBannerComponentValidator" class="de.hybris.platform.cmswebservices.items.facade.validator.SimpleBannerComponentValidator">
+		<property name="localizedValidator" ref="localizedValidator"/>
+		<property name="localizedStringValidator" ref="cmsLocalizedStringValidator" />
+		<property name="localizedMediaValidator" ref="cmsLocalizedMediaValidator" />
+		<property name="validStringLengthPredicate" ref="validStringLengthPredicate" />
+	</bean>
+
+	<alias name="defaultBannerComponentValidator" alias="bannerComponentValidator" />
+	<bean id="defaultBannerComponentValidator" class="de.hybris.platform.cmswebservices.items.facade.validator.BannerComponentValidator">
+		<property name="localizedValidator" ref="localizedValidator"/>
+		<property name="localizedStringValidator" ref="cmsLocalizedStringValidator" />
+		<property name="localizedMediaValidator" ref="cmsLocalizedMediaValidator" />
+	</bean>
+
+	<alias name="defaultParagraphComponentValidator" alias="paragraphComponentValidator" />
+	<bean id="defaultParagraphComponentValidator" class="de.hybris.platform.cmswebservices.items.facade.validator.ParagraphComponentValidator">
+		<property name="localizedValidator" ref="localizedValidator"/>
+	</bean>
+
+	<alias name="defaultLinkComponentValidator" alias="linkComponentValidator" />
+	<bean id="defaultLinkComponentValidator" class="de.hybris.platform.cmswebservices.items.facade.validator.LinkComponentValidator">
+		<property name="localizedValidator" ref="localizedValidator"/>
+		<property name="localizedStringValidator" ref="cmsLocalizedStringValidator"/>
+	</bean>
+
+	<alias name="defaultSimpleResponsiveBannerComponentValidator" alias="simpleResponsiveBannerValidator" />
+	<bean id="defaultSimpleResponsiveBannerComponentValidator" class="de.hybris.platform.cmswebservices.items.facade.validator.SimpleResponsiveBannerComponentValidator">
+		<property name="localizedValidator" ref="localizedValidator"/>
+		<property name="localizedFormatMediaAttributeValidationConsumer" ref="cmsLocalizedFormatMediaAttributeValidationConsumer" />
+		<property name="localizedFormatStringAttributeValidationConsumer" ref="cmsLocalizedFormatStringAttributeValidationConsumer" />
+		<property name="cmsRequiredMediaFormatQualifiers" ref="cmsRequiredMediaFormatQualifiers" />
+		<property name="validStringLengthPredicate" ref="validStringLengthPredicate" />
+	</bean>
+	
+	<util:list id="cmsRequiredMediaFormatQualifiers">
+		<value>widescreen</value>
+	</util:list>
+
+	<alias name="defaultUpdatePageContentSlotComponentValidator" alias="updatePageContentSlotComponentValidator" />
+	<bean id="defaultUpdatePageContentSlotComponentValidator"
+		  class="de.hybris.platform.cmswebservices.pagescontentslotscomponents.facade.validator.UpdatePageContentSlotComponentValidator">
+		<property name="componentExistsPredicate" ref="componentExistsPredicate" />
+		<property name="contentSlotExistsPredicate" ref="contentSlotExistsPredicate" />
+		<property name="pageExistsPredicate" ref="pageExistsPredicate" />
+		<property name="componentTypeAllowedForContentSlotPredicate" ref="componentTypeAllowedForContentSlotPredicate" />
+		<property name="validationDtoFactory" ref="validationDtoFactory" />
+	</bean>
+
+	<alias name="defaultBasicCompositeValidator" alias="cmsBasicCompositeValidator" />
+	<bean id="defaultBasicCompositeValidator" class="de.hybris.platform.cmswebservices.common.facade.validator.CompositeValidator">
+		<property name="validators">
+			<list merge="true">
+				<ref bean="baseComponentValidator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultParagraphCompositeValidator" alias="cmsParagraphCompositeValidator" />
+	<bean id="defaultParagraphCompositeValidator" class="de.hybris.platform.cmswebservices.common.facade.validator.CompositeValidator">
+		<property name="validators">
+			<list merge="true">
+				<ref bean="baseComponentValidator" />
+				<ref bean="paragraphComponentValidator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultSimpleBannerCompositeValidator" alias="cmsSimpleBannerCompositeValidator" />
+	<bean id="defaultSimpleBannerCompositeValidator" class="de.hybris.platform.cmswebservices.common.facade.validator.CompositeValidator">
+
+		<property name="validators">
+			<list merge="true">
+				<ref bean="baseComponentValidator" />
+				<ref bean="simpleBannerComponentValidator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultBannerCompositeValidator" alias="cmsBannerCompositeValidator" />
+	<bean id="defaultBannerCompositeValidator" class="de.hybris.platform.cmswebservices.common.facade.validator.CompositeValidator">
+
+		<property name="validators">
+			<list merge="true">
+				<ref bean="baseComponentValidator" />
+				<ref bean="bannerComponentValidator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultLinkCompositeValidator" alias="cmsLinkCompositeValidator" />
+	<bean id="defaultLinkCompositeValidator" class="de.hybris.platform.cmswebservices.common.facade.validator.CompositeValidator">
+
+		<property name="validators">
+			<list merge="true">
+				<ref bean="baseComponentValidator" />
+				<ref bean="linkComponentValidator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultSimpleResponsiveCompositeValidator" alias="simpleResponsiveCompositeValidator" />
+	<bean id="defaultSimpleResponsiveCompositeValidator" class="de.hybris.platform.cmswebservices.common.facade.validator.CompositeValidator">
+		<property name="validators">
+			<list merge="true">
+				<ref bean="baseComponentValidator" />
+				<ref bean="simpleResponsiveBannerValidator" />
+			</list>
+		</property>
+	</bean>
+
+
+	<alias name="defaultComponentExistsInSlotValidator" alias="componentExistsInSlotValidator" />
+	<bean id="defaultComponentExistsInSlotValidator" class="de.hybris.platform.cmswebservices.pagescontentslotscomponents.facade.validator.ComponentExistsInSlotValidator">
+		<property name="componentAlreadyInContentSlotPredicate" ref="componentAlreadyInContentSlotPredicate" />
+		<property name="componentExistsPredicate" ref="componentExistsPredicate" />
+		<property name="validationDtoFactory" ref="validationDtoFactory" />
+	</bean>
+
+	<alias name="defaultCreatePageContentSlotComponentCompositeValidator" alias="createPageContentSlotComponentCompositeValidator" />
+	<bean id="defaultCreatePageContentSlotComponentCompositeValidator" class="de.hybris.platform.cmswebservices.common.facade.validator.CompositeValidator">
+		<property name="validators">
+			<list merge="true">
+				<ref bean="updatePageContentSlotComponentValidator" />
+				<ref bean="componentExistsInSlotValidator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultCreateComponentValidator" alias="createComponentValidator" />
+	<bean id="defaultCreateComponentValidator" class="de.hybris.platform.cmswebservices.items.facade.validator.CreateComponentValidator">
+		<property name="componentExistsPredicate" ref="componentExistsPredicate" />
+		<property name="contentSlotExistsPredicate" ref="contentSlotExistsPredicate" />
+		<property name="componentTypeAllowedForContentSlotPredicate" ref="componentTypeAllowedForContentSlotPredicate" />
+		<property name="validStringLengthPredicate" ref="validStringLengthPredicate" />
+		<property name="typeCodeExistsPredicate" ref="typeCodeExistsPredicate" />
+		<property name="validationDtoFactory" ref="validationDtoFactory" />
+		<property name="pageExistsPredicate" ref="pageExistsPredicate" />
+	</bean>
+
+	<alias name="defaultUpdateComponentValidator" alias="updateComponentValidator" />
+	<bean id="defaultUpdateComponentValidator" class="de.hybris.platform.cmswebservices.items.facade.validator.UpdateComponentValidator">
+		<property name="componentExistsPredicate" ref="componentExistsPredicate" />
+		<property name="cmsComponentValidatorFactory" ref="cmsComponentValidatorFactory" />
+	</bean>
+
+	<alias name="defaultNamedQueryDataValidator" alias="namedQueryDataValidator" />
+	<bean id="defaultNamedQueryDataValidator" class="de.hybris.platform.cmswebservices.namedquery.facade.validator.NamedQueryDataValidator">
+		<property name="maxPageSize" value="${cmswebservices.namedquery.max.pagesize}" />
+		<property name="namedQueryExistsPredicate" ref="namedQueryExistsPredicate" />
+	</bean>
+
+	<!-- Predicates for Validators -->
+	<alias name="defaultComponentExistsPredicate" alias="componentExistsPredicate" />
+	<bean id="defaultComponentExistsPredicate" class="de.hybris.platform.cmswebservices.common.facade.predicate.ComponentExistsPredicate">
+		<property name="cmsAdminComponentService" ref="cmsAdminComponentService" />
+	</bean>
+
+	<alias name="defaultContentSlotExistsPredicate" alias="contentSlotExistsPredicate" />
+	<bean id="defaultContentSlotExistsPredicate" class="de.hybris.platform.cmswebservices.common.facade.predicate.ContentSlotExistsPredicate">
+		<property name="cmsAdminContentSlotService" ref="cmsAdminContentSlotService" />
+	</bean>
+
+	<alias name="defaultPageExistsPredicate" alias="pageExistsPredicate" />
+	<bean id="defaultPageExistsPredicate" class="de.hybris.platform.cmswebservices.common.facade.predicate.PageExistsPredicate">
+		<property name="cmsPageService" ref="cmsPageService" />
+	</bean>
+
+	<alias name="defaultTypeCodeExistsPredicate" alias="typeCodeExistsPredicate" />
+	<bean id="defaultTypeCodeExistsPredicate" class="de.hybris.platform.cmswebservices.items.facade.validator.predicate.TypeCodeExistsPredicate">
+		<property name="typeService" ref="typeService" />
+	</bean>
+
+	<alias name="defaultComponentAlreadyInContentSlotPredicate" alias="componentAlreadyInContentSlotPredicate" />
+	<bean id="defaultComponentAlreadyInContentSlotPredicate"
+		  class="de.hybris.platform.cmswebservices.pagescontentslotscomponents.facade.validator.predicate.ComponentAlreadyInContentSlotPredicate" />
+
+	<alias name="defaultComponentTypeAllowedForContentSlotPredicate" alias="componentTypeAllowedForContentSlotPredicate" />
+	<bean id="defaultComponentTypeAllowedForContentSlotPredicate" class="de.hybris.platform.cmswebservices.common.facade.predicate.ComponentTypeAllowedForContentSlotPredicate">
+		<property name="cmsAdminTypeRestrictionsService" ref="cmsAdminTypeRestrictionsService" />
+	</bean>
+
+	<alias name="defaultValidStringLengthPredicate" alias="validStringLengthPredicate" />
+	<bean id="defaultValidStringLengthPredicate" class="de.hybris.platform.cmswebservices.common.facade.predicate.ValidStringLengthPredicate">
+		<property name="maxLength" value="255" />
+	</bean>
+
+	<alias name="defaultNamedQueryExistsPredicate" alias="namedQueryExistsPredicate" />
+	<bean id="defaultNamedQueryExistsPredicate" class="de.hybris.platform.cmswebservices.namedquery.facade.validator.NamedQueryExistsPredicate">
+		<property name="namedQueryFactory" ref="namedQueryFactory" />
+	</bean>
+	
+	
+	<!-- Media validators -->
+
+	<alias name="defaultMediaCodeExistsPredicate" alias="mediaCodeExistsPredicate" />
+	<bean id="defaultMediaCodeExistsPredicate" class="de.hybris.platform.cmswebservices.media.facade.validator.predicate.MediaCodeExistsPredicate">
+		<property name="mediaService" ref="mediaService" />
+	</bean>
+	
+	<alias name="defaultValidFileTypePredicate" alias="validFileTypePredicate" />
+	<bean id="defaultValidFileTypePredicate" class="de.hybris.platform.cmswebservices.media.facade.validator.predicate.ValidFileTypePredicate">
+		<property name="supportedTypes" value="${media.allowed.extensions.for.ClassLoader}" />
+	</bean>
+	
+	<alias name="defaultCreateMediaValidator" alias="createMediaValidator" />
+	<bean id="defaultCreateMediaValidator" class="de.hybris.platform.cmswebservices.media.facade.validator.CreateMediaValidator">
+		<property name="validStringLengthPredicate" ref="validStringLengthPredicate" />
+		<property name="mediaCodeExistsPredicate" ref="mediaCodeExistsPredicate" />
+	</bean>
+	
+	<alias name="defaultCreateMediaFileValidator" alias="createMediaFileValidator" />
+	<bean id="defaultCreateMediaFileValidator" class="de.hybris.platform.cmswebservices.media.facade.validator.CreateMediaFileValidator">
+		<property name="validFileTypePredicate" ref="validFileTypePredicate" />
+	</bean>
+	
+
+	<!-- ValidationConsumer -->
+	<alias name="defaultLocalizedStringAttributeValidationConsumer" alias="cmsLocalizedStringAttributeValidationConsumer" />
+	<bean id="defaultLocalizedStringAttributeValidationConsumer" class="de.hybris.platform.cmswebservices.items.facade.validator.consumer.LocalizedStringAttributeValidationConsumer"/>
+
+	<alias name="defaultLocalizedMediaAttributeValidationConsumer" alias="cmsLocalizedMediaAttributeValidationConsumer" />
+	<bean id="defaultLocalizedMediaAttributeValidationConsumer" class="de.hybris.platform.cmswebservices.items.facade.validator.consumer.LocalizedMediaAttributeValidationConsumer">
+		<property name="mediaService" ref="mediaService" />
+		<property name="cmsAdminSiteService" ref="cmsAdminSiteService" />
+	</bean>
+	
+	<alias name="defaultLocalizedFormatStringAttributeValidationConsumer" alias="cmsLocalizedFormatStringAttributeValidationConsumer" />
+	<bean id="defaultLocalizedFormatStringAttributeValidationConsumer" class="de.hybris.platform.cmswebservices.items.facade.validator.consumer.LocalizedFormatStringAttributeValidationConsumer"/>
+	
+	<alias name="defaultLocalizedFormatMediaAttributeValidationConsumer" alias="cmsLocalizedFormatMediaAttributeValidationConsumer" />
+	<bean id="defaultLocalizedFormatMediaAttributeValidationConsumer" class="de.hybris.platform.cmswebservices.items.facade.validator.consumer.LocalizedFormatMediaAttributeValidationConsumer">
+		<property name="mediaService" ref="mediaService" />
+		<property name="cmsAdminSiteService" ref="cmsAdminSiteService" />
+	</bean>
+
+	<!--  Page Validators -->
+	
+	<alias name="defaultPageValidatorFactory" alias="createPageValidatorFactory" />
+	<util:map id="defaultPageValidatorFactory">
+		<entry value-ref="pageCompositeValidator">
+			<key>
+				<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.ContentPageData</value>
+			</key>
+		</entry>
+		
+		<entry value-ref="pageCompositeValidator">
+			<key>
+				<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.ProductPageData</value>
+			</key>
+		</entry>
+		
+		<entry value-ref="pageCompositeValidator">
+			<key>
+				<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.CategoryPageData</value>
+			</key>
+		</entry>
+		
+		<entry value-ref="pageCompositeValidator">
+			<key>
+				<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.CatalogPageData</value>
+			</key>
+		</entry>
+		
+		<entry value-ref="pageCompositeValidator">
+			<key>
+				<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.EmailPageData</value>
+			</key>
+		</entry>
+		
+	</util:map>
+	
+	<alias name="defaultPageCompositorValidator" alias="pageCompositeValidator"/>
+	
+	<bean id="defaultPageCompositorValidator" class="de.hybris.platform.cmswebservices.common.facade.validator.CompositeValidator">
+		<property name="validators">
+			<list merge="true">
+				<ref bean="basePageValidator" />
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="defaultBasePageValidator" alias="basePageValidator" />
+	<bean id="defaultBasePageValidator" class="de.hybris.platform.cmswebservices.pages.facade.validator.BasePageValidator">
+		<property name="pageExistsPredicate" ref="pageExistsPredicate"/>
+		<property name="localizedValidator" ref="localizedValidator"/>
+		<property name="localizedStringValidator" ref="cmsLocalizedStringValidator" />
+	</bean>	
+	
+</beans>

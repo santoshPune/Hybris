@@ -1,0 +1,20 @@
+# Create Store Employee Group for POS
+INSERT_UPDATE StoreEmployeeGroup;UID[unique=true];name;store(name)
+;trinityemployeegroup;Trinity;Trinity;
+;manchesteremployeegroup;Manchester;Manchester;
+;sheffieldemployeegroup;Sheffield;Sheffield;
+;edinburghparkemployeegroup;Edinburgh Park;Edinburgh Park;
+;leedsemployeegroup;Leeds;Leeds;
+
+# Assign Sales Employees to the POS
+INSERT_UPDATE PrincipalGroupRelation;source(uid)[unique=true];target(uid)[unique=true]
+;james.davis@acme.com;trinityemployeegroup;
+;amelia.hill@acme.com;manchesteremployeegroup;
+;oliver.baker@acme.com;sheffieldemployeegroup;
+;emily.bennett@acme.com;edinburghparkemployeegroup;
+;noah.jenkins@acme.com;leedsemployeegroup;
+;isabella.jackson@acme.com;trinityemployeegroup;
+;isabella.jackson@acme.com;manchesteremployeegroup;
+;isabella.jackson@acme.com;edinburghparkemployeegroup;
+;isabella.jackson@acme.com;leedsemployeegroup;
+;isabella.jackson@acme.com;sheffieldemployeegroup;

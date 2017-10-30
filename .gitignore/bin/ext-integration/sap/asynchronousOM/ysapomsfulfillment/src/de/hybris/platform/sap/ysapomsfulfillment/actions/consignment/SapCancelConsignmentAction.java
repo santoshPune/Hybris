@@ -1,0 +1,91 @@
+/*
+ * [y] hybris Platform
+ *
+ * Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary information of SAP
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with SAP.
+ */
+package de.hybris.platform.sap.ysapomsfulfillment.actions.consignment;
+
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Required;
+
+import de.hybris.platform.basecommerce.enums.ConsignmentStatus;
+import de.hybris.platform.ordersplitting.model.ConsignmentModel;
+import de.hybris.platform.processengine.BusinessProcessEvent;
+import de.hybris.platform.processengine.BusinessProcessService;
+import de.hybris.platform.sap.ysapomsfulfillment.actions.order.SapOmsAbstractAction;
+import de.hybris.platform.sap.ysapomsfulfillment.constants.YsapomsfulfillmentConstants;
+import de.hybris.platform.sap.ysapomsfulfillment.model.SapConsignmentProcessModel;
+import de.hybris.platform.task.RetryLaterException;
+
+/**
+ * Cancel SAP OMS consignment processes
+ */
+public class SapCancelConsignmentAction extends SapOmsAbstractAction<SapConsignmentProcessModel> {
+
+	private BusinessProcessService businessProcessService;
+
+	@Override
+	public String execute(SapConsignmentProcessModel process) throws RetryLaterException, Exception {
+
+		final ConsignmentModel consignment = process.getConsignment();
+		consignment.setStatus(ConsignmentStatus.CANCELLED);
+		getModelService().save(consignment);
+
+		if (isCancellationComplete(process.getParentProcess().getSapConsignmentProcesses())) {
+
+			process.setDone(true);
+			getModelService().save(process);
+		    
+			triggerCancelOrderEvent(process);
+			
+			return Transition.OK.toString();
+
+		} else {
+
+			return Transition.WAIT.toString();
+		}
+
+	}
+
+	protected boolean isCancellationComplete(Collection<SapConsignmentProcessModel> sapConsignmentProcesses) {
+
+		return sapConsignmentProcesses.stream().allMatch(
+				sapConsignmentProcess -> sapConsignmentProcess.getConsignment().getStatus()
+						.equals(ConsignmentStatus.CANCELLED));
+
+	}
+
+	protected void triggerCancelOrderEvent(SapConsignmentProcessModel sapConsignmentProcess) {
+
+		final String eventID = new StringBuilder()//
+		        .append(sapConsignmentProcess.getParentProcess().getCode())//
+		        .append(YsapomsfulfillmentConstants.UNDERSCORE)//
+				.append(YsapomsfulfillmentConstants.ORDER_ACTION_EVENT_NAME)//
+				.toString();
+
+		final BusinessProcessEvent event = BusinessProcessEvent.builder(eventID)
+				.withChoice(YsapomsfulfillmentConstants.CANCEL_ORDER).build();
+  
+		getBusinessProcessService().triggerEvent(event);
+
+	}
+
+	@SuppressWarnings("javadoc")
+	public BusinessProcessService getBusinessProcessService() {
+		return businessProcessService;
+	}
+
+	@SuppressWarnings("javadoc")
+	@Required
+	public void setBusinessProcessService(final BusinessProcessService businessProcessService) {
+		this.businessProcessService = businessProcessService;
+	}
+
+}

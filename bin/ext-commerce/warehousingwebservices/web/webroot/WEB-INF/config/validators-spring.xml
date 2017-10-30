@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	                       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Validators -->
+    <bean id="warehousingStockLevelValidator"
+          class="de.hybris.platform.webservicescommons.validators.CompositeValidator">
+        <property name="validators">
+            <list>
+                <bean class="de.hybris.platform.webservicescommons.validators.FieldNotEmptyValidator">
+                    <property name="fieldPath" value="productCode"/>
+                </bean>
+                <bean class="de.hybris.platform.webservicescommons.validators.FieldNotEmptyValidator">
+                    <property name="fieldPath" value="warehouse.code"/>
+                </bean>
+                <bean class="de.hybris.platform.webservicescommons.validators.FieldGreaterThanZeroValidator">
+                    <property name="fieldPath" value="initialQuantityOnHand"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+	<bean id="stockLevelAdjustmentValidator"
+		  class="de.hybris.platform.webservicescommons.validators.CompositeValidator">
+		<property name="validators">
+			<list>
+				<bean class="de.hybris.platform.webservicescommons.validators.FieldNotEmptyValidator">
+					<property name="fieldPath" value="reason"/>
+				</bean>
+				<bean class="de.hybris.platform.webservicescommons.validators.FieldGreaterThanZeroValidator">
+					<property name="fieldPath" value="quantity"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Validators -->
+
+
+	<alias name="defaultAddressDTOValidator" alias="addressDTOValidator"/>
+	<bean id="defaultAddressDTOValidator"
+	      class="de.hybris.platform.warehousingwebservices.validators.CountryAwareAddressDTOValidator">
+		<property name="commonAddressValidator" ref="commonAddressValidator"/>
+		<property name="countrySpecificAddressValidators">
+			<map>
+				<entry key="JP" value-ref="japaneseAddressValidator"/>
+				<entry key="CN" value-ref="chineseAddressValidator"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="commonAddressValidator" class="de.hybris.platform.webservicescommons.validators.CompositeValidator">
+		<property name="validators">
+			<list>
+				<ref bean="minimalAddressValidator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="minimalAddressValidator" class="de.hybris.platform.webservicescommons.validators.CompositeValidator">
+		<property name="validators">
+			<list>
+
+				<bean class="de.hybris.platform.webservicescommons.validators.FieldNotEmptyOrTooLongValidator">
+					<property name="fieldPath" value="line1"/>
+					<property name="maxLength" value="255"/>
+				</bean>
+				<bean class="de.hybris.platform.webservicescommons.validators.FieldNotEmptyOrTooLongValidator">
+					<property name="fieldPath" value="town"/>
+					<property name="maxLength" value="255"/>
+				</bean>
+				<bean class="de.hybris.platform.webservicescommons.validators.FieldNotEmptyOrTooLongValidator">
+					<property name="fieldPath" value="postalCode"/>
+					<property name="maxLength" value="10"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="japaneseAddressValidator" class="de.hybris.platform.webservicescommons.validators.CompositeValidator">
+		<property name="validators">
+			<list>
+				<ref bean="minimalAddressValidator"/>
+				<bean class="de.hybris.platform.webservicescommons.validators.FieldNotEmptyOrTooLongValidator">
+					<property name="fieldPath" value="line2"/>
+					<property name="maxLength" value="255"/>
+				</bean>
+				<bean class="de.hybris.platform.webservicescommons.validators.FieldNotEmptyOrTooLongValidator">
+					<property name="fieldPath" value="region.isocode"/>
+					<property name="maxLength" value="7"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chineseAddressValidator" class="de.hybris.platform.webservicescommons.validators.CompositeValidator">
+		<property name="validators">
+			<list>
+				<ref bean="commonAddressValidator"/>
+				<bean class="de.hybris.platform.webservicescommons.validators.FieldNotEmptyOrTooLongValidator">
+					<property name="fieldPath" value="region.isocode"/>
+					<property name="maxLength" value="7"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+</beans>

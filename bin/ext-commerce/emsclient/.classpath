@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="eclipsebin/notused"/>
+
+				
+				
+				
+				
+	<classpathentry exported="false" kind="src" path="/platform" />
+	<classpathentry exported="true" kind="src" path="/ondemandcommon" />
+	<classpathentry exported="true" kind="src" path="/entitlementfacades" />
+	<classpathentry exported="true" kind="lib" path="lib/entitlements-rest-client-6.1.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/jackson-jaxrs-1.9.13.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/jackson-module-jaxb-annotations-2.6.4.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/jackson-xc-1.9.13.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/jettison-1.1.jar" />
+	<classpathentry exported="true" kind="lib" path="resources" />
+	<classpathentry exported="true" output="eclipsebin/classes" kind="src" path="src" />
+	<classpathentry exported="true" output="eclipsebin/classes" kind="src" path="testsrc" />
+	<classpathentry exported="true" output="eclipsebin/classes" kind="src" path="gensrc" />
+				
+</classpath>
+				

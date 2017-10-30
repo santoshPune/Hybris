@@ -1,0 +1,15 @@
+<div>
+	<div class="ySECatalogStatus col-xs-8">
+		<div>
+			<label class="ySELastSync" data-ng-if="!ctrl.syncInitiatedFlag" data-translate="cataloginfo.lastsynced" ></label>
+			<label class="ySELastSync" data-ng-if="ctrl.syncInitiatedFlag" data-translate="cataloginfo.sync.initiated"></label>
+			<span class="catalog-last-synced" data-ng-if="ctrl.syncInitiatedFlag">{{ctrl.syncData.startSyncTS| date:'short'}}</span>
+			<span class="catalog-last-synced" data-ng-if="!ctrl.syncInitiatedFlag">{{ctrl.syncData.lastSyncTS| date:'short'}}</span>
+			<span data-ng-if="ctrl.syncData.showFailure" class="label-error" data-translate="sync.status.synced.syncfailed"></span>
+		</div>
+	</div>
+	<div class="ySECatalogSync col-xs-4 pull-right ">
+		<button data-ng-if="ctrl.syncData.showSyncBtn" class="btn btn-default catalog-sync-btn pull-right" data-ng-click="ctrl.syncCatalog()">{{ 'cataloginfo.btn.sync' | translate}}</button>
+		<label class="ySESyncProgress pull-right" data-ng-if="!ctrl.syncData.showSyncBtn" data-translate="sync.status.synced.inprogress"></label>
+	</div>
+</div>

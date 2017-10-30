@@ -1,0 +1,61 @@
+<div class="customization-component">
+    <div class="row">
+        <div class="col-md-6">
+            <dl>
+                <dt class="text-uppercase text-smaller dt-text-grey-semibold" data-translate="personalization.modal.addeditaction.selected.customization.title"></dt>
+                <dd class="dd-text-dark-blue-bold">{{selectedCustomization.name}}</dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <dl>
+                <dt class="text-uppercase text-smaller dt-text-grey-semibold" data-translate="personalization.modal.addeditaction.selected.mastercomponent.title"></dt>
+                <dd class="dd-text-dark-blue-bold">{{componentType}}</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <dl>
+                <dt class="text-uppercase text-smaller dt-text-grey-semibold" data-translate="personalization.modal.addeditaction.selected.variation.title"></dt>
+                <dd class="dd-text-dark-blue-bold">{{selectedVariation.name}}</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <dl>
+                <dt class="text-uppercase dt-text-grey-semibold" data-translate="personalization.modal.addeditaction.selected.actions.title"></dt>
+            </dl>
+        </div>
+    </div>
+
+    <ui-select ng-model="action.selected" theme="select2" title="" search-enabled="false">
+        <ui-select-match placeholder="{{'personalization.modal.addeditaction.dropdown.placeholder' | translate}}">
+            <span ng-bind="$select.selected.name | translate"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="item in actions" position="down">
+            <span ng-bind="item.name | translate"></span>
+        </ui-select-choices>
+    </ui-select>
+
+    <ui-select ng-show="action.selected.id == 'use'" ng-model="component.selected" ng-keyup="componentSearchInputKeypress($event, $select.search)" theme="select2" title="" reset-search-input="false">
+        <ui-select-match placeholder="{{'personalization.modal.addeditaction.dropdown.componentlist.placeholder' | translate}}">
+            <span ng-bind="$select.selected.name | translate"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="item in components" position="down" personalization-infinite-scroll="addMoreComponentItems()" personalization-infinite-scroll-distance="2">
+            <div class="row">
+                <span class="col-md-7" ng-bind="item.name | translate"></span>
+                <span class="col-md-5" ng-bind="item.typeCode | translate"></span>
+            </div>
+        </ui-select-choices>
+    </ui-select>
+
+    <ui-select ng-show="action.selected.id == 'create'" on-select="newComponentTypeSelectedEvent($item, $model)" ng-model="newComponent.selected" theme="select2" title="" search-enabled="false">
+        <ui-select-match placeholder="{{'personalization.modal.addeditaction.dropdown.componenttype.placeholder' | translate}}">
+            <span ng-bind="$select.selected.name | translate"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="item in newComponentTypes" position="down">
+            <span ng-bind="item.name | translate"></span>
+        </ui-select-choices>
+    </ui-select>
+</div>

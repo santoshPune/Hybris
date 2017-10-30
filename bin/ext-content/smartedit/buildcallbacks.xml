@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<project name="smartedit_buildcallbacks">
+
+
+    <patternset id="extension.smartedit.binary.filter">
+        <patternset refid="extension.binary.filter"/>
+        <exclude name="node_modules/"/>
+        <exclude name="jsTarget/"/>
+        <exclude name="seLibraries/"/>
+        <exclude name="**/static-resources/dist/"/>
+        <exclude name="**/static-resources/smartedit/"/>
+        <exclude name="**/static-resources/smarteditcontainer/"/>
+        <exclude name="**/static-resources/smarteditloader/"/>
+        <exclude name="**/static-resources/webApplicationInjector.js"/>
+    	<exclude name="**/static-resources/thirdparties/ckeditor/samples/"/>
+    </patternset>
+
+    <patternset id="extension.smartedit.source.filter">
+        <patternset refid="extension.source.filter"/>
+        <exclude name="node_modules/"/>
+        <exclude name="jsTarget/"/>
+        <exclude name="seLibraries/"/>
+        <exclude name="**/static-resources/dist/"/>
+        <exclude name="**/static-resources/smartedit/"/>
+        <exclude name="**/static-resources/smarteditcontainer/"/>
+        <exclude name="**/static-resources/smarteditloader/"/>
+        <exclude name="**/static-resources/webApplicationInjector.js"/>
+    	<exclude name="**/static-resources/thirdparties/ckeditor/samples/"/>
+    </patternset>
+
+    <macrodef name="smartedit_before_clean">
+        <sequential>
+            <gruntBuild path="${ext.smartedit.path}" phase="clean"/>
+        </sequential>
+    </macrodef>
+    <macrodef name="smartedit_before_build">
+        <sequential>
+            <if>
+            	<not>
+            		<isset property="smarteditHasBuilt"/>
+            	</not>
+                <then>
+                	<gruntBuild path="${ext.smartedit.path}" phase="packageSkipTests"/>
+					<property name="smarteditHasBuilt" value="true"/>
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="smartedit_before_yunit">
+        <sequential>
+            <gruntBuild path="${ext.smartedit.path}" phase="test_only"/>
+            <!-- <gruntBuild path="${ext.smartedit.path}" phase="verify_only" /> -->
+        </sequential>
+    </macrodef>
+
+    <macrodef name="removeLinkToSELibraries">
+        <attribute name="path" default="NOT SET"/>
+
+        <sequential>
+            <property environment="env"/>
+
+            <local name="loc.BUILD_ARTIFACTS_DIR"/>
+            <property name="loc.BUILD_ARTIFACTS_DIR" value="@{path}${file.separator}buildArtifacts"/>
+
+            <if>
+                <available file="${loc.BUILD_ARTIFACTS_DIR}" type="dir" />
+                <then>
+                    <echo message="[DEBUG] Removing build artifacts directory at ${loc.BUILD_ARTIFACTS_DIR}"
+                          level="debug"/>
+                    <if>
+                        <os family="windows"/>
+                        <then>
+                            <exec executable="cmd" failonerror="false">
+                                <arg value="/c"/>
+                                <arg value="rmdir"/>
+                                <arg value="${loc.BUILD_ARTIFACTS_DIR}"/>
+                            </exec>
+                        </then>
+                        <else>
+                            <exec executable="rm">
+                                <arg line="-rf ${loc.BUILD_ARTIFACTS_DIR}"/>
+                            </exec>
+                        </else>
+                    </if>
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="linkToSELibraries">
+        <attribute name="path" default="NOT SET"/>
+
+        <sequential>
+            <echo message="[DEBUG] Triggering Build of SmartEdit Build Artifacts" level="debug"/>
+        	<property environment="env"/>
+            <if>
+            	<not>
+            		<isset property="smarteditHasBuilt"/>
+            	</not>
+                <then>
+                	<gruntBuild path="${ext.smartedit.path}" phase="packageSkipTests"/>
+                	<property name="smarteditHasBuilt" value="true"/>
+                </then>
+            </if>
+
+            <local name="loc.BUILD_ARTIFACTS_DIR"/>
+            <local name="loc.STATIC_RESOURCES_DIR_LINK"/>
+            <local name="loc.STATIC_RESOURCES_DIR"/>
+            <local name="loc.SE_LIBRARIES_DIR_LINK"/>
+            <local name="loc.SE_LIBRARIES_DIR"/>
+
+            <property name="loc.BUILD_ARTIFACTS_DIR" value="@{path}${file.separator}buildArtifacts"/>
+            <property name="loc.STATIC_RESOURCES_DIR_LINK" value="${loc.BUILD_ARTIFACTS_DIR}${file.separator}static-resources"/>
+            <property name="loc.STATIC_RESOURCES_DIR" value="${ext.smartedit.path}${file.separator}web${file.separator}webroot${file.separator}static-resources"/>
+            <property name="loc.SE_LIBRARIES_DIR_LINK" value="${loc.BUILD_ARTIFACTS_DIR}${file.separator}seLibraries"/>
+            <property name="loc.SE_LIBRARIES_DIR" value="${ext.smartedit.path}${file.separator}seLibraries"/>
+
+            <if>
+                <os family="windows"/>
+                <then>
+                    <echo message="[DEBUG] Creating SmartEdit Build Artifacts folder in ${loc.BUILD_ARTIFACTS_DIR}"
+                          level="debug"/>
+                    <mkdir dir="${loc.BUILD_ARTIFACTS_DIR}"/>
+
+                	<if>
+						<not>
+							<available file="${loc.STATIC_RESOURCES_DIR_LINK}" type="dir" />
+						</not>
+						<then>
+		                    <echo message="[DEBUG] Creating symlink to SmartEdit static resources in ${loc.STATIC_RESOURCES_DIR} at ${loc.STATIC_RESOURCES_DIR_LINK}"
+		                          level="debug"/>
+		                    <exec executable="cmd" failonerror="false">
+		                        <arg value="/c"/>
+		                        <arg value="mklink"/>
+		                        <arg value="/D"/>
+		                        <arg value="/J"/>
+		                        <arg value="${loc.STATIC_RESOURCES_DIR_LINK}"/>
+		                        <arg value="${loc.STATIC_RESOURCES_DIR}"/>
+		                    </exec>
+						</then>
+					</if>
+
+                    <if>
+                        <not>
+                            <available file="${loc.SE_LIBRARIES_DIR_LINK}" type="dir" />
+                        </not>
+                        <then>
+                            <echo message="[DEBUG] Creating symlink to SmartEdit libraries in ${loc.SE_LIBRARIES_DIR} at ${loc.SE_LIBRARIES_DIR_LINK}"
+                                  level="debug"/>
+                            <exec executable="cmd" failonerror="false">
+                                <arg value="/c"/>
+                                <arg value="mklink"/>
+                                <arg value="/D"/>
+                                <arg value="/J"/>
+                                <arg value="${loc.SE_LIBRARIES_DIR_LINK}"/>
+                                <arg value="${loc.SE_LIBRARIES_DIR}"/>
+                            </exec>
+                        </then>
+                    </if>
+                </then>
+                <else>
+                    <exec executable="mkdir" failonerror="true">
+                        <arg line="-p"/>
+                        <arg line="${loc.BUILD_ARTIFACTS_DIR}"/>
+                    </exec>
+
+                	<if>
+						<not>
+							<available file="${loc.STATIC_RESOURCES_DIR_LINK}" type="dir" />
+						</not>
+						<then>
+		                    <echo message="[DEBUG] Creating Symbolic Link to SmartEdit Static Resources in @{path}" level="debug"/>
+		                    <exec executable="rm">
+		                        <arg line="-rf ${loc.STATIC_RESOURCES_DIR_LINK}"/>
+		                    </exec>
+		                    <exec executable="ln">
+		                        <arg line="-sf ${loc.STATIC_RESOURCES_DIR} ${loc.STATIC_RESOURCES_DIR_LINK}"/>
+		                    </exec>
+						</then>
+					</if>
+                	
+                	<if>
+						<not>
+							<available file="${loc.SE_LIBRARIES_DIR_LINK}" type="dir" />
+						</not>
+						<then>
+		                    <echo message="[DEBUG] Creating Symbolic Link to SmartEdit Libraries in @{path}" level="debug"/>
+		                    <exec executable="rm">
+		                        <arg line="-rf ${loc.SE_LIBRARIES_DIR_LINK}"/>
+		                    </exec>
+		                    <exec executable="ln">
+		                        <arg line="-sf ${loc.SE_LIBRARIES_DIR} ${loc.SE_LIBRARIES_DIR_LINK}"/>
+		                    </exec>
+						</then>
+					</if>
+                </else>
+            </if>
+        </sequential>
+    </macrodef>
+</project>

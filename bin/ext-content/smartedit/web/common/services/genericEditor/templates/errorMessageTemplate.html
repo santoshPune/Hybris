@@ -1,0 +1,3 @@
+<span data-ng-if="field.errors" data-ng-repeat="error in field.errors | filter:{language:qualifier}" id='validation-error-{{field.qualifier}}-{{qualifier}}-{{$index}}' class="error-input help-block">
+    {{error.message|translate}}
+</span>

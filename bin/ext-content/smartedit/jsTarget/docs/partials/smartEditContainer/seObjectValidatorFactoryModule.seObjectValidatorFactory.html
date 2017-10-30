@@ -1,0 +1,46 @@
+<h1><code ng:non-bindable="">seObjectValidatorFactory</code>
+<div><span class="hint">service in module <code ng:non-bindable="">seObjectValidatorFactoryModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="seobjectvalidatorfactorymodule-seobjectvalidatorfactory-page"><p>This service provides a factory method to build a validator for a specified list of validator objects.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_build">build(validators)</h3>
+<div class="build"><div class="seobjectvalidatorfactorymodule-seobjectvalidatorfactory-build-page"><p>Builds a new validator for a specified list of validator objects. Each validator object must consist of a
+parameter to validate, a predicate function to run against the value, and a message to associate with this
+predicate function&#39;s fail case.</p>
+<p>For example, The resulting validating object has a single validate function that takes two parameters: an object
+to validate against and a contextual error list to append errors to:</p>
+<pre class="prettyprint linenums">
+var validators = [{
+    subject: 'code',
+    validate: function(code) {
+        return code !== 'Invalid';
+    },
+    message: 'Code must not be "Invalid"'
+}]
+
+var validator = seObjectValidatorFactory.build(validators);
+var errorsContext = []
+var objectUnderValidation = {
+    code: 'Invalid'
+};
+var isValid = validate.validate(objectUnderValidation, errorsContext);
+</pre>
+<p>The result of the above code block would be that isValid is false beause it failed the predicate function of the
+single validator in the validator list and the errorsContext would be as follows:</p>
+<pre class="prettyprint linenums">
+[{
+    subject: 'code',
+    message: 'Code must not be "Invalid"'
+}]
+</pre>
+</div><h5 id="methods_build_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>validators</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="seobjectvalidatorfactorymodule-seobjectvalidatorfactory-build-page"><p>A list of validator objects as specified above.</p>
+</div></td></tr></tbody></table><h5 id="methods_build_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="seobjectvalidatorfactorymodule-seobjectvalidatorfactory-build-page"><p>A validator that consists of a validate function, as described above.</p>
+</div></td></tr></table></div>
+</li>
+</ul>
+</div>
+</div>

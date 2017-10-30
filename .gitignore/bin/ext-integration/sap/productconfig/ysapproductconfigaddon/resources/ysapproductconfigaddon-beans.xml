@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="beans.xsd">
+	
+
+	<enum class="de.hybris.platform.sap.productconfig.frontend.util.impl.ErrorType">
+		<value>ERROR</value>
+		<value>MANDATORY_FIELD</value>
+		<value>CONFLICT</value>
+	</enum>
+	
+	<enum class="de.hybris.platform.sap.productconfig.frontend.CPQOverviewActionType">
+		<value>TOGGLE_IMAGE_GALLERY</value>
+		<value>GO_TO_CART</value>
+		<value>APPLY_FILTER</value>
+	</enum>
+	
+	<bean class="de.hybris.platform.sap.productconfig.frontend.OverviewUiData">
+		<property name="configId" type="String"/>
+		<property name="cpqAction" type="de.hybris.platform.sap.productconfig.frontend.CPQOverviewActionType"/>
+		<property name="configurationOverviewData" type="de.hybris.platform.sap.productconfig.facades.overview.ConfigurationOverviewData"/>
+		<property name="csticFilterList" type="java.util.List&lt;de.hybris.platform.sap.productconfig.frontend.FilterData&gt;"/>
+		<property name="groupFilterList" type="java.util.List&lt;de.hybris.platform.sap.productconfig.frontend.FilterData&gt;"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.sap.productconfig.frontend.FilterData">
+		<property name="key" type="String"/>
+		<property name="description" type="String"/>
+		<property name="selected" type="boolean"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.sap.productconfig.frontend.UiStatus">
+		<property name="configId" type="String"/>
+		<property name="specificationTreeCollapsed" type="boolean"/>
+		<property name="priceSummaryCollapsed" type="boolean"/>
+		<property name="hideImageGallery" type="boolean"/>
+		<property name="groupIdToDisplay" type="String"/>
+		<property name="userInputToRemember" type="java.util.Map&lt;String,org.springframework.validation.FieldError&gt;"/>
+		<property name="userInputToRestore" type="java.util.Map&lt;String,org.springframework.validation.FieldError&gt;"/>
+		<property name="groups" type="java.util.List&lt;de.hybris.platform.sap.productconfig.frontend.UiGroupStatus&gt;"/>
+		<property name="numberOfConflictsToDisplay" type="int"/>
+		<property name="csticFilterList" type="java.util.List&lt;de.hybris.platform.sap.productconfig.frontend.FilterData&gt;"/>
+		<property name="maxGroupFilterList" type="java.util.List&lt;de.hybris.platform.sap.productconfig.frontend.FilterData&gt;"/>
+		<property name="firstErrorCsticId" type="String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.sap.productconfig.frontend.UiGroupStatus">
+		<property name="id" type="String"/>
+		<property name="collapsed" type="boolean"/>
+		<property name="collapsedInSpecificationTree" type="boolean"/>
+		<property name="visited" type="boolean" />
+		<property name="subGroups" type="java.util.List&lt;de.hybris.platform.sap.productconfig.frontend.UiGroupStatus&gt;"/>
+		<property name="cstics" type="java.util.List&lt;de.hybris.platform.sap.productconfig.frontend.UiCsticStatus&gt;"/>
+	</bean>
+
+	<bean class="de.hybris.platform.sap.productconfig.frontend.UiCsticStatus">
+		<property name="id" type="String"/>
+		<property name="showFullLongText" type="boolean"/>
+	</bean>
+</beans>

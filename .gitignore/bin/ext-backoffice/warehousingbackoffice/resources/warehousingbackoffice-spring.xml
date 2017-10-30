@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="shippingLabelContext" class="de.hybris.platform.warehousingbackoffice.context.CommonPrintLabelContext" scope="prototype" />
+
+	<bean id="packContext" class="de.hybris.platform.warehousingbackoffice.context.PackContext" scope="prototype" />
+
+	<alias name="defaultPickSlipContext" alias="pickSlipContext" />
+	<bean id="defaultPickSlipContext" class="de.hybris.platform.warehousingbackoffice.context.PickSlipContext" scope="prototype">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+	
+</beans>

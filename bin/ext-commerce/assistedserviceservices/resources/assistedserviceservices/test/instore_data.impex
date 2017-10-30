@@ -1,0 +1,27 @@
+$defaultPassword=123456
+$storeUid=testStore
+
+INSERT_UPDATE BaseStore;uid[unique=true];name;
+;testStore;Test Store;
+
+INSERT_UPDATE PointOfService;name[unique=true];type(code);basestore(uid)[default=$storeUid];
+;Nakano;STORE;
+;Ichikawa;STORE
+
+INSERT_UPDATE StoreEmployeeGroup;UID[unique=true];locname[lang=en];store(name)
+;nakanostoreemployees;Nakano Store Employee Group;Nakano
+;ichikawastoreemployees;Ichikawa Store Employee Group;Ichikawa
+
+INSERT_UPDATE Employee;name;groups(uid);password[default=$defaultPassword];uid[unique=true]
+;Nakano Customer Support Agent;nakanostoreemployees;;customer.support@nakano.com
+;Ichikawa Customer Support Agent;ichikawastoreemployees;;customer.support@ichikawa.com
+;Nakano/Ichikawa Customer Support Manager;ichikawastoreemployees,nakanostoreemployees;;customer.support@manager.com
+
+INSERT_UPDATE UserGroup;UID[unique=true];locname[lang=en];
+;POS_NAKANO;Nakano Store Customer Group;
+;POS_ICHIKAWA;Ichikawa Store Customer Group;
+
+INSERT_UPDATE Customer;uid[unique=true];groups(uid);
+;test_user1@hybris.com;POS_NAKANO;
+;test_user2@hybris.com;POS_ICHIKAWA;
+;test_user3@hybris.com;POS_ICHIKAWA;

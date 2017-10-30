@@ -1,0 +1,9 @@
+#Ant properties
+#Thu Feb 16 21:05:46 CET 2017
+builddate=20170216 2101
+description=ordermanagementfacade
+name=ordermanagementfacade
+releasedate=20160628 1228
+vendor=hybris
+version=6.1.0.8
+version.api=6.0.0

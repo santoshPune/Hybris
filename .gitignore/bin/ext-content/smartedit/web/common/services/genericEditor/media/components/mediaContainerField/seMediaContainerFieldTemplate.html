@@ -1,0 +1,10 @@
+<div class="se-media-container-field">
+    <div class="row">
+        <se-media-format class="col-xs-3 se-media-container-cell" ng-repeat="option in ctrl.field.options" data-media-code="ctrl.model[ctrl.qualifier][option.value]" data-is-under-edit="ctrl.isFormatUnderEdit(option.value)" data-media-format="option.value" data-errors="ctrl.field.errors" data-on-file-select="ctrl.fileSelected(files, option.value)" data-on-delete="ctrl.imageDeleted(option.value)">
+        </se-media-format>
+
+    </div>
+    <se-media-upload-form data-ng-if="ctrl.image.file" data-image="ctrl.image" data-field="ctrl.field" data-on-upload-callback="ctrl.imageUploaded(code)" data-on-cancel-callback="ctrl.resetImage()" data-on-select-callback="ctrl.fileSelected(files)">
+    </se-media-upload-form>
+    <se-errors-list data-errors="ctrl.fileErrors"></se-errors-list>
+</div>

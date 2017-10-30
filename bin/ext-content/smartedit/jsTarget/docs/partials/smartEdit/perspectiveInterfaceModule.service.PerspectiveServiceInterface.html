@@ -1,0 +1,46 @@
+<h1><code ng:non-bindable="">PerspectiveServiceInterface</code>
+<div><span class="hint">service in module <code ng:non-bindable="">perspectiveInterfaceModule</code>
+</span>
+</div>
+</h1>
+<div><div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_hasactiveperspective">hasActivePerspective()</h3>
+<div class="hasactiveperspective"><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-hasactiveperspective-page"><p>This method returns true if a perspective is selected.</p>
+</div><h5 id="methods_hasactiveperspective_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-hasactiveperspective-page"><p>The key of the active perspective.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_isemptyperspectiveactive">isEmptyPerspectiveActive()</h3>
+<div class="isemptyperspectiveactive"><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-isemptyperspectiveactive-page"><p>This method returns true if the current active perspective is the Preview mode (No active overlay).</p>
+</div><h5 id="methods_isemptyperspectiveactive_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-isemptyperspectiveactive-page"><p>Flag that indicates if the current perspective is the Preview mode.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_register">register(configuration)</h3>
+<div class="register"><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-register-page"><p>This method registers a perspective.
+When an end user selects a perspective in the SmartEdit web application,
+all features bound to the perspective will be enabled when their respective enablingCallback functions are invoked
+and all features not bound to the perspective will be disabled when their respective disablingCallback functions are invoked.</p>
+</div><h5 id="methods_register_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>configuration</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-register-page"><p>The configuration that represents the feature to be registered.</p>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>key</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-register-page"><p>The key that uniquely identifies the perspective in the registry.</p>
+</div></td></tr><tr><td>nameI18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-register-page"><p>The i18n key that stores the perspective name to be translated.</p>
+</div></td></tr><tr><td>descriptionI18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-register-page"><p>The i18n key that stores the perspective description to be translated. The description is used as a tooltip in the web application. This is an optional parameter.</p>
+</div></td></tr><tr><td>features</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-register-page"><p>A list of features to be bound to the perspective.</p>
+</div></td></tr><tr><td>perspectives</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-register-page"><p>A list of referenced perspectives to be bound to this system perspective. This list is optional.</p>
+</div></td></tr></tbody></table></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_selectdefault">selectDefault()</h3>
+<div class="selectdefault"><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-selectdefault-page"><p>This method switches the currently-selected perspective to the default perspective.
+If no value has been stored in the smartedit-perspectives cookie, the value of the default perspective is se.none.
+If a value is stored in the cookie, that value is used as the default perspective.</p>
+</div></div>
+</li>
+<li><h3 id="methods_switchto">switchTo(key)</h3>
+<div class="switchto"><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-switchto-page"><p>This method actives a perspective identified by its key and deactivates the currently active perspective.
+Activating a perspective consists in activating any feature that is bound to the perspective
+or any feature that is bound to the perspective&#39;s referenced perspectives and deactivating any features
+that are not bound to the perspective or to its referenced perspectives.</p>
+</div><h5 id="methods_switchto_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>key</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="perspectiveinterfacemodule-service-page perspectiveinterfacemodule-service-perspectiveserviceinterface-switchto-page"><p>The key that uniquely identifies the perspective to be activated. This is the same key as the key used in the <a href="#/smartEdit/perspectiveInterfaceModule.service:PerspectiveServiceInterface#methods_register">register</a> method.</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

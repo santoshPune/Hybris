@@ -1,0 +1,55 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderEntryGroupFixedPriceDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.CategoryRAO;
+import de.hybris.platform.ruleengineservices.rao.EntriesSelectionStrategyRPD;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.HashSet;
+import de.hybris.platform.ruleengineservices.enums.OrderEntrySelectionStrategy;
+
+global AddOrderEntryGroupFixedPriceDiscountRAOAction addOrderEntryGroupFixedPriceDiscountRAOAction;
+
+rule "multibuyFixedPrice"
+@ruleCode("multibuyFixedPrice")
+	salience 15
+	when
+		$result : RuleEngineResultRAO()
+		$config : RuleConfigurationRRD(ruleCode == "multibuyFixedPrice")
+		
+		$cart : CartRAO()
+		
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+
+        $qualifyingCategories : HashSet()
+			from collect (CategoryRAO(code == "597" || code == "598"))
+
+		$qualifyingEntries : ArrayList()
+			from collect 
+			(
+				OrderEntryRAO 
+				(
+					(Collections.disjoint(product.categories, $qualifyingCategories) == false) 
+				)
+			)
+  	              
+		$count : Number(intValue >= 3) from accumulate( o : OrderEntryRAO() from $qualifyingEntries , sum( o.getQuantity() ) )
+        
+	then
+		EntriesSelectionStrategyRPD strategy1 = new EntriesSelectionStrategyRPD();
+		strategy1.setSelectionStrategy(OrderEntrySelectionStrategy.CHEAPEST);
+        strategy1.setOrderEntries($qualifyingEntries);
+        strategy1.setQuantity(3);
+		
+		List<EntriesSelectionStrategyRPD> strategies = new ArrayList<EntriesSelectionStrategyRPD>();
+		strategies.add(strategy1);
+		addOrderEntryGroupFixedPriceDiscountRAOAction.addOrderEntryGroupFixedPriceDiscount($cart, strategies, new BigDecimal("10.00"), $result, kcontext);
+end
+

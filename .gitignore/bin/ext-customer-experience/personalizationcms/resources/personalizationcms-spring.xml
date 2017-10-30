@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	<context:annotation-config />
+	
+	<bean id="cxCmsActionAffectedObjectKeyAttributeHandler" class="de.hybris.platform.personalizationcms.dynamic.CxCmsActionAffectedObjectKeyAttributeHandler"/>
+
+	<bean id="cxCMSDynamicAttributeService" class="de.hybris.platform.personalizationcms.service.CxCMSDynamicAttributeService" >
+		<property name="sessionService" ref="sessionService" />
+	</bean>
+
+	<bean id="cxCmsActionPerformable" class="de.hybris.platform.personalizationcms.action.CxCmsActionPerformable" />
+
+	<bean id="cxCmsActionTargetProvider" parent="actionTargetProvider">
+		<property name="supportedClass" value="de.hybris.platform.personalizationcms.model.CxCmsActionModel" />
+		<property name="target" value="cxCmsActionPerformable" />
+	</bean>
+	
+	<bean id="cxCmsComponentContainerStrategy" class="de.hybris.platform.personalizationcms.strategy.DefaultCxCmsContainerStrategy">
+		<property name="userService" ref="userService" />
+		<property name="cxActionResultService" ref="cxActionResultService" />
+		<property name="cmsComponentService" ref="cmsComponentService" />
+	</bean>
+
+	<bean depends-on="cmsComponentContainerStrategies" parent="mapMergeDirective">
+		<property name="key" value="CxCmsComponentContainer" />
+		<property name="value" ref="cxCmsComponentContainerStrategy" />
+	</bean>	
+
+    <bean id="abstractCXPreviewStrategy"
+          class="de.hybris.platform.personalizationcms.preview.strategies.AbstractCxPreviewStrategy" abstract="true">
+        <property name="userDao" ref="userDao"/>
+        <property name="cxService" ref="cxService"/>
+        <property name="cxVariationService" ref="cxVariationService"/>
+        <property name="userService" ref="userService" />
+    </bean>
+
+    <bean id="cxVariationPreviewStrategy" parent="abstractCXPreviewStrategy"
+          class="de.hybris.platform.personalizationcms.preview.strategies.CxVariationPreviewStrategy"/>
+
+    <bean id="addVariationPrevReqStrListMergeDirective" depends-on="previewRequestStrategiesList" parent="listMergeDirective">
+        <property name="add" ref="cxVariationPreviewStrategy"/>
+    </bean>
+    
+   	<bean id="cxCustomizationPageIdDaoStrategy" class="de.hybris.platform.personalizationcms.customization.dao.impl.CxCustomizationPageIdDaoStrategy" parent="abstractCxDaoStrategy" />
+   	<bean id="cxCustomizationPageIdNameDaoStrategy" class="de.hybris.platform.personalizationcms.customization.dao.impl.CxCustomizationPageIdDaoStrategy" parent="abstractCxDaoStrategy" >
+	   	<property name="nameRequired" value="true" />
+   	</bean>
+   	
+   	<bean id="defaultCxCmsContainerDefaultComponentStrategy" class="de.hybris.platform.personalizationcms.strategy.DefaultCxCmsContainerDefaultComponentStrategy">
+   		<property name="containerClass" value="de.hybris.platform.personalizationcms.model.CxCmsComponentContainerModel" />
+   	</bean>
+
+	<bean id="cxActionRemoveInterceptor" class="de.hybris.platform.personalizationcms.action.interceptor.CxActionRemoveInterceptor">
+        <property name="modelService" ref="modelService"/>
+        <property name="flexibleSearchService" ref="flexibleSearchService"/>
+        <property name="configurationService" ref="configurationService"/>
+        <property name="catalogVersionService" ref="catalogVersionService"/>	
+        <property name="cmsComponentService" ref="cmsComponentService"/>	
+	</bean>
+
+	<bean id="cxActionRemoveInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+	    <property name="interceptor" ref="cxActionRemoveInterceptor"/>
+    	<property name="typeCode" value="CxCmsAction"/>
+	</bean>
+
+</beans>

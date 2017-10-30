@@ -1,0 +1,9 @@
+<div>
+    <div data-ng-mouseleave="mouseleave()">
+        <img title="{{'synchronize.notok.tooltip' | translate}}" data-ng-if="!service.synced && visible" class="ng-class:{synchronize:true, clickable:true, 'pull-right':!isContainer}" data-ng-click="service.synchronize()" data-ng-src=/cmssmartedit/images/synchronization_notok.gif />
+        <img title="{{'synchronize.ok.tooltip' | translate}}" data-ng-if="service.synced && visible" class="ng-class:{synchronize:true, clickable:true, 'pull-right':!isContainer}" data-ng-src=/cmssmartedit/images/synchronization_ok.gif />
+        <div data-ng-mouseenter="mouseenter()" class="ng-class:{minDivHeight:true, contentSlot:isContainer && visible}">
+            <div data-ng-transclude></div>
+        </div>
+    </div>
+</div>

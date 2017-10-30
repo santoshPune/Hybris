@@ -1,0 +1,16 @@
+#
+# Import Sample CMS Cockpit User
+# 
+
+
+$defaultPassword=1234
+
+INSERT_UPDATE UserGroup;UID[unique=true];groups(uid)[mode=append]
+;cmsmanagergroup;cockpitgroup,employeegroup
+
+INSERT_UPDATE Employee;UID[unique=true];password[default=$defaultPassword];description;name;groups(uid)[mode=append];sessionLanguage(isocode);sessionCurrency(isocode)
+;cmsmanager;;CMS manager;CMS Manager;cmsmanagergroup;en;USD
+
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid);
+;electronicsContentCatalog;Online;cmsmanagergroup,cmsmanager;
+;electronicsContentCatalog;Staged;cmsmanagergroup,cmsmanager;

@@ -1,0 +1,6 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE CMSTabParagraphComponent;pk[unique=true]
+;8796142896188
+;8796141913148
+#  end of pk list for CMSTabParagraphComponent
+#  

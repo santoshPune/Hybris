@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ [y] hybris Platform
+ 
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+ 
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <alias name="defaultFractusApplicationAdapter" alias="fractusApplicationAdapter"/>
+    <bean id="defaultFractusApplicationAdapter"
+          class="de.hybris.platform.fractussyncservices.adapter.impl.DefaultFractusApplicationAdapter">
+        <property name="lookupStrategies" ref="fractusApplicationLookupStrategyList"/>
+    </bean>
+
+    <bean id="abstractFractusApplicationLookupStrategy" abstract="true"
+          class="de.hybris.platform.fractussyncservices.adapter.impl.AbstractFractusApplicationLookupStrategy">
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <bean id="productApplicationLookupStrategy" parent="abstractFractusApplicationLookupStrategy"
+          class="de.hybris.platform.fractussyncservices.adapter.impl.ProductApplicationLookupStrategy">
+    </bean>
+    
+     <bean id="categoryApplicationLookupStrategy" parent="abstractFractusApplicationLookupStrategy"
+          class="de.hybris.platform.fractussyncservices.adapter.impl.CategoryApplicationLookupStrategy">
+    </bean>
+
+    <bean id="priceApplicationLookupStrategy" parent="abstractFractusApplicationLookupStrategy"
+          class="de.hybris.platform.fractussyncservices.adapter.impl.PriceApplicationLookupStrategy">
+          <property name="catalogVersionService" ref="catalogVersionService"></property>
+          <property name="productService" ref="productService"></property>          
+          <property name="catalogName" value="#{configurationService.configuration.getString('yaas.catalog.name','yaasProductCatalog')}"></property>
+    </bean>
+
+    <bean id="stockLevelApplicationLookupStrategy" parent="abstractFractusApplicationLookupStrategy"
+          class="de.hybris.platform.fractussyncservices.adapter.impl.StockLevelApplicationLookupStrategy">
+    </bean>
+
+    <bean id="consignmentLevelApplicationLookupStrategy" parent="abstractFractusApplicationLookupStrategy"
+          class="de.hybris.platform.fractussyncservices.adapter.impl.ConsignmentApplicationLookupStrategy">
+    </bean>
+
+    <bean id="orderApplicationLookupStrategy" parent="abstractFractusApplicationLookupStrategy"
+          class="de.hybris.platform.fractussyncservices.adapter.impl.OrderApplicationLookupStrategy">
+    </bean>
+    
+    <bean id="customerApplicationLookupStrategy" parent="abstractFractusApplicationLookupStrategy"
+          class="de.hybris.platform.fractussyncservices.adapter.impl.CustomerApplicationLookupStrategy">
+          <property name="yaasConfigurationService" ref="yaasConfigurationService"></property>
+    </bean>
+    <bean id="addressApplicationLookupStrategy" parent="abstractFractusApplicationLookupStrategy"
+          class="de.hybris.platform.fractussyncservices.adapter.impl.AddressApplicationLookupStrategy">
+          <property name="yaasConfigurationService" ref="yaasConfigurationService"></property>
+    </bean>    
+
+    <util:list id="fractusApplicationLookupStrategyList"
+               value-type="de.hybris.platform.fractussyncservices.adapter.FractusApplicationLookupStrategy">
+        <ref bean="productApplicationLookupStrategy"/>
+        <ref bean="priceApplicationLookupStrategy"/>
+        <ref bean="stockLevelApplicationLookupStrategy"/>
+        <ref bean="consignmentLevelApplicationLookupStrategy"/>
+        <ref bean="orderApplicationLookupStrategy"/>
+        <ref bean="categoryApplicationLookupStrategy"/>        
+        <ref bean ="customerApplicationLookupStrategy"/>
+        <ref bean ="addressApplicationLookupStrategy"/>        
+    </util:list>
+
+    <bean id="fractusOrderSiteAdapter" class="de.hybris.platform.fractussyncservices.adapter.FractusOrderSiteAdapter">
+        <property name="modelService" ref="modelService"/>
+        <property name="yaasConfigurationService" ref="yaasConfigurationService"/>
+        <property name="baseStoreUID" value="fractusStore"/>
+    </bean>
+
+    <bean id="fractusOrderEntryProductAdapter"
+          class="de.hybris.platform.fractussyncservices.adapter.FractusValueOrderEntryProductAdapter">
+        <property name="modelService" ref="modelService"/>
+        <property name="catalogVersionService" ref="catalogVersionService"/>
+        <property name="productService" ref="productService"/>
+        <property name="flexibleSearchService" ref="flexibleSearchService"/>
+    </bean>
+
+    <alias name="defaultFractussyncService" alias="fractussyncService"/>
+    <bean id="defaultFractussyncService" class="de.hybris.platform.fractussyncservices.service.impl.DefaultFractussyncService">
+        <property name="jobDao" ref="jobDao"/>
+        <property name="y2ySyncYaasConfigurationsJobCode" value="${yaas.configuration.job.code}"/>
+        <property name="syncExecutionService" ref="syncExecutionService"/>
+    </bean>
+
+    <alias name="fractusY2ySyncExecutionService" alias="syncExecutionService"/>
+    <bean id="fractusY2ySyncExecutionService" parent="defaultSyncExecutionService"
+          class="de.hybris.platform.fractussyncservices.service.impl.FractusY2ySyncExecutionService">
+        <property name="changeDetectionService" ref="changeDetectionService"/>
+    </bean>
+
+    <bean id="fractusSyncCronJobPerformable" parent="abstractJobPerformable"
+          class="de.hybris.platform.fractussyncservices.cronjob.FractusSyncCronJobPerformable">
+        <property name="syncExecutionService" ref="syncExecutionService"/>
+    </bean>
+</beans>

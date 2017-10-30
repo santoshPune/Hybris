@@ -1,0 +1,8 @@
+# Import links for the Multi Channel Cockpit
+
+# Language
+$lang=en
+
+
+UPDATE StaticLink;code[unique=true];title[lang=$lang];description[lang=$lang];
+ ;jirafe;Jirafe;View Jirafe reports;

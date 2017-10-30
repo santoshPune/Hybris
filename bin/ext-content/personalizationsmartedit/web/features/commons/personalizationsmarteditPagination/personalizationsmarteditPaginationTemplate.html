@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4">
+        <ul class="pagination pagination-lg">
+            <li ng-click="prevClick()" ng-class="hasPrevious()?'enabled':'disabled'"><a>&laquo;</a></li>
+            <li ng-repeat="i in pagesToDisplay()"><a ng-click="pageClick(i)" ng-class="isActive({{i}})?'active':''">{{i+1}}</a></li>
+            <li ng-click="nextClick()" ng-class="hasNext()?'enabled':'disabled'"><a>&raquo;</a></li>
+        </ul>
+    </div>
+    <div class="col-xs-2"></div>
+    <div class="col-xs-2" ng-if="!isFixedPageSize()">
+        <button type="button" class="btn btn-link dropdown-toggle pull-right" data-toggle="dropdown">
+            <span ng-bind="getCurrentPageSize()"></span>
+            <span data-translate="personalization.pagination.rowsperpage"></span>
+            <span class="hyicon hyicon-arrow"></span>
+        </button>
+        <ul class="dropdown-menu pull-right text-left" role="menu">
+            <li ng-repeat="i in availablePageSizes() track by $index"><a ng-click="pageSizeClick(i)">{{i}}</a></li>
+        </ul>
+    </div>
+</div>

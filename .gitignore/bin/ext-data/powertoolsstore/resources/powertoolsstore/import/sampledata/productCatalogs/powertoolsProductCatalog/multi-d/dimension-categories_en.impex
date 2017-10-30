@@ -1,0 +1,19 @@
+#CATEGORIES
+
+# Language
+$lang=en
+
+# Macros / Replacement Parameter definitions
+$productCatalog=powertoolsProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Localized Category Names
+
+UPDATE Category;code[unique=true];name[lang=$lang];description[lang=$lang];$catalogVersion
+ ;1800;Safety;
+ ;1801;Apparel;
+ ;1802;Footwear;
+ ;1803;Men's;
+ ;1804;Women's;
+ ;1805;Men's;
+ ;1806;Women's;

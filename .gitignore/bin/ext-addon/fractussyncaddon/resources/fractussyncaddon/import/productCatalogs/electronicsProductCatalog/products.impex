@@ -1,0 +1,30 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products into Yaas Store
+
+# Macros / Replacement Parameter definitions
+$electronicsProductCatalog=electronicsProductCatalog
+$yaasProductCatalog=yaasProductCatalog
+
+$electronicsCatalogVersion=catalogversion(catalog(id[default=$electronicsProductCatalog]),version[default='Staged'])[unique=true,default=$electronicsProductCatalog:Staged]
+$yaasCatalogVersion=catalogversion(catalog(id[default=$yaasProductCatalog]),version[default='Staged'])[unique=true,default=$yaasProductCatalog:Staged]
+
+$electronicsSupercategories=supercategories(code, $electronicsCatalogVersion)
+$approved=approvalstatus(code)[default='check']
+
+# Insert Products
+INSERT_UPDATE Product;code[unique=true];$electronicsSupercategories;manufacturerName;manufacturerAID;unit(code);ean;variantType(code);$yaasCatalogVersion;$approved
+;yaasconnect2;576, brand_10;Canon;3477B013AA;pieces;8714574533421_Y
+;yaasconnect3;587, brand_88;Kodak;8662207;pieces;0417786622058_Y
+;yaasconnect1;;Sony;;pieces;0417786622050_Y
+
+

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ [y] hybris Platform
+  ~
+  ~ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+  ~ All rights reserved.
+  ~
+  ~ This software is the confidential and proprietary information of SAP
+  ~ ("Confidential Information"). You shall not disclose such Confidential
+  ~ Information and shall use it only in accordance with the terms of the
+  ~ license agreement you entered into with SAP.
+  --><!--
+ All hybris buildcallbacks.xml macrodefinitions:
+
+ Build/Documentation
+
+	 before/after ant macro "clean"
+		 <macrodef name="customersupportbackoffice_before_clean"/>
+		 <macrodef name="customersupportbackoffice_after_clean"/>
+
+	 before/after ant macro "build"
+		 <macrodef name="customersupportbackoffice_before_build"/>
+		 <macrodef name="customersupportbackoffice_after_build"/>
+
+	 before/after ant macro "compile_core" - the core module of the extension
+		 <macrodef name="customersupportbackoffice_before_compile_core">
+		 <macrodef name="customersupportbackoffice_after_compile_core">
+
+	 before/after ant macro "compile_web" - the web module of the extension
+		 <macrodef name="customersupportbackoffice_before_compile_web" />
+		 <macrodef name="customersupportbackoffice_after_compile_web" />
+
+	 before/after ant macro "compile_hmc" - the hmc module of the extension
+		 <macrodef name="customersupportbackoffice_before_compile_hmc" />
+		 <macrodef name="customersupportbackoffice_after_compile_hmc" />
+
+ Preparing extension
+
+	 will be called in the beginning of the ant call and only once (also when using multiple
+	 ant targets e.g. ant build yunittest)
+		 <macrodef name="customersupportbackoffice_only_once_prepare"/>
+
+ Creating ear module/production
+
+	 before/after ant macro "ear"
+		 <macrodef name="customersupportbackoffice_before_ear"/>
+		 <macrodef name="customersupportbackoffice_after_ear"/>
+
+	 before/after ant macro "production" - for hybris server only
+		 <macrodef name="customersupportbackoffice_before_production" />
+		 <macrodef name="customersupportbackoffice_after_production" />
+
+ JUnit Test
+
+	 before/after ant macro "yunitinit"
+		 <macrodef name="customersupportbackoffice_before_yunitinit" />
+		 <macrodef name="customersupportbackoffice_after_yunitinit" />
+
+	 before/after ant macro "yunit"
+		 <macrodef name="customersupportbackoffice_before_yunit" />
+		 <macrodef name="customersupportbackoffice_after_yunit" />
+
+ Distribution package
+
+ 	 before/after ant macro "dist" - internal target; only for use when platform is available in source code
+		 <macrodef name="customersupportbackoffice_after_dist"/>
+		 <macrodef name="customersupportbackoffice_before_dist"/>
+
+	 before/after ant macro "dist_copy" - internal target; only for use when platform is available in source code
+		 <macrodef name="customersupportbackoffice_before_dist_copy"/>
+		 <macrodef name="customersupportbackoffice_after_dist_copy"/>
+
+ 	 With these filters you can override the default extension filters defined in platform/resources/ant/dist/filtersets.xml
+ 	  	 <patternset id="extension.customersupportbackoffice.binary.filter">
+ 	  	  	 <patternset refid="extension.filter" />
+ 	  	  	 <exclude name="**/*-source.jar" />
+ 	  	 </patternset>
+ 	  	 <patternset id="extension.customersupportbackoffice.source.filter">
+ 	  	  	 <exclude name="**/bin/**" />
+ 	  	 </patternset>
+
+ Backoffice module
+
+ 	 before/after ant macro "backoffice" - internal target; only for use when extensin is a backoffice module
+		 <macrodef name="customersupportbackoffice_before_clean_backoffice"/>
+		 <macrodef name="customersupportbackoffice_after_clean_backoffice"/>
+		 <macrodef name="customersupportbackoffice_before_compile_backoffice"/>
+		 <macrodef name="customersupportbackoffice_after_compile_backoffice"/>
+
+--><project name="customersupportbackoffice_buildcallbacks">
+	<property name="customersupportbackofficeWebFragmentSrc" value="${ext.customersupportbackoffice.path}/resources/web-fragment.xml"/>
+	<property name="customersupportbackofficeWebFragmentDestJar" value="${ext.backoffice.path}/web/webroot/WEB-INF/lib/webfragmentExt_customersupportbackoffice.jar"/>
+
+	
+
+	
+
+	<macrodef name="customersupportbackoffice_after_clean">
+		<sequential>
+			<customersupportbackoffice_remove_web_fragment/>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="customersupportbackoffice_after_build">
+		<sequential>
+			<customersupportbackoffice_remove_web_fragment/>
+			<customersupportbackoffice_create_web_fragment/>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="customersupportbackoffice_remove_web_fragment">
+		<sequential>
+			<if>
+				<available file="${customersupportbackofficeWebFragmentDestJar}"/>
+				<then>
+					<delete file="${customersupportbackofficeWebFragmentDestJar}"/>
+				</then>
+			</if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="customersupportbackoffice_create_web_fragment">
+		<sequential>
+			<if>
+				<available file="${customersupportbackofficeWebFragmentSrc}"/>
+				<then>
+					<sequential>
+						<jar destfile="${customersupportbackofficeWebFragmentDestJar}">
+							<metainf file="${customersupportbackofficeWebFragmentSrc}"/>
+						</jar>
+					</sequential>
+				</then>
+			</if>
+		</sequential>
+	</macrodef>
+
+    <patternset id="extension.customersupportbackoffice.binary.filter">
+        <patternset refid="extension.filter" />
+        <exclude name=".project" />
+        <exclude name=".classpath_binary" />
+
+        <!-- excluded doc files -->
+        <exclude name="doc/install.xml" />
+        <exclude name="doc/resources/*.mdl" />
+
+        <!-- exclude src folders -->
+        <exclude name="web/src/**" />
+        <exclude name="src/**" />
+        <exclude name="hmc/src/**" />
+
+        <!-- exclude backoffice folders -->
+
+        <exclude name="backoffice/classes/**" />
+        <exclude name="backoffice/resources/**/*.xml" />
+        <exclude name="backoffice/resources/**/*.css" />
+        <exclude name="backoffice/resources/**/*.zul" />
+        <exclude name="backoffice/src/**" />
+        <exclude name="backoffice/testsrc/**" />
+
+
+        <!-- exculde root classes folder -->
+        <exclude name="classes/**" />
+    </patternset>
+</project>

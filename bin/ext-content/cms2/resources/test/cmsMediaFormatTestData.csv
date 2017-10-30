@@ -1,0 +1,4 @@
+INSERT_UPDATE MediaFormat;qualifier[unique=true];
+;desktop;
+;mobile;
+;tablet;

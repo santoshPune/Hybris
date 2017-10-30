@@ -1,0 +1,329 @@
+.label__fileUpload{
+    font-family: @font-open-sans;
+    font-size: 15px;
+    font-weight: @font-weight--semibold;
+    color: @smartedit-blue;
+    top: 0;
+}
+.seFileSelector{
+    padding-top: 10px;
+}
+.btn__fileSelector{
+    padding-left: 0;
+}
+.label__fileUpload{
+    padding-left: .3em;
+}
+.btn__fileSelector:hover,
+.btn__fileSelector:focus{
+    cursor: pointer;
+}
+
+.file-selector-disabled .label__fileUpload{
+    color: @smartedit-grey14;
+}
+
+.file-selector-disabled .btn__fileSelector:hover,
+.file-selector-disabled .btn__fileSelector:focus{
+    cursor:default;
+}
+
+.se-media-upload-form--toolbar{
+    padding-left: 0;
+    padding-right: 0;
+    background-color: @smartedit-grey5;
+    border-bottom: @smartedit-border2;
+    border-left: @smartedit-border2;
+    border-right: @smartedit-border2;
+}
+
+.se-media-upload-btn__cancel,
+.se-media-upload-btn__submit{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+//bring the magnifier
+.media-selector{
+
+    a.select2-choice.ui-select-match.select2-default > span.select2-chosen{
+        background-image: url('../../../thirdparties/select2/select2x2.png') !important;
+        background-repeat: no-repeat !important;
+        background-size: 99px 66px !important;
+        background-position: -58px -34px !important;
+        color: @smartedit-grey4;
+        padding-left: 43px;
+        font-family: @font-open-sans;
+        font-size: 16px;
+    }
+
+    a.select2-choice.ui-select-match.select2-default > .select2-arrow.ui-select-toggle > b{
+        display: none;
+    }
+    
+}
+
+.se-media-upload--fileinfo{
+    border-bottom: @smartedit-border2;
+    border-left: @smartedit-border2;
+    border-right: @smartedit-border2;
+    padding-top: 30px;
+    .make-row(@gutter: 0px);
+}
+
+.se-media-upload--fileinfo--field{
+    .make-xs-column(6, @gutter: 0px);
+    padding-left: (1/2*@smartedit-gutter);
+    padding-right: (1/2*@smartedit-gutter);
+}
+
+.se-mu--fileinfo--field--input, 
+.se-mu--fileinfo--wrapper{
+    border-width: 0;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.se-mu--fileinfo--field--input{
+    width: 100%;
+}
+
+.se-mu--fileinfo--wrapper-col1{
+    padding-right: 0;
+}
+.se-mu--fileinfo--wrapper-col2{
+    padding-left: 5px;
+}
+.se-mu--fileinfo--field--icon{
+    vertical-align: top;
+    padding: 2px 2px 3px 2px;
+}
+
+.se-mu--fileinfo--field--icon__error{
+    vertical-align: top;
+    padding: 4px;
+}
+
+.se-mu--fileinfo--wrapper:hover .se-mu--fileinfo--field--input,
+.se-mu--fileinfo--wrapper:hover .se-mu--fileinfo--field--icon{
+    background-color: @smartedit-grey5;
+}
+
+.se-media-upload--fn--name{
+    display: inline-block;
+}
+
+.se-media-upload--filename-col1 {
+    .text-left();
+    padding-left: (1/2*@smartedit-gutter);
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.se-media-upload--filename-col2{
+    .text-right();
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.se-media-upload--fn--name{
+    display: inline-block;
+}
+
+.se-media-upload-form--toolbar--title{
+    padding-left: (1/2*@smartedit-gutter);
+}
+
+.se-media-upload-form--toolbar--title--h4{
+    font-size: 21px;
+    font-family: @font-open-sans;
+    color: @smartedit-grey7;
+    font-weight: @font-weight--semibold;
+    margin-top: 20px;
+}
+
+.se-media-upload--filename{
+    border-bottom: @smartedit-border2;
+     border-left: @smartedit-border2;
+     border-right: @smartedit-border2;
+}
+
+.label__fileUpload{
+    font-size: 16px;
+    font-family: @font-open-sans;
+}
+
+.se-mu--fileinfo--field--input{
+    font-size: 15px;
+    font-family: @font-open-sans;
+    color: @smartedit-grey7;
+}
+
+.se-media-upload-btn__submit,
+.se-media-upload-btn__cancel{
+    font-size: 19px;
+    font-family: @font-dosis;
+    font-weight: @font-weight--light;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.se-media-upload--fn--name{
+    padding-left: 5px;
+}
+
+.upload-field-error,
+.se-media-upload-has-error{
+    color: @smartedit-error;
+}
+
+.se-mu--fileinfo--field__error{
+    border: 1px solid @smartedit-error;
+}
+
+.se-mu--fileinfo--field--icon__error{
+    background-color: @smartedit-error;
+}
+
+.media-selector a.select2-choice div{
+    width: inherit;
+}
+
+.media-selector--preview__right{
+    display: block;
+    margin-right: 0;
+    margin-left: auto;
+    text-align: right;
+}
+
+.media-advanced-information,
+.media-selector--preview__right{
+    font-family: @font-dosis;
+    font-size: 16px;
+    font-weight: @font-weight--medium;
+    color: @smartedit-blue2;
+}
+
+.media-selector--preview__right{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.media-advanced-information{
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.media-selector--preview__right.remove-image{
+    color: @smartedit-red1;
+}
+
+.media-selector--preview__right--p{
+    display: inline-block;
+    margin: 0;
+}
+.media-selector--preview--icon{
+    padding-bottom: 5px;
+    padding-left: 10px;
+}
+
+.media-selector--preview{
+    padding-top: 15px;
+    margin-right: -30px;
+}
+
+.media-preview-icon{
+    background-color: @smartedit-blue3;
+    color: @smartedit-white;
+    font-weight: @font-weight--bold;
+    position: absolute;
+    top: 0;
+    left: 15px;
+    font-size: 37px;
+}
+
+.thumbnail--image-preview{
+    max-width: 168px;
+    max-height: 108px;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.media-preview-code{
+    display: block;
+    text-align: left;
+    width: 172px;
+    background-color: @smartedit-grey8;
+    padding-left: 10px;
+    font-family: @font-open-sans;
+    font-weight: @font-weight--semibold;
+    font-size: 14px;
+    font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.popover{
+    z-index: 9999;
+    max-width: none;
+    padding: 0;
+}
+
+.se-adv-media-info{
+    padding: 28px;
+    color: @smartedit-white;
+    font-family: @font-open-sans;
+    font-size: 15px;
+    font-weight: @font-weight--semibold;
+    
+}
+
+.preview-image{
+    max-width: 400px;
+}
+
+.ui-select-choices-row-inner img.thumbnail{
+    max-width: 200px;
+}
+
+se-media-preview{
+    position: absolute;
+    left: 136px;
+}
+
+.se-adv-media-info--data{
+    display: block;
+}
+
+.popover-content{
+    padding: 0;
+}
+
+.popover.right{
+    margin-top: 20px;
+    margin-left: 60px;
+}
+
+se-media-advanced-properties a:hover,
+se-media-advanced-properties a:active,
+se-media-advanced-properties .btn:active,
+se-media-advanced-properties a:focus,
+.media-selector--preview__right:hover,
+.media-selector--preview__right:active,
+.media-selector--preview__right:focus{
+    box-shadow: initial;
+}
+
+.media-selector a.select2-choice .media-selector--preview .se-media-preview-image-wrapper,
+.se-media-preview-image-wrapper{
+    height: 112px;
+    width: 172px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid @smartedit-grey8;
+    
+}

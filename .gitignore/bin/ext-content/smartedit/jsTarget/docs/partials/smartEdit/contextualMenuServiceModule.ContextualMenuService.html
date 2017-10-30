@@ -1,0 +1,101 @@
+<h1><code ng:non-bindable="">ContextualMenuService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">contextualMenuServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="contextualmenuservicemodule-contextualmenuservice-page"><p>The ContextualMenuService is used to add contextual menu items for each component.</p>
+<p>You add contextual menu items to SmartEdit using the Contextual MenuService of the Contextual Menu Service Module.
+To add items to the contextual menu, you must call the addItems method of the contextualMenuService and pass a map of the component-type array of contextual menu items mapping.
+The component type names are the keys in the mapping. The component name can be the full name of the component type, an ant-like wildcard (such as  <em>middle</em>Suffix), or a valid regex that includes or excludes a set of component types.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_additems">addItems(contextualMenuItemsMap)</h3>
+<div class="additems"><div class="contextualmenuservicemodule-contextualmenuservice-additems-page"><p>The method called to add contextual menu items to component types in the SmartEdit application.
+The contextual menu items are then retrieved by the contextual menu decorator to wire the set of menu items to the specified component.</p>
+<p>Sample Usage:
+<pre class="prettyprint linenums">
+contextualMenuService.addItems({
+'.*Component': [{
+ key: 'itemKey',
+ i18nKey: 'CONTEXTUAL_MENU',
+ condition: function(componentType, componentId) {
+	return componentId === 'ComponentType';
+	},
+ callback: function(componentType, componentId) {
+	alert('callback for ' + componentType + "_" + componentId);
+	},
+ displayClass: 'democlass',
+ iconIdle: '.../icons/icon.png',
+ iconNonIdle: '.../icons/icon.png',
+}]
+});
+</pre>
+</div><h5 id="methods_additems_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>contextualMenuItemsMap</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-additems-page"><p>An object containing list of componentType to contextual menu items mapping</p>
+<p>The object contains a list that maps component types to arrays of contextual menu items. The mapping is a key-value pair.
+The key is the name of the component type, for example, Simple Responsive Banner Component, and the value is an array of contextual menu items, like add, edit, localize, etc.</p>
+<p>The name of the component type is the key in the mapping. The name can be the full name of the component type, an ant-like wildcard (such as *middle), or a vlide regex that includes or excludes a set of component types.
+The value in the mapping is an array of contextual menu items to be activated for the component type match.</p>
+<p>The contextual menu items can have the following properties:</p>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>key</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-additems-page"><p>key Is the key that identifies a contextual menu item.</p>
+</div></td></tr><tr><td>i18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-additems-page"><p>i18nKey Is the message key of the contextual menu item to be translated.</p>
+</div></td></tr><tr><td>condition</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-additems-page"><p>condition Is an optional entry that holds the condition function required to activate the menu item. It is invoked with the following payload:
+<pre class="prettyprint linenums">
+{
+                    	componentType: the smartedit component type
+                    	componentId: the smartedit component id
+                    	containerType: the type of the container wrapping the component, if applicable
+                    	containerId: the id of the container wrapping the component, if applicable
+                    	element: the dom element of the component onto which the contextual menu is applied
+		}
+</pre>
+</div></td></tr><tr><td>callback</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-additems-page"><p>Is the action to be performed by clicking on the menu item. It is invoked with:
+<pre class="prettyprint linenums">
+{
+                    	componentType: the smartedit component type
+                    	componentId: the smartedit component id
+                    	containerType: the type of the container wrapping the component, if applicable
+                    	containerId: the id of the container wrapping the component, if applicable
+                    	slotId: the id of the content slot containing the component
+		}
+</pre>
+</div></td></tr><tr><td>displayClass</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-additems-page"><p>Contains the CSS classes used to style the contextual menu item</p>
+</div></td></tr><tr><td>iconIdle</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-additems-page"><p>iconIdle Contains the location of the idle icon of the contextual menu item to be displayed.</p>
+</div></td></tr><tr><td>iconNonIdle</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-additems-page"><p>iconNonIdle Contains the location of the non-idle icon of the contextual menu item to be displayed.</p>
+</div></td></tr><tr><td>smallIcon</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-additems-page"><p>smallIcon Contains the location of the smaller version of the icon to be displayed when the menu item is part of the More... menu options.</p>
+</div></td></tr></tbody></table></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_getcontextualmenubytype">getContextualMenuByType(componentType)</h3>
+<div class="getcontextualmenubytype"><div class="contextualmenuservicemodule-contextualmenuservice-getcontextualmenubytype-page"><p>Will return an array of contextual menu items for a specific component type.
+For each key in the contextual menus&#39; object, the method converts each component type into a valid regex using the regExpFactory of the function module and then compares it with the input componentType and, if matched, will add it to an array and returns the array.</p>
+</div><h5 id="methods_getcontextualmenubytype_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>componentType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-getcontextualmenubytype-page"><p>The type code of the selected component</p>
+</div></td></tr></tbody></table><h5 id="methods_getcontextualmenubytype_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-getcontextualmenubytype-page"><p>An array of contextual menu items assigned to the type.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getcontextualmenuitems">getContextualMenuItems(configuration)</h3>
+<div class="getcontextualmenuitems"><div class="contextualmenuservicemodule-contextualmenuservice-getcontextualmenuitems-page"><p>Will return an object that contains a list of contextual menu items that are visible and those that are to be added to the More... options.</p>
+<p>For each component and display limit size, two arrays are generated.
+One array contains the menu items that can be displayed and the other array contains the menu items that are available under the more menu items action.</p>
+</div><h5 id="methods_getcontextualmenuitems_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>configuration</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-getcontextualmenuitems-page"><p>The configuration used to determine the selected components</p>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>componentType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-getcontextualmenuitems-page"><p>The type code of the selected component.</p>
+</div></td></tr><tr><td>componentId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-getcontextualmenuitems-page"><p>The ID of the selected component.</p>
+</div></td></tr><tr><td>containerType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-getcontextualmenuitems-page"><p>The type code of the container of the component if applicable, this is optional.</p>
+</div></td></tr><tr><td>containerId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-getcontextualmenuitems-page"><p>The ID of the container of the component if applicable, this is optional.</p>
+</div></td></tr><tr><td>iLeftBtns</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-getcontextualmenuitems-page"><p>The number of visible contextual menu items for a specified component.</p>
+</div></td></tr><tr><td>element</td><td><a href="" class="label type-hint type-hint-element">Element</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-getcontextualmenuitems-page"><p>The DOM element of selected component</p>
+</div></td></tr></tbody></table></td></tr></tbody></table><h5 id="methods_getcontextualmenuitems_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-getcontextualmenuitems-page"><p>An array of contextual menu items assigned to the component type.</p>
+<p>The returned object contains the following properties</p>
+<ul>
+<li>leftMenuItems : An array of menu items that can be displayed on the component.</li>
+<li>moreMenuItems : An array of menu items that are available under the more menu items action.</li>
+</ul>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_removeitembykey">removeItemByKey(itemKey)</h3>
+<div class="removeitembykey"><div class="contextualmenuservicemodule-contextualmenuservice-removeitembykey-page"><p>This method removes the menu items identified by the provided key.</p>
+</div><h5 id="methods_removeitembykey_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>itemKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="contextualmenuservicemodule-contextualmenuservice-removeitembykey-page"><p>The key that identifies the menu items to remove.</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

@@ -1,0 +1,44 @@
+<h1><code ng:non-bindable="">MessageGateway</code>
+<div><span class="hint">service in module <code ng:non-bindable="">gatewayFactoryModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="gatewayfactorymodule-messagegateway-page"><p>The Message Gateway is a private channel that is used to publish and subscribe to events across iFrame
+boundaries. The gateway uses the W3C-compliant postMessage as its underlying technology. The benefits of
+the postMessage are that:</p>
+<ul>
+    <li>It works in cross-origin scenarios.</li>
+    <li>The receiving end can reject messages based on their origins.</li>
+</ul>
+
+<p>The creation of instances is controlled by the <a href="#/smartEditContainer/gatewayFactoryModule.gatewayFactory">gatewayFactory</a>. Only one
+instance can exist for each gateway ID.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage"><pre class="prettyprint linenums">MessageGateway(gatewayId);</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>gatewayId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="gatewayfactorymodule-messagegateway-page"><p>The channel identifier</p>
+</div></td></tr></tbody></table></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_publish">publish(eventId, data, retries, pk)</h3>
+<div class="publish"><div class="gatewayfactorymodule-messagegateway-publish-page"><p>Publishes a message across the gateway using the postMessage.</p>
+<p>The gateway&#39;s publish method implements promises, which are an AngularJS implementation. To resolve a
+publish promise, all listener promises on the side of the channel must resolve. If a failure occurs in the
+chain, the chain is interrupted and the publish promise is rejected.</p>
+</div><h5 id="methods_publish_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>eventId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="gatewayfactorymodule-messagegateway-publish-page"><p>Event identifier</p>
+</div></td></tr><tr><td>data</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="gatewayfactorymodule-messagegateway-publish-page"><p>Message payload</p>
+</div></td></tr><tr><td>retries</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="gatewayfactorymodule-messagegateway-publish-page"><p>The current number of attempts to publish a message.</p>
+</div></td></tr><tr><td>pk</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="gatewayfactorymodule-messagegateway-publish-page"><p>An optional parameter. It is a primary key for the event, which is generated after
+the first attempt to send a message.</p>
+</div></td></tr></tbody></table><h5 id="methods_publish_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-promise">Promise</a></td><td><div class="gatewayfactorymodule-messagegateway-publish-page"><p>Promise to resolve</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_subscribe">subscribe(eventId, callback)</h3>
+<div class="subscribe"><div class="gatewayfactorymodule-messagegateway-subscribe-page"><p>Registers the given callback function to the given event ID.</p>
+</div><h5 id="methods_subscribe_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>eventId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="gatewayfactorymodule-messagegateway-subscribe-page"><p>Event identifier</p>
+</div></td></tr><tr><td>callback</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="gatewayfactorymodule-messagegateway-subscribe-page"><p>Callback function to be invoked</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns:context="http://www.springframework.org/schema/context"
+		 xmlns:util="http://www.springframework.org/schema/util"
+		 xsi:schemaLocation="http://www.springframework.org/schema/beans
+		 	http://www.springframework.org/schema/beans/spring-beans.xsd
+		 	http://www.springframework.org/schema/context
+		 	http://www.springframework.org/schema/context/spring-context.xsd
+		 	http://www.springframework.org/schema/util
+		 	http://www.springframework.org/schema/util/spring-util.xsd"
+		 profile="tenant_junit">
+
+	<context:annotation-config />
+
+	<bean id="c4cIntegrationServer1" parent="atddServletContainer">
+		<property name="logFilePath" value="${c4ccustomeratddtests.jetty.log}"/>
+		<property name="port" value="${c4ccustomeratddtests.jetty.port}"/>
+		<property name="webappRunnerJarFile" value="webapp-runner.jar"/>
+		<property name="properties">
+			<props>
+				<prop key="java.security.egd">file:/dev/./urandom</prop>
+				<prop key="kernel.autoInitMode">create-drop</prop>
+				<prop key="datahub.c4c.exportURL">${c4ccustomeratddtests.datahub.c4c.exportURL}</prop>
+				<prop key="datahub.c4c.userName">${c4ccustomeratddtests.datahub.c4c.userName}</prop>
+				<prop key="datahub.c4c.password">${c4ccustomeratddtests.datahub.c4c.password}</prop>
+				<prop key="datahub.c4c.senderParty.schemeID.C4CCUSTOMER_POOL">${c4ccustomeratddtests.datahub.c4c.senderParty.schemeID.C4CCUSTOMER_POOL}</prop>
+				<prop key="datahub.c4c.senderParty.internalID.C4CCUSTOMER_POOL">${c4ccustomeratddtests.datahub.c4c.senderParty.internalID.C4CCUSTOMER_POOL}</prop>
+				<prop key="datahub.c4c.senderParty.schemeAgencyID.C4CCUSTOMER_POOL">${c4ccustomeratddtests.datahub.c4c.senderParty.schemeAgencyID.C4CCUSTOMER_POOL}</prop>
+				<prop key="datahub.c4c.recipientParty.schemeID.C4CCUSTOMER_POOL">${c4ccustomeratddtests.datahub.c4c.recipientParty.schemeID.C4CCUSTOMER_POOL}</prop>
+				<prop key="datahub.c4c.recipientParty.internalID.C4CCUSTOMER_POOL">${c4ccustomeratddtests.datahub.c4c.recipientParty.internalID.C4CCUSTOMER_POOL}</prop>
+				<prop key="datahub.c4c.recipientParty.schemeAgencyID.C4CCUSTOMER_POOL">${c4ccustomeratddtests.datahub.c4c.recipientParty.schemeAgencyID.C4CCUSTOMER_POOL}</prop>
+				<prop key="datahub.encryption.key.path">${c4ccustomeratddtests.datahub.encryption.key.path}</prop>
+				<!-- the following properties are meant for setting basic authentication on datahub -->
+				<prop key="datahub.security.basic.admin.user">${c4ccustomeratddtests.datahub.security.basic.admin.user}</prop>
+				<prop key="datahub.security.basic.admin.password">${c4ccustomeratddtests.datahub.security.basic.admin.password}</prop>
+				<prop key="datahub.security.basic.read_only.user">${c4ccustomeratddtests.datahub.security.basic.read_only.user}</prop>
+				<prop key="datahub.security.basic.read_only.password">${c4ccustomeratddtests.datahub.security.basic.read_only.password}</prop>
+			</props>
+		</property>
+		<property name="servlets">
+				<list>
+					<bean parent="servletDefinition">
+						<property name="contextPath" value="/datahub"/>
+						<property name="servletPath" value="${c4ccustomeratddtests.war.path}"/>
+						<property name="heartbeat" value="/datahub"/>
+					</bean>
+				</list>
+		</property>
+	</bean>
+
+	<bean id="c4cIntegrationServer2" parent="atddServletContainer">
+		<property name="logFilePath" value="${c4ccustomeratddtests.jetty2.log}"/>
+		<property name="port" value="${c4ccustomeratddtests.jetty2.port}"/>
+		<property name="webappRunnerJarFile" value="webapp-runner.jar"/>
+		<property name="properties">
+			<props>
+				<prop key="java.security.egd">file:/dev/./urandom</prop>
+			</props>
+		</property>
+		<property name="servlets">
+				<list>
+					<bean parent="servletDefinition">
+						<property name="contextPath" value="/c4c-endpoint-mock-webapp"/>
+						<property name="servletPath" value="${c4ccustomeratddtests.c4c.endpoint.mock.war.path}"/>
+						<property name="heartbeat" value="${c4ccustomeratddtests.c4c.endpoint.mock.heartbeat}"/>
+					</bean>
+				</list>
+		</property>
+	</bean>
+</beans>

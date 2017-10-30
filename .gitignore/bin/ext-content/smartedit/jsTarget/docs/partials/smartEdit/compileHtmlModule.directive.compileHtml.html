@@ -1,0 +1,25 @@
+<h1><code ng:non-bindable="">compileHtml</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">compileHtmlModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="compilehtmlmodule-directive-page compilehtmlmodule-directive-compilehtml-page"><p>Directive responsible for evaluating and compiling HTML markup.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as attribute<pre class="prettyprint linenums">&lt;ANY compile-html
+     string="{String}"&gt;
+   ...
+&lt;/ANY&gt;</pre>
+<h3 id="usage_directive-info">Directive info</h3>
+<div class="directive-info"><ul><li>This directive creates new scope.</li>
+</ul>
+</div>
+<h4 id="usage_directive-info_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>String</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="compilehtmlmodule-directive-page compilehtmlmodule-directive-compilehtml-page"><p>HTML string to be evaluated and compiled.</p>
+</div></td></tr></tbody></table></div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="compilehtmlmodule-directive-page compilehtmlmodule-directive-compilehtml-page"><pre class="prettyprint linenums">
+&lt;div compile-html="&lt;a data-ng-click=\"injectedContext.onLink( item.path )\"&gt;{{ item[key.property] }}&lt;/a&gt;"&gt;&lt;/div&gt;
+</pre>
+</div></div>
+</div>

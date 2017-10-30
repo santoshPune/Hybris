@@ -1,0 +1,165 @@
+	$contentCatalog=electronicsContentCatalog
+	$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+	$jarResourceCms=jar:de.hybris.platform.personalizationsampledataaddon.constants.PersonalizationsampledataaddonConstants&/personalizationsampledataaddon/import/cockpit/cmscockpit
+	$siteResource=jar:de.hybris.platform.personalizationsampledataaddon.constants.PersonalizationsampledataaddonConstants&/personalizationsampledataaddon/import/contentCatalogs/$contentCatalog
+	$medias=medias(code, $contentCV);
+	$mediaContainer=media(qualifier, $contentCV);
+	
+	
+	INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;content[lang=en];&componentRef
+	;;variationRHighComponent;High Resolution Component;"You have high resolution";variationRHighComponent
+	;;variationRMidComponent;Mid Resolution Component;"You have mid resolution";variationRMidComponent
+	;;variationRLowComponent;Low Resolution Component;"You have low resolution";variationRLowComponent
+	
+	
+	#####################
+	#####################
+	INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+	#variationB1
+	;mobile;xpB1Elec_480x320_HomeSpeed_EN_01_480W.jpg;$siteResource/images/banners/homepage/responsive/xpB1Elec_480x320_HomeSpeed_EN_01_480W.jpg;xpB1Elec_480x320_HomeSpeed_EN_01_480W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;tablet;xpB1Elec_770x350_HomeSpeed_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/xpB1Elec_770x350_HomeSpeed_EN_01_770W.jpg;xpB1Elec_770x350_HomeSpeed_EN_01_770W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;desktop;xpB1Elec_960x330_HomeSpeed_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/xpB1Elec_960x330_HomeSpeed_EN_01_960W.jpg;xpB1Elec_960x330_HomeSpeed_EN_01_960W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;widescreen;xpB1Elec_1400x440_HomeSpeed_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/xpB1Elec_1400x440_HomeSpeed_EN_01_1400W.jpg;xpB1Elec_1400x440_HomeSpeed_EN_01_1400W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	#variationB2
+	;mobile;xpB2Elec_480x320_HomeSpeed_EN_01_480W.jpg;$siteResource/images/banners/homepage/responsive/xpB2Elec_480x320_HomeSpeed_EN_01_480W.jpg;xpB2Elec_480x320_HomeSpeed_EN_01_480W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;tablet;xpB2Elec_770x350_HomeSpeed_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/xpB2Elec_770x350_HomeSpeed_EN_01_770W.jpg;xpB2Elec_770x350_HomeSpeed_EN_01_770W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;desktop;xpB2Elec_960x330_HomeSpeed_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/xpB2Elec_960x330_HomeSpeed_EN_01_960W.jpg;xpB2Elec_960x330_HomeSpeed_EN_01_960W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;widescreen;xpB2Elec_1400x440_HomeSpeed_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/xpB2Elec_1400x440_HomeSpeed_EN_01_1400W.jpg;xpB2Elec_1400x440_HomeSpeed_EN_01_1400W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	#variationB3
+	;mobile;xpB3Elec_480x320_HomeSpeed_EN_01_480W.jpg;$siteResource/images/banners/homepage/responsive/xpB3Elec_480x320_HomeSpeed_EN_01_480W.jpg;xpB3Elec_480x320_HomeSpeed_EN_01_480W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;tablet;xpB3Elec_770x350_HomeSpeed_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/xpB3Elec_770x350_HomeSpeed_EN_01_770W.jpg;xpB3Elec_770x350_HomeSpeed_EN_01_770W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;desktop;xpB3Elec_960x330_HomeSpeed_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/xpB3Elec_960x330_HomeSpeed_EN_01_960W.jpg;xpB3Elec_960x330_HomeSpeed_EN_01_960W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;widescreen;xpB3Elec_1400x440_HomeSpeed_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/xpB3Elec_1400x440_HomeSpeed_EN_01_1400W.jpg;xpB3Elec_1400x440_HomeSpeed_EN_01_1400W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	#variationB4
+	;mobile;xpB4Elec_480x320_HomeSpeed_EN_01_480W.jpg;$siteResource/images/banners/homepage/responsive/xpB4Elec_480x320_HomeSpeed_EN_01_480W.jpg;xpB4Elec_480x320_HomeSpeed_EN_01_480W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;tablet;xpB4Elec_770x350_HomeSpeed_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/xpB4Elec_770x350_HomeSpeed_EN_01_770W.jpg;xpB4Elec_770x350_HomeSpeed_EN_01_770W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;desktop;xpB4Elec_960x330_HomeSpeed_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/xpB4Elec_960x330_HomeSpeed_EN_01_960W.jpg;xpB4Elec_960x330_HomeSpeed_EN_01_960W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;widescreen;xpB4Elec_1400x440_HomeSpeed_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/xpB4Elec_1400x440_HomeSpeed_EN_01_1400W.jpg;xpB4Elec_1400x440_HomeSpeed_EN_01_1400W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	#variationS1
+	;tablet;xpS1Elec_200x150_HomeKid_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpS1Elec_200x150_HomeKid_EN_01_200W.jpg;xpS1Elec_200x150_HomeKid_EN_01_200W.jpg;"Power Supplies";
+	;desktop;xpS1Elec_240x180_HomeKid_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpS1Elec_240x180_HomeKid_EN_01_240W.jpg;xpS1Elec_240x180_HomeKid_EN_01_240W.jpg;"Power Supplies";
+	;widescreen;xpS1Elec_350x262_HomeKid_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpS1Elec_350x262_HomeKid_EN_01_350W.jpg;xpS1Elec_350x262_HomeKid_EN_01_350W.jpg;"Power Supplies";
+	;tablet;xpS1Elec_200x200_HomeShipment_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpS1Elec_200x200_HomeShipment_EN_01_200W.jpg;xpS1Elec_200x200_HomeShipment_EN_01_200W.jpg;"Samsung NV10 Compact Camera";
+	;desktop;xpS1Elec_240x240_HomeShipment_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpS1Elec_240x240_HomeShipment_EN_01_240W.jpg;xpS1Elec_240x240_HomeShipment_EN_01_240W.jpg;"Samsung NV10 Compact Camera";
+	;widescreen;xpS1Elec_350x350_HomeShipment_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpS1Elec_350x350_HomeShipment_EN_01_350W.jpg;xpS1Elec_350x350_HomeShipment_EN_01_350W.jpg;"Samsung NV10 Compact Camera";
+	#variationS2
+	;tablet;xpS2Elec_200x150_HomeKid_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpS2Elec_200x150_HomeKid_EN_01_200W.jpg;xpS2Elec_200x150_HomeKid_EN_01_200W.jpg;"Power Supplies";
+	;desktop;xpS2Elec_240x180_HomeKid_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpS2Elec_240x180_HomeKid_EN_01_240W.jpg;xpS2Elec_240x180_HomeKid_EN_01_240W.jpg;"Power Supplies";
+	;widescreen;xpS2Elec_350x262_HomeKid_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpS2Elec_350x262_HomeKid_EN_01_350W.jpg;xpS2Elec_350x262_HomeKid_EN_01_350W.jpg;"Power Supplies";
+	;tablet;xpS2Elec_200x200_HomeShipment_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpS2Elec_200x200_HomeShipment_EN_01_200W.jpg;xpS2Elec_200x200_HomeShipment_EN_01_200W.jpg;"Samsung NV10 Compact Camera";
+	;desktop;xpS2Elec_240x240_HomeShipment_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpS2Elec_240x240_HomeShipment_EN_01_240W.jpg;xpS2Elec_240x240_HomeShipment_EN_01_240W.jpg;"Samsung NV10 Compact Camera";
+	;widescreen;xpS2Elec_350x350_HomeShipment_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpS2Elec_350x350_HomeShipment_EN_01_350W.jpg;xpS2Elec_350x350_HomeShipment_EN_01_350W.jpg;"Samsung NV10 Compact Camera";
+	#variationV1
+	;tablet;xpV1Elec_200x150_HomeFam_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpV1Elec_200x150_HomeFam_EN_01_200W.jpg;xpV1Elec_200x150_HomeFam_EN_01_200W.jpg;"Compact Cameras";
+	;desktop;xpV1Elec_240x180_HomeFam_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpV1Elec_240x180_HomeFam_EN_01_240W.jpg;xpV1Elec_240x180_HomeFam_EN_01_240W.jpg;"Compact Cameras";
+	;widescreen;xpV1Elec_350x262_HomeFam_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpV1Elec_350x262_HomeFam_EN_01_350W.jpg;xpV1Elec_350x262_HomeFam_EN_01_350W.jpg;"Compact Cameras";	
+	#variationV2
+	;tablet;xpV2Elec_200x150_HomeFam_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpV2Elec_200x150_HomeFam_EN_01_200W.jpg;xpV2Elec_200x150_HomeFam_EN_01_200W.jpg;"Compact Cameras";
+	;desktop;xpV2Elec_240x180_HomeFam_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpV2Elec_240x180_HomeFam_EN_01_240W.jpg;xpV2Elec_240x180_HomeFam_EN_01_240W.jpg;"Compact Cameras";
+	;widescreen;xpV2Elec_350x262_HomeFam_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpV2Elec_350x262_HomeFam_EN_01_350W.jpg;xpV2Elec_350x262_HomeFam_EN_01_350W.jpg;"Compact Cameras";
+	#variationV3
+	;tablet;xpV3Elec_200x150_HomeFam_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpV3Elec_200x150_HomeFam_EN_01_200W.jpg;xpV3Elec_200x150_HomeFam_EN_01_200W.jpg;"Compact Cameras";
+	;desktop;xpV3Elec_240x180_HomeFam_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpV3Elec_240x180_HomeFam_EN_01_240W.jpg;xpV3Elec_240x180_HomeFam_EN_01_240W.jpg;"Compact Cameras";
+	;widescreen;xpV3Elec_350x262_HomeFam_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpV3Elec_350x262_HomeFam_EN_01_350W.jpg;xpV3Elec_350x262_HomeFam_EN_01_350W.jpg;"Compact Cameras";
+	#variationV4
+	;tablet;xpV4Elec_200x150_HomeFam_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpV4Elec_200x150_HomeFam_EN_01_200W.jpg;xpV4Elec_200x150_HomeFam_EN_01_200W.jpg;"Compact Cameras";
+	;desktop;xpV4Elec_240x180_HomeFam_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpV4Elec_240x180_HomeFam_EN_01_240W.jpg;xpV4Elec_240x180_HomeFam_EN_01_240W.jpg;"Compact Cameras";
+	;widescreen;xpV4Elec_350x262_HomeFam_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpV4Elec_350x262_HomeFam_EN_01_350W.jpg;xpV4Elec_350x262_HomeFam_EN_01_350W.jpg;"Compact Cameras";
+	#variationP1
+	;tablet;xpP1Elec_200x200_HomeShipment_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpP1Elec_200x200_HomeShipment_EN_01_200W.jpg;xpP1Elec_200x200_HomeShipment_EN_01_200W.jpg;"Samsung NV10 Compact Camera";
+	;desktop;xpP1Elec_240x240_HomeShipment_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpP1Elec_240x240_HomeShipment_EN_01_240W.jpg;xpP1Elec_240x240_HomeShipment_EN_01_240W.jpg;"Samsung NV10 Compact Camera";
+	;widescreen;xpP1Elec_350x350_HomeShipment_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpP1Elec_350x350_HomeShipment_EN_01_350W.jpg;xpP1Elec_350x350_HomeShipment_EN_01_350W.jpg;"Samsung NV10 Compact Camera";
+	#variationP2
+	;tablet;xpP2Elec_200x200_HomeShipment_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpP2Elec_200x200_HomeShipment_EN_01_200W.jpg;xpP2Elec_200x200_HomeShipment_EN_01_200W.jpg;"Samsung NV10 Compact Camera";
+	;desktop;xpP2Elec_240x240_HomeShipment_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpP2Elec_240x240_HomeShipment_EN_01_240W.jpg;xpP2Elec_240x240_HomeShipment_EN_01_240W.jpg;"Samsung NV10 Compact Camera";
+	;widescreen;xpP2Elec_350x350_HomeShipment_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpP2Elec_350x350_HomeShipment_EN_01_350W.jpg;xpP2Elec_350x350_HomeShipment_EN_01_350W.jpg;"Samsung NV10 Compact Camera";
+	#variationP3
+	;tablet;xpP3Elec_200x200_HomeShipment_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpP3Elec_200x200_HomeShipment_EN_01_200W.jpg;xpP3Elec_200x200_HomeShipment_EN_01_200W.jpg;"Samsung NV10 Compact Camera";
+	;desktop;xpP3Elec_240x240_HomeShipment_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpP3Elec_240x240_HomeShipment_EN_01_240W.jpg;xpP3Elec_240x240_HomeShipment_EN_01_240W.jpg;"Samsung NV10 Compact Camera";
+	;widescreen;xpP3Elec_350x350_HomeShipment_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpP3Elec_350x350_HomeShipment_EN_01_350W.jpg;xpP3Elec_350x350_HomeShipment_EN_01_350W.jpg;"Samsung NV10 Compact Camera";
+	#variationP4
+	;tablet;xpP4Elec_200x200_HomeShipment_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpP4Elec_200x200_HomeShipment_EN_01_200W.jpg;xpP4Elec_200x200_HomeShipment_EN_01_200W.jpg;"Samsung NV10 Compact Camera";
+	;desktop;xpP4Elec_240x240_HomeShipment_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpP4Elec_240x240_HomeShipment_EN_01_240W.jpg;xpP4Elec_240x240_HomeShipment_EN_01_240W.jpg;"Samsung NV10 Compact Camera";
+	;widescreen;xpP4Elec_350x350_HomeShipment_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpP4Elec_350x350_HomeShipment_EN_01_350W.jpg;xpP4Elec_350x350_HomeShipment_EN_01_350W.jpg;"Samsung NV10 Compact Camera";
+	#variationP5
+	;tablet;xpP5Elec_200x200_HomeShipment_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/xpP5Elec_200x200_HomeShipment_EN_01_200W.jpg;xpP5Elec_200x200_HomeShipment_EN_01_200W.jpg;"Samsung NV10 Compact Camera";
+	;desktop;xpP5Elec_240x240_HomeShipment_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/xpP5Elec_240x240_HomeShipment_EN_01_240W.jpg;xpP5Elec_240x240_HomeShipment_EN_01_240W.jpg;"Samsung NV10 Compact Camera";
+	;widescreen;xpP5Elec_350x350_HomeShipment_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/xpP5Elec_350x350_HomeShipment_EN_01_350W.jpg;xpP5Elec_350x350_HomeShipment_EN_01_350W.jpg;"Samsung NV10 Compact Camera";
+	#default
+	;mobile;defaultElec_480x320_HomeSpeed_EN_01_480W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_480x320_HomeSpeed_EN_01_480W.jpg;defaultElec_480x320_HomeSpeed_EN_01_480W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;tablet;defaultElec_770x350_HomeSpeed_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_770x350_HomeSpeed_EN_01_770W.jpg;defaultElec_770x350_HomeSpeed_EN_01_770W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;desktop;defaultElec_960x330_HomeSpeed_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_960x330_HomeSpeed_EN_01_960W.jpg;defaultElec_960x330_HomeSpeed_EN_01_960W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;widescreen;defaultElec_1400x440_HomeSpeed_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_1400x440_HomeSpeed_EN_01_1400W.jpg;defaultElec_1400x440_HomeSpeed_EN_01_1400W.jpg;"Save Big On Select SLR & DSLR Cameras";
+	;tablet;defaultElec_200x150_HomeKid_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_200x150_HomeKid_EN_01_200W.jpg;defaultElec_200x150_HomeKid_EN_01_200W.jpg;"Power Supplies";
+	;desktop;defaultElec_240x180_HomeKid_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_240x180_HomeKid_EN_01_240W.jpg;defaultElec_240x180_HomeKid_EN_01_240W.jpg;"Power Supplies";
+	;widescreen;defaultElec_350x262_HomeKid_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_350x262_HomeKid_EN_01_350W.jpg;defaultElec_350x262_HomeKid_EN_01_350W.jpg;"Power Supplies";
+	;tablet;defaultElec_200x200_HomeShipment_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_200x200_HomeShipment_EN_01_200W.jpg;defaultElec_200x200_HomeShipment_EN_01_200W.jpg;"Samsung NV10 Compact Camera";
+	;desktop;defaultElec_240x240_HomeShipment_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_240x240_HomeShipment_EN_01_240W.jpg;defaultElec_240x240_HomeShipment_EN_01_240W.jpg;"Samsung NV10 Compact Camera";
+	;widescreen;defaultElec_350x350_HomeShipment_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_350x350_HomeShipment_EN_01_350W.jpg;defaultElec_350x350_HomeShipment_EN_01_350W.jpg;"Samsung NV10 Compact Camera";
+	;tablet;defaultElec_200x150_HomeFam_EN_01_200W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_200x150_HomeFam_EN_01_200W.jpg;defaultElec_200x150_HomeFam_EN_01_200W.jpg;"Compact Cameras";
+	;desktop;defaultElec_240x180_HomeFam_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_240x180_HomeFam_EN_01_240W.jpg;defaultElec_240x180_HomeFam_EN_01_240W.jpg;"Compact Cameras";
+	;widescreen;defaultElec_350x262_HomeFam_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/defaultElec_350x262_HomeFam_EN_01_350W.jpg;defaultElec_350x262_HomeFam_EN_01_350W.jpg;"Compact Cameras";
+	
+	
+	
+	INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+	;variationB1electronics-homepage-spalsh-en;xpB1Elec_480x320_HomeSpeed_EN_01_480W.jpg,xpB1Elec_770x350_HomeSpeed_EN_01_770W.jpg,xpB1Elec_960x330_HomeSpeed_EN_01_960W.jpg,xpB1Elec_1400x440_HomeSpeed_EN_01_1400W.jpg
+	;variationB2electronics-homepage-spalsh-en;xpB2Elec_480x320_HomeSpeed_EN_01_480W.jpg,xpB2Elec_770x350_HomeSpeed_EN_01_770W.jpg,xpB2Elec_960x330_HomeSpeed_EN_01_960W.jpg,xpB2Elec_1400x440_HomeSpeed_EN_01_1400W.jpg
+	;variationB3electronics-homepage-spalsh-en;xpB3Elec_480x320_HomeSpeed_EN_01_480W.jpg,xpB3Elec_770x350_HomeSpeed_EN_01_770W.jpg,xpB3Elec_960x330_HomeSpeed_EN_01_960W.jpg,xpB3Elec_1400x440_HomeSpeed_EN_01_1400W.jpg
+	;variationB4electronics-homepage-spalsh-en;xpB4Elec_480x320_HomeSpeed_EN_01_480W.jpg,xpB4Elec_770x350_HomeSpeed_EN_01_770W.jpg,xpB4Elec_960x330_HomeSpeed_EN_01_960W.jpg,xpB4Elec_1400x440_HomeSpeed_EN_01_1400W.jpg
+	;variationS1electronics-homepage-camcorders-en;xpS1Elec_200x150_HomeKid_EN_01_200W.jpg,xpS1Elec_240x180_HomeKid_EN_01_240W.jpg,xpS1Elec_350x262_HomeKid_EN_01_350W.jpg
+	;variationS2electronics-homepage-camcorders-en;xpS2Elec_200x150_HomeKid_EN_01_200W.jpg,xpS2Elec_240x180_HomeKid_EN_01_240W.jpg,xpS2Elec_350x262_HomeKid_EN_01_350W.jpg
+	;variationS1electronics-homepage-shipment-en;xpS1Elec_200x200_HomeShipment_EN_01_200W.jpg,xpS1Elec_240x240_HomeShipment_EN_01_240W.jpg,xpS1Elec_350x350_HomeShipment_EN_01_350W.jpg
+	;variationS2electronics-homepage-shipment-en;xpS2Elec_200x200_HomeShipment_EN_01_200W.jpg,xpS2Elec_240x240_HomeShipment_EN_01_240W.jpg,xpS2Elec_350x350_HomeShipment_EN_01_350W.jpg
+	;variationV1electronics-homepage-light-fam-en;xpV1Elec_200x150_HomeFam_EN_01_200W.jpg,xpV1Elec_240x180_HomeFam_EN_01_240W.jpg,xpV1Elec_350x262_HomeFam_EN_01_350W.jpg
+	;variationV2electronics-homepage-light-fam-en;xpV2Elec_200x150_HomeFam_EN_01_200W.jpg,xpV2Elec_240x180_HomeFam_EN_01_240W.jpg,xpV2Elec_350x262_HomeFam_EN_01_350W.jpg
+	;variationV3electronics-homepage-light-fam-en;xpV3Elec_200x150_HomeFam_EN_01_200W.jpg,xpV3Elec_240x180_HomeFam_EN_01_240W.jpg,xpV3Elec_350x262_HomeFam_EN_01_350W.jpg
+	;variationV4electronics-homepage-light-fam-en;xpV4Elec_200x150_HomeFam_EN_01_200W.jpg,xpV4Elec_240x180_HomeFam_EN_01_240W.jpg,xpV4Elec_350x262_HomeFam_EN_01_350W.jpg
+	;variationP1electronics-homepage-shipment-en;xpP1Elec_200x200_HomeShipment_EN_01_200W.jpg,xpP1Elec_240x240_HomeShipment_EN_01_240W.jpg,xpP1Elec_350x350_HomeShipment_EN_01_350W.jpg
+	;variationP2electronics-homepage-shipment-en;xpP2Elec_200x200_HomeShipment_EN_01_200W.jpg,xpP2Elec_240x240_HomeShipment_EN_01_240W.jpg,xpP2Elec_350x350_HomeShipment_EN_01_350W.jpg
+	;variationP3electronics-homepage-shipment-en;xpP3Elec_200x200_HomeShipment_EN_01_200W.jpg,xpP3Elec_240x240_HomeShipment_EN_01_240W.jpg,xpP3Elec_350x350_HomeShipment_EN_01_350W.jpg
+	;variationP4electronics-homepage-shipment-en;xpP4Elec_200x200_HomeShipment_EN_01_200W.jpg,xpP4Elec_240x240_HomeShipment_EN_01_240W.jpg,xpP4Elec_350x350_HomeShipment_EN_01_350W.jpg
+	;variationP5electronics-homepage-shipment-en;xpP5Elec_200x200_HomeShipment_EN_01_200W.jpg,xpP5Elec_240x240_HomeShipment_EN_01_240W.jpg,xpP5Elec_350x350_HomeShipment_EN_01_350W.jpg
+	;defaultelectronics-homepage-spalsh-en;defaultElec_480x320_HomeSpeed_EN_01_480W.jpg,defaultElec_770x350_HomeSpeed_EN_01_770W.jpg,defaultElec_960x330_HomeSpeed_EN_01_960W.jpg,defaultElec_1400x440_HomeSpeed_EN_01_1400W.jpg
+	;defaultelectronics-homepage-camcorders-en;defaultElec_200x150_HomeKid_EN_01_200W.jpg,defaultElec_240x180_HomeKid_EN_01_240W.jpg,defaultElec_350x262_HomeKid_EN_01_350W.jpg
+	;defaultelectronics-homepage-shipment-en;defaultElec_200x200_HomeShipment_EN_01_200W.jpg,defaultElec_240x240_HomeShipment_EN_01_240W.jpg,defaultElec_350x350_HomeShipment_EN_01_350W.jpg
+	;defaultelectronics-homepage-light-fam-en;defaultElec_200x150_HomeFam_EN_01_200W.jpg,defaultElec_240x180_HomeFam_EN_01_240W.jpg,defaultElec_350x262_HomeFam_EN_01_350W.jpg
+	
+	INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];$mediaContainer;name;urlLink;&componentRef
+	;;variationB1ElectronicsHompageSplashBannerComponent;variationB1electronics-homepage-spalsh-en;Electronics Homepage Splash Banner Component;/OpenCatalogue/Cameras/Digital-Cameras/Digital-SLR/c/578;variationB1ElectronicsHompageSplashBannerComponent
+	;;variationB2ElectronicsHompageSplashBannerComponent;variationB2electronics-homepage-spalsh-en;Electronics Homepage Splash Banner Component;/OpenCatalogue/Cameras/Digital-Cameras/Digital-SLR/c/578;variationB2ElectronicsHompageSplashBannerComponent
+	;;variationB3ElectronicsHompageSplashBannerComponent;variationB3electronics-homepage-spalsh-en;Electronics Homepage Splash Banner Component;/OpenCatalogue/Cameras/Digital-Cameras/Digital-SLR/c/578;variationB3ElectronicsHompageSplashBannerComponent
+	;;variationB4ElectronicsHompageSplashBannerComponent;variationB4electronics-homepage-spalsh-en;Electronics Homepage Splash Banner Component;/OpenCatalogue/Cameras/Digital-Cameras/Digital-SLR/c/578;variationB4ElectronicsHompageSplashBannerComponent
+	;;variationS1ElectronicsHompageCamcordersBannerComponent;variationS1electronics-homepage-camcorders-en;Electronics Homepage Camcorders Banner Component;/Open-Catalogue/Cameras/Hand-held-Camcorders/c/584;variationS1ElectronicsHompageCamcordersBannerComponent
+	;;variationS2ElectronicsHompageCamcordersBannerComponent;variationS2electronics-homepage-camcorders-en;Electronics Homepage Camcorders Banner Component;/Open-Catalogue/Cameras/Hand-held-Camcorders/c/584;variationS2ElectronicsHompageCamcordersBannerComponent
+	;;variationS1ElectronicsHompageShipmentBannerComponent;variationS1electronics-homepage-shipment-en;Electronics Homepage Shipment Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/NV10/p/553637;variationS1ElectronicsHompageShipmentBannerComponent
+	;;variationS2ElectronicsHompageShipmentBannerComponent;variationS2electronics-homepage-shipment-en;Electronics Homepage Shipment Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/NV10/p/553637;variationS2ElectronicsHompageShipmentBannerComponent
+	;;variationV1ElectronicsHompageLightFamBannerComponent;variationV1electronics-homepage-light-fam-en;Electronics Homepage Light Family Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/c/576;variationV1ElectronicsHompageLightFamBannerComponent
+	;;variationV2ElectronicsHompageLightFamBannerComponent;variationV2electronics-homepage-light-fam-en;Electronics Homepage Light Family Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/c/576;variationV2ElectronicsHompageLightFamBannerComponent
+	;;variationV3ElectronicsHompageLightFamBannerComponent;variationV3electronics-homepage-light-fam-en;Electronics Homepage Light Family Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/c/576;variationV3ElectronicsHompageLightFamBannerComponent
+	;;variationV4ElectronicsHompageLightFamBannerComponent;variationV4electronics-homepage-light-fam-en;Electronics Homepage Light Family Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/c/576;variationV4ElectronicsHompageLightFamBannerComponent
+	;;variationP1ElectronicsHompageShipmentBannerComponent;variationP1electronics-homepage-shipment-en;Electronics Homepage Shipment Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/NV10/p/553637;variationP1ElectronicsHompageShipmentBannerComponent
+	;;variationP2ElectronicsHompageShipmentBannerComponent;variationP2electronics-homepage-shipment-en;Electronics Homepage Shipment Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/NV10/p/553637;variationP2ElectronicsHompageShipmentBannerComponent
+	;;variationP3ElectronicsHompageShipmentBannerComponent;variationP3electronics-homepage-shipment-en;Electronics Homepage Shipment Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/NV10/p/553637;variationP3ElectronicsHompageShipmentBannerComponent
+	;;variationP4ElectronicsHompageShipmentBannerComponent;variationP4electronics-homepage-shipment-en;Electronics Homepage Shipment Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/NV10/p/553637;variationP4ElectronicsHompageShipmentBannerComponent
+	;;variationP5ElectronicsHompageShipmentBannerComponent;variationP5electronics-homepage-shipment-en;Electronics Homepage Shipment Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/NV10/p/553637;variationP5ElectronicsHompageShipmentBannerComponent
+	;;defaultElectronicsHompageSplashBannerComponent;defaultelectronics-homepage-spalsh-en;Electronics Homepage Splash Banner Component;/OpenCatalogue/Cameras/Digital-Cameras/Digital-SLR/c/578;defaultElectronicsHompageSplashBannerComponent
+	;;defaultElectronicsHompageCamcordersBannerComponent;defaultelectronics-homepage-camcorders-en;Electronics Homepage Camcorders Banner Component;/Open-Catalogue/Cameras/Hand-held-Camcorders/c/584;defaultElectronicsHompageCamcordersBannerComponent
+	;;defaultElectronicsHompageShipmentBannerComponent;defaultelectronics-homepage-shipment-en;Electronics Homepage Shipment Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/NV10/p/553637;defaultElectronicsHompageShipmentBannerComponent
+	;;defaultElectronicsHompageLightFamBannerComponent;defaultelectronics-homepage-light-fam-en;Electronics Homepage Light Family Banner Component;/Open-Catalogue/Cameras/DigitalCameras/Digital-Compacts/c/576;defaultElectronicsHompageLightFamBannerComponent
+	
+	INSERT_UPDATE CxCmsComponentContainer;$contentCV[unique=true];uid[unique=true];name;simpleCMSComponents(&componentRef);defaultCmsComponent(&componentRef);&componentRef
+	;;Section1SlotHomepageCxContainer;Section1SlotHomepageCxContainer;variationB1ElectronicsHompageSplashBannerComponent,variationB2ElectronicsHompageSplashBannerComponent,variationB3ElectronicsHompageSplashBannerComponent,variationB4ElectronicsHompageSplashBannerComponent;defaultElectronicsHompageSplashBannerComponent;Section1SlotHomepageCxContainer
+	;;Section2BSlotHomepageCxContainer;Section2BSlotHomepageCxContainer;variationS1ElectronicsHompageCamcordersBannerComponent,variationS2ElectronicsHompageCamcordersBannerComponent,variationRHighComponent,variationRMidComponent,variationRLowComponent;defaultElectronicsHompageCamcordersBannerComponent;Section2BSlotHomepageCxContainer
+	;;Section4SlotHomepageCxContainer;Section4SlotHomepageCxContainer;variationS1ElectronicsHompageShipmentBannerComponent,variationS2ElectronicsHompageShipmentBannerComponent,variationP1ElectronicsHompageShipmentBannerComponent,variationP2ElectronicsHompageShipmentBannerComponent,variationP3ElectronicsHompageShipmentBannerComponent,variationP4ElectronicsHompageShipmentBannerComponent,variationP5ElectronicsHompageShipmentBannerComponent;defaultElectronicsHompageShipmentBannerComponent;Section4SlotHomepageCxContainer
+	;;Section2ASlotHomepageCxContainer;Section2ASlotHomepageCxContainer;variationV1ElectronicsHompageLightFamBannerComponent,variationV2ElectronicsHompageLightFamBannerComponent,variationV3ElectronicsHompageLightFamBannerComponent,variationV4ElectronicsHompageLightFamBannerComponent;defaultElectronicsHompageLightFamBannerComponent;Section2ASlotHomepageCxContainer
+	
+	
+	INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];active;cmsComponents(uid,$contentCV)
+	;;Section1Slot-Homepage;true;Section1SlotHomepageCxContainer,ElectronicsHompageDiscountBannerComponent;
+	;;Section2BSlot-Homepage;true;Section2BSlotHomepageCxContainer,ElectronicsHompageCamcordersBannerComponent;
+	;;Section4Slot-Homepage;true;Section4SlotHomepageCxContainer,ElectronicsHompageShopBannerComponent,ElectronicsHompageShipmentBannerComponent,ElectronicsHompageServiceBannerComponent;
+	;;Section2ASlot-Homepage;true;Section2ASlotHomepageCxContainer,ElectronicsHompageLightFamTextBannerComponent
+	
+	
+	

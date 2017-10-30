@@ -1,0 +1,6 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE ProductGridComponent;pk[unique=true]
+;8796118090812
+;8796115698748
+#  end of pk list for ProductGridComponent
+#  

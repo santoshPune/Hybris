@@ -1,0 +1,26 @@
+<div data-ng-cloak class="ySEGenericEditor">
+    <div>
+        <alerts-box alerts="editor.alerts" />
+    </div>
+    <form name="componentForm" novalidate data-ng-submit="editor.submit(componentForm)" class="col-xs-12 no-enter-submit">
+        <div class="modal-header" data-ng-show="modalHeaderTitle">
+            <h4 class="modal-title">{{modalHeaderTitle| translate}}</h4>
+        </div>
+        <div class="ySErow" data-ng-repeat="holder in editor.holders;" data-ng-switch="field.cmsStructureType">
+            <div class="">
+                <label id="{{holder.field.qualifier}}-label">{{holder.field.i18nKey | lowercase | translate}}
+                    <span data-ng-if="holder.field.required">*</span>
+                </label>
+
+            </div>
+            <div class="" id="{{holder.field.qualifier}}">
+                <localized-element data-ng-if="holder.field.localized" data-model="holder" data-languages="editor.languages" data-input-template="web/common/services/genericEditor/genericEditorFieldWrapperTemplate.html"></localized-element>
+                <generic-editor-field data-ng-if="!holder.field.localized" data-editor="holder.editor" data-field="holder.field" data-model="editor.component" data-qualifier="holder.field.qualifier" />
+            </div>
+        </div>
+        <div class="ySEBtnRow modal-footer" data-ng-show="(editor.alwaysShowReset || (editor.showReset===true && editor.isDirty())) || (editor.alwaysShowSubmit || (editor.showSubmit===true && editor.isDirty() && componentForm.$valid))">
+            <button type="button" id="cancel" class="btn btn-subordinate" data-ng-if="editor.alwaysShowReset || (editor.showReset===true && editor.isDirty())" data-ng-click="reset()">{{cancelButtonText| translate}}</button>
+            <button type="submit" id="submit" class="btn btn-primary" data-ng-if="editor.alwaysShowSubmit || (editor.showSubmit===true && editor.isDirty() && componentForm.$valid)" data-ng-disabled="!(editor.isDirty() && componentForm.$valid)">{{submitButtonText| translate}}</button>
+        </div>
+    </form>
+</div>

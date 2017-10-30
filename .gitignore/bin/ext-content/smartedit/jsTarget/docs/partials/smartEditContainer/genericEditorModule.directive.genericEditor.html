@@ -1,0 +1,33 @@
+<h1><code ng:non-bindable="">genericEditor</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">genericEditorModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="genericeditormodule-directive-page genericeditormodule-directive-genericeditor-page"><p>Directive responsible for generating custom HTML CRUD form for any smarteditComponent type.</p>
+<p>The link function has a method that creates a new instance for the <a href="#/smartEditContainer/genericEditorModule.service:GenericEditor">GenericEditor</a>
+and sets the scope of smarteditComponentId and smarteditComponentType to a value that has been extracted from the original DOM element in the storefront.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;generic-editor
+       smartedit-component-type="{String}"
+       smartedit-component-id="{String}"
+       structure-api="{String}"
+       structure="{String}"
+       content-api="{String}"
+       submit="{Function}"
+       reset="{Function}"&gt;
+&lt;/generic-editor&gt;</pre>
+<h3 id="usage_directive-info">Directive info</h3>
+<div class="directive-info"><ul><li>This directive creates new scope.</li>
+</ul>
+</div>
+<h4 id="usage_directive-info_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>smartedit-component-type</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="genericeditormodule-directive-page genericeditormodule-directive-genericeditor-page"><p>The SmartEdit component type that is to be created, read, updated, or deleted.</p>
+</div></td></tr><tr><td>smartedit-component-id</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="genericeditormodule-directive-page genericeditormodule-directive-genericeditor-page"><p>The identifier of the SmartEdit component that is to be created, read, updated, or deleted.</p>
+</div></td></tr><tr><td>structureApi</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="genericeditormodule-directive-page genericeditormodule-directive-genericeditor-page"><p>An optional parameter. The data binding to a REST Structure API that fulfills the contract described in the  <a href="#/smartEditContainer/genericEditorModule.service:GenericEditor">GenericEditor</a> service. Only the Structure API or the local structure must be set.</p>
+</div></td></tr><tr><td>structure</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="genericeditormodule-directive-page genericeditormodule-directive-genericeditor-page"><p>An optional parameter. he data binding to a REST Structure API that fulfills the contract described in the <a href="#/smartEditContainer/genericEditorModule.service:GenericEditor">GenericEditor</a> service. Only the Structure API or the local structure must be set.</p>
+</div></td></tr><tr><td>contentApi</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="genericeditormodule-directive-page genericeditormodule-directive-genericeditor-page"><p>The REST API used to create, read, update, or delete content.</p>
+</div></td></tr><tr><td>submit</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="genericeditormodule-directive-page genericeditormodule-directive-genericeditor-page"><p>An optional parameter. It exposes the inner submit function to the invoker scope. If this parameter is set, the directive will not display an inner submit button.</p>
+</div></td></tr><tr><td>reset</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="genericeditormodule-directive-page genericeditormodule-directive-genericeditor-page"><p>An optional parameter. It exposes the inner reset function to the invoker scope. If this parameter is set, the directive will not display an inner cancel button.</p>
+</div></td></tr></tbody></table></div>
+</div>

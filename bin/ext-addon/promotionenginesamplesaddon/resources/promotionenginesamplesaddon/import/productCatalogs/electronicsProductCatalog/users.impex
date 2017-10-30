@@ -1,0 +1,6 @@
+# catalog version specific access rights for marketingManagerGroup
+# this allows read access for catalog-aware items in the rule builder UI
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];readPrincipals(uid)[mode=append]
+;electronicsProductCatalog;Staged;marketingManagerGroup
+;electronicsProductCatalog;Online;marketingManagerGroup
+

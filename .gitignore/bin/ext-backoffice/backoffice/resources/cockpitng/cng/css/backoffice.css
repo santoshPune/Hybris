@@ -1,0 +1,181 @@
+/*
+ * [y] hybris Platform
+ *
+ * Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ * All rights reserved.
+ *
+ * This software is the confidential and proprietary information of SAP
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with SAP.
+ */
+/*Import the default css-es */
+@import url('cockpit.css');
+
+button.z-button.y-btn-warning {
+    background-color: #f16b46;
+    border: medium none;
+    border-radius: 0 0 0 0;
+    color: #FFFFFF !important;
+    cursor: pointer;
+    font-family: 'Roboto', Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-style: normal !important;
+    font-weight: 100 !important;
+    height: 30px;
+    line-height: 25px;
+    margin-left: 0;
+    padding: 0 15px;
+}
+
+.mediaInfoHeader {
+    font-weight: bold;
+}
+
+.mediaInfoCnt {
+    float: left;
+    width: 332px;
+}
+
+.previewPlaceholder {
+    width: 300px;
+    display: inline-block;
+    text-align: center;
+}
+
+.small-image-preview-cnt img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    z-index: 2000;
+    border: 1px solid #bcc1cc;
+    border-radius: 1px;
+}
+
+.yw-collection-preview-cnt {
+    background: #d3d9df;
+}
+
+.yw-collection-preview > div.z-listbox-body {
+    background: #f6f7f9;
+
+}
+
+.yw-collection-preview > div.z-listbox {
+    border: none;
+}
+
+.yw-collection-preview > div.z-listboxdiv .z-listbox-body .z-listitem {
+    background: none;
+}
+
+/* Aligment Fix for scripting action */
+.ya-com_hybris_cockpitng_actions_scriptingaction {
+    padding: 6px
+}
+
+/* Alignment Fix for Icons - Move to Exploretree css */
+
+div.yw-explorerTree tr.z-treerow .z-treecell-content .yw-treeCellInner .z-label {
+    padding-left: 10px;
+}
+
+.yw-desc-tooltip {
+    max-width: 300px;
+}
+
+.y-editor-area-attributes-cnt-min .z-groupbox-content .z-hbox,
+.y-editor-area-attributes-cnt-min .z-groupbox-content table,
+.y-editor-area-attributes-cnt-min .z-groupbox-content table tbody,
+.y-editor-area-attributes-cnt-min .z-groupbox-content table tr,
+.y-editor-area-attributes-cnt-min .z-groupbox-conent table td {
+    width: 100%;
+}
+
+.y-editor-area-attributes-cnt-min .z-groupbox-content .z-hbox .yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-attrcell {
+    display: block;
+    width: 100% !important;
+    /*IE9 fix */
+    width: 100% \9;
+    float: left \9;
+}
+
+.y-editor-area-attributes-cnt-min .z-groupbox-content .z-hbox .yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed-editor,
+.y-editor-area-attributes-cnt-min .z-groupbox-content .z-hbox .yw-editor-area-main-content .ye-default-reference-editor,
+.y-editor-area-attributes-cnt-min .z-groupbox-content .z-hbox .ye-default-reference-editor-selected-listbox,
+.y-editor-area-attributes-cnt-min .z-groupbox-content .z-hbox .ye-default-reference-editor-selected-listbox > .z-listbox-body,
+.y-editor-area-attributes-cnt-min .ye-default-reference-editor {
+    width: 100% !important;
+}
+
+.y-editor-area-attributes-cnt-min .z-groupbox-content .z-hbox .z-hbox-separator {
+    display: none;
+}
+
+/* MEDIUM */
+
+.y-editor-area-attributes-cnt-avg .z-groupbox-content .z-hbox,
+.y-editor-area-attributes-cnt-avg .z-groupbox-content table {
+    width: 100%;
+    table-layout: fixed;
+
+}
+
+.y-editor-area-attributes-cnt-avg .z-groupbox-content .z-hbox .yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-attrcell {
+    width: 50% !important;
+}
+
+.y-editor-area-attributes-cnt-avg .z-groupbox-content .z-hbox .yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed-editor,
+.y-editor-area-attributes-cnt-avg .z-groupbox-content .z-hbox .yw-editor-area-main-content .ye-default-reference-editor,
+.y-editor-area-attributes-cnt-avg .z-groupbox-content .z-hbox .ye-default-reference-editor-selected-listbox,
+.y-editor-area-attributes-cnt-avg .z-groupbox-content .z-hbox .ye-default-reference-editor-selected-listbox > .z-listbox-body,
+.y-editor-area-attributes-cnt-avg .ye-default-reference-editor {
+    width: 100% !important;
+
+}
+
+.y-editor-area-attributes-cnt-avg .yw-editorarea-tabbox-tabpanels-tabpanel-groupbox td.z-hbox-separator {
+    width: 2em;
+}
+
+/* LRG */
+
+.y-editor-area-attributes-cnt-max .z-groupbox-content .z-hbox,
+.y-editor-area-attributes-cnt-max.z-groupbox-content table {
+    width: 50%;
+    float: left;
+}
+
+.y-editor-area-attributes-cnt-max .z-groupbox-content .z-hbox tr td > table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.y-editor-area-attributes-cnt-max .z-groupbox-content .z-hbox .yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-attrcell {
+    width: 48% !important;
+    padding-right: 2%;
+}
+
+.y-editor-area-attributes-cnt-max .z-groupbox-content .z-hbox .yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-attrcell:only-child{
+    display: block;
+    padding-right: 0;
+}
+
+.y-editor-area-attributes-cnt-max .z-groupbox-content .z-hbox .yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed-editor,
+.y-editor-area-attributes-cnt-max .z-groupbox-content .z-hbox .yw-editor-area-main-content .ye-default-reference-editor,
+.y-editor-area-attributes-cnt-max .z-groupbox-content .z-hbox .ye-default-reference-editor-selected-listbox,
+.y-editor-area-attributes-cnt-max .z-groupbox-content .z-hbox .ye-default-reference-editor-selected-listbox > .z-listbox-body,
+.y-editor-area-attributes-cnt-max .ye-default-reference-editor {
+    width: 100% !important;
+
+}
+
+.y-editor-area-attributes-cnt-max .z-groupbox-content .z-hbox .z-hbox-separator {
+    display: none;
+}
+
+.y-editor-area-attributes-cnt-max .ye-com_hybris_cockpitng_editor_defaultdate,
+.y-editor-area-attributes-cnt-max .ye-com_hybris_cockpitng_editor_defaultdate table {
+    width: 100% !important;
+    padding-right: 0% !important;
+}

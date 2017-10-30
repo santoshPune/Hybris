@@ -1,0 +1,4 @@
+INSERT_UPDATE SmartEditConfiguration;key[unique=true];value
+;previewTicketURI;"""/previewwebservices/v1/preview"""
+;applications.cmssmartedit;{"smartEditLocation":"/cmssmartedit/cmssmartedit/js/cmssmartedit.js"}
+;applications.cmssmarteditContainer;{"smartEditContainerLocation":"/cmssmartedit/cmssmartedit/js/cmssmarteditContainer.js"}

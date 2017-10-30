@@ -1,0 +1,5 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE PickUpInStoreAction;pk[unique=true]
+;8796143092796
+#  end of pk list for PickUpInStoreAction
+#  

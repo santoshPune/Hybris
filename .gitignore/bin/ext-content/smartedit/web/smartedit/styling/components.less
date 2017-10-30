@@ -1,0 +1,340 @@
+@font-size: 12px;
+@line-height: 1.4;
+@lines-to-show: 2;
+@gutter-width: 20px;
+@gutter-height: 20px;
+
+.ySEComponentMenu>li.item:first-of-type{
+    padding: 50px 50px 30px 50px;
+}
+
+.ySEComponentMenu .ySEComTypeTab{
+    font-family: @font-open-sans;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #ffffff;
+    opacity: 0.5;
+}
+
+.ySEComponentMenu .ySECompSearchField{
+    font-family: @font-open-sans;
+}
+
+.ySEComponentMenu .ySEComTypeTab.active{
+    opacity: 1;
+}
+
+.ySEComponentMenu .ySEBottomLabel{
+    font-family: @font-open-sans;
+    font-size: 13px;
+    color: #ffffff;
+    text-transform: none;
+    font-weight: normal;
+}
+
+.ySEComponentMenu .ySECustCompName,
+.ySEComponentMenu .ySECustCompType{
+    font-family: @font-open-sans;
+    color: @smartedit-white;
+    padding-right: 40px;
+}
+
+.ySEComponentMenu .ySECustCompType{
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.ySEComponentMenu .ySECustCompName{
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.ySEComponentMenu .ySECompTypeTitle{
+    .ySECustCompType{
+        line-height: 45px;
+    }
+}
+
+.ySEComponentMenu .ySEComponentsResult .tab-content .tab-pane .ySEComponents .ySEComponentItem .ySECustomCompTitle.ySECompTypeTitle{
+    padding-top: 0;
+}
+
+.ySEComponentMenu .smartEditComponent:hover{
+    cursor: grab;
+    cursor: -webkit-grab;
+
+}
+
+.ySEComponentMenu{
+    .ySEComponentSearch{
+
+        .ySESearchIcon{
+            background-color: #ffffff;
+            border: none;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            top: 0;
+            font-size: large;
+            color: @smartedit-grey3;
+        }
+
+        background-color: #ffffff;
+        border: 1px solid #d4d7dc;
+        margin-top: 5px;
+
+        .ySECompSearchField{
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            padding-right: 0;
+            padding-left: 0;
+        }
+    }
+
+    .ySEComponentsResult{
+        padding:20px 50px 50px 50px;
+        span.ySEBottomLabel{
+            display: block;
+            padding-left: 0px;
+            margin-top: 30px;
+            .text-left();
+        }
+
+        ul.nav.nav-tabs{
+
+            li{
+                float:none;
+                display:inline-block;
+                a{
+                    color: #ffffff;
+                    background-color: #32A0EB;
+                    border-bottom: inherit;
+                }
+            }
+
+            li.active a{
+                border-top: none;
+                border-left: none;
+                border-right: none;
+                border-bottom: 2px solid #ffffff;
+            }
+        }
+    }
+
+    .ySEComponents{
+        padding: 30px 0 0px;
+        .text-center();
+
+
+        .ySEComponentType{
+            max-width: 70px;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding-bottom: 20px;
+            float: left;
+            img, div{
+                .col-xs-12;
+            }
+            div.control-label{
+                .text-center();
+                color: #ffffff;
+                margin-top: 10px;
+            }
+            :after{
+                float: none;
+            }
+        }
+    }
+
+}
+
+.ySEInfiniteScrolling-container{
+	overflow-y:scroll;
+	max-height:250px
+}
+.ySEInfiniteScrolling{
+	overflow-y: hidden;
+}
+
+.panel__ySEInfiniteScrolling{
+    border: none;
+    margin-bottom: 0;
+    background: none;
+}
+
+.ySEComponentsResult .spinner-container1 > div,
+.ySEComponentsResult .spinner-container2 > div,
+.ySEComponentsResult .spinner-container3 > div{
+    background-color: @smartedit-white;
+}
+
+@media (min-width: @screen-md-min) {
+    .ySEComponentMenu{
+        width: 780px;
+        -webkit-transition: width 0.3s; /* Safari */
+        transition: width 0.3s;
+        transition-timing-function: ease-in-out;
+
+        .ySEComponentsResult .tab-content .tab-pane{
+
+            -ms-scrollbar-base-color: #32a0ec;
+            -ms-scrollbar-arrow-color: rgba(50, 127, 236, 1);
+            -ms-scrollbar-highlight-color: #32a0ec;
+            -ms-scrollbar-shadow-color: rgba(50, 127, 236, 1);
+            .ySEComponents.yFixed{
+					overflow-y: scroll;
+					max-height: 240px;
+			}
+             .ySEComponents {
+
+                .ySEComponentType div.control-label {
+                    display: block; /* Fallback for non-webkit */
+                    display: -webkit-box;
+
+                    height: @font-size*@line-height*@lines-to-show; /* Fallback for non-webkit */
+                    //margin: 0 auto;
+                    font-size: @font-size;
+                    line-height: @line-height;
+                    -webkit-line-clamp: @lines-to-show;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    text-transform: uppercase;
+                    word-break: break-all;
+                }
+
+                .ySEComponentItem {
+                    height: 55px;
+                    vertical-align: middle;
+                    padding-left: 0px;
+                    padding-right: 0px;
+
+                    .smartEditComponent{
+                        vertical-align: middle;
+                        float: left;
+                        width: 70px;
+                    }
+
+                    .ySECustomCompTitle{
+                        float: right;
+                        padding-left: 10px;
+                        padding-right: 20px;
+                        padding-top: 4px;
+                        width: calc(~"100% - 70px");
+                    }
+                    .smartEditComponent img{
+                        width: 70px;
+                    }
+
+                    .ySECustCompName,
+                    .ySECustCompType{
+                        .text-left();
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        letter-spacing: 0.6px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: @screen-sm-max) {
+     .ySEComponentMenu{
+
+         position: fixed;
+         top: 300px;
+         left: 0;
+         right: 0;
+
+         -webkit-transition: width 0.3s; /* Safari */
+         transition: width 0.3s;
+         transition-timing-function: ease-in-out;
+
+         .ySEComponentsResult .tab-content .tab-pane{
+             .ySEComponents {
+                 .ySEComponentType {
+                     max-width: 100px;
+                     img{
+                         height: 65px;
+                     }
+                 }
+             }
+         }
+     }
+
+}
+
+#experience-selector-btn:focus,
+#experience-selector-btn:active{
+    outline: none;
+    outline-offset: 0;
+    box-shadow: none;
+}
+
+.ySEComponentMenuW--button--txt{
+    display: block;
+    font-family: @font-open-sans;
+    font-size: 10px;
+    font-weight: @font-weight--semibold;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+.ySEComponentMenuW.open .ySEComponentMenuW--button--txt{
+    color: @smartedit-white;
+}
+
+.ySEComponentMenuW--button{
+    padding-top: 8px;
+    padding-bottom: 6px;
+    border-top: 1px transparent;
+    border-bottom: 1px transparent;
+}
+
+.ySEComponentMenuW--button:hover,
+.ySEComponentMenuW--button:focus,
+.ySEComponentMenuW--button:active,
+.ySEComponentMenuW--button:hover:active,
+.ySEComponentMenuW--button{
+    border-right: @smartedit-border1;
+    background-color: @smartedit-grey;
+    color: @smartedit-blue;
+    box-shadow: none;
+    outline: none;
+    outline-offset: 0;
+}
+
+.ySEComponentMenuW--button:hover,
+.ySEComponentMenuW--button:focus,
+.ySEComponentMenuW--button:active,
+.ySEComponentMenuW--button:hover:active{
+        opacity: 0.6;
+}
+
+.ySEComponentMenuW.open .ySEComponentMenuW--button,
+.ySEComponentMenu{
+    background-color: @smartedit-lightblue;
+    &:hover,
+    &:active{
+        color: @smartedit-white;
+        opacity: 1;
+    }
+}
+
+.ySEComponentMenuW.open .ySEComponentMenuW--button{
+    border-top: 1px solid @smartedit-grey;
+    border-bottom: 1px solid @smartedit-grey;
+}
+
+.ySEComponentMenu{
+    margin: 0;
+    border: 0;
+}
+
+.ySEComponentVisibility{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}

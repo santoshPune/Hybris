@@ -1,0 +1,32 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+*** Settings ***
+Library			de.hybris.platform.cissubscriptionatddtests.keywords.CisSubscriptionKeywordLibrary
+Resource		impex/Impex_Keywords.txt
+Resource		commerce/SubscriptionCommerce_Keywords.txt
+
+*** Keywords ***
+create subscription for order "${orderId}"
+	[Documentation]    creates a new subscription for an order using the subcriptionFacade layer
+	create subscription for order    ${orderId}
+	
+cancel subscription "${subscriptionId}"
+    [Documentation]    cancels a subscription
+    cancel subscription    ${subscriptionId}
+    
+cancel subscription "${subscriptionId}" expect exception "${exception}"
+    [Documentation]    cancels a subscription but fails with an exception
+    cancel subscription expect exception    ${subscriptionId}    ${exception}
+
+verify that subscription "${subscriptionId}" is cancelled
+	[Documentation]    checks that the subscription status is set to value 'cancelled' and that the cancelledDate is set
+	verify cancel subscription    ${subscriptionId}

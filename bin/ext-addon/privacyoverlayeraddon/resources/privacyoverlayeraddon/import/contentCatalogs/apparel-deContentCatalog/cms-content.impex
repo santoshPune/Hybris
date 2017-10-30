@@ -1,0 +1,21 @@
+$contentCatalog=apparel-deContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarResourceCms=jar:com.hybris.yprofile.constants.PrivacyoverlayeraddonConstants&/privacyoverlayeraddon/import/cockpit/cmscockpit
+
+
+
+INSERT_UPDATE PrivacyOverlayComponent;$contentCV[unique=true];uid[unique=true];name;
+;;PrivacyOverlayComponent;Privacy Overlay Component;PrivacyOverlayComponent;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];active;cmsComponents(uid,$contentCV)[mode=append]
+;;PlaceholderContentSlot;true;PrivacyOverlayComponent
+
+$lang=de
+UPDATE PrivacyOverlayComponent;uid[unique=true];content[lang=$lang];acceptText[lang=$lang];declineButton;$contentCV[unique=true]
+;PrivacyOverlayComponent;"Wir verwenden Cookies. Mit der weiteren Nutzung unserer Seite stimmen Sie dem zu.";"X";false;
+
+INSERT_UPDATE ConsentReferenceLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow'];linkName[lang=$lang]
+;;ForgetMeLink;ForgetMeLink;"https://profile.yaas.io/#!/opt-out/{tenant}/{consent-reference}";ForgetMeLink;ForgetMeLink;newWindow;"Forget Me"
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef)[mode=append];&nodeRef
+;HybrisNavNode;;Hybris Pages;ApparelDENavNode;ForgetMeLink;HybrisNavNode

@@ -1,0 +1,59 @@
+<h1><code ng:non-bindable="">storageService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">storageServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-page"><p>The Storage service is used to store temporary information in the browser. The service keeps track of key/value pairs
+of authTokens that authenticate the specified user on different URIs.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_getauthtoken">getAuthToken(authURI)</h3>
+<div class="getauthtoken"><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-getauthtoken-page"><p>This method is used to retrieve the authToken associated with the provided URI.</p>
+</div><h5 id="methods_getauthtoken_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>authURI</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-getauthtoken-page"><p>The URI for which the associated authToken is to be retrieved.</p>
+</div></td></tr></tbody></table><h5 id="methods_getauthtoken_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-getauthtoken-page"><p>The authToken used to authenticate the current user in the provided URI.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getprincipalidentifier">getPrincipalIdentifier()</h3>
+<div class="getprincipalidentifier"><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-getprincipalidentifier-page"><p>This method is used to retrieve the principal&#39;s login name from storage service</p>
+</div><h5 id="methods_getprincipalidentifier_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-getprincipalidentifier-page"><p>principalNameValue principal&#39;s name associated with the key.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getvaluefromcookie">getValueFromCookie()</h3>
+<div class="getvaluefromcookie"><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-getvaluefromcookie-page"><p>Retrieves the value stored in the cookie identified by the provided name.</p>
+</div></div>
+</li>
+<li><h3 id="methods_isinitialized">isInitialized()</h3>
+<div class="isinitialized"><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-isinitialized-page"><p>This method is used to determine if the storage service has been initialized properly. It
+makes sure that the smartedit-sessions cookie is available in the browser.</p>
+</div><h5 id="methods_isinitialized_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-isinitialized-page"><p>Indicates if the storage service was properly initialized.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_removeallauthtokens">removeAllAuthTokens()</h3>
+<div class="removeallauthtokens"><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-removeallauthtokens-page"><p>This method removes all authURI/authToken key/pairs from the storage service.</p>
+</div></div>
+</li>
+<li><h3 id="methods_removeauthtoken">removeAuthToken(authURI)</h3>
+<div class="removeauthtoken"><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-removeauthtoken-page"><p>Removes the authToken associated with the provided URI.</p>
+</div><h5 id="methods_removeauthtoken_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>authURI</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-removeauthtoken-page"><p>The URI for which its authToken is to be removed.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_removeprincipalidentifier">removePrincipalIdentifier()</h3>
+<div class="removeprincipalidentifier"><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-removeprincipalidentifier-page"><p>This method is used to remove the principal&#39;s UID from storage service</p>
+</div></div>
+</li>
+<li><h3 id="methods_storeauthtoken">storeAuthToken(authURI, auth)</h3>
+<div class="storeauthtoken"><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-storeauthtoken-page"><p>This method creates and stores a new key/value entry. It associates an authentication token with a
+URI.</p>
+</div><h5 id="methods_storeauthtoken_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>authURI</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-storeauthtoken-page"><p>The URI that identifies the resource(s) to be authenticated with the authToken. Will be used as a key.</p>
+</div></td></tr><tr><td>auth</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-storeauthtoken-page"><p>The token to be used to authenticate the user in the provided URI.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_storeprincipalidentifier">storePrincipalIdentifier(principalUID)</h3>
+<div class="storeprincipalidentifier"><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-storeprincipalidentifier-page"><p>This method is used to store the principal&#39;s login name in storage service</p>
+</div><h5 id="methods_storeprincipalidentifier_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>principalUID</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="storageservicemodule-service-page storageservicemodule-service-storageservice-storeprincipalidentifier-page"><p>Value associated to store principal&#39;s login.</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

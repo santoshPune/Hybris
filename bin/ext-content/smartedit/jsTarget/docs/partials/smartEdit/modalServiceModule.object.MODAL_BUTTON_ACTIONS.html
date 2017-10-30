@@ -1,0 +1,38 @@
+<h1><code ng:non-bindable="">MODAL_BUTTON_ACTIONS</code>
+<div><span class="hint">object in module <code ng:non-bindable="">modalServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="modalservicemodule-object-page modalservicemodule-object-modal-button-actions-page"><p>Injectable angular constant<br/>
+Defines the action to be taken after executing a button on a modal window. To be used when adding a button to the modal,
+either when opening a modal (see <a href="#/smartEdit/modalServiceModule.service:ModalManager#methods_getbuttons">ModalManager.getButtons()</a>) or
+when adding a button to an existing modal (see <a href="#/smartEdit/modalServiceModule.modalService#methods_open">modalService.open()</a>)</p>
+<p>Example:
+<pre class="prettyprint linenums">
+     myModalManager.addButton({
+         id: 'button id',
+         label: 'close_modal',
+         action: MODAL_BUTTON_ACTIONS.CLOSE
+     });
+</pre>
+</div></div>
+<div class="member property"><h2 id="properties">Properties</h2>
+<ul class="properties"><li><h3 id="properties_close">CLOSE</h3>
+<div class=""><div class="close-page"><p>Indicates to the <a href="#/smartEdit/modalServiceModule.service:ModalManager">ModalManager</a> that after executing the modal button,
+the modal window should close, and the <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> returned by the modal should be resolved.</p>
+</div></div>
+</li>
+<li><h3 id="properties_dismiss">DISMISS</h3>
+<div class="dismiss"><div class="dismiss-page"><p>Indicates to the <a href="#/smartEdit/modalServiceModule.service:ModalManager">ModalManager</a> that after executing the modal button,
+the modal window should close, and the <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> returned by the modal should be rejected.</p>
+</div></div>
+</li>
+<li><h3 id="properties_none">NONE</h3>
+<div class="none"><div class="none-page"><p>Indicates to the <a href="#/smartEdit/modalServiceModule.service:ModalManager">ModalManager</a> that after executing the modal button
+no action should be performed.</p>
+</div></div>
+</li>
+</ul>
+</div>
+</div>

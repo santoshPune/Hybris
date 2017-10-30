@@ -1,0 +1,48 @@
+# Hmc configurations
+
+INSERT_UPDATE UserGroup;uid[unique=true,allownull=true];hmcLoginDisabled
+;customergroup;true;
+
+INSERT_UPDATE UserGroup;UID[unique=true];hmcXML;
+;b2badmingroup;"<?xml version=""1.0"" encoding=""ISO-8859-1""?>
+<configuration xmlns=""hybris.de/schemas/hmc/generic""
+   xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
+   xsi:schemaLocation=""hybris.de/schemas/hmc/generic hmc.xsd""> 
+   <explorertree>
+    <group name=""user"" mode=""delete""/>
+    <group name=""c2l"" mode=""delete""/>
+</explorertree>
+</configuration>"
+;b2bmanagergroup;"<?xml version=""1.0"" encoding=""ISO-8859-1""?>
+<configuration xmlns=""hybris.de/schemas/hmc/generic""
+   xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
+   xsi:schemaLocation=""hybris.de/schemas/hmc/generic hmc.xsd""> 
+<explorertree>
+    <group name=""user"" mode=""delete""/>
+    <group name=""c2l"" mode=""delete""/>
+</explorertree>
+</configuration>"
+;b2bcustomergroup;"<?xml version=""1.0"" encoding=""ISO-8859-1""?>
+<configuration xmlns=""hybris.de/schemas/hmc/generic""
+   xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
+   xsi:schemaLocation=""hybris.de/schemas/hmc/generic hmc.xsd""> 
+<explorertree>
+    <group name=""user"" mode=""delete""/>
+</explorertree>
+ <type name=""B2BUnit"" mode=""append"" >
+      <organizer mode=""append"">
+      	<editor mode=""append"">
+            <tab name=""administration"" position=""0"" mode=""delete""/>
+            <tab name=""principal.security.tab"" position=""0"" mode=""delete""/>
+		</editor>               
+	</organizer>
+</type>
+ <type name=""B2BCustomer"" mode=""append"" >
+      <organizer mode=""append"">
+      	<editor mode=""append"">
+            <tab name=""administration"" position=""0"" mode=""delete""/>
+            <tab name=""principal.security.tab"" position=""0"" mode=""delete""/>
+		</editor>               
+	</organizer>
+</type>
+</configuration>"

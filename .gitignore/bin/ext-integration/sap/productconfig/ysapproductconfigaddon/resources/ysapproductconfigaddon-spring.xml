@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+		   http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+           
+    <!-- SystemSetup for the ysapproductconfigaddon
+    <bean id="sapProductConfigSystemSetup" class="de.hybris.platform.sap.productconfig.frontend.setup.ProductConfigSetup"  parent="abstractCoreSystemSetup">
+    </bean>  -->
+    
+    <context:annotation-config/> 
+
+	<bean id="yaddonCoreDataImportedEventListener" parent="abstractCoreDataImportedEventListener">
+		<property name="supportedChannels">
+			<list value-type="de.hybris.platform.commerceservices.enums.SiteChannel">
+				<value>B2C</value>
+				<!--
+								<value>B2B</value>
+				-->
+			</list>
+		</property>
+		<property name="addonExtensionMetadata">
+			<bean class="de.hybris.platform.addonsupport.data.AddonExtensionMetadata">
+				<property name="suffixChannel" value="false"/>
+				<property name="baseExtensionName" value="ysapproductconfigaddon"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="yaddonSampleDataEventListener" parent="abstractGenericAddOnSampleDataEventListener"  >
+		<property name="extensionName" value="ysapproductconfigaddon" />
+	</bean>
+
+    <alias name="sapProductConfigDefaultValidator" alias="sapProductConfigValidator" />
+	<bean id="sapProductConfigDefaultValidator" class="de.hybris.platform.sap.productconfig.frontend.validator.ProductConfigurationValidator">
+		<property name="numericChecker" ref="sapProductConfigNumericChecker" />
+		<property name="mergeProcessor" ref="sapConfigDataMergeProcessor" />
+	</bean>
+
+    <alias name="sapProductConfigDefaultNumericChecker" alias="sapProductConfigNumericChecker" />
+	<bean id="sapProductConfigDefaultNumericChecker" class="de.hybris.platform.sap.productconfig.frontend.validator.NumericCheckerImpl">
+		<property name="i18NService" ref="i18NService" />
+	</bean>
+	
+	<alias name="sapProductConfigDefaultConflictChecker" alias="sapProductConfigConflictChecker" />
+	<bean id="sapProductConfigDefaultConflictChecker" class="de.hybris.platform.sap.productconfig.frontend.validator.ConflictCheckerImpl">
+	</bean>
+	
+	
+	<alias name="sapConfigDataDefaultMergeProcessor" alias="sapConfigDataMergeProcessor" />
+	<bean id="sapConfigDataDefaultMergeProcessor" class="de.hybris.platform.sap.productconfig.frontend.util.impl.ConfigDataMergeProcessorImpl" scope="prototype">
+			<aop:scoped-proxy/>
+	      <property name="configFacade" ref="sapProductConfigFacade" />
+	</bean>
+	
+		<bean id="cmsConfigurableProductRestrictionEvaluator" class=" de.hybris.platform.sap.productconfig.frontend.evaluator.CMSConfigurableProductRestrictionEvaluator"
+		scope="tenant">
+			<property name="configurableSource" value="${sapproductconfigservices.configurable_fieldname}" />
+			<property name="modelService" ref="modelService"/>
+		</bean>
+		
+	
+
+	<bean id="cmsConfigurableProductRestrictionEvaluatorMapping" class="de.hybris.platform.cms2.servicelayer.services.evaluator.CMSRestrictionEvaluatorMapping"
+		scope="tenant">
+		<property name="restrictionTypeCode" value="CMSConfigurableProductRestriction" />
+		<property name="restrictionEvaluator" ref="cmsConfigurableProductRestrictionEvaluator" />
+	</bean>
+	
+	<bean id="configurableProductRestrictionDynamicDescription" class="de.hybris.platform.sap.productconfig.frontend.attributehandlers.ConfigurableProductRestrictionDynamicDescription" scope="tenant" />
+</beans>

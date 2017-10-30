@@ -1,0 +1,15 @@
+*** Settings ***
+Library           de.hybris.platform.atddimpex.keywords.ImpexKeywordLibrary
+Library           de.hybris.platform.ruleengineatddtests.keywords.RuleEngineServicesKeywordLibrary
+Resource		  impex/Impex_Keywords.txt
+
+
+*** Keywords ***
+
+import ruleengine sampledata
+	[Documentation]    Imports the ruleengine test data
+	import impex from resource    /impex/testRuleEngineServices.csv
+
+log provided text "${logtext:[^"]+}" with level "${loglevel:[^"]+}"
+   [Documentation]    Logs the provided text with the provided log level
+   ${result}=    log text with level    ${logtext}    ${loglevel}

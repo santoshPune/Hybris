@@ -1,0 +1,5 @@
+<div class="input-group ySEComponentSearch">
+    <span class="input-group-addon glyphicon glyphicon-search ySESearchIcon" ng-click="preventDefault($event); "></span>
+    <input type="text" class="form-control ySECompSearchField" name="srch-term" ng-model="searchTerm" ng-keypress="focusOnSearch($event);" ng-click="selectSearch($event); " placeholder="{{'componentmenu.search.placeholder' | translate}}">
+    <span data-ng-show="showResetButton" class="input-group-addon glyphicon glyphicon-remove-sign ySESearchIcon" ng-click="resetSearch($event); searchTerm='';"></span>
+</div>

@@ -1,0 +1,46 @@
+@import (reference) "variables.less";
+.personalizationsmarteditVariationComponentSelected-icon {
+    background-image: @personalizationVariationComponentIcon;
+    background-repeat: no-repeat;
+    background-color: transparent; //in case the image does not load
+}
+
+.personalizationsmarteditComponentSelected,
+.personalizationsmarteditVariationComponentSelected {
+    border: 5px;
+    border-style: solid;
+    border-color: @personalizionComponentSelectedBorderColor;
+}
+
+.modal-fullscreen {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.modal-fullscreen > .modal-content {
+    height: auto;
+    min-height: 100%;
+    border-radius: 0;
+    background-color: @background-color-light-grey1;
+}
+
+.modal_bigger {
+    font-size: 15px;
+}
+
+//temporary -> it will be moved to smartedit
+.ySmartEditExperienceSelectorToolbar .yTemplateToolbar,
+.ySmartEditExperienceSelectorToolbar .yTemplateToolbar>div {
+    display: inline;
+}
+
+.red_color {
+    color: red;
+}
+
+.personalizationsmarteditTopToolbarButton {
+    padding-top: 6px;
+    padding-bottom: 4px;
+}

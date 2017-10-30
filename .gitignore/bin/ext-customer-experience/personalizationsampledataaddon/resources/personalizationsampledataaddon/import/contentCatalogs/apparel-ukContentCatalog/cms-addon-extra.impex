@@ -1,0 +1,49 @@
+$contentCatalog=apparel-ukContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+INSERT_UPDATE CxCustomizationsGroup;code;$contentCV[unique=true]
+;apparelUKCustomizationGroup;;
+
+INSERT_UPDATE CxCustomization;code[unique=true];name;$contentCV[unique=true];group(code,$contentCV)[default='apparelUKCustomizationGroup']
+;SpringSale;SpringSale;;
+;CategoryLover;CategoryLover;;
+;VIP;VIP;;
+
+INSERT_UPDATE CxCmsAction;componentId;code[unique=true];type(code);target;&actionRef;$contentCV[unique=true];containerId;
+#banner
+;springSaleMenSplashBannerComponent;actionSpringSaleMenBanner;PLAIN;cxCmsActionPerformable;actionSpringSaleMenBanner;;Section1SlotHomepageCxContainer
+;springSaleWomenSplashBannerComponent;actionSpringSaleWomenBanner;PLAIN;cxCmsActionPerformable;actionSpringSaleWomenBanner;;Section1SlotHomepageCxContainer
+;springSaleWomenSplashBannerComponent;actionSpringSaleVipSilverWomenBanner;PLAIN;cxCmsActionPerformable;actionSpringSaleVipSilverWomenBanner;;Section1SlotHomepageCxContainer
+#content 2A
+;burtonLoverContentComponent;actionSpringSaleBurtonLoverContent2A;PLAIN;cxCmsActionPerformable;actionSpringSaleBurtonLoverContent2A;;Section2ASlotHomepageCxContainer
+;shortsCategoryLoverContentComponent;actionShortsCategoryLoverContent2A;PLAIN;cxCmsActionPerformable;actionShortsCategoryLoverContent2A;;Section2ASlotHomepageCxContainer
+#content 2B
+;vipGoldContentComponent;actionVipGoldContent2B;PLAIN;cxCmsActionPerformable;actionVipGoldContent2B;;Section2BSlotHomepageCxContainer
+;vipGoldContentComponent;actionSpringSaleVipGoldContent2B;PLAIN;cxCmsActionPerformable;actionSpringSaleVipGoldContent2B;;Section2BSlotHomepageCxContainer
+;vipSilverContentComponent;actionVipSilverContent2B;PLAIN;cxCmsActionPerformable;actionVipSilverContent2B;;Section2BSlotHomepageCxContainer
+;vipSilverContentComponent;actionSpringSaleVipSilverWomenContent2B;PLAIN;cxCmsActionPerformable;actionSpringSaleVipSilverWomenContent2B;;Section2BSlotHomepageCxContainer
+;vipBronzeContentComponent;actionVipBronzeContent2B;PLAIN;cxCmsActionPerformable;actionVipBronzeContent2B;;Section2BSlotHomepageCxContainer
+;vipBronzeContentComponent;actionSpringSaleVipBronzeContent2B;PLAIN;cxCmsActionPerformable;actionSpringSaleVipBronzeContent2B;;Section2BSlotHomepageCxContainer
+
+INSERT_UPDATE CxVariation;code[unique=true];name;$contentCV[unique=true];actions(&actionRef)[mode=append];enabled[default=true];customization(code,$contentCV)[unique=true]
+;SpringSaleVipBronzeMen;SpringSaleVipBronzeMen;;actionSpringSaleMenBanner,actionSpringSaleVipBronzeContent2B;;SpringSale;
+;SpringSaleVipGoldWomen;SpringSaleVipGoldWomen;;actionSpringSaleWomenBanner,actionSpringSaleVipGoldContent2B,actionSpringSaleBurtonLoverContent2A;;SpringSale;
+;SpringSaleVipSilverWomen;SpringSaleVipSilverWomen;;actionSpringSaleVipSilverWomenBanner,actionSpringSaleVipSilverWomenContent2B;;SpringSale;
+;VipGold;VipGold;;actionVipGoldContent2B;;VIP;
+;VipSilver;VipSilver;;actionVipSilverContent2B;;VIP;
+;VipBronze;VipBronze;;actionVipBronzeContent2B;;VIP;
+;ShortsLover;ShortsLover;;actionShortsCategoryLoverContent2A;;CategoryLover;
+
+INSERT_UPDATE CxSegmentTrigger;code[unique=true];variation(code,$contentCV)[unique=true];$contentCV[unique=true];segments(code);groupBy(code)[default='OR'];
+;trigger1;SpringSaleVipBronzeMen;;Men,VIPBronze;AND
+;trigger2;SpringSaleVipGoldWomen;;Women,VIPGold,BurtonBrandLover;AND
+;trigger3;SpringSaleVipSilverWomen;;Women,VIPSilver;AND
+;trigger4;VipGold;;VIPGold;
+;trigger5;VipSilver;;VIPSilver;
+;trigger6;VipBronze;;VIPBronze;
+;trigger7;ShortsLover;;ShortsCategoryLover;
+
+UPDATE CxCustomization;code[unique=true];name;$contentCV[unique=true];variations(code,$contentCV)
+;CategoryLover;CategoryLover;;ShortsLover;
+;SpringSale;SpringSale;;SpringSaleVipBronzeMen,SpringSaleVipGoldWomen,SpringSaleVipSilverWomen;
+;VIP;VIP;;VipGold,VipSilver,VipBronze;

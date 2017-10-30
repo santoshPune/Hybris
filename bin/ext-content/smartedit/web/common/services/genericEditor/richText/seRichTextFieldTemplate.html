@@ -1,0 +1,5 @@
+<textarea class="ng-class:{'col-xs-12':true, 'has-error':ctrl.field.errors.length>0}" name="{{ctrl.field.qualifier}}-{{ctrl.qualifier}}" data-ng-disabled="!ctrl.field.editable" data-ng-model="ctrl.model[ctrl.qualifier]" data-ng-change="ctrl.reassignUserCheck()"></textarea>
+<div data-ng-if="ctrl.requiresUserCheck()">
+    <input type="checkbox" data-ng-model="ctrl.field.isUserChecked" />
+    <span class="ng-class:{'warning-check-msg':true, 'not-checked':ctrl.editor.hasFrontEndValidationErrors && !ctrl.field.isCheckedByUser}" data-translate="editor.richtext.check">{{'editor.richtext.check' | translate}}</span>
+</div>

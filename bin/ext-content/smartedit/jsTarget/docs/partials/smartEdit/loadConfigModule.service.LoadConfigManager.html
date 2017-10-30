@@ -1,0 +1,59 @@
+<h1><code ng:non-bindable="">LoadConfigManager</code>
+<div><span class="hint">service in module <code ng:non-bindable="">loadConfigModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="loadconfigmodule-service-page loadconfigmodule-service-loadconfigmanager-page"><p>The LoadConfigManager is used to retrieve configurations stored in configuration API.</p>
+</div></div>
+<h2 id="dependencies">Dependencies</h2>
+<ul class="dependencies"><li><code ng:non-bindable=""><a href="#/smartEdit/ng.$resource">$resource</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/smartEdit/hitch">hitch</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/smartEdit/copy">copy</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/smartEdit/convertToArray">convertToArray</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/smartEdit/sharedDataService">sharedDataService</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/smartEdit/ng.$log">$log</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/smartEdit/resourceLocationsModule.object:SMARTEDIT_ROOT">SMARTEDIT_ROOT</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/smartEdit/resourceLocationsModule.object:SMARTEDIT_RESOURCE_URI_REGEXP">SMARTEDIT_RESOURCE_URI_REGEXP</a></code>
+</li>
+<li><code ng:non-bindable=""><a href="#/smartEdit/resourceLocationsModule.object:CONFIGURATION_URI">CONFIGURATION_URI</a></code>
+</li>
+</ul>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_loadasarray">loadAsArray()</h3>
+<div class="loadasarray"><div class="loadconfigmodule-service-loadconfigmanager-loadasarray-page"><p>Retrieves configuration from an API and returns as an array of mapped key/value pairs.</p>
+<p>Example:
+<pre class="prettyprint linenums">
+loadConfigManagerService.loadAsArray().then(
+  hitch(this, function(response) {
+    this._prettify(response);
+}));
+</pre>
+</div><h5 id="methods_loadasarray_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="loadconfigmodule-service-loadconfigmanager-loadasarray-page"><p>a promise of configuration values as an array of mapped configuration key/value pairs</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_loadasobject">loadAsObject()</h3>
+<div class="loadasobject"><div class="loadconfigmodule-service-loadconfigmanager-loadasobject-page"><p>Retrieves a configuration from the API and converts it to an object.  </p>
+<p>Example
+<pre class="prettyprint linenums">
+loadConfigManagerService.loadAsObject().then(function(conf) {
+  sharedDataService.set('defaultToolingLanguage', conf.defaultToolingLanguage);
+ });
+</pre>
+</div><h5 id="methods_loadasobject_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="loadconfigmodule-service-loadconfigmanager-loadasobject-page"><p>a promise of configuration values as an object of mapped configuration key/value pairs</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_loadconfigmanager">LoadConfigManager()</h3>
+<div class="loadconfigmanager"><div class="loadconfigmodule-service-page loadconfigmodule-service-loadconfigmanager-loadconfigmanager-page"><p>This function is used to create a new object of the LoadConfigManager. </p>
+</div></div>
+</li>
+</ul>
+</div>
+</div>

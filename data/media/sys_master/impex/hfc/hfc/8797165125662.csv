@@ -1,0 +1,13 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE CMSNavigationEntry;pk[unique=true]
+;8796093613128
+;8796093580360
+;8796093547592
+;8796093514824
+;8796093482056
+;8796093449288
+;8796093416520
+;8796093383752
+;8796093350984
+#  end of pk list for CMSNavigationEntry
+#  

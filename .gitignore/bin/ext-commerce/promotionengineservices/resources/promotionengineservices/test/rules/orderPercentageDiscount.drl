@@ -1,0 +1,21 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.*;
+import java.math.*;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderDiscountRAOAction;
+
+global AddOrderDiscountRAOAction addOrderDiscountRAOAction;
+
+rule "orderPercentageDiscount"
+@ruleCode("orderPercentageDiscount")
+
+salience 10
+	when
+		$cart : CartRAO()
+		$result : RuleEngineResultRAO()
+		// check if rule discount is not applied already (it gets inserted during the consequence's service call)
+		not $discount:DiscountRAO( firedRuleCode == "orderPercentageDiscount" )
+	then
+		// give 10% discount to the cart
+		addOrderDiscountRAOAction.addOrderLevelDiscount($cart, false, new BigDecimal("10.00"), $result, kcontext);
+end

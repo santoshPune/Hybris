@@ -1,0 +1,34 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform 
+# 
+# Copyright (c) 2000-2016 hybris AG
+# All rights reserved.
+#  
+# This software is the confidential and proprietary information of hybris 
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with hybris.
+#
+#  
+# -----------------------------------------------------------------------
+
+# you can put key/value pairs here.
+# Use Config.getParameter(..) to retrieve the values during runtime.
+
+b2cbtgaddon.key=value
+
+# Specifies the location of the spring context file added automatically to the global platform application context.
+b2cbtgaddon.application-context=b2cbtgaddon-spring.xml
+
+yacceleratorstorefront.additionalWebSpringConfigs.b2cbtgaddon=classpath:/b2cbtgaddon/web/spring/b2cbtgaddon-web-spring.xml
+btgcockpit.additionalWebSpringConfigs.yacceleratorcockpits=classpath:/yacceleratorcockpits/cmscockpit/spring/import.xml
+
+
+b2cbtgaddon.javascript.paths.responsive=/responsive/common/js/b2cbtgaddon.js
+b2cbtgaddon.css.paths.responsive=/responsive/common/css/b2cbtgaddon.css
+
+
+
+# Flag to control evaluation of BTG rules.
+# Support configuration per storefront.
+storefront.btg.enabled=true

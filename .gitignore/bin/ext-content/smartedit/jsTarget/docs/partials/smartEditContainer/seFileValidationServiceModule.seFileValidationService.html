@@ -1,0 +1,28 @@
+<h1><code ng:non-bindable="">seFileValidationService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">seFileValidationServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="sefilevalidationservicemodule-sefilevalidationservice-page"><p>The seFileValidationService validates that the file provided is of a specified file type and that the file does not
+exceed the maxium size limit for the file&#39;s file type.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_buildacceptedfiletypeslist">buildAcceptedFileTypesList()</h3>
+<div class="buildacceptedfiletypeslist"><div class="sefilevalidationservicemodule-sefilevalidationservice-buildacceptedfiletypeslist-page"><p>Transforms the supported file types provided by the seFileValidationServiceConstants service into a comma-
+separated list of file type extensions.</p>
+</div><h5 id="methods_buildacceptedfiletypeslist_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="sefilevalidationservicemodule-sefilevalidationservice-buildacceptedfiletypeslist-page"><p>A comma-separated list of supported file type extensions</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_validate">validate(file, context)</h3>
+<div class="validate"><div class="sefilevalidationservicemodule-sefilevalidationservice-validate-page"><p>Validates the specified file object using validator provided by the <a href="#/smartEditContainer/seFileValidationServiceModule.seFileObjectValidators">seFileObjectValidators</a> and the file header validator
+provided by the <a href="#/smartEditContainer/seFileMimeTypeServiceModule.seFileMimeTypeService">seFileMimeTypeService</a>. It appends the
+errors to the error context array provided or it creates a new error context array.</p>
+</div><h5 id="methods_validate_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>file</td><td><a href="" class="label type-hint type-hint-file">File</a></td><td><div class="sefilevalidationservicemodule-sefilevalidationservice-validate-page"><p>The web API file object to be validated.</p>
+</div></td></tr><tr><td>context</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="sefilevalidationservicemodule-sefilevalidationservice-validate-page"><p>The contextual error array to append the errors to. It is an output parameter.</p>
+</div></td></tr></tbody></table><h5 id="methods_validate_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-promise">Promise</a></td><td><div class="sefilevalidationservicemodule-sefilevalidationservice-validate-page"><p>A promise that resolves if the file is valid or a list of errors if the promise is rejected.</p>
+</div></td></tr></table></div>
+</li>
+</ul>
+</div>
+</div>

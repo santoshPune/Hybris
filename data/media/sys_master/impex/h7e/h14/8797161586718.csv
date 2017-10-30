@@ -1,0 +1,12 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE ProductReferencesComponent;pk[unique=true]
+;8796118746172
+;8796118713404
+;8796118680636
+;8796118647868
+;8796115502140
+;8796115469372
+;8796115436604
+;8796115403836
+#  end of pk list for ProductReferencesComponent
+#  

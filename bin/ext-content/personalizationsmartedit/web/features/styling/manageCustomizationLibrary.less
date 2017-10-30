@@ -1,0 +1,234 @@
+/* *
+/* This file includes the styles used in Manage Customization Library modal
+/* The styles follow the BEM principles - http://getbem.com/introduction/
+*/
+
+@import (reference) "variables.less";
+.manage-customization {
+    text-align: center;
+    font-size: 16px;
+    word-wrap: break-word; //in extreme scenarios
+    .modal-header.ng-scope h4 {
+        font-family: Dosis, medium;
+        font-size: 30px;
+        text-align: center;
+        color: @text-color-dark-blue;
+        margin: 0 auto 0 auto; //to center it
+    }
+    .modal-header {
+        border: none;
+        padding-right: 0px;
+    }
+    .h2-color--grey-font {
+        color: @text-color-grey;
+        font-size: 20px;
+    }
+    .customization-search {
+        width: 50%;
+        margin: 2em auto .5em auto;
+        .glyphicon {
+            top: 0;
+            background-color: @background-color-white;
+            font-size: 16px;
+        }
+        .glyphicon-search {
+            border-right: none;
+        }
+        .form-control {
+            color: @text-color-dark-blue;
+            font-size: 15px;
+            font-weight: 500; //semibold
+            border-left: none;
+            padding-left: 0;
+            box-shadow: none;
+            border-right: none
+        }
+        input[type=text]:focus {
+            border-bottom: 1px solid @border-color-light-grey; //focus and not on focus should be the same
+            border-top: 1px solid @border-color-light-grey;
+            border-left: none;
+            border-right: none;
+        }
+    }
+    .search-results {
+        margin: auto auto .5em auto;
+        color: @text-color-grey;
+        font-style: italic;
+    }
+    .col-reset-padding {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .categoryTable {
+        margin: 2em auto .5em auto;
+        color: @text-color-dark-blue;
+    }
+    .categoryTable-lefttoolbar {
+        margin-top: 5px;
+    }
+    .glyphicon-chevron-down {
+        padding: 0;
+        font-size: 20px;
+    }
+    .glyphicon-down-lefttoolbar {
+        font-size: 18px;
+    }
+    .tablehead {
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .hyicon-more {
+        font-size: 24px;
+    }
+    .divider {
+        border-bottom: 1px solid @border-color-light-grey;
+    }
+    .button-margin {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .y-add-btn:focus {
+        //to remove the blue border
+        outline: 0;
+    }
+    .hyicon {
+        font-family: inherit;
+    }
+    .y-add-btn {
+        font-size: 17px;
+        font-weight: 600;
+    }
+    .y-add-btn .hyicon:before {
+        padding-right: 5px;
+    }
+    .y-add-btn-lefttoolbar {
+        margin-top: -35px;
+    }
+    a:hover {
+        border: none;
+    }
+    .primaryData {
+        font-weight: 600;
+    }
+    .hyicon-arrow {
+        font-size: 18px;
+    }
+    .customizationLayout {
+        padding: 15px;
+        background: @background-color-white;
+    }
+    .variationLayout {
+        padding: 15px;
+        background: @background-color-grey;
+    }
+    .row-reset-margin {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    personalizationsmartedit-pagination .dropdown-menu {
+        min-width: 160px;
+        text-align: left;
+    }
+    .search-item-lefttoolbar {
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        margin-top: -35px;
+        background: @background-color-grey;
+        box-shadow: 0 2px 3px rgba(138, 143, 161, 0.2);
+    }
+    .row-lefttoolbar {
+        margin-right: 0; //reset the default margin of row
+        padding: 15px 15px 15px 30px;
+        border-bottom: 1px solid @border-color-light-grey;
+    }
+    .dropdown-menu-leftoolbar {
+        min-width: 100px;
+    }
+    .overflow-wrapper-lefttoolbar {
+        max-height: 65vh; //vh=viewport height
+        overflow-x: hidden;
+        margin-bottom: -30px; //needed for the overflow to go until the end of the menu
+    }
+    .dropdown-menu-single-item {
+        margin-top: -5px;
+        margin-bottom: -5px;
+        padding: 10px 16px;
+    }
+    .selectedVariation {
+        background-color: @background-color-blue;
+        color: @background-color-white;
+        .selectedVariation-icon {
+            background-image: @personalizationVariationIcon;
+            background-repeat: no-repeat;
+            width: 45px;
+            height: 45px;
+            top: -12px;
+        }
+    }
+}
+
+.ySEComponentMenu-customized {
+    max-width: 340px;
+    top: inherit;
+    .ySEComponentMenuList--item {
+        padding-left: 10px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-top: -10px;
+        overflow: hidden;
+        .ySEComponentMenu-anchor {
+            color: @background-color-white;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .ySEComponentMenu-anchor:hover,
+        .ySEComponentMenu-anchor:focus {
+            background: none;
+            text-decoration: none;
+            color: @background-color-white;
+            opacity: 0.8;
+        }
+    }
+}
+
+.ySEComponentMenu-headers {
+    color: @background-color-white;
+    padding-left: 25px;
+    padding-right: 30px;
+    margin-bottom: 20px;
+    .h2 {
+        font-size: 19px;
+        font-weight: normal;
+    }
+    .small {
+        font-style: italic;
+    }
+}
+
+.ySEComponentMenu-customized > li.item:first-of-type {
+    padding: 30px 0 30px 0;
+}
+
+.menuitem-lefttoolbar {
+    background: @background-color-white;
+    margin-bottom: -5px;
+}
+
+.divider-lefttoolbar {
+    margin: 0;
+}
+
+.col-xs-half {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+@media (min-width: 480px) {
+    .col-xs-half {
+        float: left;
+        width: 2%;
+    }
+}

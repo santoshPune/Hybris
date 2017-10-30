@@ -1,0 +1,62 @@
+# Users
+$defaultPassword=12341234
+$regulargroup=regulargroup
+$customergroup=customergroup
+$contentCatalog1=testCatalog1
+$contentCV1=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog1]),CatalogVersion.version[default=Online])[default=$contentCatalog1:Online]
+$contentCatalog2=testCatalog2
+$contentCV2=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog2]),CatalogVersion.version[default=Online])[default=$contentCatalog2:Online]
+$defaultCurrency=EUR
+$languages=en
+$defaultLanguage=en
+
+INSERT_UPDATE Language;isocode[unique=true];active
+;de;true
+;en;true
+
+INSERT_UPDATE Currency;isocode[unique=true];name[lang=de];name[lang=en];active;base;conversion;digits;symbol
+;EUR;Euro;Euro;true;true;1;2;€
+
+INSERT_UPDATE Catalog;id[unique=true];name[lang=de];name[lang=en];defaultCatalog
+;$contentCatalog1;$contentCatalog1;$contentCatalog1;true
+;$contentCatalog2;$contentCatalog2;$contentCatalog2;true
+
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;defaultCurrency(isocode);languages(isoCode)
+;$contentCatalog1;Online;false;$defaultCurrency;$languages
+;$contentCatalog2;Online;false;$defaultCurrency;$languages
+
+INSERT_UPDATE PageTemplate;$contentCV1[unique=true];uid[unique=true];name;frontendTemplateName;active[default=true]
+;;pagetemplate1;pagetemplate1;layout/landingLayout2Page;
+
+INSERT_UPDATE ContentPage;$contentCV1[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV1);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='true']
+;;contentpage1;contentpage1;pagetemplate1;contentpage1
+
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV1[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;component1;component1;;component1
+
+INSERT_UPDATE CxCmsComponentContainer;$contentCV1[unique=true];uid[unique=true];name;defaultCmsComponent(&componentRef);&componentRef
+;;container1;container1;component1;container1
+
+INSERT_UPDATE ContentSlot;$contentCV1[unique=true];uid[unique=true];active;cmsComponents(&componentRef)
+;;Section1Slot-contentpage1;true;container1
+
+# ContentSlotForPage 
+INSERT_UPDATE ContentSlotForPage;$contentCV1[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV1)[unique=true][default='contentpage1'];contentSlot(uid,$contentCV1)[unique=true];;;
+;;Section1-contentpage1;Section1;;Section1Slot-contentpage1;;;
+
+INSERT_UPDATE CxCustomizationsGroup;code;$contentCV2[unique=true]
+;default;
+
+INSERT_UPDATE CxCustomization;code[unique=true];name;$contentCV2[unique=true];group(code,$contentCV2)[default='default']
+;customization1;customization1;;
+
+INSERT_UPDATE CxVariation;code[unique=true];name;$contentCV2[unique=true];active[default=true];customization(code,$contentCV2)[unique=true];
+;variation1;variation1;;;customization1;
+
+INSERT_UPDATE CxCmsAction;code[unique=true];$contentCV2[unique=true];componentId;variation(code,$contentCV2)[unique=true];target;type(code);containerId;
+;cmsaction1;;cxcomponent1;variation1;cxCmsActionPerformable;PLAIN;container1
+
+INSERT_UPDATE CxCmsComponentContainer;$contentCV2[unique=true];uid[unique=true];name;&containerRef
+;;container1;container1;container1;
+
+

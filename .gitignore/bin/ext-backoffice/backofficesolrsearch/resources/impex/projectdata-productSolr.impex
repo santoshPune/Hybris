@@ -1,0 +1,113 @@
+$solrValueRanges=solrValueRanges(name);
+$defaultSortOrder=defaultSortOrder;
+$document=document(code);
+$solrSearchConfig=solrSearchConfig(pageSize);
+
+$solrSearchConfig=solrSearchConfig(&Item);
+$solrIndexerQueries = solrIndexerQueries(identifier)[forceWrite=true];
+$solrIndexedTypes = solrIndexedTypes(identifier);
+$solrServerConfig = solrServerConfig(name);
+$solrIndexConfig = solrIndexConfig(name);
+$solrIndexedType=solrIndexedType(identifier)[unique=true,default='BackofficeProduct'];
+$backofficeSFCName=Solr Config for Backoffice;
+$ftsWildcardQueryType=ftsWildcardQueryType(code);
+
+$solrValueRangeSets = solrValueRangeSets(name)
+$solrValueRangeSet = solrValueRangeSet(name)
+$solrValueRanges=solrValueRanges(name);
+
+;;
+INSERT_UPDATE SolrSearchConfig;&Item;pageSize[unique=true];description[unique=true];$defaultSortOrder;legacyMode;restrictFieldsInResponse;
+;BSFC;20;SolrSearchConfig for backoffice;score;false;true;
+;;
+INSERT_UPDATE SolrIndexerQuery;identifier[unique=true];type(code);query;injectLastIndexTime[default=true];injectCurrentTime[default=true];injectCurrentDate[default=true];user(uid);solrIndexerQueryParameters(name);
+;backofficeProductFull;full;SELECT {pk} FROM {Product};;;;admin;;
+;backofficeProductUpdate;update;SELECT {PK} FROM {Product} WHERE {modifiedtime} >= ?lastIndexTime;true;;;admin;;
+;;
+INSERT_UPDATE SolrIndexedType;identifier[unique=true];type(code);$solrIndexerQueries;variant;identityProvider;modelLoader;configSet;indexName;
+;BackofficeProduct;Product;backofficeProductFull,backofficeProductUpdate;false;backofficeIdentityProvider;;backoffice;backoffice_product
+;;
+;;
+#references
+INSERT_UPDATE SolrIndexedProperty;name[unique=true];$solrIndexedType;type(code);fieldValueProvider;includeInResponse[default=false];
+;variantType;;long;defaultReferenceValueResolver;;
+;unit;;long;defaultReferenceValueResolver;;
+;;
+#multivalue references (collections)
+INSERT_UPDATE SolrIndexedProperty;name[unique=true];$solrIndexedType;type(code);fieldValueProvider;multiValue;localized[default=false];includeInResponse[default=false];
+;supercategories;;long;collectionValueResolver;true;;;
+;comments;;long;collectionValueResolver;true;;;
+;keywords;;long;collectionValueResolver;true;true;
+#simple fields
+INSERT_UPDATE SolrIndexedProperty;name[unique=true];$solrIndexedType;type(code);localized[default=false];currency[default=false];multiValue[default=false];includeInResponse[default=false];useForSpellChecking[default=false];
+;code;;text;;;;;;
+;name;;text;true;;;;;
+;approvalStatus;;string;;;;;;
+;articleStatus;;string;;;;;;
+;description;;text;true;;;;;
+;ean;;text;;;;;;
+;manufacturerName;;text;;;;;;
+;numberContentUnits;;double;;;;;;
+;priceQuantity;;double;;;;;;
+;remarks;;text;;true;;;;
+;segment;;text;;true;;;;
+;;
+
+#free text search fields
+INSERT_UPDATE SolrIndexedProperty;name[unique=true];$solrIndexedType;type(code);localized[default=false];currency[default=false];multiValue[default=false];fieldValueProvider;ftsQuery;ftsQueryBoost;ftsPhraseQuery;ftsPhraseQueryBoost;ftsWildcardQuery;$ftsWildcardQueryType;includeInResponse;useForSpellChecking;useForAutocomplete;
+;_backofficeLabel;;text;true;;;backofficeValueResolver;true;1.0;true;5.0;true;POSTFIX;false;true;true;
+;code;;text;true;;;backofficeValueResolver;true;1.0;true;5.0;true;POSTFIX;false;true;true;
+;name;;text;true;;;backofficeValueResolver;true;1.0;true;5.0;true;POSTFIX;false;true;true;
+
+INSERT_UPDATE SolrIndexedProperty;name[unique=true];$solrIndexedType;type(code);localized[default=false];currency[default=false];multiValue[default=false];fieldValueProvider;includeInResponse[default=false];
+;offlineDate;;date;;;;defaultDateValueResolver;;
+;onlineDate;;date;;;;defaultDateValueResolver;;
+;creationtime;;date;;;;defaultDateValueResolver;;
+;modifiedtime;;date;;;;defaultDateValueResolver;;
+;;
+
+INSERT_UPDATE SolrIndexedProperty;name[unique=true];$solrIndexedType;type(code);localized[default=false];currency[default=false];multiValue[default=false];fieldValueProvider;ftsQuery;ftsQueryBoost;ftsPhraseQuery;ftsPhraseQueryBoost;includeInResponse;useForSpellChecking;useForAutocomplete;
+;pk;;string;false;;;;true;1.0;true;10.0;false;false;false;
+
+#facets
+;;
+INSERT_UPDATE  SolrValueRangeSet;name[unique=true];type;$solrValueRanges;
+;backofficePriceRanges;double;0-19.99,20-69.99,70-99.99,100-100000;
+;;
+INSERT_UPDATE  SolrValueRange;name[unique=true];from;to;$solrValueRangeSet;
+;0-19.99;0;19.99;backofficePriceRanges;
+;20-69.99;20;69.99;backofficePriceRanges;
+;70-99.99;70;99.99;backofficePriceRanges;
+;100-100000;100;100000;backofficePriceRanges;
+;;
+INSERT_UPDATE SolrIndexedProperty;name[unique=true];backofficeDisplayName[lang=en];$solrIndexedType[unique=true];type(code);facet[default=true];localized[default=false];currency[default=false];multiValue[default=false];rangeSet(name);facetDisplayNameProvider;fieldValueProvider;includeInResponse[default=false];rangeSets(name);facetType(code)[unique=true,default='MultiSelectOr'];
+;price;Price;;double;true;;true;;backofficePriceRanges;;productPriceValueProvider;;;Refine;
+;priceValue;Price Value;;double;;;true;;;;productPriceValueProvider;;;;
+;category;Category;;string;true;;;true;;;categoryCodeValueProvider;;;;
+;catalogVersion;Catalog version;;string;true;true;;;;;catalogVersionValueResolver;;;;
+;catalog;catalog;;string;true;true;;;;;catalogValueResolver;;;;
+;;
+INSERT_UPDATE SolrServerConfig;name[unique=true];mode(code);embeddedMaster;
+;standalone-Backoffice;standalone;true;
+;;
+INSERT_UPDATE SolrEndpointUrl;url[unique=true];master;solrServerConfig(name)[unique=true];
+;http://localhost:8983/solr;true;standalone-Backoffice;
+;;
+INSERT_UPDATE SolrIndexConfig;name[unique=true];legacyMode;batchSize;exportPath;
+;indexConfig-Backoffice;false;100;;
+;;
+INSERT_UPDATE  SolrFacetSearchConfig;name[unique=true];description;$document;$solrSearchConfig;currencies(isocode);languages(isocode);$solrValueRangeSets;$solrIndexedTypes;$solrServerConfig;$solrIndexConfig;
+;$backofficeSFCName;$backofficeSFCName;;BSFC;EUR,USD;de,en;backofficePriceRanges;BackofficeProduct;standalone-Backoffice;indexConfig-Backoffice
+;;
+INSERT_UPDATE BackofficeIndexedTypeToSolrFacetSearchConfig;indexedType(code)[unique=true];solrFacetSearchConfig(name);
+;Product;$backofficeSFCName;
+
+# SolrIndexerJobsService is responsible for enabling backofficeSolrIndexerUpdateCronJob and backofficeSolrIndexerDeleteCronJob after initialization
+# because of the TSB-3119
+INSERT_UPDATE CronJob;code[unique=true];job(code);singleExecutable;sessionLanguage(isocode);active;
+;backofficeSolrIndexerDeleteCronJob;backofficeSolrIndexerDeleteJob;false;en;false;
+;backofficeSolrIndexerUpdateCronJob;backofficeSolrIndexerUpdateJob;false;en;false;
+
+INSERT Trigger;cronJob(code);active;activationTime;year;month;day;hour;minute;second;relative;weekInterval;daysOfWeek;
+;backofficeSolrIndexerDeleteCronJob;true;;-1;-1;-1;-1;-1;35;false;0;;
+;backofficeSolrIndexerUpdateCronJob;true;;-1;-1;-1;-1;-1;05;false;0;;

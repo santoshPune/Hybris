@@ -1,0 +1,24 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Yaas Store Prices
+#% impex.setLocale( Locale.GERMAN ); 
+
+$productCatalog=yaasProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+$taxGroup=Europe1PriceFactory_PTG(code)[default=jp-vat-full]
+
+
+INSERT_UPDATE PriceRow;productId[unique=true];unit(code[unique=true,default=pieces]);currency(isocode)[unique=true];price;minqtd;unitFactor;net
+;yaasconnect1;pieces;USD;10;1;1;false
+;yaasconnect2;pieces;USD;10;1;1;false
+;yaasconnect3;pieces;USD;10;1;1;false
+

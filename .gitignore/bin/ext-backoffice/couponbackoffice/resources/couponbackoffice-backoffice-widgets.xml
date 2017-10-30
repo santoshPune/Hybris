@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+-->
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/widgets.xsd">
+
+    <widget-connection sourceWidgetId="couponbackoffice-explorer-tree" outputId="nodeSelected" targetWidgetId="couponbackoffice-tree-node-adapter" inputId="input"/>
+    <widget-connection sourceWidgetId="couponbackoffice-tree-node-adapter" outputId="true" targetWidgetId="couponbackoffice-typecode-extractor" inputId="genericInput"/>
+    <widget-connection sourceWidgetId="couponbackoffice-tree-node-adapter" outputId="true" targetWidgetId="couponbackoffice-search-enabler" inputId="genericInput"/>
+    <widget-connection sourceWidgetId="couponbackoffice-tree-node-adapter" outputId="false" targetWidgetId="couponbackoffice-search-disabler" inputId="genericInput"/>
+    <widget-connection sourceWidgetId="couponbackoffice-typecode-extractor" outputId="genericOutput" targetWidgetId="couponbackoffice-search-logic" inputId="type"/>
+    <widget-connection sourceWidgetId="couponbackoffice-search-enabler" outputId="genericOutput" targetWidgetId="couponbackoffice-text-search" inputId="enabled"/>
+    <widget-connection sourceWidgetId="couponbackoffice-search-disabler" outputId="genericOutput" targetWidgetId="couponbackoffice-text-search" inputId="enabled"/>
+    <widget-connection sourceWidgetId="couponbackoffice-text-search" outputId="query" targetWidgetId="couponbackoffice-search-logic" inputId="searchtext"/>
+    <widget-connection sourceWidgetId="couponbackoffice-search-logic" outputId="pageable" targetWidgetId="couponbackoffice-simple-list" inputId="pageable"/>
+
+</widgets>

@@ -1,0 +1,1160 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+*** Settings ***
+Resource          c4ccustomeratddtests/C4cCustomer_Keywords.txt
+Resource          c4ccustomeratddtests/testdata_variables.txt
+
+Test Setup        import commercecart sampledata
+Test Teardown     reset system
+
+Suite Setup       run datahub
+Suite Teardown    stop datahub
+
+*** Test Cases ***
+# Customer id in tests have format "customer_<test_name>[_<other_text>] so it can easily be seen during debuggig
+# which SOAP message belongs to which test case.
+C4CIntegration_Test_Verify_senderParty
+    [Documentation]     Verification of the SenderParty in the messageHeader of the SOAP message
+    ${customerId} =     Set Variable    customer_c4cintegration_test_verify_senderparty
+    ${customer} =       create customer with uid "${customerId}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${senderParty} =    extract data from xml "${xml}" by xPath "//MessageHeader/SenderParty/InternalID[@schemeID='${senderschemeID}'][@schemeAgencyID='${senderschemeAgencyID}']"
+	Should Be Equal As Strings    ${senderParty}    ${senderInternalID}
+
+C4CIntegration_Verify_recipientParty
+    [Documentation]     Verification of the recipientParty in the messageHeader of the SOAP message
+    ${customerId} =     Set Variable    customer_C4CIntegration_Verify_recipientParty
+    ${customer} =       create customer with uid "${customerId}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${recipient} =      extract data from xml "${xml}" by xPath "//MessageHeader/RecipientParty/InternalID[@schemeID='${recipientschemeID}'][@schemeAgencyID='${recipientschemeAgencyID}']"
+    Should Be Equal As Strings    ${recipient}    ${recipientInternalID}
+
+C4CIntegration_Verify_message_UUID
+    [Documentation]     Verify that the messageId sent inside the SOAP message equals the one passed as get parameter
+    ${customerId} =     Set Variable    customer_C4CIntegration_Verify_message_UUID
+    ${customer} =       create customer with uid "${customerId}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${UUIDmessage} =    extract data from xml "${xml}" by xPath "//MessageHeader/UUID"
+    ${UUIDurl} =        get message URL
+    Should Contain      ${UUIDurl}    ${UUIDmessage}
+
+C4CIntegration_Verify_CustomerId
+    [Documentation]     Verification customerId as a part of a validation Customer attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_customerid
+    ${customer} =       create customer with uid "${customerId}" and name "Mike Vazowski"
+    run cron job
+    ${xml} =            read data from c4c
+    ${customerXml} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[Common/Person/Name[GivenName='Mike'][FamilyName='Vazowski']]/ExternalID"
+    Should Be Equal As Strings      ${customerXml}    ${customerId}
+
+C4CIntegration_Verify_uId
+    [Documentation]     Verification uId as a part of a validation Customer attributes
+    ${customerId} =     Set Variable    customer_C4CIntegration_Verify_uId
+    ${customer} =       create customer with uid "${customerId}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${uId} =            extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI"
+    Should Be Equal As Strings    ${uId}    ${customer.uid}
+
+C4CIntegration_Verify_GivenName_and_FamilyName
+    [Documentation]     Verification Name as a part of a validation Customer attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_givenname_and_familyname
+    ${name} =           Set variable    Mike
+    ${surname} =        Set variable    Vazowski
+    ${customer} =       create customer with uid "${customerId}" and name "${name} ${surname}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${GivenName} =      extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/Common/Person/Name/GivenName"
+    ${FamilyName} =     extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/Common/Person/Name/FamilyName"
+    Should Be Equal As Strings      ${name}       ${GivenName}
+    Should Be Equal As Strings      ${surname}    ${FamilyName}
+
+C4CIntegration_Verify_GivenName
+    [Documentation]     Verification GivenName as a part of a validation Customer attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_givenname
+    ${name} =           Set Variable    James
+    ${customer} =       create customer with uid "${customerId}" and name "${name}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${GivenName} =      extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/Common/Person/Name/GivenName"
+    ${FamilyName} =     extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/Common/Person/Name/FamilyName"
+    Should Be Equal As Strings    ${customer.name}    ${GivenName}
+    Should Be Empty     ${FamilyName}
+
+C4CIntegration_Verify_postalCode
+    [Documentation]     Verification postalCode as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_postalcode
+    ${code} =           Set variable    505PC
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${address} =        update postal code of address "${address}" to "${code}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${postalCode} =     extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/PostalAddress/StreetPostalCode"
+    Should Be Equal As Strings    ${postalCode}     ${code}
+
+C4CIntegration_Verify_streetName
+    [Documentation]     Verification streetName as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_streetname
+    ${street} =         Set variable    TestStreet
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    update street of address "${address}" to "${street}", "10"
+    run cron job
+    ${xml} =            read data from c4c
+    ${streetName} =     extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/PostalAddress/StreetName"
+    Should Be Equal As Strings    ${streetName}     ${street}
+
+C4CIntegration_Verify_streetNumber
+    [Documentation]     Verification streetNumber as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_streetnumber
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${streetN} =        Set variable    013
+    update street of address "${address}" to "TestStreet", "${streetN}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${streetNumber} =   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/PostalAddress/HouseID"
+    Should Be Equal As Strings    ${streetNumber}     ${streetN}
+
+C4CIntegration_Verify_pobox
+    [Documentation]     Verification pobox as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_pobox
+    ${pobox} =          Set Variable    644@
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    update postal box of address "${address}" to "${pobox}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${poboxXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/PostalAddress/POBoxID"
+    Should Be Equal As Strings    ${pobox}     ${poboxXml}
+
+C4CIntegration_Verify_district
+    [Documentation]     Verification district as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_district
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${district} =       Set Variable    firstDiscrict
+    update district of address "${address}" to "${district}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${districtXml} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/PostalAddress/DistrictName"
+    Should Be Equal As Strings    ${districtXml}     ${district}
+
+C4CIntegration_Verify_town
+    [Documentation]     Verification town as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_town
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${town} =           Set Variable    City17
+    update town of address "${address}" to "${town}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${townXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/PostalAddress/CityName"
+    Should Be Equal As Strings    ${townXml}     ${town}
+
+C4CIntegration_Verify_country
+    [Documentation]     Verification country as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_country
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${country} =        Set variable    DE
+    update country of address "${address}" to "${country}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${countryXml} =     extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/PostalAddress/CountryCode"
+    Should Be Equal As Strings    ${countryXml}     ${country}
+
+C4CIntegration_Verify_phone1
+    [Documentation]     Verification phone1 as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_phone1
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${phone} =          Set Variable    +44-dont-call-phone1
+    update first phone of address "${address}" to "${phone}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${phoneXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Telephone/Number/SubscriberID"
+    Should Be Equal As Strings    ${phoneXml}     ${phone}
+
+C4CIntegration_Verify_phone2
+    [Documentation]     Verification phone2 as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_phone2
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${phone} =          Set Variable    +44-dont-call-phone2
+    update second phone of address "${address}" to "${phone}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${phoneXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Telephone/Number/SubscriberID"
+    Should Be Equal As Strings    ${phoneXml}     ${phone}
+
+C4CIntegration_Verify_fax
+    [Documentation]     Verification fax as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_fax
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${fax} =            Set Variable    +44-fax
+    update fax of address "${address}" to "${fax}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${faxXml} =         extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Facsimile/Number/SubscriberID"
+    Should Be Equal As Strings    ${faxXml}    ${fax}
+
+C4CIntegration_Verify_cellphone
+    [Documentation]     Verification cellphone as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_cellphone
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${cellphone} =      Set Variable    +44-try-to-call-013
+    update mobile phone of address "${address}" to "${cellphone}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${cellphoneXml} =   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Telephone/Number/SubscriberID"
+    Should Be Equal As Strings    ${cellphoneXml}     ${cellphone}
+
+C4CIntegration_Verify_roleCode
+    [Documentation]     Verification roleCode as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_rolecode
+    ${customer} =       create customer with uid "${customerId}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${rolecode} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/Role/RoleCode"
+    Should Be Equal As Strings    ${rolecode}    ${rolecode_test}
+
+C4CIntegration_Verify_formOfAddress
+    [Documentation]     Verification formOfAddress as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_formofaddress
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customer.uid}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${formOfAddress} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/Common/Person/Name/formOfAddress"
+    Should Be Empty     ${formOfAddress}
+
+C4CIntegration_Verify_gender
+    [Documentation]     Verification gender as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_gender
+    ${customer} =       create customer with uid "${customerId}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${gender} =         extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/Common/Person/GenderCode"
+    Should Be Equal As Strings    ${gender}    0
+
+C4CIntegration_CanSetEmptyCustomerName
+    [Documentation]    Ensure that empty string successfully overrides existing customer's name
+    ${userId} =        Set Variable    customer_c4cintegration_cansetemptycustomername
+    ${user} =          create customer with uid "${userId}" and name "Ivan Ivanov"
+    run cron job
+    update customer "${user}" with name "${Empty}"
+    run cron job
+    ${response} =      read data from c4c
+    ${name} =          extract data from xml "${response}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']/Common/Person/Name/GivenName"
+    ${surname} =       extract data from xml "${response}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']/Common/Person/Name/FamilyName"
+    Should be empty    ${name}
+    Should be empty    ${surname}
+
+C4CIntegration_CanSetEmptyStreetName
+    [Documentation]    Ensure that empty string successfully overrides existing street name
+    ${userId} =        Set Variable    customer_c4cintegration_cansetemptystreetname
+    create customer with uid "${userId}" and name "Anna Davidson"
+    ${address} =       create address for customer with uid "${userId}"
+    ${town} =          Set Variable    town
+    update town of address "${address}" to "${town}"
+    run cron job
+    update street of address "${address}" to "${EMPTY}", "${EMPTY}"
+    run cron job
+    ${response} =      read data from c4c
+    ${street} =        extract data from xml "${response}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']/AddressInformation/Address[CityName='${town}']/PostalAddress/StreetName"
+    Should be empty    ${street}
+
+C4CIntegration_Test_Check_Default_Shipment_Address_Is_Null
+    [Documentation]    C4C integration check if customer's default shipment address was not provided.
+    ${userId} =    Set Variable    customer_c4cintegration_test_check_default_shipment_address_is_null
+    ${name}    Set Variable    John Doe
+    create customer with uid "${userId}" and name "${name}"
+    set default shipment address "${null}" for customer with uid "${userId}"
+    run cron job
+	${xml}=    read data from c4c
+	${address}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName]"
+    Should Be Empty    ${address}
+    ${shipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName]/AddressUsage[AddressUsageCode='SHIP_TO']"
+	Should Be Empty    ${shipping}
+	${default}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName]/AddressUsage[AddressUsageCode='XXDEFAULT']"
+	Should Be Empty    ${default}
+	${billing}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName]/AddressUsage[AddressUsageCode='BILL_TO']"
+	Should Be Empty    ${billing}
+
+C4CIntegration_Test_Check_Default_Shipment_Address
+	 [Documentation]    C4C integration check if customer's default shipment address was provided.
+	 ${userId} =    Set Variable    customer_c4cintegration_test_check_default_shipment_address
+	 ${name}    Set Variable    John Doe
+	 create customer with uid "${userId}" and name "${name}"
+	 ${address} =    create address for customer with uid "${userId}"
+	 ${town} =          Set Variable    Berlin
+     update town of address "${address}" to "${town}"
+	 Should Not Be Equal    ${address}    ${null}
+     set default shipment address "${address}" for customer with uid "${userId}"
+     run cron job
+     ${xml}=    read data from c4c
+     ${address}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']"
+     Should Not Be Empty    ${address}
+     ${shipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']/AddressUsage[AddressUsageCode='SHIP_TO']"
+     Should Not Be Empty    ${shipping}
+     ${default}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']/AddressUsage[AddressUsageCode='XXDEFAULT']"
+     Should Not Be Empty    ${default}
+     ${billing}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']/AddressUsage[AddressUsageCode='BILL_TO']"
+     Should Be Empty    ${billing}
+
+C4CIntegration_Test_Check_Default_Billing_Address_Is_Null
+    [Documentation]    C4C integration check if customer's default shipment address was not provided.
+    ${userId} =    Set Variable    customer_c4cintegration_test_check_default_billing_address_is_null
+    ${name}    Set Variable    John Doe
+    create customer with uid "${userId}" and name "${name}"
+    set default billing address "${null}" for customer with uid "${userId}"
+    run cron job
+	${xml}=    read data from c4c
+	${address}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName]"
+    Should Be Empty    ${address}
+    ${shipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName]/AddressUsage[AddressUsageCode='SHIP_TO']"
+	Should Be Empty    ${shipping}
+	${default}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName]/AddressUsage[AddressUsageCode='XXDEFAULT']"
+	Should Be Empty    ${default}
+	${billing}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName]/AddressUsage[AddressUsageCode='BILL_TO']"
+	Should Be Empty    ${billing}
+
+C4CIntegration_Test_Check_Default_Billing_Address
+	[Documentation]    C4C integration check if customer's default shipment address was provided.
+	${userId} =    Set Variable    customer_c4cintegration_test_check_default_billing_address
+	${name}    Set Variable    John Doe
+	create customer with uid "${userId}" and name "${name}"
+	${address} =    create address for customer with uid "${userId}"
+	${town} =          Set Variable    Berlin
+    update town of address "${address}" to "${town}"
+	Should Not Be Equal    ${address}    ${null}
+    set default billing address "${address}" for customer with uid "${userId}"
+    run cron job
+    ${xml}=    read data from c4c
+    ${shipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']/AddressUsage[AddressUsageCode='SHIP_TO']"
+	Should Be Empty    ${shipping}
+	${default}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']/AddressUsage[AddressUsageCode='XXDEFAULT']"
+	Should Be Empty    ${default}
+	${billing}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']/AddressUsage[AddressUsageCode='BILL_TO']"
+	Should Not Be Empty    ${billing}
+
+C4CIntegration_Test_Check_Default_Address_Is_Null
+    [Documentation]    C4C integration check if customer's default shipment address was not provided.
+    ${userId} =    Set Variable    customer_c4cintegration_test_check_default_address_is_null
+    ${name}    Set Variable    John Doe
+    create customer with uid "${userId}" and name "${name}"
+    set default shipment address "${null}" for customer with uid "${userId}"
+    run cron job
+	${xml}=    read data from c4c
+    ${shipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName]/AddressUsage[AddressUsageCode='SHIP_TO']"
+	Should Be Empty    ${shipping}
+	${default}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName]/AddressUsage[AddressUsageCode='XXDEFAULT']"
+	Should Be Empty    ${default}
+	${billing}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName]/AddressUsage[AddressUsageCode='BILL_TO']"
+	Should Be Empty    ${billing}
+
+C4CIntegration_Test_Check_Default_Address
+	[Documentation]    C4C integration check if customer's default shipment address was provided.
+	${userId} =    Set Variable    customer_c4cintegration_test_check_default_address
+	${name}    Set Variable    John Doe
+	create customer with uid "${userId}" and name "${name}"
+	${address} =    create address for customer with uid "${userId}"
+	${town} =          Set Variable    Berlin
+    update town of address "${address}" to "${town}"
+	Should Not Be Equal    ${address}    ${null}
+    set default shipment address "${address}" for customer with uid "${userId}"
+    run cron job
+    ${xml}=    read data from c4c
+    ${shipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']/AddressUsage[AddressUsageCode='SHIP_TO']"
+	Should Not Be Empty    ${shipping}
+	${default}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']/AddressUsage[AddressUsageCode='XXDEFAULT']"
+	Should Not Be Empty    ${default}
+	${billing}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']/AddressUsage[AddressUsageCode='BILL_TO']"
+	Should Be Empty    ${billing}
+
+C4CIntegration_Test_Check_Shipment_And_Payment_Address
+	[Documentation]    C4C integration check if customer's default shipment address was provided.
+	${userId} =    Set Variable    customer_c4cintegration_test_check_shipment_and_payment_address
+	${name}    Set Variable    John Doe
+	create customer with uid "${userId}" and name "${name}"
+	${address} =    create address for customer with uid "${userId}"
+	${town} =          Set Variable    Berlin
+    update town of address "${address}" to "${town}"
+	Should Not Be Equal    ${address}    ${null}
+    set default shipment address "${address}" for customer with uid "${userId}"
+    set default billing address "${address}" for customer with uid "${userId}"
+    run cron job
+    ${xml}=    read data from c4c
+    ${shipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']/AddressUsage[AddressUsageCode='SHIP_TO']"
+	Should Not Be Empty    ${shipping}
+	${default}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']/AddressUsage[AddressUsageCode='XXDEFAULT']"
+	Should Not Be Empty    ${default}
+	${billing}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='${town}']/AddressUsage[AddressUsageCode='BILL_TO']"
+	Should Not Be Empty    ${billing}
+
+C4CIntegration_Test_Check_Two_Addresses
+	[Documentation]    C4C integration check if customer's default shipment address was provided.
+	${userId} =    Set Variable    customer_c4cintegration_test_check_two_addresses
+	${name} =    Set Variable    John Doe
+	create customer with uid "${userId}" and name "${name}"
+	${munichAddress} =    create address for customer with uid "${userId}"
+	${berlinAddress} =    create address for customer with uid "${userId}"
+	Should Not Be Equal    ${munichAddress}    ${null}
+	Should Not Be Equal    ${berlinAddress}    ${null}
+	update town of address "${munichAddress}" to "Munich"
+	update town of address "${berlinAddress}" to "Berlin"
+    set default shipment address "${munichAddress}" for customer with uid "${userId}"
+    set default billing address "${berlinAddress}" for customer with uid "${userId}"
+    run cron job
+    ${xml}=    read data from c4c
+    ${munichShipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Munich']/AddressUsage[AddressUsageCode='SHIP_TO']"
+	Should Not Be Empty    ${munichShipping}
+	${munichDefault}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Munich']/AddressUsage[AddressUsageCode='XXDEFAULT']"
+	Should Not Be Empty    ${munichDefault}
+	${munichBilling}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Munich']/AddressUsage[AddressUsageCode='BILL_TO']"
+	Should Be Empty    ${munichBilling}
+	${berlinShipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Berlin']/AddressUsage[AddressUsageCode='SHIP_TO']"
+	Should Be Empty    ${berlinShipping}
+	${berlinDefault}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Berlin']/AddressUsage[AddressUsageCode='XXDEFAULT']"
+	Should Be Empty    ${berlinDefault}
+	${berlinBilling}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Berlin']/AddressUsage[AddressUsageCode='BILL_TO']"
+	Should Not Be Empty    ${berlinBilling}
+
+C4CIntegration_Test_Reset_Shipment_Address
+	[Documentation]    C4C integration check if customer's default shipment address was provided.
+	${userId} =    Set Variable    customer_c4cintegration_test_reset_shipment_address
+	${name} =    Set Variable    John Doe
+	create customer with uid "${userId}" and name "${name}"
+	${munichAddress} =    create address for customer with uid "${userId}"
+	Should Not Be Equal    ${munichAddress}    ${null}
+	update town of address "${munichAddress}" to "Munich"
+	set default shipment address "${munichAddress}" for customer with uid "${userId}"
+	${berlinAddress} =    create address for customer with uid "${userId}"
+    Should Not Be Equal    ${berlinAddress}    ${null}
+    update town of address "${berlinAddress}" to "Berlin"
+    set default shipment address "${berlinAddress}" for customer with uid "${userId}"
+    run cron job
+    ${xml}=    read data from c4c
+    ${munichShipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Munich']/AddressUsage[AddressUsageCode='SHIP_TO']"
+	Should Be Empty    ${munichShipping}
+	${munichDefault}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Munich']/AddressUsage[AddressUsageCode='XXDEFAULT']"
+	Should Be Empty    ${munichDefault}
+	${munichBilling}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Munich']/AddressUsage[AddressUsageCode='BILL_TO']"
+	Should Be Empty    ${munichBilling}
+	${berlinShipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Berlin']/AddressUsage[AddressUsageCode='SHIP_TO']"
+	Should Not Be Empty    ${berlinShipping}
+	${berlinDefault}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Berlin']/AddressUsage[AddressUsageCode='XXDEFAULT']"
+	Should Not Be Empty    ${berlinDefault}
+	${berlinBilling}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Berlin']/AddressUsage[AddressUsageCode='BILL_TO']"
+	Should Be Empty    ${berlinBilling}
+
+C4CIntegration_Test_Check_Reset_Payment_Address
+	[Documentation]    C4C integration check if customer's default shipment address was provided.
+	${userId} =    Set Variable    customer_c4cintegration_test_check_reset_payment_address
+	${name} =    Set Variable    John Doe
+	create customer with uid "${userId}" and name "${name}"
+	${munichAddress} =    create address for customer with uid "${userId}"
+	Should Not Be Equal    ${munichAddress}    ${null}
+    update town of address "${munichAddress}" to "Munich"
+    set default billing address "${munichAddress}" for customer with uid "${userId}"
+	${berlinAddress} =    create address for customer with uid "${userId}"
+	Should Not Be Equal    ${berlinAddress}    ${null}
+	update town of address "${berlinAddress}" to "Berlin"
+    set default billing address "${berlinAddress}" for customer with uid "${userId}"
+    run cron job
+    ${xml}=    read data from c4c
+    ${munichShipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Munich']/AddressUsage[AddressUsageCode='SHIP_TO']"
+	Should Be Empty    ${munichShipping}
+	${munichDefault}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Munich']/AddressUsage[AddressUsageCode='XXDEFAULT']"
+	Should Be Empty    ${munichDefault}
+	${munichBilling}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Munich']/AddressUsage[AddressUsageCode='BILL_TO']"
+	Should Be Empty    ${munichBilling}
+	${berlinShipping}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Berlin']/AddressUsage[AddressUsageCode='SHIP_TO']"
+	Should Be Empty    ${berlinShipping}
+	${berlinDefault}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Berlin']/AddressUsage[AddressUsageCode='XXDEFAULT']"
+	Should Be Empty    ${berlinDefault}
+	${berlinBilling}=    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${userId}']//AddressInformation[Address/PostalAddress/CityName='Berlin']/AddressUsage[AddressUsageCode='BILL_TO']"
+	Should Not Be Empty    ${berlinBilling}
+
+C4CIntegration_Verify_Mapping_Rules_For_Phone1
+    [Documentation]     Verification phone1 as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_mapping_rules_for_phone1
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${phone1} =         Set Variable    +44-dont-call-phone1
+    update first phone of address "${address}" to "${phone1}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${phone1Xml} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Telephone/Number/SubscriberID"
+    Should Be Equal As Strings    ${phone1Xml}     ${phone1}
+    ${MobilePhoneNumberIndicator} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Telephone/MobilePhoneNumberIndicator"
+    Should Be Equal As Strings    ${MobilePhoneNumberIndicator}     false
+    ${TelephoneUsageCode} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Telephone/TelephoneUsage/Usage/Code"
+    Should Be Equal As Strings    ${TelephoneUsageCode}     AD_DEFAULT
+
+C4CIntegration_Verify_Mapping_Rules_For_Phone2
+    [Documentation]     Verification phone2 as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_mapping_rules_for_phone2
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${phone2} =         Set Variable    +44-dont-call-phone2
+    update second phone of address "${address}" to "${phone2}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${phone2Xml} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Telephone/Number/SubscriberID"
+    Should Be Equal As Strings    ${phone2Xml}     ${phone2}
+    ${MobilePhoneNumberIndicator} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Telephone/MobilePhoneNumberIndicator"
+    Should Be Equal As Strings    ${MobilePhoneNumberIndicator}     false
+    ${TelephoneUsageCode} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Telephone/TelephoneUsage/Usage/Code"
+    Should Be Equal As Strings    ${TelephoneUsageCode}     AD_DEFAULT
+
+C4CIntegration_Verify_Mapping_Rules_For_Fax
+    [Documentation]     Verification fax as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_mapping_rules_for_fax
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${fax} =         Set Variable    +44-dont-send-fax
+    update fax of address "${address}" to "${fax}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${faxXml} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Facsimile/Number/SubscriberID"
+    Should Be Equal As Strings    ${faxXml}     ${fax}
+    ${MobilePhoneNumberIndicator} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Facsimile/MobilePhoneNumberIndicator"
+    Should Be Empty    ${MobilePhoneNumberIndicator}
+    ${FacsimileUsageCode} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Facsimile/FacsimileUsage/Usage/Code"
+    Should Be Equal As Strings    ${FacsimileUsageCode}     AD_DEFAULT
+
+C4CIntegration_Verify_Mapping_Rules_For_CellPhone
+    [Documentation]     Verification CellPhone as a part of a validation Address attributes
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_mapping_rules_for_cellphone
+    ${customer} =       create customer with uid "${customerId}"
+    ${address} =        create address for customer with uid "${customerId}"
+    ${cellphone} =         Set Variable    +44-dont-call-cellphone
+    update mobile phone of address "${address}" to "${cellphone}"
+    run cron job
+    ${xml} =            read data from c4c
+    ${cellphoneXml} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Telephone/Number/SubscriberID"
+    Should Be Equal As Strings    ${cellphoneXml}     ${cellphone}
+    ${MobilePhoneNumberIndicator} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Telephone/MobilePhoneNumberIndicator"
+    Should Be Equal As Strings    ${MobilePhoneNumberIndicator}     true
+    ${TelephoneUsageCode} =    extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Telephone/TelephoneUsage/Usage/Code"
+    Should Be Equal As Strings    ${TelephoneUsageCode}     AD_MBDEFAU
+
+C4CIntegration_Verify_EMail_in_2_addresses
+   [Documentation]      Verification EMail as a part of a validation Address attributes with Mapping Rules
+    ${customerId} =     Set Variable    customer_c4cintegration_verify_email_in_2_addresses
+    ${email1} =         Set variable    customer@email.com
+    ${email2} =         Set variable    customer@sap.com
+    ${customer} =       create customer with uid "${customerId}"
+    ${addressA1} =        create address for customer with uid "${customerId}"
+    update email of address "${addressA1}" to "${email1}"
+    update town of address "${addressA1}" to "Berlin"
+    ${addressA2} =        create address for customer with uid "${customerId}"
+    update email of address "${addressA2}" to "${email2}"
+    update town of address "${addressA2}" to "Munich"
+    run cron job
+    ${xml} =            read data from c4c
+    ${emailA1} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='Berlin']/Email/URI"
+    Should Be Equal As Strings    ${emailA1}     ${email1}
+    ${emailA2} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='Munich']/Email/URI"
+    Should Be Equal As Strings    ${emailA2}     ${email2}
+    ${emailA0} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[not(PostalAddress/CityName)]/Email/URI"
+    Should Be Equal As Strings    ${emailA0}     ${customerId}
+
+C4CIntegration_Verify_Email_in_Customer_Raw
+    [Documentation]     Verification Email as a part of a validation Email Mapping Rules
+    ${customerId} =        Set Variable    customer_c4cintegration_verify_email_in_customer_raw
+    ${customer} =          create customer with uid "${customerId}"
+    ${addressA1} =         create address for customer with uid "${customerId}"
+    ${town} =           Set Variable    Berlin
+    update town of address "${addressA1}" to "${town}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${email} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town}']/Email/URI"
+    Should Be Equal As Strings    ${email}    ${customerId}
+
+C4CIntegration_Verify_Email_in_Customer_Raw_and_in_Address_Raw
+    [Documentation]     Verification Email as a part of a validation Email Mapping Rules
+    ${customerId} =        Set Variable    customer_c4cintegration_verify_email_in_customer_raw_and_in_address_raw
+    ${customer} =          create customer with uid "${customerId}"
+    ${addressA1} =         create address for customer with uid "${customerId}"
+    update town of address "${addressA1}" to "Berlin"
+    ${email} =             Set Variable    customer@email.com
+    update email of address "${addressA1}" to "${email}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${UID_Email} =             extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[not(PostalAddress/CityName)]/Email/URI"
+    Should Be Equal As Strings    ${UID_Email}    ${customerId}
+    ${NotEmptyEmail} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='Berlin']/Email/URI"
+    Should Be Equal As Strings    ${NotEmptyEmail}    ${email}
+
+C4CIntegration_Verify_Synchronization_Sending_Only_Delta_Customer
+    [Documentation]    Check that the system sends only changed customers
+    ${customer1id} =                Set Variable    customer_c4cintegration_verify_synchronization_sending_only_delta_customer_1
+    ${customer1} =                  create customer with uid "${customer1id}"
+                                    run cron job
+    ${customer2id} =                Set Variable    customer_c4cintegration_verify_synchronization_sending_only_delta_customer_2
+    ${customer2} =                  create customer with uid "${customer2id}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${deltacustomer} =              extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customer1id}']"
+    Should Be Empty                 ${deltacustomer}
+    ${deltacustomer} =              extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner/ExternalID[text()='${customer2id}']"
+    Should Be Equal As Strings      ${deltacustomer}    ${customer2id}
+
+C4CIntegration_Verify_Synchronization_Not_Sending_The_Only_Removed_Address
+    [Documentation]    Check that the system does not send removed address
+    ${customerid} =                 Set Variable    customer_c4cintegration_verify_synchronization_not_sending_the_only_removed_address
+    ${customer} =                   create customer with uid "${customerid}"
+    ${address} =                    create address for customer with uid "${customerid}"
+                                    run cron job
+                                    delete address "${address}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${addressXML} =                 extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner/AddressInformation[not(Address/Email[URI='${customerid}'])]"
+    Should Be Empty                 ${addressXML}
+    assert cron job does not start when triggered
+
+C4CIntegration_Verify_Synchronization_Not_Sending_One_of_Removed_Address
+    [Documentation]    Check that the system sends customer and does not send removed address
+    ${customerid} =                 Set Variable    customer_c4cintegration_verify_synchronization_not_sending_one_of_removed_address
+    ${customer} =                   create customer with uid "${customerid}"
+    ${addressA1} =                  create address for customer with uid "${customerid}"
+                                    update town of address "${addressA1}" to "Berlin"
+    ${addressA2} =                  create address for customer with uid "${customerid}"
+                                    update town of address "${addressA2}" to "Removed"
+                                    run cron job
+                                    delete address "${addressA2}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${extractedData} =              extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerid}']"
+    Should Not Be Empty             ${extractedData}
+    ${extractedData} =              extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/AddressInformation[Address/PostalAddress[CityName='Removed']]"
+    Should Be Empty                 ${extractedData}
+
+C4CIntegration_Verify_Synchronization_Sending_Only_Delta_Customer_with_Changed_Customer_Attributes2
+    [Documentation]    Check that the system does not sends unupdated user
+    ${customerid} =                 Set Variable    customer_c4cintegration_verify_synchronization_sending_only_delta_customer_with_changed_customer_attributes2
+    ${customer} =                   create customer with uid "${customerid}"
+    ${address} =                    create address for customer with uid "${customerid}"
+                                    run cron job
+                                    update customer "${customer}" with name "Mike SuperMike"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${customerXML} =                extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerid}']"
+    Should Not Be Empty             ${customerXML}
+    assert cron job does not start when triggered
+
+C4CIntegration_Verify_Synchronization_Sending_Only_Delta_Customer_with_Address
+    [Documentation]    Check that the system sends only changed customers
+    ${customer1id} =                Set Variable    customer_c4cintegration_verify_synchronization_sending_only_delta_customer_with_address_1
+    ${customer1} =                  create customer with uid "${customer1id}"
+    ${address1} =                   create address for customer with uid "${customer1id}"
+    ${customer2id} =                Set Variable    customer_c4cintegration_verify_synchronization_sending_only_delta_customer_with_address_2
+    ${customer2} =                  create customer with uid "${customer2id}"
+    ${address2} =                   create address for customer with uid "${customer2id}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${deltacustomer} =              extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customer1id}']"
+    Should Not Be Empty             ${deltacustomer}
+    ${deltacustomer} =              extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customer2id}']"
+    Should Not Be Empty             ${deltacustomer}
+    ${address} =                    create address for customer with uid "${customer2id}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+# Turned off, because of Race Condition Problem
+# Anyway, since there is no way to control y2ysync in a systematic way. It means to be 100% sure the way it will behave
+# there should be no assumptions about what happens with other items, in this case: Checking that the first customer
+# is not sent over to datahub again.
+#    ${deltacustomer} =              extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customer1id}']"
+#    Should Be Empty                 ${deltacustomer}
+    ${deltacustomer} =              extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customer2id}']"
+    Should Not Be Empty             ${deltacustomer}
+
+C4CIntegration_Verify_Synchronization_Sending_Only_Delta_Customer_with_Changed_Customer_Attributes
+    [Documentation]    Check that the system sends only changed customers
+    ${customer1id} =                Set Variable    customer_c4cintegration_verify_synchronization_sending_only_delta_customer_with_changed_customer_attributes_1
+    ${customer1} =                  create customer with uid "${customer1id}"
+    ${customer2id} =                Set Variable    customer_c4cintegration_verify_synchronization_sending_only_delta_customer_with_changed_customer_attributes_2
+    ${customer2} =                  create customer with uid "${customer2id}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${deltacustomer} =              extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customer1id}']"
+    Should Not Be Empty             ${deltacustomer}
+    ${deltacustomer} =              extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customer2id}']"
+    Should Not Be Empty             ${deltacustomer}
+                                    update customer "${customer2}" with name "Mike SuperMike"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${deltacustomer} =              extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customer1id}']"
+    Should Be Empty                 ${deltacustomer}
+    ${deltacustomer} =              extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customer2id}']"
+    Should Not Be Empty             ${deltacustomer}
+
+C4CIntegration_Verify_Existed_Addresses_go_to_Correct_Updated_Customers
+    [Documentation]    Check that updating customer info does not mix addresses
+    ${customer2id} =                Set Variable    customer_c4cintegration_verify_existed_addresses_go_to_correct_updated_customers_1
+    ${customerW1A} =                create customer with uid "${customer2id}" and name "John WithOneAddress"
+    ${address1} =                   create address for customer with uid "${customer2id}"
+    ${city1} =                      Set Variable     Berlin
+                                    update town of address "${address1}" to "${city1}"
+    ${customer3id} =                Set Variable    customer_c4cintegration_verify_existed_addresses_go_to_correct_updated_customers_2
+    ${customerWMA} =                create customer with uid "${customer3id}" and name "Arnold WithMultiAddresses"
+    ${addressA1} =                  create address for customer with uid "${customer3id}"
+    ${cityA1} =                     Set Variable     Munich
+                                    update town of address "${addressA1}" to "${cityA1}"
+    ${addressA2} =                  create address for customer with uid "${customer3id}"
+    ${cityA2} =                     Set Variable     Frankfurt
+                                    update town of address "${addressA2}" to "${cityA2}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${city1}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer2id}
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${cityA1}'][AddressInformation/Address/PostalAddress/CityName='${cityA2}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer3id}
+                                    update customer "${customerW1A}" with name "StrongJohn Healer"
+                                    update customer "${customerWMA}" with name "StrangeArnold Wizard"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${city1}'][Common/Person/Name/GivenName='StrongJohn' and Common/Person/Name/FamilyName='Healer']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer2id}
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${cityA1}'][AddressInformation/Address/PostalAddress/CityName='${cityA2}'][Common/Person/Name/GivenName='StrangeArnold' and Common/Person/Name/FamilyName='Wizard']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer3id}
+
+C4CIntegration_Verify_New_Addresses_go_to_Correct_Existed_Customers
+    [Documentation]    Check that adding new addresses does not mix addresses
+    ${customer2id} =                Set Variable     customer_c4cintegration_verify_new_addresses_go_to_correct_existed_customers_with_one_address
+    ${customerW1A} =                create customer with uid "${customer2id}" and name "John WithOneAddress"
+    ${address1} =                   create address for customer with uid "${customer2id}"
+    ${city1} =                      Set Variable     Berlin
+                                    update town of address "${address1}" to "${city1}"
+    ${customer3id} =                Set Variable     customer_c4cintegration_verify_new_addresses_go_to_correct_existed_customers_with_multi_addresses
+    ${customerWMA} =                create customer with uid "${customer3id}" and name "Arnold WithMultiAddresses"
+    ${addressA1} =                  create address for customer with uid "${customer3id}"
+    ${cityA1} =                     Set Variable     Munich
+                                    update town of address "${addressA1}" to "${cityA1}"
+    ${addressA2} =                  create address for customer with uid "${customer3id}"
+    ${cityA2} =                     Set Variable     Frankfurt
+                                    update town of address "${addressA2}" to "${cityA2}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${city1}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer2id}
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${cityA1}'][AddressInformation/Address/PostalAddress/CityName='${cityA2}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer3id}
+    ${address2} =                   create address for customer with uid "${customer2id}"
+    ${city2} =                      Set Variable     Dresden
+                                    update town of address "${address2}" to "${city2}"
+    ${addressA3} =                  create address for customer with uid "${customer3id}"
+    ${cityA3} =                     Set Variable     Stuttgart
+                                    update town of address "${addressA3}" to "${cityA3}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${city1}'][AddressInformation/Address/PostalAddress/CityName='${city2}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer2id}
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${cityA1}'][AddressInformation/Address/PostalAddress/CityName='${cityA2}'][AddressInformation/Address/PostalAddress/CityName='${cityA3}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer3id}
+
+C4CIntegration_Verify_New_Addresses_go_to_Correct_Updated_Customers_Without_Adresses
+    [Documentation]    Check that updating customer info does not mix addresses
+    ${customer1id} =                Set Variable    customer_c4cintegration_verify_new_addresses_go_to_correct_updated_customers_without_adresses_1
+    ${customerWOA} =                create customer with uid "${customer1id}" and name "Mike WithoutAddress"
+    ${customer2id} =                Set Variable    customer_c4cintegration_verify_new_addresses_go_to_correct_updated_customers_without_adresses_2
+    ${customerW1A} =                create customer with uid "${customer2id}" and name "John WithOneAddress"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[Common/Person/Name/GivenName='Mike' and Common/Person/Name/FamilyName='WithoutAddress']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer1id}
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[Common/Person/Name/GivenName='John' and Common/Person/Name/FamilyName='WithOneAddress']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer2id}
+    ${address1} =                   create address for customer with uid "${customer1id}"
+    ${city1} =                      Set Variable     Dresden
+                                    update town of address "${address1}" to "${city1}"
+    ${address2} =                   create address for customer with uid "${customer2id}"
+    ${city2} =                      Set Variable     Stuttgart
+                                    update town of address "${address2}" to "${city2}"
+                                    update customer "${customerWOA}" with name "SuperMike Archer"
+                                    update customer "${customerW1A}" with name "StrongJohn Healer"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[Common/Person/Name/GivenName='SuperMike' and Common/Person/Name/FamilyName='Archer'][AddressInformation/Address/PostalAddress/CityName='${city1}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer1id}
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[Common/Person/Name/GivenName='StrongJohn' and Common/Person/Name/FamilyName='Healer'][AddressInformation/Address/PostalAddress/CityName='${city2}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer2id}
+
+C4CIntegration_Verify_Changed_Addresses_go_to_Correct_Existed_Customers
+    [Documentation]    Check that changing existed addresses does not mix addresses
+    ${customer2id} =                Set Variable    customer_c4cintegration_verify_changed_addresses_go_to_correct_existed_customers_1
+    ${customerW1A} =                create customer with uid "${customer2id}" and name "John WithOneAddress"
+    ${address1} =                   create address for customer with uid "${customer2id}"
+    ${city1} =                      Set Variable     Berlin
+                                    update town of address "${address1}" to "${city1}"
+    ${customer3id} =                Set Variable    customer_c4cintegration_verify_changed_addresses_go_to_correct_existed_customers_2
+    ${customerWMA} =                create customer with uid "${customer3id}" and name "Arnold WithMultiAddresses"
+    ${addressA1} =                  create address for customer with uid "${customer3id}"
+    ${cityA1} =                     Set Variable     Munich
+                                    update town of address "${addressA1}" to "${cityA1}"
+    ${addressA2} =                  create address for customer with uid "${customer3id}"
+    ${cityA2} =                     Set Variable     Frankfurt
+                                    update town of address "${addressA2}" to "${cityA2}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${city1}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer2id}
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${cityA1}'][AddressInformation/Address/PostalAddress/CityName='${cityA2}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer3id}
+    ${city1} =                      Set Variable     Hamburg
+                                    update town of address "${address1}" to "${city1}"
+    ${cityA1} =                     Set Variable     Dresden
+                                    update town of address "${addressA1}" to "${cityA1}"
+    ${cityA2} =                     Set Variable     Stuttgart
+                                    update town of address "${addressA2}" to "${cityA2}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${city1}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer2id}
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${cityA1}'][AddressInformation/Address/PostalAddress/CityName='${cityA2}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer3id}
+
+C4CIntegration_Verify_Deleted_Addresses_go_to_Correct_Existed_Customers
+    [Documentation]    Check that deleting existed addresses does not mix addresses
+    ${customer2id} =                Set Variable    customer_c4cintegration_verify_deleted_addresses_go_to_correct_existed_customers_1
+    ${customerW1A} =                create customer with uid "${customer2id}" and name "John WithOneAddress"
+    ${address1} =                   create address for customer with uid "${customer2id}"
+    ${city1} =                      Set Variable     Berlin
+                                    update town of address "${address1}" to "${city1}"
+    ${customer3id} =                Set Variable    customer_c4cintegration_verify_deleted_addresses_go_to_correct_existed_customers_2
+    ${customerWMA} =                create customer with uid "${customer3id}" and name "Arnold WithMultiAddresses"
+    ${addressA2} =                  create address for customer with uid "${customer3id}"
+    ${cityA2} =                     Set Variable     Frankfurt
+                                    update town of address "${addressA2}" to "${cityA2}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${city1}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer2id}
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[AddressInformation/Address/PostalAddress/CityName='${cityA2}']/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer3id}
+                                    update customer "${customerW1A}" with name "StrongJohn Healer"
+                                    update customer "${customerWMA}" with name "StrangeArnold Wizard"
+                                    delete address "${address1}"
+                                    delete address "${addressA2}"
+                                    run cron job
+    ${xml} =                        read data from c4c
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[Common/Person/Name/GivenName='StrongJohn' and Common/Person/Name/FamilyName='Healer'][not(AddressInformation[Address/PostalAddress/CityName='${city1}'])]/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer2id}
+    ${customer} =                   extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[Common/Person/Name/GivenName='StrangeArnold' and Common/Person/Name/FamilyName='Wizard'][not(AddressInformation[Address/PostalAddress/CityName='${cityA2}'])]/ExternalID"
+    Should Be Equal As Strings      ${customer}    ${customer3id}
+
+C4CIntegration_TestAddressCreation
+	[Documentation]        Check that new address of an existing customer is synchronized
+	${customerId} =        Set Variable    customer_c4cintegration_testaddresscreation
+	${customer} =          create customer with uid "${customerId}"
+	run cron job
+	read data from c4c
+    ${address} =           create address for customer with uid "${customerId}"
+    ${town} =              Set Variable    City17
+    update town of address "${address}" to "${town}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${townXml} =           extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/PostalAddress/CityName"
+    Should Be Equal As Strings    ${townXml}     ${town}
+    ${customerXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner/ExternalID"
+    Should Be Equal As Strings    ${customerXml}    ${customerId}
+
+C4CIntegration_TestAddressModification
+    [Documentation]        Check that if customer's address has been modified, the system synchronizes the address along with the customer
+	${customerId} =        Set Variable    customer_c4cintegration_testaddressmodification
+	${customer} =          create customer with uid "${customerId}"
+    ${address} =           create address for customer with uid "${customerId}"
+    ${town} =              Set Variable    City17
+    update town of address "${address}" to "City16"
+    run cron job
+    update town of address "${address}" to "${town}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${townXml} =           extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/PostalAddress/CityName"
+    Should Be Equal As Strings    ${townXml}     ${town}
+    ${customerXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner/ExternalID[text()='${customerId}']"
+    Should Be Equal As Strings    ${customerXml}    ${customerId}
+
+C4CIntegration_TestAddressRemoval
+    [Documentation]        Check that after the only customer's address is removed, the system sends the customer without any addresses
+	${customerId} =        Set Variable    customer_c4cintegration_testaddressremoval
+	${customer} =          create customer with uid "${customerId}"
+    ${address} =           create address for customer with uid "${customerId}"
+    run cron job
+    delete address "${address}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${customerXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner/ExternalID[text()='${customerId}']"
+    Should Be Equal As Strings    ${customerXml}    ${customerId}
+    ${addressXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/PostalAddress/CityName"
+    Should Be Empty        ${addressXml}
+
+C4CIntegration_Test_OneAddress_EmailIsNotUid
+    [Documentation]         Check synchronization for customer that has an email address that differs from uid value
+    ${customerId} =        Set Variable    customer_c4cintegration_test_oneaddress_emailisnotuid
+    ${customer} =          create customer with uid "${customerId}"
+    ${address} =           create address for customer with uid "${customerId}"
+    ${email} =             Set Variable    customer@email.com
+    update email of address "${address}" to "${email}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${email}']"
+    Should Not Be Empty    ${emailXml}
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${customerId}']"
+    Should Not Be Empty    ${emailXml}
+
+C4CIntegration_Test_OneAddress_EmailIsUid
+    [Documentation]         Check synchronization for customer that has an email address equals to uid
+    ${customerId} =        Set Variable    customer_c4cintegration_test_oneaddress_emailisuid
+    ${customer} =          create customer with uid "${customerId}"
+    ${address} =           create address for customer with uid "${customerId}"
+    update email of address "${address}" to "${customerId}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${customerId}']"
+    Should Not Be Empty    ${emailXml}
+
+C4CIntegration_Test_OneAddress_MixedAsUid
+    [Documentation]         Check synchronization for customer that has one mixed address: postal and email (equals to uid)
+    ${customerId} =        Set Variable   customer_c4cintegration_test_oneaddress_mixedasuid
+    ${customer} =          create customer with uid "${customerId}"
+    ${address} =           create address for customer with uid "${customerId}"
+    ${town} =              Set Variable    Berlin
+    update town of address "${address}" to "${town}"
+    update email of address "${address}" to "${customerId}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town}']/Email/URI[text()='${customerId}']"
+    Should Not Be Empty    ${emailXml}
+
+C4CIntegration_Test_OneAddress_Empty
+    [Documentation]         Check synchronization for customer that has one empty address
+    ${customerId} =        Set Variable    customer_c4cintegration_test_oneaddress_empty
+    ${customer} =          create customer with uid "${customerId}"
+    ${address} =           create address for customer with uid "${customerId}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${customerId}']"
+    Should Not Be Empty    ${emailXml}
+
+C4CIntegration_Test_TwoAddresses_EmailAsUidAndNotAsUid
+    [Documentation]         Check synchronization for customer that has 2 addresses with email: one equals to uid and another different from it
+    ${customerId} =        Set Variable    customer_c4cintegration_test_twoaddresses_emailasuidandnotasuid
+    ${customer} =          create customer with uid "${customerId}"
+    ${address1} =           create address for customer with uid "${customerId}"
+    update email of address "${address1}" to "${customerId}"
+    ${address2} =           create address for customer with uid "${customerId}"
+    ${email} =             Set Variable    customer@email.com
+    update email of address "${address2}" to "${email}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${customerId}']"
+    Should Not Be Empty    ${emailXml}
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${email}']"
+    Should Not Be Empty    ${emailXml}
+
+C4CIntegration_Test_TwoAddresses_EmailNotAsUid
+    [Documentation]         Check synchronization for customer that has 2 addresses with email (both different from uid)
+    ${customerId} =        Set Variable    customer_c4cintegration_test_twoaddresses_emailnotasuid
+    ${customer} =          create customer with uid "${customerId}"
+    ${address1} =           create address for customer with uid "${customerId}"
+    ${email1} =             Set Variable    customer@sap.com
+    update email of address "${address1}" to "${email1}"
+    ${address2} =           create address for customer with uid "${customerId}"
+    ${email2} =             Set Variable    customer@hybris.com
+    update email of address "${address2}" to "${email2}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${email1}']"
+    Should Not Be Empty    ${emailXml}
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${email2}']"
+    Should Not Be Empty    ${emailXml}
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${customerId}']"
+    Should Not Be Empty    ${emailXml}
+
+C4CIntegration_Test_TwoAddresses_EmailAsUidAndPostal
+    [Documentation]         Check synchronization for customer that has 2 addresses: email (equals to uid) and postal
+    ${customerId} =        Set Variable    customer_c4cintegration_test_twoaddresses_emailasuidandpostal
+    ${customer} =          create customer with uid "${customerId}"
+    ${address1} =           create address for customer with uid "${customerId}"
+    update email of address "${address1}" to "${customerId}"
+    ${address2} =           create address for customer with uid "${customerId}"
+    ${town} =              Set Variable    Berlin
+    update town of address "${address2}" to "${town}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${customerId}']"
+    Should Not Be Empty    ${emailXml}
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${customerId}
+
+C4CIntegration_Test_TwoAddresses_EmailNotAsUidAndPostal
+    [Documentation]        Check synchronization for customer that has 2 addresses: email (different from uid) and postal
+    ${customerId} =         Set Variable    customer_c4cintegration_test_twoaddresses_emailnotasuidandpostal
+    ${customer} =          create customer with uid "${customerId}"
+    ${address1} =           create address for customer with uid "${customerId}"
+    ${email1} =             Set Variable    customer@sap.com
+    update email of address "${address1}" to "${email1}"
+    ${address2} =           create address for customer with uid "${customerId}"
+    ${town} =              Set Variable    Berlin
+    update town of address "${address2}" to "${town}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${email1}']"
+    Should Not Be Empty    ${emailXml}
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${customerId}
+
+C4CIntegration_Test_TwoAddresses_2Postal
+    [Documentation]         Check synchronization for customer that has 2 different postal addresses
+    ${customerId} =         Set Variable    customer_c4cintegration_test_twoaddresses_2postal
+    ${customer} =          create customer with uid "${customerId}"
+    ${address1} =           create address for customer with uid "${customerId}"
+    ${town1} =              Set Variable    Munchen
+    update town of address "${address1}" to "${town1}"
+    ${address2} =           create address for customer with uid "${customerId}"
+    ${town2} =              Set Variable    Berlin
+    update town of address "${address2}" to "${town2}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town1}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${customerId}
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town2}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${customerId}
+
+C4CIntegration_Test_TwoAddresses_PostalAndMixedNotAsUid
+    [Documentation]         Check synchronization for customer that has 2 addresses: postal and mixed (email differs from uid)
+    ${customerId} =         Set Variable    customer_c4cintegration_test_twoaddresses_postalandmixednotasuid
+    ${customer} =          create customer with uid "${customerId}"
+    ${address1} =           create address for customer with uid "${customerId}"
+    ${town1} =              Set Variable    Munchen
+    update town of address "${address1}" to "${town1}"
+    ${address2} =           create address for customer with uid "${customerId}"
+    ${town2} =              Set Variable    Berlin
+    update town of address "${address2}" to "${town2}"
+    ${email2} =             Set Variable    customer@sap.com
+    update email of address "${address2}" to "${email2}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town1}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${customerId}
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town2}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${email2}
+
+C4CIntegration_Test_TwoAddresses_EmailAsUidAndMixedNotAsUid
+    [Documentation]         Check synchronization for customer that has 2 addresses: email (equals to uid) and mixed (email differs from uid)
+    ${customerId} =         Set Variable    customer_c4cintegration_test_twoaddresses_postalandmixednotasuid
+    ${customer} =          create customer with uid "${customerId}"
+    ${address1} =           create address for customer with uid "${customerId}"
+    update email of address "${address1}" to "${customerId}"
+    ${address2} =           create address for customer with uid "${customerId}"
+    ${town2} =              Set Variable    Berlin
+    update town of address "${address2}" to "${town2}"
+    ${email2} =             Set Variable    customer@sap.com
+    update email of address "${address2}" to "${email2}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[not(PostalAddress/CityName)]/Email/URI[text()='${customerId}']"
+    Should Not Be Empty    ${emailXml}
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town2}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${email2}
+
+C4CIntegration_Test_TwoAddresses_EmailNotAsUidAndMixedNotAsUid
+    [Documentation]         Check synchronization for customer that has 2 addresses: email (not equals to uid) and mixed  (differs from uid)
+    ${customerId} =         Set Variable    customer_c4cintegration_test_twoaddresses_emailnotasuidandmixednotasuid
+    ${customer} =          create customer with uid "${customerId}"
+    ${address1} =           create address for customer with uid "${customerId}"
+    ${email1} =             Set Variable    customer@hybris.com
+    update email of address "${address1}" to "${email1}"
+    ${address2} =           create address for customer with uid "${customerId}"
+    ${town2} =              Set Variable    Berlin
+    update town of address "${address2}" to "${town2}"
+    ${email2} =             Set Variable    customer@sap.com
+    update email of address "${address2}" to "${email2}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${email1}']"
+    Should Not Be Empty    ${emailXml}
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town2}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${email2}
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${customerId}']"
+    Should Not Be Empty    ${emailXml}
+
+C4CIntegration_Test_TwoAddresses_2MixedAsUid
+    [Documentation]         Check synchronization for customer that has 2 different mixed addresses (email equals to uid for both)
+    ${customerId} =         Set Variable    customer_c4cintegration_test_twoaddresses_2mixedasuid
+    ${customer} =          create customer with uid "${customerId}"
+    ${address1} =           create address for customer with uid "${customerId}"
+    ${town1} =              Set Variable    Munchen
+    update town of address "${address1}" to "${town1}"
+    update email of address "${address1}" to "${customerId}"
+    ${address2} =           create address for customer with uid "${customerId}"
+    ${town2} =              Set Variable    Berlin
+    update town of address "${address2}" to "${town2}"
+    update email of address "${address2}" to "${customerId}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town1}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${customerId}
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town2}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${customerId}
+
+C4CIntegration_Test_TwoAddresses_MixedNotAsUidAndAsUid
+    [Documentation]         Check synchronization for customer that has 2 different mixed addresses: email equals to uid and differs from it
+    ${customerId} =         Set Variable    customer_c4cintegration_test_twoaddresses_mixednotasuidandasuid
+    ${customer} =          create customer with uid "${customerId}"
+    ${address1} =           create address for customer with uid "${customerId}"
+    ${town1} =              Set Variable    Munchen
+    update town of address "${address1}" to "${town1}"
+    ${email1} =             Set Variable    customer@sap.com
+    update email of address "${address1}" to "${email1}"
+    ${address2} =           create address for customer with uid "${customerId}"
+    ${town2} =              Set Variable    Berlin
+    update town of address "${address2}" to "${town2}"
+    update email of address "${address2}" to "${customerId}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town1}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${email1}
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town2}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${customerId}
+
+
+C4CIntegration_Test_TwoAddresses_EmailNotAsUidAndMixedAsUid
+    [Documentation]         Check synchronization for customer that has 2 addresses: email (differs from uid) and mixed (email equals to uid)
+    ${customerId} =         Set Variable    customer_c4cintegration_test_twoaddresses_emailnotasuidandmixedasuid
+    ${customer} =          create customer with uid "${customerId}"
+    ${address1} =           create address for customer with uid "${customerId}"
+    ${email1} =             Set Variable    customer@sap.com
+    update email of address "${address1}" to "${email1}"
+    ${address2} =           create address for customer with uid "${customerId}"
+    ${town2} =              Set Variable    Berlin
+    update town of address "${address2}" to "${town2}"
+    update email of address "${address2}" to "${customerId}"
+    run cron job
+    ${xml} =               read data from c4c
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${email1}']"
+    Should Not Be Empty    ${emailXml}
+    ${emailXml} =        extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address[PostalAddress/CityName='${town2}']/Email/URI"
+    Should Be Equal As Strings    ${emailXml}    ${customerId}
+    ${emailXml} =       extract data from xml "${xml}" by xPath "//BusinessPartnerSUITEReplicateRequestMessage/BusinessPartner[ExternalID='${customerId}']/AddressInformation/Address/Email/URI[text()='${customerId}']"
+    Should Not Be Empty    ${emailXml}
+

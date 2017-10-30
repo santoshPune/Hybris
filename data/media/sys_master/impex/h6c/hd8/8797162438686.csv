@@ -1,0 +1,6 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE ProductAddToCartComponent;pk[unique=true]
+;8796118778940
+;8796115272764
+#  end of pk list for ProductAddToCartComponent
+#  

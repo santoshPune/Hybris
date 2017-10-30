@@ -1,0 +1,37 @@
+<h1><code ng:non-bindable="">restServiceFactory</code>
+<div><span class="hint">service in module <code ng:non-bindable="">restServiceFactoryModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="restservicefactorymodule-service-page restservicefactorymodule-service-restservicefactory-page"><p>A factory used to generate a REST service wrapper for a given resource URL, providing a means to perform HTTP
+operations (GET, POST, etc) for the given resource.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_get">get(uri, identifier)</h3>
+<div class="get"><div class="restservicefactorymodule-service-page restservicefactorymodule-service-restservicefactory-get-page"><p>A factory method used to create a REST service that points to the given resource URI. The returned
+service wraps a $resource object. As opposed to a $resource, the REST services retrieved from the
+restServiceFactory can only take one object argument. The object argument will automatically be split
+into a parameter object and a payload object before they are delegated to the wrapped $resource object.
+If the domain is set, the domain is prepended to the given URI.</p>
+</div><h5 id="methods_get_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>uri</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-restservicefactory-get-page"><p>The URI of the REST service to be retrieved.</p>
+</div></td></tr><tr><td>identifier</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-restservicefactory-get-page"><p>An optional parameter. The name of the placeholder that is appended to the end
+of the URI if the name is not already provided as part of the URI. The default value is &quot;identifier&quot;.
+<pre class="prettyprint linenums">
+	if identifier is "resourceId" and uri is "resource/:resourceId/someValue", the target URI will remain the same.
+	if identifier is "resourceId" and uri is "resource", the target URI will be "resource/:resourceId".
+</pre>
+</div></td></tr></tbody></table><h5 id="methods_get_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-resourcewrapper">ResourceWrapper</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-restservicefactory-get-page"><p>A <a href="#/smartEdit/restServiceFactoryModule.service:ResourceWrapper">wrapper</a> around a <a href="https://docs.angularjs.org/api/ngResource/service/$resource">$resource</a></p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_setdomain">setDomain(domain)</h3>
+<div class="setdomain"><div class="restservicefactorymodule-service-page restservicefactorymodule-service-restservicefactory-setdomain-page"><p>When working with multiple services that reference the same domain, it is best to only specify relative
+paths for the services and specify the context-wide domain in a separate location. The <a href="#/smartEdit/restServiceFactoryModule.service:restServiceFactory#get">get</a> method of the <a href="#/smartEdit/restServiceFactoryModule.service:restServiceFactory">restServiceFactory</a> will then prefix the specified service
+URIs with the domain and a forward slash.</p>
+</div><h5 id="methods_setdomain_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>domain</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-restservicefactory-setdomain-page"><p>The context-wide domain that all URIs will be prefixed with when services are
+created/when a service is created</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

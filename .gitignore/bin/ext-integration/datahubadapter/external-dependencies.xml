@@ -1,0 +1,72 @@
+
+<!--
+  ~ [y] hybris Platform
+  ~
+  ~ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+  ~ All rights reserved.
+  ~
+  ~ This software is the confidential and proprietary information of SAP
+  ~ ("Confidential Information"). You shall not disclose such Confidential
+  ~ Information and shall use it only in accordance with the terms of the
+  ~ license agreement you entered into with SAP.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.hybris.platform</groupId>
+	<artifactId>datahubadapter</artifactId>
+	<version>6.1.0.0-RC3</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<datahub.version>6.1.0.3-RC1</datahub.version>
+		<jersey.version>2.22.1</jersey.version>
+		<spring.retry.version>1.1.1.RELEASE</spring.retry.version>
+		<fasterxml.jackson.version>2.6.4</fasterxml.jackson.version>
+		<javax.api.version>1.2</javax.api.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hybris.datahub</groupId>
+			<artifactId>datahub-dto</artifactId>
+			<version>${datahub.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hybris.datahub</groupId>
+			<artifactId>datahub-rest-client</artifactId>
+			<version>${datahub.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-jaxb</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
+			<version>${spring.retry.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-base</artifactId>
+			<version>${fasterxml.jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>${fasterxml.jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-jaxb-annotations</artifactId>
+			<version>${fasterxml.jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>${javax.api.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

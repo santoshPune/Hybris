@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="de.hybris.platform.ordermanagementfacade.returns.data.ReturnRequestData">
+		<property name="code" type="java.lang.String"/>
+		<property name="rma" type="java.lang.String"/>
+		<property name="order" type="de.hybris.platform.commercefacades.order.data.OrderData"/>
+		<property name="deliveryCost" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="entries"
+		          type="java.util.List&lt;de.hybris.platform.ordermanagementfacade.returns.data.ReturnEntryData>"/>
+		<property name="status" type="de.hybris.platform.basecommerce.enums.ReturnStatus"/>
+		<property name="refundDeliveryCost" type="java.lang.Boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.ordermanagementfacade.returns.data.ReturnEntryData">
+		<property name="expectedQuantity" type="java.lang.Long"/>
+		<property name="receivedQuantity" type="java.lang.Long"/>
+		<property name="reachedDate" type="java.util.Date"/>
+		<property name="orderEntry" type="de.hybris.platform.commercefacades.order.data.OrderEntryData"/>
+		<property name="notes" type="java.lang.String"/>
+		<property name="action" type="de.hybris.platform.basecommerce.enums.ReturnAction"/>
+		<property name="refundReason" type="de.hybris.platform.basecommerce.enums.RefundReason"/>
+		<property name="replacementReason" type="de.hybris.platform.basecommerce.enums.ReplacementReason"/>
+		<property name="refundAmount" type="java.math.BigDecimal"/>
+		<property name="refundedDate" type="java.util.Date"/>
+	</bean>
+
+	<bean class="de.hybris.platform.ordermanagementfacade.order.data.OrderStatusDataList">
+		<property name="statuses" type="java.util.List&lt;de.hybris.platform.core.enums.OrderStatus>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.ordermanagementfacade.order.data.CancelReasonDataList">
+		<property name="reasons" type="java.util.List&lt;de.hybris.platform.basecommerce.enums.CancelReason>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderEntryData">
+		<property name="url" type="java.lang.String"/>
+		<property name="quantityAllocated" type="java.lang.Long"/>
+		<property name="quantityUnallocated" type="java.lang.Long"/>
+		<property name="quantityCancelled" type="java.lang.Long"/>
+		<property name="quantityPending" type="java.lang.Long"/>
+		<property name="quantityShipped" type="java.lang.Long"/>
+		<property name="quantityReturned" type="java.lang.Long"/>
+	</bean>
+
+	<bean class="de.hybris.platform.ordermanagementfacade.order.data.ReturnStatusDataList">
+		<property name="statuses" type="java.util.List&lt;de.hybris.platform.basecommerce.enums.ReturnStatus>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.ordermanagementfacade.fraud.data.FraudSymptomScoringsData">
+		<property name="explanation" type="String" />
+		<property name="name" type="String" />
+		<property name="score" type="Double" />
+	</bean>
+	
+	<bean class="de.hybris.platform.ordermanagementfacade.fraud.data.FraudReportData">
+		<property name="explanation" type="String" />
+		<property name="fraudSymptomScorings" type="java.util.List&lt;de.hybris.platform.ordermanagementfacade.fraud.data.FraudSymptomScoringsData>" />
+		<property name="provider" type="String" />
+		<property name="status" type="String" />
+		<property name="timestamp" type="java.util.Date" />
+	</bean>
+	
+	<bean class="de.hybris.platform.ordermanagementfacade.fraud.data.FraudReportDataList">
+		<property name="reports" type="java.util.List&lt;de.hybris.platform.ordermanagementfacade.fraud.data.FraudReportData>"></property>
+	</bean>
+
+    <bean class="de.hybris.platform.ordermanagementfacade.returns.data.CancelReturnRequestData">
+        <property name="code" type="java.lang.String"/>
+        <property name="cancelReason" type="de.hybris.platform.basecommerce.enums.CancelReason"/>
+        <property name="notes" type="java.lang.String"/>
+    </bean>
+
+</beans>

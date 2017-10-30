@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+        
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<context:annotation-config/>
+	
+	<alias name="sapCheckOrderAction" alias="sapOmsCheckOrderAction" />
+	<bean id="sapCheckOrderAction" class="de.hybris.platform.sap.ysapomsfulfillment.actions.order.SapCheckOrderAction"
+		parent="abstractAction">
+	</bean>
+
+	<alias name="sapCheckCustomerReplicationAction" alias="sapOmsCheckCustomerReplicationAction" />
+	<bean id="sapCheckCustomerReplicationAction" class="de.hybris.platform.sap.ysapomsfulfillment.actions.order.SapCheckCustomerReplicationAction"
+		parent="abstractAction">
+		<property name="flexibleSearchService" ref="flexibleSearchService"></property>
+		<property name="sAPGlobalConfigurationService" ref="sapCoreDefaultSAPGlobalConfigurationService"></property>
+	   <property name="b2CCustomerHelper" ref="sapOrderexchangeB2CCustomerHelper"></property>
+	</bean> 
+
+	<alias name="sapSendOrderToDataHubAction" alias="sapOmsSendOrderToDataHubAction" />
+	<bean id="sapSendOrderToDataHubAction" class="de.hybris.platform.sap.ysapomsfulfillment.actions.order.SapSendOrderToDataHubAction"
+		parent="abstractAction">
+		<property name="sendOrderToDataHubHelper" ref="sapOrderexchangeSendOrderToDataHubHelper"></property>
+		<property name="retryDelay" value="${saporderexchange.orderoutbound.retryDelay}"></property>
+		<property name="maxRetries" value="${saporderexchange.orderoutbound.maxRetries}"></property>
+		<property name="modelService" ref="modelService"/>
+		<property name="orderHistoryService" ref="orderHistoryService"/>
+		<property name="orderService" ref="orderService"/>
+		<property name="sapPlantLogSysOrgService" ref="sapPlantLogSysOrgService" />
+		<property name="timeService" ref="timeService" />
+		<property name="businessProcessService" ref="businessProcessService"/>
+			
+	</bean>
+
+
+	<alias name="sapSetConfirmationStatusAction" alias="sapOmsSetConfirmationStatusAction" />
+	<bean id="sapSetConfirmationStatusAction" class="de.hybris.platform.sap.ysapomsfulfillment.actions.order.SapSetConfirmationStatusAction"
+		parent="abstractAction">
+	</bean>
+
+	<alias name="sapCheckCompletionStatusAction" alias="sapOmsCheckCompletionStatusAction"/>
+	<bean id="sapCheckCompletionStatusAction" class="de.hybris.platform.sap.ysapomsfulfillment.actions.order.SapCheckCompletionStatusAction"
+		parent="abstractAction">
+	</bean>
+
+	<alias name="sapCancelOrderAction" alias="sapOmsCancelOrderAction" />
+	<bean id="sapCancelOrderAction" class="de.hybris.platform.sap.ysapomsfulfillment.actions.order.SapCancelOrderAction"
+		parent="abstractAction"/>
+	
+	<alias name="sapSourceOrderAction" alias="sapOmsSourceOrderAction" />
+	<bean id="sapSourceOrderAction" class="de.hybris.platform.sap.ysapomsfulfillment.actions.order.SapSourceOrderAction" parent="abstractAction">
+		<property name="sourcingService" ref="sourcingService"/>
+		<property name="allocationService" ref="allocationService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	
+</beans>

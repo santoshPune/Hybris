@@ -1,0 +1,41 @@
+start: function( event, ui, draggable ) {
+    var uiSortable = $.extend( {}, ui, {
+        item: draggable.element
+    });
+
+    draggable.sortables = [];
+
+    //Make sure the slots don't have height: 0 when jQueryUI builds a representation of the container slots
+    $.ui.smartedit._getSection('containerSlots').each(function() {
+        var elementSelector = $(this);
+        if (elementSelector.height() === 0) {
+            var aComponents = elementSelector.find($.ui.smartedit._CSSSELECTORS.COMPONENT_IN_SLOT);
+            if (aComponents.length > 0) {
+                var maxSize = 0;
+                $.each(aComponents, function() {
+                    if($(this).height() > maxSize){
+                        maxSize = $(this).height();
+                    }
+                });
+                elementSelector.height(maxSize);
+                elementSelector.addClass($.ui.smartedit._CSSCLASSES.DIRTY_HEIGHT);
+            } else {
+                elementSelector.addClass($.ui.smartedit._CSSCLASSES.EMPTY_SLOT);
+            }
+        }
+    });
+
+    $( draggable.options.connectToSortable ).each(function() {
+        var sortable = $( this ).sortable( "instance" );
+
+        if ( sortable && !sortable.options.disabled ) {
+            draggable.sortables.push( sortable );
+
+            // refreshPositions is called at drag start to refresh the containerCache
+            // which is used in drag. This ensures it's initialized and synchronized
+            // with any changes that might have happened on the page since initialization.
+            sortable.refreshPositions();
+            sortable._trigger("activate", event, uiSortable);
+        }
+    });
+},

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <base href="/web/webroot/" />
+
+    <!--3rd prty libs-->
+    <script src="static-resources/thirdparties/jquery/dist/jquery.min.js"></script>
+    <script src="static-resources/thirdparties/angular/angular.js"></script>
+    <script src="static-resources/webApplicationInjector.js"></script>
+
+</head>
+
+<body>
+    <label>Smart edit (In Iframe)</label>
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="smartEditComponent" id="slot1" data-smartedit-component-type="ContentSlot" data-smartedit-component-id="topHeaderSlot">
+
+        <div class="smartEditComponent" id="component1" data-smartedit-component-type="outerContentType" data-smartedit-component-id="smartEditComponent1" data-ng-model="component1">
+            <p>Existing content 1</p>
+        </div>
+
+        <div class="smartEditComponent" id="component2" data-smartedit-component-type="innerContentType" data-smartedit-component-id="smartEditComponent2" data-ng-model="component2">
+            <p>Existing content 2</p>
+        </div>
+
+    </div>
+</body>
+
+</html>

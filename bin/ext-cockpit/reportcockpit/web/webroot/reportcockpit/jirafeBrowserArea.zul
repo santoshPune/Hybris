@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
+
+<!--
+  ~ [y] hybris Platform
+  ~
+  ~ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+  ~ All rights reserved.
+  ~
+  ~ This software is the confidential and proprietary information of SAP
+  ~ ("Confidential Information"). You shall not disclose such Confidential
+  ~ Information and shall use it only in accordance with the terms of the
+  ~ license agreement you entered into with SAP.
+  -->
+
+<zk>
+	<iframe src="${jirafePageUrlProvider.url}" height="100%" width="100%"></iframe>
+</zk>

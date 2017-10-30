@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+
+	<bean class="de.hybris.platform.cmswebservices.data.SyncJobData">
+		<property name="syncStatus" type="String" />
+		<property name="startDate" type="java.util.Date" />
+		<property name="endDate" type="java.util.Date" />
+		<property name="creationDate" type="java.util.Date" />
+		<property name="lastModifiedDate" type="java.util.Date" />
+		<property name="syncResult" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.SyncJobRequestData">
+		<property name="catalogId" type="String" />
+		<property name="sourceVersionId" type="String" />
+		<property name="targetVersionId" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.storesession.data.LanguageData">
+		<property name="required" type="boolean" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.LanguageListData">
+		<property name="languages" type="java.util.List&lt;de.hybris.platform.commercefacades.storesession.data.LanguageData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.MediaListData">
+		<property name="media" type="java.util.List&lt;de.hybris.platform.cmswebservices.data.MediaData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.MediaData">
+		<property name="code" type="String" />
+		<property name="catalogId" type="String" />
+		<property name="catalogVersion" type="String" />
+		<property name="mime" type="String" />
+		<property name="altText" type="String" />
+		<property name="description" type="String" />
+		<property name="url" type="String" />
+		<property name="downloadUrl" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.NamedQueryData">
+		<property name="namedQuery" type="String" />
+		<property name="params" type="String" />
+		<property name="sort" type="String" />
+		<property name="pageSize" type="String" />
+		<property name="currentPage" type="String" />
+		<property name="queryType" type="java.lang.Class&lt;?>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.ComponentTypeListData">
+		<property name="componentTypes" type="java.util.List&lt;de.hybris.platform.cmswebservices.data.ComponentTypeData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.ComponentTypeData">
+		<property name="code" type="String" />
+		<property name="name" type="String" />
+		<property name="i18nKey" type="String" />
+		<property name="attributes" type="java.util.List&lt;de.hybris.platform.cmswebservices.data.ComponentTypeAttributeData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.ComponentTypeAttributeData">
+		<property name="qualifier" type="String" />
+		<property name="localized" type="Boolean" />
+		<property name="cmsStructureType" type="String" />
+		<property name="cmsStructureEnumType" type="String" />
+		<property name="i18nKey" type="String" />
+		<property name="options" type="java.util.List&lt;de.hybris.platform.cmswebservices.data.OptionData&gt;" />
+	</bean>
+		
+	<bean class="de.hybris.platform.cmswebservices.data.OptionData">
+	    <property name="value" type="String" />
+	    <property name="label" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.PageListData">
+		<property name="pages" type="java.util.List&lt;de.hybris.platform.cmswebservices.data.AbstractPageData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.AbstractPageData">
+		<property name="pk" type="String" />
+		<property name="creationtime" type="java.util.Date" />
+		<property name="modifiedtime" type="java.util.Date" />
+		<property name="uid" type="String" />
+		<property name="name" type="String" />
+		<property name="title" type="java.util.Map&lt;String,String>" />
+		<property name="typeCode" type="String" />
+		<property name="template" type="String" />
+		<property name="defaultPage" type="Boolean" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.ContentPageData" extends="AbstractPageData">
+		<property name="label" type="String" />
+		<property name="path" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.ProductPageData" extends="AbstractPageData">
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.EmailPageData" extends="AbstractPageData">
+		<property name="fromEmail" type="java.util.Map&lt;String,String>" />
+		<property name="fromName" type="java.util.Map&lt;String,String>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.CategoryPageData" extends="AbstractPageData">
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.CatalogPageData" extends="AbstractPageData">
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.ComponentItemListData">
+		<property name="componentItems" type="java.util.List&lt;de.hybris.platform.cmswebservices.data.AbstractCMSComponentData>" />
+		<property name="pagination" type="de.hybris.platform.webservicescommons.dto.PaginationWsDTO" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.AbstractCMSComponentData">
+		<property name="pk" type="String" />
+		<property name="creationtime" type="java.util.Date" />
+		<property name="modifiedtime" type="java.util.Date" />
+		<property name="uid" type="String" />
+		<property name="name" type="String" />
+		<property name="visible" type="Boolean" />
+		<property name="typeCode" type="String" />
+		<property name="slotId" type="String" />
+		<property name="pageId" type="String" />
+		<property name="position" type="Integer" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.CMSParagraphComponentData" extends="AbstractCMSComponentData">
+		<property name="content" type="java.util.Map&lt;String, String&gt;" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.SimpleBannerComponentData" extends="AbstractCMSComponentData">
+		<property name="media" type="java.util.Map&lt;String, String&gt;" />
+		<property name="urlLink" type="String" />
+		<property name="external" type="Boolean" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.BannerComponentData" extends="AbstractCMSComponentData">
+		<property name="content" type="java.util.Map&lt;String, String&gt;" />
+		<property name="headline" type="java.util.Map&lt;String, String&gt;" />
+		<property name="media" type="java.util.Map&lt;String, String&gt;" />
+		<property name="urlLink" type="String" />
+		<property name="external" type="Boolean" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.CMSLinkComponentData" extends="AbstractCMSComponentData">
+		<property name="linkName" type="java.util.Map&lt;String, String>" />
+		<property name="url" type="String" />
+		<property name="external" type="Boolean" />
+	</bean>
+	
+	<bean class="de.hybris.platform.cmswebservices.data.SimpleResponsiveBannerComponentData" extends="AbstractCMSComponentData">
+		<property name="media" type="java.util.Map&lt;String, java.util.Map&lt;String, String>>" />
+		<property name="urlLink" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.MediaContainerData">
+		<property name="formatMediaCodeMap" type="java.util.Map&lt;String, String>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.ContentSlotTypeRestrictionsListData">
+		<property name="typeRestrictionsList" type="java.util.List&lt;de.hybris.platform.cmswebservices.data.ContentSlotTypeRestrictionsData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.ContentSlotTypeRestrictionsData">
+		<property name="contentSlotUid" type="String" />
+		<property name="validComponentTypes" type="java.util.List&lt;String>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.PageContentSlotComponentListData">
+		<property name="pageContentSlotComponentList" type="java.util.List&lt;de.hybris.platform.cmswebservices.data.PageContentSlotComponentData>" />
+	</bean>
+	
+	<bean class="de.hybris.platform.cmswebservices.data.PageContentSlotComponentData">
+		<property name="pageId" type="String" />
+		<property name="componentId" type="String" />
+		<property name="slotId" type="String" />
+		<property name="position" type="Integer" />
+	</bean>
+	
+	<bean class="de.hybris.platform.cmswebservices.data.PageContentSlotData">
+		<property name="pageId" type="String" />
+		<property name="slotId" type="String" />
+		<property name="position" type="String" />
+	</bean>
+	
+	<bean class="de.hybris.platform.cmswebservices.data.PageContentSlotListData">
+		<property name="pageContentSlotList" type="java.util.List&lt;de.hybris.platform.cmswebservices.data.PageContentSlotData>" />
+	</bean>
+
+	<!-- Localized Values -->
+	
+	<bean class="de.hybris.platform.cmswebservices.data.CatalogVersionDetailData">
+		<property name="catalogId" type="String" />
+		<property name="redirectUrl" type="String" />
+		<property name="name" type="java.util.Map&lt;String, String&gt;" />
+		<property name="version" type="String" />
+		<property name="thumbnailUrl" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.CatalogVersionData">
+		<property name="uid" type="String" />
+		<property name="name" type="java.util.Map&lt;String, String&gt;" />
+		<property name="version" type="String" />
+		<property name="catalogVersionDetails" type="java.util.Collection&lt;CatalogVersionDetailData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.SiteListData">
+		<property name="sites" type="java.util.Collection&lt;SiteData>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.SiteData">
+		<property name="uid" type="String" />
+		<property name="previewUrl" type="String" />
+		<property name="redirectUrl" type="String" />
+		<property name="name" type="java.util.Map&lt;String, String>" />
+		<property name="thumbnailUrl" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.EnumData">
+		<property name="code" type="String" />
+		<property name="label" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.data.EnumListData">
+		<property name="enums" type="java.util.List&lt;EnumData>" />
+	</bean>
+
+
+	<!-- WsDTO beans -->
+
+	<bean class="de.hybris.platform.cmswebservices.dto.ContentSlotTypeRestrictionsListWsDTO">
+		<property name="typeRestrictionsList" type="java.util.List&lt;de.hybris.platform.cmswebservices.dto.ContentSlotTypeRestrictionsWsDTO>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.dto.ContentSlotTypeRestrictionsWsDTO">
+		<property name="contentSlotUid" type="String" />
+		<property name="validComponentTypes" type="java.util.List&lt;String>" />
+	</bean>
+	
+	<bean class="de.hybris.platform.cmswebservices.dto.PageableWsDTO">
+		<property name="pageSize" type="int" />
+		<property name="currentPage" type="int" />
+		<property name="sort" type="String" />
+	</bean>
+
+	<!-- DTO beans -->
+	<bean class="de.hybris.platform.cmswebservices.dto.ComponentAndContentSlotValidationDto">
+		<property name="component" type="de.hybris.platform.cms2.model.contents.components.AbstractCMSComponentModel" />
+		<property name="contentSlot" type="de.hybris.platform.cms2.model.contents.contentslot.ContentSlotModel" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.dto.ComponentTypeAndContentSlotValidationDto">
+		<property name="componentType" type="String" />
+		<property name="contentSlot" type="de.hybris.platform.cms2.model.contents.contentslot.ContentSlotModel" />
+		<property name="page" type="de.hybris.platform.cms2.model.pages.AbstractPageModel" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.dto.UpdateComponentValidationDto">
+		<property name="originalUid" type="String" />
+		<property name="component" type="de.hybris.platform.cmswebservices.data.AbstractCMSComponentData" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.dto.MediaFileDto">
+		<property name="inputStream" type="java.io.InputStream" />
+		<property name="mime" type="String" />
+		<property name="name" type="String" />
+		<property name="size" type="java.lang.Long" />
+	</bean>
+
+    <bean class="de.hybris.platform.cmswebservices.data.PageTemplateData">
+        <property name="uid" type="String" />
+        <property name="name" type="String" />
+		<property name="frontEndName" type="String" />
+        <property name="previewIcon" type="String"/>
+    </bean>
+
+    <bean class="de.hybris.platform.cmswebservices.data.PageTemplateDTO">
+        <property name="pageTypeCode" type="String" />
+        <property name="active" type="Boolean" />
+    </bean>
+
+    <bean class="de.hybris.platform.cmswebservices.data.PageTemplateListData">
+        <property name="templates" type="java.util.List&lt;de.hybris.platform.cmswebservices.data.PageTemplateData>" />
+    </bean>
+
+	<!-- beans for NamedQuery Service -->
+
+	<bean class="de.hybris.platform.cmswebservices.namedquery.NamedQuery" template="resources/template/beans/simpleJavaBeanUsingWithMethods-template.vm">
+		<property name="queryName" type="java.lang.String" />
+		<property name="sort" type="java.util.List&lt;de.hybris.platform.cmswebservices.namedquery.Sort>" />
+		<property name="currentPage" type="java.lang.Integer" />
+		<property name="pageSize" type="java.lang.Integer" />
+		<property name="parameters" type="java.util.Map&lt;String, ? extends Object>" />
+	</bean>
+
+	<bean class="de.hybris.platform.cmswebservices.namedquery.NamedQueryConversionDto" template="resources/template/beans/simpleJavaBeanUsingWithMethods-template.vm">
+		<property name="query" type="java.lang.String" />
+		<property name="namedQuery" type="de.hybris.platform.cmswebservices.namedquery.NamedQuery" />
+	</bean>
+
+
+	<bean class="de.hybris.platform.cmswebservices.namedquery.Sort" template="resources/template/beans/simpleJavaBeanUsingWithMethods-template.vm">
+		<property name="parameter" type="java.lang.String" />
+		<property name="direction" type="de.hybris.platform.cmswebservices.namedquery.SortDirection" />
+	</bean>
+
+	<enum class="de.hybris.platform.cmswebservices.namedquery.SortDirection">
+		<value>ASC</value>
+		<value>DESC</value>
+	</enum>
+
+</beans>

@@ -1,0 +1,48 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.DiscountRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import de.hybris.platform.ruleengineservices.rao.EntriesSelectionStrategyRPD;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddFixedPriceEntryDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+import de.hybris.platform.ruleengineservices.enums.OrderEntrySelectionStrategy;
+
+global AddFixedPriceEntryDiscountRAOAction addFixedPriceEntryDiscountRAOAction;
+
+rule "productPerfectPartnerFixedPrice"
+@ruleCode("productPerfectPartnerFixedPrice")
+
+	salience 10
+	when
+		$result : RuleEngineResultRAO()
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+		$config : RuleConfigurationRRD(ruleCode == "productPerfectPartnerFixedPrice")
+
+        $qualifyingProductEntries : ArrayList(size > 0)
+  	              from collect(OrderEntryRAO(product.code == "816780", quantity > 0))
+        $qualifyingCount : Number(intValue >= 0) from accumulate( o : OrderEntryRAO() from $qualifyingProductEntries , sum( o.getQuantity() ) )
+        $entries : ArrayList(size > 0)
+  	              from collect(OrderEntryRAO(product.code == "482105", quantity > 0))
+        $partnerCount : Number(intValue >= 0) from accumulate( o : OrderEntryRAO() from $entries , sum( o.getQuantity() ) )
+      
+	then
+		EntriesSelectionStrategyRPD strategy = new EntriesSelectionStrategyRPD();
+		strategy.setSelectionStrategy(OrderEntrySelectionStrategy.CHEAPEST);
+        strategy.setOrderEntries($entries);
+        strategy.setQuantity(1);
+        strategy.setTargetOfAction(true);
+        
+        EntriesSelectionStrategyRPD qualifyingProductEntriesStrategy = new EntriesSelectionStrategyRPD();
+		qualifyingProductEntriesStrategy.setSelectionStrategy(OrderEntrySelectionStrategy.CHEAPEST);
+        qualifyingProductEntriesStrategy.setOrderEntries($qualifyingProductEntries);
+        qualifyingProductEntriesStrategy.setQuantity(1);
+        qualifyingProductEntriesStrategy.setTargetOfAction(false);
+        
+    	addFixedPriceEntryDiscountRAOAction.addFixedPriceEntriesDiscount(Arrays.asList(qualifyingProductEntriesStrategy, strategy), new BigDecimal("75.00"), -1, $result, kcontext);
+end

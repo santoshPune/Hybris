@@ -1,0 +1,103 @@
+<h1><code ng:non-bindable="">FeatureServiceInterface</code>
+<div><span class="hint">service in module <code ng:non-bindable="">featureInterfaceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-page"><p>The interface stipulates how to register features in the SmartEdit application and the SmartEdit container.
+The SmartEdit implementation stores two instances of the interface across the <a href="#/smartEditContainer/gatewayFactoryModule.gatewayFactory">gateway</a>: one for the SmartEdit application and one for the SmartEdit container.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods__registeraliases">_registerAliases(configuration)</h3>
+<div class="_registeraliases"><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-registeraliases-page"><p>This method registers a feature, identified by a unique key, across the <a href="#/smartEditContainer/gatewayFactoryModule.gatewayFactory">gateway</a>.
+It is a simplified version of the register method, from which callbacks have been removed.</p>
+</div><h5 id="methods__registeraliases_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>configuration</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-registeraliases-page"><p>the configuration representing the feature to register</p>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>key</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-registeraliases-page"><p>The key that uniquely identifies the feature in the registry.</p>
+</div></td></tr><tr><td>nameI18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-registeraliases-page"><p>The i18n key that uniquely identifies the feature name to be translated.</p>
+</div></td></tr><tr><td>descriptionI18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-registeraliases-page"><p>The description of the l18n key to be translated. An optional parameter.</p>
+</div></td></tr></tbody></table></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_addcontextualmenubutton">addContextualMenuButton(configuration)</h3>
+<div class="addcontextualmenubutton"><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>This method registers contextual menu buttons. It is a wrapper around <a href="#/smartEditContainer/contextualMenuServiceModule.ContextualMenuService#methods_additems">ContextualMenuService.addItems</a>.</p>
+</div><h5 id="methods_addcontextualmenubutton_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>configuration</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>The configuration representing the decorator to be registered.</p>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>key</td><td><a href="" class="label type-hint type-hint-arrays">Arrays</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>The key that uniquely identifies the feature in the registry.</p>
+</div></td></tr><tr><td>regexpKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>A regular expression, ant-like wildcard or strict match that identifies the component types eligible for the specified contextual menu button.</p>
+</div></td></tr><tr><td>nameI18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>They key that stores the name of the button to be translated.</p>
+</div></td></tr><tr><td>descriptionI18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>The key that stores the description of the button to be translated. An optional parameter.</p>
+</div></td></tr><tr><td>condition</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>An optional entry that stores the condition required to activate the menu item. it is invoked with:
+<pre class="prettyprint linenums">
+{
+                    	componentType: the smartedit component type
+                    	componentId: the smartedit component id
+                    	containerType: the type of the container wrapping the component, if applicable
+                    	containerId: the id of the container wrapping the component, if applicable
+                    	element: the dom element of the component onto which the contextual menu is applied
+		}
+</pre>
+</div></td></tr><tr><td>callback</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>The action to be performed by clicking on the menu item. It is invoked with
+<pre class="prettyprint linenums">
+{
+                    	componentType: the smartedit component type
+                    	componentId: the smartedit component id
+                    	containerType: the type of the container wrapping the component, if applicable
+                    	containerId: the id of the container wrapping the component, if applicable
+                    	slotId: the id of the content slot containing the component
+		}
+</pre>
+</div></td></tr><tr><td>callbacks</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>A object holding a list of functions where the key is the name of the event to be performed
+on the element and the value is the event handler function to be invoked when that particular event is triggered.</p>
+</div></td></tr><tr><td>displayClass</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>The CSS classes used to style the contextual menu item.</p>
+</div></td></tr><tr><td>iconIdle</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>The location of the idle icon of the contextual menu item to be displayed.</p>
+</div></td></tr><tr><td>iconNonIdle</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>The location of the non-idle icon of the contextual menu item to be displayed.</p>
+</div></td></tr><tr><td>smallIcon</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addcontextualmenubutton-page"><p>The location of the smaller version of the icon to be displayed when the menu item is part of the More... menu options.</p>
+</div></td></tr></tbody></table></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_adddecorator">addDecorator(configuration)</h3>
+<div class="adddecorator"><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-adddecorator-page"><p>this method registers decorator and delegates to the
+<a href="#/smartEditContainer/decoratorServiceModule.service:decoratorService#methods_enable">enable</a>
+<a href="#/smartEditContainer/decoratorServiceModule.service:decoratorService#methods_disable">disable</a> methods of 
+<a href="#/smartEditContainer/decoratorServiceModule.service:decoratorService">decoratorService</a>.
+This method is not a wrapper around <a href="#/smartEditContainer/decoratorServiceModule.service:decoratorService#addmappings">decoratorService.addMappings</a>:
+From a feature stand point, we deal with decorators, not their mappings to SmartEdit components.
+We still need to have a separate invocation of <a href="#/smartEditContainer/decoratorServiceModule.service:decoratorService#addmappings">decoratorService.addMappings</a> </p>
+</div><h5 id="methods_adddecorator_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>configuration</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-adddecorator-page"><p>The configuration that represents the decorator to be registered.</p>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>key</td><td><a href="" class="label type-hint type-hint-arrays">Arrays</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-adddecorator-page"><p>The decorator key defined in the <a href="#/smartEditContainer/decoratorServiceModule.service:decoratorService#addmappings">decoratorService.addMappings</a> API</p>
+</div></td></tr><tr><td>nameI18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-adddecorator-page"><p>the i18n key that stores the decorator name to be translated.</p>
+</div></td></tr><tr><td>descriptionI18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-adddecorator-page"><p>The i18n key that stores the decorator description to be translated. The description is used as a tooltip in the web application. This is an optional parameter.</p>
+</div></td></tr></tbody></table></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_addtoolbaritem">addToolbarItem(configuration)</h3>
+<div class="addtoolbaritem"><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addtoolbaritem-page"><p>This method registers toolbar items as features. It is a wrapper around <a href="#/smartEditContainer/featureInterfaceModule.service:FeatureServiceInterface#methods_register">register</a>.</p>
+</div><h5 id="methods_addtoolbaritem_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>configuration</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addtoolbaritem-page"><p>The configuration that represents the toolbar action item to be registered.</p>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>toolbarId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addtoolbaritem-page"><p>The key that uniquely identifies the toolbar that the feature is added to.</p>
+</div></td></tr><tr><td>keyThe</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addtoolbaritem-page"><p>key that uniquely identifies the toolbar item in the registry as as defined in the <a href="#/smartEditContainer/toolbarInterfaceModule.ToolbarServiceInterface#additems">ToolbarServiceInterface.addItems</a> API.</p>
+</div></td></tr><tr><td>nameI18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addtoolbaritem-page"><p>The i18n key that stores the toolbar item name to be translated.</p>
+</div></td></tr><tr><td>descriptionI18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addtoolbaritem-page"><p>The i18n key that stores the toolbar item description to be translated. This is an optional parameter.</p>
+</div></td></tr><tr><td>callback</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addtoolbaritem-page"><p>The callback that is triggered when the toolbar action item is clicked.</p>
+</div></td></tr><tr><td>icons</td><td><a href="" class="label type-hint type-hint-string">String[]</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addtoolbaritem-page"><p>A list of image URLs for the icon images to be displayed in the toolbar for the items. The images are only available for ACTION and HYBRID_ACTION toolbar items.</p>
+</div></td></tr><tr><td>type</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addtoolbaritem-page"><p>The type of toolbar item. The possible value are: TEMPLATE, ACTION, and HYBRID_ACTION.</p>
+</div></td></tr><tr><td>include</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-addtoolbaritem-page"><p>The URL to the HTML template. By default, templates are available for TEMPLATE and HYBRID_ACTION toolbar items.</p>
+</div></td></tr></tbody></table></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_register">register(configuration)</h3>
+<div class="register"><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-register-page"><p>This method registers a feature.
+When an end user selects a perspective, all the features that are bound to the perspective
+will be enabled when their respective enablingCallback functions are invoked
+and all the features that are not bound to the perspective will be disabled when their respective disablingCallback functions are invoked.
+The SmartEdit application and the SmartEdit container hold/store an instance of the implementation because callbacks cannot cross the gateway as they are functions.</p>
+<p>this method is meant to register a feature (identified by a key).
+When a perspective (registered through <a href="#/smartEditContainer/perspectiveInterfaceModule.service:PerspectiveServiceInterface#methods_register">PerspectiveServiceInterface.register</a>) is selected, all its bound features will be enabled by invocation of their respective enablingCallback functions
+and any feature not bound to it will be disabled by invocation of its disablingCallback function.
+Both SmartEdit and SmartEditContainer will hold a concrete implementation since Callbacks, being functions, cannot cross the gateway.
+The function will keep a frame bound reference on a full feature in order to be able to invoke its callbacks when needed.</p>
+</div><h5 id="methods_register_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>configuration</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-register-page"><p>The configuration that represents the feature to be registered.</p>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>key</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-register-page"><p>The key that uniquely identifies the feature in the registry.</p>
+</div></td></tr><tr><td>nameI18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-register-page"><p>The i18n key that stores the feature name to be translated.</p>
+</div></td></tr><tr><td>descriptionI18nKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-register-page"><p>The i18n key that stores the feature description to be translated. The description is used as a tooltip in the web application. This is an optional parameter.</p>
+</div></td></tr><tr><td>enablingCallback</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-register-page"><p>The callback function invoked to enable the feature when it is required by a perspective.</p>
+</div></td></tr><tr><td>disablingCallback</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="featureinterfacemodule-service-page featureinterfacemodule-service-featureserviceinterface-register-page"><p>The callback function invoked to disable the feature when it is not required by a perspective.</p>
+</div></td></tr></tbody></table></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

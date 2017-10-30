@@ -1,0 +1,11 @@
+$catalogVersion=catalogVersion(catalog(id[default='hwcatalog']),version[default='Online'])[unique=true,default='hwcatalog:Online'];
+
+INSERT_UPDATE PromotionGroup;Identifier[unique=true];
+;pgProductThresholdPriceDiscountPromotionTest1;
+
+INSERT PromotionPriceRow;&id;Currency(isocode);price;
+;pprProductThresholdPriceDiscountPromotionTest1;EUR;100;
+;pprProductThresholdPriceDiscountPromotionTest2;EUR;50;
+
+INSERT_UPDATE ProductThresholdPriceDiscountPromotion;code[unique=true];enabled;products(code,$catalogVersion);productThresholdPrice(&id);productPriceDiscount(&id);PromotionGroup(Identifier);priority;
+;ProductThresholdPriceDiscountPromotion;true;HW1210-3411,HW2310-1001;pprProductThresholdPriceDiscountPromotionTest1;pprProductThresholdPriceDiscountPromotionTest2;pgProductThresholdPriceDiscountPromotionTest1;1000;

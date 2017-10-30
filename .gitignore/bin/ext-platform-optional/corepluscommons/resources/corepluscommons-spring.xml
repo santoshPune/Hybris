@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ [y] hybris Platform
+  ~ 
+  ~ Copyright (c) 2000-2016 SAP SE
+  ~ All rights reserved.
+  ~ 
+  ~ This software is the confidential and proprietary information of SAP 
+  ~ Hybris ("Confidential Information"). You shall not disclose such 
+  ~ Confidential Information and shall use it only in accordance with the 
+  ~ terms of the license agreement you entered into with SAP Hybris.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<import resource="classpath:/META-INF/hybris-commons-rest-client-spring.xml" />
+	<import resource="classpath:/META-INF/hybris-commons-tenant-spring.xml" />
+	<import resource="classpath:/META-INF/hybris-commons-context-spring.xml" />
+	<import resource="classpath:/META-INF/hybris-commons-tenant-rest-client-spring.xml" />
+	<import resource="classpath:/META-INF/hybris-commons-configuration-spring.xml" />
+
+	<bean id="onDemandTenantDecorator" class="com.hybris.commons.client.StaticHeaderValueRestCallDecorator">
+		<property name="headerName" value="X-tenantId"/>
+		<property name="staticValue" value="${ondemand.account}"/>
+	</bean>
+
+	<!-- Enables logging of rest messages -->
+	<bean id="hybrisCommonsRestClientLoggingFilter" class="org.glassfish.jersey.filter.LoggingFilter" />
+	<bean id="ondemandSlf4jInit" class="com.hybris.platform.coreplus.commons.log.Slf4jBridgeInitializer"
+		init-method="initialize" scope="singleton" />
+			
+</beans>

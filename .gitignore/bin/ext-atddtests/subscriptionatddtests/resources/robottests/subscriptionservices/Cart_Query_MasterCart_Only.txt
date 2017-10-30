@@ -1,0 +1,29 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+*** Settings ***
+Test Setup        import user carts sample data 
+Test Teardown     reset system
+Resource		  commerce/SubscriptionCommerce_Keywords.txt
+Resource		  subscriptionservices/SubscriptionCarts_Keywords.txt
+
+*** Variables ***
+
+### user and site:
+${uid}=    customer
+${site}=    testSite
+${baseStoreId}=    testStore
+
+*** Test Cases ***
+Test_Cart_Query
+    ${cartList}=    get carts for user with id "${uid}" and site "${site}"
+    ${length}=    Get Length    ${cartList}
+    Should be Equal As Numbers    ${length}   1

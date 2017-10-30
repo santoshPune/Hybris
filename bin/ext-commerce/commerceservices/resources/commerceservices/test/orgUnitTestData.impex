@@ -1,0 +1,45 @@
+$defaultPassword=12341234
+
+# Create some more roles and assign user rights
+
+INSERT_UPDATE UserGroup;uid[unique=true];locname[lang=en];
+;orgadmingroup;Organization Admin;
+;orgmanagergroup;Organization Manager;
+
+INSERT_UPDATE PrincipalGroupRelation;source(uid)[unique=true];target(uid)[unique=true]
+;orgadmingroup;orgemployeegroup;
+;orgmanagergroup;orgemployeegroup;
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;orgadmingroup;;;;;;;;
+;;;;OrgUnit;+;+;+;-;-
+;;;;Employee;+;+;+;-;-
+
+UserGroup;orgmanagergroup;;;;;;;;
+;;;;OrgUnit;+;+;-;-;-
+;;;;Employee;+;+;-;-;-
+;;;;OrgUnit.groups;+;-;-;-;-;
+$END_USERRIGHTS;;;;;;;;;
+
+# Create units and employees
+
+INSERT_UPDATE OrgUnit;uid[unique=true];name;locName[lang=en];description;groups(uid);active[allownull=true];supplier[allownull=true]
+;rootUnit;Root Unit;Root Unit;Root Unit;;TRUE;TRUE
+;northAmerica;North America;North America;Unit for North America;rootUnit;TRUE;TRUE
+;usa;USA;USA;Unit for the USA;northAmerica;TRUE;TRUE
+;canada;Canada;Canada;Unit for Canada;northAmerica;FALSE;TRUE
+;montreal;Montreal;Montreal;Unit for Montreal;canada;FALSE;TRUE
+;california;California;California;Unit for California;;TRUE;TRUE
+
+INSERT_UPDATE Employee;uid[unique=true,allownull=true];password[default=$defaultPassword];name;groups(uid);
+;unassignedEmployee;;Unassigned Employee;;
+;northAmericaEmployee;;North America Employee;northAmerica,orgemployeegroup;
+;usaEmployee;;USA Employee;usa,orgemployeegroup;
+;canadaEmployee;;Canada Employee;canada,orgemployeegroup;
+;globalAdmin;;Global Admin;rootUnit,orgadmingroup;
+;usaAdmin;;USA Admin;usaadmingroup;
+;usaManager;;USA Manager;orgmanagergroup;
+
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+;usaadmingroup;orgadmingroup;USA Admin Group;

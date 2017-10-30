@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+ [y] hybris Platform
+ 
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+ 
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<config xmlns="http://www.hybris.com/cockpit/config"
+		xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
+		xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+		xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+		xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree"
+		xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+		xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
+		xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+		xmlns:df="http://www.hybris.com/cockpitng/component/dynamicForms">
+		
+	<context component="explorer-tree">
+		<explorer-tree:explorer-tree >
+			<explorer-tree:navigation-node id="YaaS Configuration">
+				<explorer-tree:type-node id="YaaSOrganisation" code="YaasOrganisation" />
+				<explorer-tree:type-node id="YaaSProject" code="YaasProject" />
+				<explorer-tree:type-node id="YaaSApplication" code="YaasApplication" />
+			</explorer-tree:navigation-node>
+		</explorer-tree:explorer-tree>
+	</context>
+	
+    <context type="YaasOrganisation" component="listview">
+    	<list-view:list-view>
+    		<list-view:column qualifier="identifier" />    		
+			<list-view:column qualifier="basePath" />
+			<list-view:column qualifier="yaasProjects" />
+		</list-view:list-view>
+	</context>
+		
+    <context type="YaasProject" component="listview">
+    	<list-view:list-view>
+			<list-view:column qualifier="identifier" />
+			<list-view:column qualifier="baseSite" />
+			<list-view:column qualifier="yaasOrganisation" />
+			<list-view:column qualifier="yaasApplications" />
+		</list-view:list-view>
+	</context>
+	<context type="YaasApplication" component="listview">
+    	<list-view:list-view>
+			<list-view:column qualifier="identifier" />
+			<list-view:column qualifier="clientId" />
+			<list-view:column qualifier="clientSecret" />
+			<list-view:column qualifier="yaasProject" />
+			<list-view:column qualifier="pubsubClient" />
+		</list-view:list-view>
+	</context>
+	
+	<context type="YaasApplication" component="base" merge-by="type" parent="GenericItem">
+		<y:base>
+			<y:labels>
+				<y:label>identifier</y:label>
+			</y:labels>
+			<y:preview/>
+		</y:base>
+	</context>
+	
+	<context type="YaasProject" component="base" merge-by="type" parent="GenericItem">
+		<y:base>
+			<y:labels>
+				<y:label>identifier</y:label>
+			</y:labels>
+			<y:preview/>
+		</y:base>
+	</context>	
+	
+	<context type="YaasOrganisation" component="base" merge-by="type" parent="GenericItem">
+		<y:base>
+			<y:labels>
+				<y:label>identifier</y:label>
+			</y:labels>
+			<y:preview/>
+		</y:base>
+	</context>	
+		
+	<context component="create-wizard" type="YaasOrganisation">
+    <wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" id="YaasOrganisationWizard" title="create.yaasorganisation.title">
+        <wz:prepare id="yaasOrganisationPrepare">
+             <wz:initialize property="newYaasOrganisation" type="YaasOrganisation"/>
+        </wz:prepare>
+        <wz:step id="step1" label="step1">
+            <wz:content id="step1.content">
+                <wz:property-list root="newYaasOrganisation">
+                	<wz:property qualifier="identifier"/>
+                    <wz:property qualifier="basePath"/>
+                </wz:property-list>
+            </wz:content>
+            <wz:navigation id="step1.navigation">
+                <wz:cancel/>
+                <wz:done visible="!#empty(newYaasOrganisation.identifier) and newYaasOrganisation.basePath != null">
+                    <wz:save property="newYaasOrganisation"/>
+                </wz:done>
+            </wz:navigation>
+        </wz:step>
+    </wz:flow>
+	</context>
+	
+	<context component="create-wizard" type="YaasProject">
+    <wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" id="YaasProjectWizard" title="create.yaasproject.title">
+        <wz:prepare id="yaasProjectPrepare">
+             <wz:initialize property="newYaasProject" type="YaasProject"/>
+        </wz:prepare>
+        <wz:step id="step1" label="step1">
+            <wz:content id="step1.content">
+                <wz:property-list root="newYaasProject">
+                	<wz:property qualifier="identifier"/>
+                    <wz:property qualifier="baseSite"/>
+                    <wz:property qualifier="yaasOrganisation"/>                                                       
+                </wz:property-list>
+            </wz:content>
+            <wz:navigation id="step1.navigation">
+                <wz:cancel/>
+                <wz:done visible="!#empty(newYaasProject.identifier)">
+                    <wz:save property="newYaasProject"/>
+                </wz:done>
+            </wz:navigation>
+        </wz:step>
+    </wz:flow>
+	</context>
+	
+	<context component="create-wizard" type="YaasApplication">
+    <wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" id="YaasApplicationWizard" title="create.yaasapplication.title">
+        <wz:prepare id="yaasApplicationPrepare">
+             <wz:initialize property="newYaasApplication" type="YaasApplication"/>
+        </wz:prepare>
+        <wz:step id="step1" label="step1">
+            <wz:content id="step1.content">
+                <wz:property-list root="newYaasApplication">
+                	<wz:property qualifier="identifier"/>
+                    <wz:property qualifier="clientId"/>
+                    <wz:property qualifier="clientSecret"/>     
+                    <wz:property qualifier="yaasProject"/>
+                    <wz:property qualifier="pubsubClient" />
+                </wz:property-list>
+            </wz:content>
+            <wz:navigation id="step1.navigation">
+                <wz:cancel/>
+                <wz:done visible="!#empty(newYaasApplication.identifier) and !#empty(newYaasApplication.clientId) and !#empty(newYaasApplication.clientSecret)">
+                    <wz:save property="newYaasApplication"/>
+                </wz:done>
+            </wz:navigation>
+        </wz:step>
+    </wz:flow>
+	</context>
+	
+	
+</config>

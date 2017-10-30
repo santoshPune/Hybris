@@ -1,0 +1,19 @@
+<h1><code ng:non-bindable="">resourceLocationToRegex</code>
+<div><span class="hint">service in module <code ng:non-bindable="">resourceLocationsModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="resourcelocationsmodule-resourcelocationtoregex-page"><p>Generates a regular expresssion matcher from a given resource location URL, replacing predefined keys by wildcard
+matchers.</p>
+<p>Example:
+<pre class="prettyprint linenums">
+    // Get a regex matcher for the someResource endpoint, ie: /\/smarteditwebservices\/someResource\/.*$/g
+    var endpointRegex = resourceLocationToRegex('/smarteditwebservices/someResource/:id');
+
+    // Use the regex to match hits to the mocked HTTP backend. This regex will match for any ID passed in to the
+    // someResource endpoint.
+    $httpBackend.whenGET(endpointRegex).respond({someKey: 'someValue'});
+</pre>
+</div></div>
+</div>

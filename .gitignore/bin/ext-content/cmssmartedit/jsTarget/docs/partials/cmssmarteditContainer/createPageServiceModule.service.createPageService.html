@@ -1,0 +1,27 @@
+<h1><code ng:non-bindable="">createPageService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">createPageServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="createpageservicemodule-service-page createpageservicemodule-service-createpageservice-page"><p>The createPageService allows creating new pages.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_createpage">createPage(siteUID, catalogId, catalogVersion, page)</h3>
+<div class="createpage"><div class="createpageservicemodule-service-page createpageservicemodule-service-createpageservice-createpage-page"><p>When called this service creates a new page based on the information provided.</p>
+</div><h5 id="methods_createpage_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>siteUID</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="createpageservicemodule-service-page createpageservicemodule-service-createpageservice-createpage-page"><p>The UID of the current site.</p>
+</div></td></tr><tr><td>catalogId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="createpageservicemodule-service-page createpageservicemodule-service-createpageservice-createpage-page"><p>The id of the selected catalog.</p>
+</div></td></tr><tr><td>catalogVersion</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="createpageservicemodule-service-page createpageservicemodule-service-createpageservice-createpage-page"><p>The current catalog version.</p>
+</div></td></tr><tr><td>page</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="createpageservicemodule-service-page createpageservicemodule-service-createpageservice-createpage-page"><p>The payload containing the information necessary to create the new page.
+NOTE: The payload must at least provide the following fields.</p>
+<ul>
+<li>type: The type of the page.</li>
+<li>typeCode: The type code of the page.</li>
+<li>template: The uid of the page template to use.</li>
+</ul>
+</div></td></tr></tbody></table><h5 id="methods_createpage_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-promise">Promise</a></td><td><div class="createpageservicemodule-service-page createpageservicemodule-service-createpageservice-createpage-page"><p>A promise that will resolve after saving the page in the backend.</p>
+</div></td></tr></table></div>
+</li>
+</ul>
+</div>
+</div>

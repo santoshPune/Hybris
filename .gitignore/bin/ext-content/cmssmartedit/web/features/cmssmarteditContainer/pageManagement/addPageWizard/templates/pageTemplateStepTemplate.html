@@ -1,0 +1,15 @@
+<div class="page-type-step-template">
+
+    <div class="page-wizard-list">
+        <div data-ng-repeat="template in addPageWizardCtl.model.pageTemplates" data-ng-class="{ 'page-type-step-template__item__selected': template.isSelected}" class="page-type-step-template__item" data-ng-click="addPageWizardCtl.selectTemplate(template)">
+            <span class="hyicon hyicon-checked page-type-step-template__item__icon"></span>
+            <div class="page-type-step-template__item--info">
+                <div class="page-type-step-template__item--info__title">{{template.name}}</div>
+                <div class="page-type-step-template__item--info__description"></div>
+        
+            </div>
+
+        </div>
+    </div>
+
+</div>

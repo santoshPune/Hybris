@@ -1,0 +1,25 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.DiscountRAO
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import java.math.BigDecimal;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderDiscountRAOAction
+
+global AddOrderDiscountRAOAction addOrderDiscountRAOAction;
+
+rule "orderThresholdDiscountExcludingPowershotA480"
+@ruleCode("orderThresholdDiscountExcludingPowershotA480")
+
+	salience 10
+	when
+		$cart : CartRAO(subTotal > 250.00, currencyIsoCode == "USD")
+		$result : RuleEngineResultRAO()
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+		eval(addOrderDiscountRAOAction.calculateSubTotals($cart, new String[]{"1934793"}).doubleValue() > 250.00);
+		
+		not $discount:DiscountRAO( firedRuleCode == "orderThresholdDiscountExcludingPowershotA480" )
+	then
+		addOrderDiscountRAOAction.addOrderLevelDiscount($cart, false, new BigDecimal("10.00"), new String[]{"1934793"}, $result, kcontext);
+end

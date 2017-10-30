@@ -1,0 +1,12 @@
+comment_clear_blank_lines=true
+comment_format_comments=true
+comment_format_header=false
+comment_format_html=true
+comment_format_source_code=true
+comment_indent_parameter_description=true
+comment_indent_root_tags=true
+comment_line_length=160
+comment_new_line_for_parameter=false
+comment_separate_root_tags=true
+eclipse.preferences.version=1
+formatter_settings_version=12

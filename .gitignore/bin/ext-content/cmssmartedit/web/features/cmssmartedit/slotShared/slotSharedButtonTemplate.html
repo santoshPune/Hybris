@@ -1,0 +1,13 @@
+<div class="shared-slot-button-template">
+	<div class="btn-group shared-slot-button-template__btn-group" dropdown dropdown-append-to-body is-open="ctrl.isPopupOpened">
+		<button type="button"  id="sharedSlotButton-{{::ctrl.slotId}}" class="btn btn-primary dropdown-toggle shared-slot-button-template__btn" 
+				data-ng-if="ctrl.slotSharedFlag" data-ng-click="ctrl.openPopup($event)">
+			<img class="shared-slot-button-template__btn__img" data-ng-src="{{ ctrl.isPopupOpened && ctrl.sharedOnImageUrl || ctrl.sharedOffImageUrl }}"/>
+		</button>
+		<ul class="dropdown-menu dropdown-menu-right shared-slot-button-template__menu" role="menu" id="shared-slot-list-{{::ctrl.slotId}}">
+			<lh class="shared-slot-button-template__menu__title">
+				<p class="shared-slot-button-template__menu__title__text">{{::'slot.shared.popover.message'| translate}}</p>
+			</lh>
+		</ul>
+	</div>
+</div>

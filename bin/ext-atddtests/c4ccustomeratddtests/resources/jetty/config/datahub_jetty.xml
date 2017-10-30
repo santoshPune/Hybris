@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+-->
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd">
+
+<!-- =============================================================== -->
+<!-- Configure the webapp                                            -->
+<!-- =============================================================== -->
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+<New id="datahub" class="org.eclipse.jetty.plus.jndi.Resource">
+     <Arg>datahub</Arg>
+     <Arg>
+         <New class="com.zaxxer.hikari.HikariDataSource">
+       <Arg>
+          <New class="com.zaxxer.hikari.HikariConfig">
+             
+             <Set name="dataSourceClassName">org.hsqldb.jdbc.JDBCDataSource</Set>
+             <Set name="username"></Set>
+             <Set name="password"></Set>
+             <Call name="addDataSourceProperty">
+                <Arg>url</Arg>
+                <Arg>jdbc:hsqldb:mem:datahub_c4c</Arg>
+             </Call>
+          </New>
+       </Arg>
+    </New>
+     </Arg>
+    </New>
+
+</Configure>

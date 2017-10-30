@@ -1,0 +1,12 @@
+<div class="modal-wizard-template">
+    <div class="modal-wizard-template__steps">
+        <div data-ng-repeat="action in wizardController._wizardContext.navActions" class="modal-wizard-template-step">
+            <button id="action.id" data-ng-class="{ 'btn modal-wizard-template-step__action': true, 'modal-wizard-template-step__action__enabled': action.enableIfCondition(), 'modal-wizard-template-step__action__disabled': !action.enableIfCondition(), 'modal-wizard-template-step__action__current': action.isCurrentStep() }" data-ng-click="wizardController.executeAction(action)" data-ng-disabled="!action.enableIfCondition()">{{ action.i18n | translate }}
+            </button>
+            <span data-ng-if="!$last" class="" data-ng-class="{ 'modal-wizard-template-step__glyph-enabled':  action.enableIfCondition(), 'modal-wizard-template-step__glyph-disabled': !action.enableIfCondition()}"></span>
+
+        </div>
+    </div>
+
+    <div class="modal-wizard-template-content" data-ng-include="wizardController._wizardContext.templateUrl"></div>
+</div>

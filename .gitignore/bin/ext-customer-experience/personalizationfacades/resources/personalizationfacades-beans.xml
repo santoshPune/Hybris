@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+-->
+
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<!-- DTO -->
+	<bean class="de.hybris.platform.personalizationfacades.data.CustomerData" >
+		<property name="uid" type="String" />
+		<property name="segmentLinks" type="java.util.List&lt;de.hybris.platform.personalizationfacades.data.CustomerSegmentationData>" />
+	</bean>
+	
+	<bean class="de.hybris.platform.personalizationfacades.data.SegmentData">
+		<property name="code" type="String" />
+		<property name="customerLinks" type="java.util.List&lt;de.hybris.platform.personalizationfacades.data.CustomerSegmentationData>" />
+		<property name="segmentTriggers" type="java.util.List&lt;de.hybris.platform.personalizationfacades.data.SegmentTriggerData>" />
+	</bean>
+	
+	<bean class="de.hybris.platform.personalizationfacades.data.VariationData">
+		<property name="code" type="String" />
+		<property name="name" type="String" />
+		<property name="active" type="boolean" />
+		<property name="enabled" type="boolean" />
+		<property name="rank" type="Integer" />
+		<property name="customization" type="de.hybris.platform.personalizationfacades.data.CustomizationData" />
+		<property name="triggers" type="java.util.List&lt;de.hybris.platform.personalizationfacades.data.TriggerData>" />
+		<property name="actions" type="java.util.List&lt;de.hybris.platform.personalizationfacades.data.ActionData>" />
+	</bean>
+	 
+	<bean class="de.hybris.platform.personalizationfacades.data.CustomizationData">
+		<property name="code" type="String" />
+		<property name="name" type="String" />
+		<property name="description" type="String" />
+		<property name="rank" type="Integer" />
+		<property name="active" type="boolean" />
+		<property name="enabledStartDate" type="java.util.Date" />
+		<property name="enabledEndDate" type="java.util.Date" />
+		<property name="variations" type="java.util.List&lt;de.hybris.platform.personalizationfacades.data.VariationData>" />
+	</bean>
+	
+	<bean class="de.hybris.platform.personalizationfacades.data.ActionData">
+		<property name="code" type="String" />
+	</bean>
+	
+	<bean class="de.hybris.platform.personalizationfacades.data.CustomerSegmentationData">
+		<property name="code" type="String" />
+		<property name="affinity" type="java.math.BigDecimal" />
+		<property name="customer" type="de.hybris.platform.personalizationfacades.data.CustomerData" />
+		<property name="segment" type="de.hybris.platform.personalizationfacades.data.SegmentData" />
+	</bean>
+	
+	<bean class="de.hybris.platform.personalizationfacades.data.TriggerData">
+		<property name="code" type="String" />
+		<property name="variation" type="de.hybris.platform.personalizationfacades.data.VariationData" />
+	</bean>
+	
+	<bean class="de.hybris.platform.personalizationfacades.data.SegmentTriggerData" extends="de.hybris.platform.personalizationfacades.data.TriggerData">
+		<property name="segments" type="java.util.List&lt;de.hybris.platform.personalizationfacades.data.SegmentData>" />
+		<property name="groupBy" type="String" />			
+	</bean>
+	
+</beans>

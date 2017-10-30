@@ -1,0 +1,5 @@
+# Import links for the Multi Channel Cockpit
+
+INSERT_UPDATE StaticLink;code[unique=true];area(code);sortorder;readPrincipals(uid);url;extensionName;parentLink(code);
+;jirafe;platform;2;admin,analyticsmanager,admingroup,analyticsperspectivegroup;{reportcockpit}/index.zul?persp=cockpit.perspective.jirafe;reportcockpit;reportCockpit;
+

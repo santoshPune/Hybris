@@ -1,0 +1,3 @@
+INSERT_UPDATE SmartEditConfiguration;key[unique=true];value
+;applications.personalizationsmarteditmodule;{"smartEditLocation": "/personalizationsmartedit/personalizationsmartedit/js/personalizationsmartedit.js"}
+;applications.personalizationsmarteditcontainermodule;{"smartEditContainerLocation":"/personalizationsmartedit/personalizationsmartedit/js/personalizationsmarteditcontainer.js"}

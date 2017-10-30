@@ -1,0 +1,9 @@
+INSERT_UPDATE ComponentTypeGroups2ComponentType;source(code)[unique=true];target(code)[unique=true]
+;wide;SimpleResponsiveBannerComponent
+;wide;CMSLinkComponent
+;wide;SimpleBannerComponent
+;wide;BannerComponent
+;narrow;SimpleResponsiveBannerComponent
+;narrow;CMSLinkComponent
+;narrow;SimpleBannerComponent
+;narrow;BannerComponent

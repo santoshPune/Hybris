@@ -1,0 +1,26 @@
+_clear: function() {
+    this.helper.removeClass("ui-draggable-dragging");
+    if (this.helper[0] !== this.element[0] && !this.cancelHelperRemoval) {
+        this.helper.remove();
+
+        // SmartEdit Fix
+        // - This is necessary to ensure that no reference to the helper is left on the sortables.
+        $.each( this.sortables, function() {
+            var sortable = this;
+
+            if( sortable.helper ){
+                sortable.helper.empty();
+                sortable.helper = null;
+            }
+        });
+
+        $.ui.smartedit._getSection( 'body' ).find( '._sm_helper' ).remove();
+        $.ui.smartedit._getSection( 'iframe' ).contents().find( '._sm_helper' ).remove();
+    }
+    this.helper = null;
+    this.cancelHelperRemoval = false;
+
+    if ( this.destroyOnClear ) {
+        this.destroy();
+    }
+},

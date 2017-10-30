@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="redirectConsignmentByDeliveryMode"
+	name="consignment-process" processClass="de.hybris.platform.ordersplitting.model.ConsignmentProcessModel">
+	
+	<action id="redirectConsignmentByDeliveryMode" bean="redirectConsignmentByDeliveryModeAction">
+		<transition name="SHIP" to="waitForShipConsignment" />
+		<transition name="PICKUP" to="waitForPickupConsignment" />
+	</action>
+	
+	<wait id="waitForShipConsignment" prependProcessCode="true" then="waitForShipConsignment">
+		<case event="ConsignmentActionEvent">
+	    	<choice id="cancelConsignment" then="consignmentProcessEnd"/>
+	    	<choice id="confirmShipConsignment" then="confirmShipConsignment"/>
+	    	<choice id="packConsignment" then="makeReadyForShip"/>
+            <choice id="reallocateConsignment" then="reallocateConsignment" />
+  		</case>
+	</wait>
+	
+	<wait id="waitForPickupConsignment" prependProcessCode="true" then="waitForPickupConsignment">
+		<case event="ConsignmentActionEvent">
+	    	<choice id="cancelConsignment" then="consignmentProcessEnd"/>
+	    	<choice id="confirmPickupConsignment" then="confirmPickupConsignment"/>
+	    	<choice id="packConsignment" then="makeReadyForPickup"/>
+            <choice id="reallocateConsignment" then="reallocateConsignment" />
+  		</case>
+	</wait>
+	
+	<action id="makeReadyForPickup" bean="makeReadyForPickupConsignmentAction">
+		<transition name="OK" to="waitForPickupConsignment" />
+	</action>
+	
+	<action id="makeReadyForShip" bean="makeReadyForShipConsignmentAction">
+		<transition name="OK" to="waitForShipConsignment" />
+	</action>
+	
+	<action id="verifyConsignmentCompletion" bean="verifyConsignmentCompletionAction">
+        <transition name="OK" to="consignmentProcessEnd"/>
+        <transition name="WAIT" to="redirectConsignmentByDeliveryMode"/>
+    </action>
+
+	<action id="confirmShipConsignment" bean="confirmShipConsignmentAction">
+		<transition name="OK" to="consignmentProcessEnd" />
+	</action>
+
+    <action id="reallocateConsignment" bean="reallocateConsignmentAction">
+		<transition name="OK" to="verifyConsignmentCompletion" />
+	</action>
+	
+	<action id="confirmPickupConsignment" bean="confirmPickupConsignmentAction">
+		<transition name="OK" to="consignmentProcessEnd" />
+	</action>
+	
+	<action id="consignmentProcessEnd" bean="consignmentProcessEndAction">
+		<transition name="OK" to="success" />
+	</action>
+
+	<end id="success" state="SUCCEEDED">Consignment process completed.</end>
+	
+</process>

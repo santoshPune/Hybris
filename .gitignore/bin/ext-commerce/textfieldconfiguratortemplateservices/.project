@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+--><projectDescription>
+	<name>textfieldconfiguratortemplateservices</name>
+	<comment/>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
+			<triggers>,</triggers>
+			<arguments>
+				<dictionary>
+					<key>LaunchConfigHandle</key>
+					<value>&lt;project&gt;/.externalToolBuilders/HybrisCodeGeneration.launch</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.springframework.ide.eclipse.core.springbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		
+	</buildSpec>
+	<natures>
+		<nature>org.springframework.ide.eclipse.core.springnature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		
+	</natures>
+</projectDescription>

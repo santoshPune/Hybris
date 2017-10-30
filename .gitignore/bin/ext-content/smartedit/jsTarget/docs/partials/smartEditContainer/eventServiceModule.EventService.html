@@ -1,0 +1,32 @@
+<h1><code ng:non-bindable="">EventService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">eventServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="eventservicemodule-eventservice-page"><p>The event service is used to transmit events synchronously or asynchronously. It also contains options to send
+events, as well as register and unregister event handlers.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage"><pre class="prettyprint linenums">EventService(defaultMode);</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>defaultMode</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="eventservicemodule-eventservice-page"><p>Uses constants to set event transmission. The EVENT_SERVICE_MODE_ASYNCH constant sets
+event transmission to asynchronous mode and the EVENT_SERVICE_MODE_SYNCH constant sets the event transmission to
+synchronous mode.</p>
+</div></td></tr></tbody></table></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_sendevent">sendEvent(eventId, data)</h3>
+<div class="sendevent"><div class="eventservicemodule-eventservice-sendevent-page"><p>Send the event with data. The event is sent either synchronously or asynchronously depending on the event
+mode.</p>
+</div><h5 id="methods_sendevent_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>eventId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="eventservicemodule-eventservice-sendevent-page"><p>The identifier of the event.</p>
+</div></td></tr><tr><td>data</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="eventservicemodule-eventservice-sendevent-page"><p>The event payload.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_sendevent">sendEvent(eventId, data)</h3>
+<div class="sendevent"><div class="eventservicemodule-eventservice-sendevent-page"><p>send the event with data synchronously.</p>
+</div><h5 id="methods_sendevent_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>eventId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="eventservicemodule-eventservice-sendevent-page"><p>The identifier of the event.</p>
+</div></td></tr><tr><td>data</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="eventservicemodule-eventservice-sendevent-page"><p>The event payload.</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

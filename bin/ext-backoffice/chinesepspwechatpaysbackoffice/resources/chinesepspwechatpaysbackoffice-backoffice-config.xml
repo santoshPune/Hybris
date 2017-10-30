@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<config xmlns="http://www.hybris.com/cockpit/config">
+
+	<context type="PaymentTransaction" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>paymentProvider+':'+requestId</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="PaymentTransactionEntry" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>type+','+transactionStatus</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+
+	 <context merge-by="type" parent="auto" type="AbstractOrder" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:tab xmlns="http://www.hybris.com/cockpitng/component/editorArea" name="hmc.payment_and_delivery"
+				position="0">
+				<editorArea:section name="hmc.payment">
+					<editorArea:attribute qualifier="paymentTransactions" />
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+
+	<context merge-by="type" parent="PaymentTransaction" type="WechatpayPaymentTransaction" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:tab xmlns="http://www.hybris.com/cockpitng/component/editorArea" name="backoffice.tab.wechatpaypaymenttransaction.properties">
+				<editorArea:section name="backoffice.section.wechatpaypaymenttransaction.details">
+					<editorArea:attribute qualifier="requestId" />
+					<editorArea:attribute qualifier="order" />
+					<editorArea:attribute qualifier="wechatpayCode" />
+				</editorArea:section>
+				<editorArea:section name="backoffice.section.wechatpaypaymenttransaction.details">
+					<editorArea:attribute qualifier="entries" />
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+
+	<context merge-by="type" parent="PaymentTransactionEntry" type="WechatpayPaymentTransactionEntry" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:tab xmlns="http://www.hybris.com/cockpitng/component/editorArea" name="backoffice.tab.wechatpaypaymenttransaction.properties">
+				<editorArea:section name="backoffice.section.wechatpaypaymenttransactionentry.basic">
+					<editorArea:attribute qualifier="requestId" />
+					<editorArea:attribute qualifier="code" />
+					<editorArea:attribute qualifier="amount" editor="com.hybris.cockpitng.editor.defaultbigdecimal">
+						<editorArea:editor-parameter>
+							<editorArea:name>numberFormat</editorArea:name>
+							<editorArea:value>###.00</editorArea:value>
+						</editorArea:editor-parameter>
+					</editorArea:attribute>
+					<editorArea:attribute qualifier="type" />
+					<editorArea:attribute qualifier="transactionStatus" />
+					<editorArea:attribute qualifier="transactionStatusDetails" />
+				</editorArea:section>
+				<editorArea:section name="backoffice.section.wechatpaypaymenttransactionentry.trade">
+					<editorArea:attribute qualifier="openId" readonly="true" />
+					<editorArea:attribute qualifier="settlementTotalFee" readonly="true"/>
+					<editorArea:attribute qualifier="couponFee" readonly="true"/>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+
+
+
+</config>

@@ -1,0 +1,21 @@
+<h1><code ng:non-bindable="">toolbarServiceFactory</code>
+<div><span class="hint">service in module <code ng:non-bindable="">toolbarModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="toolbarmodule-toolbarservicefactory-page"><p>The toolbar service factory generates instances of the <a href="#/smartEditContainer/toolbarModule.ToolbarService">ToolbarService</a> based on
+the gateway ID (toolbar-name) provided. Only one ToolbarService instance exists for each gateway ID, that is, the
+instance is a singleton with respect to the gateway ID.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_gettoolbarservice">getToolbarService(gatewayId)</h3>
+<div class="gettoolbarservice"><div class="toolbarmodule-toolbarservicefactory-gettoolbarservice-page"><p>Returns a single instance of the ToolbarService for the given gateway identifier. If one does not exist, an
+instance is created and cached.</p>
+</div><h5 id="methods_gettoolbarservice_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>gatewayId</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="toolbarmodule-toolbarservicefactory-gettoolbarservice-page"><p>The toolbar name used for cross iframe communication (see <a href="#/smartEditContainer/gatewayProxyModule.gatewayProxy">gatewayProxy</a>)</p>
+</div></td></tr></tbody></table><h5 id="methods_gettoolbarservice_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-toolbarservice">ToolbarService</a></td><td><div class="toolbarmodule-toolbarservicefactory-gettoolbarservice-page"><p>Corresponding ToolbarService instance for given gateway ID.</p>
+</div></td></tr></table></div>
+</li>
+</ul>
+</div>
+</div>

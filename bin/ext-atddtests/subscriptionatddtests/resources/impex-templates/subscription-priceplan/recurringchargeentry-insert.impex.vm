@@ -1,0 +1,24 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#parse( "impex-templates/common-macros.impex.vm" )
+#[[
+
+INSERT RecurringChargeEntry;id[unique=true];subscriptionPricePlanRecurring(name[lang=$lang, unique=true]);price;cycleStart;cycleEnd;$catalogversion
+
+
+]]#
+;${pricePlanName}_Start_${cycleStart}_End_${cycleEnd};${pricePlanName};${price};${cycleStart};${cycleEnd}
+
+
+
+#INSERT RecurringChargeEntry;id[unique=true];subscriptionPricePlanRecurring(&pricePlan);price;cycleStart;cycleEnd;$catalogVersion;billingEvent(code)
+#;${billingEventCode}

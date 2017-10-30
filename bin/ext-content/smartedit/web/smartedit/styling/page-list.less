@@ -1,0 +1,213 @@
+// CMS Page list styles
+
+.pageListWrapper {
+    min-height: 100%;
+    padding-top: 60px;
+    background-color: @smartedit-grey10;
+}
+
+client-paged-list,
+.ySEPageListResult{
+    background-color: @smartedit-grey10;
+}
+
+.ySEPageListResult{
+    margin-left: @smartedit-gutter;
+    margin-right: @smartedit-gutter;
+}
+
+.ySEPage-list-title {
+    font-family: @font-dosis;
+    color: @smartedit-grey9;
+    font-size: 30px;
+    font-weight: @font-weight--medium;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.ySEPage-list-label {
+    font-family: @font-open-sans;
+    color: @smartedit-grey3;
+    font-size: 20px;
+    font-weight: @font-weight--book;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.ySEPage-list-search {
+    width: 50%;
+    margin: 1em auto .5em auto;
+    font-family: @font-open-sans;
+    font-size: 16px;
+    color: @smartedit-grey4
+}
+
+.ySEPage-list-search-icon{
+    top:0;
+    background-color: @smartedit-white;
+    border-right: none;
+    font-size: 20px;
+    padding-right: 0;
+}
+.ySEPage-list-search-input.form-control{
+    border-left: none;
+    box-shadow: none;
+    z-index: auto;
+}
+
+.ySEPage-list-search-input:focus{
+    box-shadow: initial;
+    border-color: #d4d7dc;
+}
+
+.paged-list-header{
+    font-family: @font-open-sans;
+    text-transform: uppercase;
+    font-size: 15px;
+    color: @smartedit-grey3;
+    font-weight: @font-weight--bold;
+}
+
+.page-list-link-container {
+
+  .page-list-link-item {
+
+    &:first-child {
+      padding-left: 20px;
+    }
+
+    &:last-child {
+      padding-left: 10px;
+    }
+
+  }
+
+  a {
+    display: block;
+    text-transform: uppercase;
+    margin-top: 1em;
+  }
+
+}
+
+
+
+.ySEAdd-Page-button{
+  margin-left: 50px;
+  margin-right: 50px;
+  color: #0486E0;
+  font-weight: bolder;
+  font-size: 1em;
+
+  button{
+    margin: 0;
+    width: 100%;
+    padding: 20px;
+    background-color: #F3F7FA;
+    border-top: none;
+    border-left: none;
+    border-bottom: 2px solid #CFD6DC;
+    border-right: 2px solid #CFD6DC;
+  }
+
+  span{
+    font-size: 1em;
+    text-transform: uppercase;
+  }
+}
+
+.page-wizard-list{
+  height: 311px;
+  overflow: scroll;
+  overflow-x: hidden;
+
+  .page-wizard-list-item{
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border-top: 1px solid #ebeef1;
+    border-bottom: 1px solid #ebeef1;
+
+    .page-wizard-item-title{
+      font-weight: bold;
+      font-size: larger;
+    }
+
+    &.page-wizard-item-selected{
+      background-color: #ebeef1;
+    }
+  }
+}
+
+
+.page-wizard-type-item {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  border-top: 1px solid #ebeef1;
+  border-bottom: 1px solid #ebeef1;
+
+  .page-wizard-type-item-title {
+    font-weight: bold;
+    font-size: larger;
+  }
+
+  &.page-wizard-type-item-selected{
+    background-color: #ebeef1;
+  }
+}
+
+.page-type-step-template__item__icon,
+.page-type-step-template__item--info{
+    display: inline-block;
+}
+
+.page-type-step-template__item{
+    height: 85px;
+    border-top: 1px solid @smartedit-grey6;
+    display:flex;
+    align-items:center;
+}
+
+.page-type-step-template:last-child{
+    border-bottom: 1px solid @smartedit-grey6;;
+}
+
+.page-type-step-template__item__icon{
+    font-size: 30px;
+    padding-left: (@smartedit-gutter * .4);
+    padding-right: 20px;
+    padding-bottom: 10px;
+    color: @smartedit-blue2;
+    opacity: .15;
+}
+
+.page-type-step-template__item--info__title,
+.page-type-step-template__item--info__description{
+    font-family: @font-open-sans;
+    color: @smartedit-grey7;
+}
+
+.page-type-step-template__item--info__title{
+    font-size: 15px;
+    font-weight: @font-weight--bold;
+}
+
+.page-type-step-template__item--info__description{
+    font-size: 14px;
+    font-weight: @font-weight--normal;
+}
+
+.page-type-step-template__item__selected{
+    background-color: @smartedit-blue2-opacity;
+}
+
+.page-type-step-template__item__selected .page-type-step-template__item__icon{
+    opacity: 1;
+}
+
+.page-type-step-template__text{
+    padding-bottom: 30px;
+}
+
+page-info-form .ySErow label{
+    text-transform: uppercase;
+}

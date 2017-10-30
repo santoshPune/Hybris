@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base href="../../../../../" />
+
+    <!--3rd prty libs-->
+    <script src="web/webroot/static-resources/thirdparties/jquery/dist/jquery.min.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/angular/angular.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/angular-cookies/angular-cookies.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/angular-route/angular-route.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/angular-resource/angular-resource.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/angular-mocks/angular-mocks.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/angular-translate/angular-translate.min.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/ui-select/dist/select.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+
+    <script src="web/webroot/static-resources/thirdparties/moment/min/moment.min.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="web/webroot/static-resources/thirdparties/ckeditor/ckeditor.js"></script>
+
+    <!-- 3rd party css -->
+    <link rel="stylesheet" href="web/webroot/static-resources/dist/smartedit/css/outer-styling.css">
+    <link rel="stylesheet" href="web/webroot/static-resources/thirdparties/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="web/webroot/static-resources/thirdparties/select2/select2.css">
+    <link rel="stylesheet" href="web/webroot/static-resources/thirdparties/selectize/dist/css/selectize.default.css">
+    <link rel="stylesheet" href="smarteditcontainerJSTests/e2e/genericEditor/common/common.css" />
+
+
+    <script src="../../../web/webroot/static-resources/smarteditloader/js/smarteditloader.js"></script>
+    <script src="../../../web/webroot/static-resources/smarteditcontainer/js/smarteditcontainer.js"></script>
+    <script src="smarteditcontainerJSTests/e2e/clientPagedList/clientPagedListApp.js"></script>
+
+
+    <style>
+    .visited {
+        color: purple;
+        font-style: italic;
+    }
+    </style>
+
+</head>
+
+<body data-ng-app="clientPageListAppModule">
+
+    <div ng-controller="defaultController as defaultCtl">
+
+        <div class="page-list-search form-group">
+            <input type="text" class="form-control" data-ng-model="defaultCtl.query.value" name="query">
+        </div>
+
+        <client-paged-list items="defaultCtl.items" keys="[{
+                            property:'name',
+                            i18n:'pagelist.headerpagetitle'
+                            },{
+                            property:'uid',
+                            i18n:'pagelist.headerpageid'
+                            },{
+                            property:'typeCode',
+                            i18n:'pagelist.headerpagetype'
+                            },{
+                            property:'template',
+                            i18n:'pagelist.headerpagetemplate'
+                            }]" renderers="defaultCtl.renderers" injected-context="defaultCtl.injectedContext" sort-by="'name'" reversed="false" items-per-page="10" query="defaultCtl.query.value" display-count="true"></client-paged-list>
+
+    </div>
+
+</body>
+
+</html>

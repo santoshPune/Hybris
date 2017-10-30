@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ 'modal.perpectives.title' | translate }}</h3>
+</div>
+<div class="modal-body">
+    <table>
+        <tr>
+            <td rowspan="2">
+                {{'modal.perpectives.header.perspectives.name' | translate}}
+                <div>
+                    <select size="12" data-ng-change="perspectiveChanged()" class="form-control" data-ng-options="p.name | translate for p in perspectives" data-ng-model="perspective"></select>
+                </div>
+                <button type="button" class="btn btn-default btn-xs" data-ng-click="createPerspective()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-danger btn-xs" data-ng-if="perspective.system !== true" data-ng-click="deletePerspective()">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+            </td>
+            <td width="15px">
+            </td>
+            <td valign="top">
+                {{'modal.perpectives.header.name.name' | translate}}:
+                <span data-ng-if="perspective.system===true">
+                    <span style="padding-left: 5px">{{ perspective.name | translate }}</span>
+                    <span class='pull-right' style="color: #feffc1; padding-left: 10px">{{ warningForSystem | translate }}</span>
+                </span>
+                <input style='padding-left: 5px; color: black' data-ng-if="perspective.system!==true" type="text" data-ng-required="true" data-ng-trim="true" data-ng-change="nameChanged()" data-ng-disabled="perspective.system === true" data-ng-model="perspective.name">
+                <span style="color: #ff0e18">{{ renameError | translate }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td width="25px">
+            </td>
+            <td>
+                {{'modal.perpectives.header.decorators.name' | translate}}
+                <div data-ng-repeat="ps in decoratorSet">
+                    <input type="checkbox" data-ng-model="ps.checked" data-ng-change="save()" data-ng-disabled="perspective.system === true"> {{ ps.name }}
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" data-ng-click="close()" data-translate="perspectives.actions.close"></button>
+</div>

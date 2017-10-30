@@ -1,0 +1,54 @@
+<h1><code ng:non-bindable="">RenderServiceInterface</code>
+<div><span class="hint">service in module <code ng:non-bindable="">renderServiceInterfaceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-page"><p>Designed to re-render components after an update component data operation has been performed, according to
+how the Accelerator displays the component.</p>
+<p>This class serves as an interface and should be extended, not instantiated.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_refreshoverlaydimensions">refreshOverlayDimensions()</h3>
+<div class="refreshoverlaydimensions"><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-refreshoverlaydimensions-page"><p>This method updates the position of the decorators in the overlay. Normally, this method must be executed every
+time the original storefront content is updated to keep the decorators correctly positioned.</p>
+</div></div>
+</li>
+<li><h3 id="methods_rendercomponent">renderComponent(componentId, componentType, customContent)</h3>
+<div class="rendercomponent"><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-rendercomponent-page"><p>Re-renders a component in the page.</p>
+</div><h5 id="methods_rendercomponent_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>componentId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-rendercomponent-page"><p>The ID of the component.</p>
+</div></td></tr><tr><td>componentType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-rendercomponent-page"><p>The type of the component.</p>
+</div></td></tr><tr><td>customContent</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-rendercomponent-page"><p>The custom content to replace the component content with. If specified, the
+component content will be rendered with it, instead of the accelerator&#39;s. Optional.</p>
+</div></td></tr></tbody></table><h5 id="methods_rendercomponent_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-promise">Promise</a></td><td><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-rendercomponent-page"><p>Promise that will resolve on render success or reject if there&#39;s an error. When rejected,
+the promise returns an Object{message, stack}.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_renderpage">renderPage()</h3>
+<div class="renderpage"><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-renderpage-page"><p>Re-renders all components in the page.
+this method first resets the HTML content all of components to the values saved by <a href="#/smartEditContainer/decoratorServiceModule.service:decoratorService#methods_storeprecompiledcomponent">decoratorServiceModule.service:decoratorService#methods_storePrecompiledComponent</a> at the last $compile time
+then requires a new compilation.
+the renderService subscribes to the &#39;rerender&#39; event of the <a href="#/smartEditContainer/renderServiceInterfaceModule.service:renderGateway">renderGateway</a> and triggers this method upon receiving an event</p>
+</div></div>
+</li>
+<li><h3 id="methods_renderremoval">renderRemoval(componentId, componentType)</h3>
+<div class="renderremoval"><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-renderremoval-page"><p>This method removes a component from a slot in the current page. Note that the component is only removed
+on the frontend; the operation does not propagate to the backend.</p>
+</div><h5 id="methods_renderremoval_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>componentId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-renderremoval-page"><p>The ID of the component to remove.</p>
+</div></td></tr><tr><td>componentType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-renderremoval-page"><p>The type of the component.</p>
+</div></td></tr></tbody></table><h5 id="methods_renderremoval_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-renderremoval-page"><p>Object wrapping the removed component.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_renderslots">renderSlots(slotIds)</h3>
+<div class="renderslots"><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-renderslots-page"><p>Re-renders a slot in the page.</p>
+</div><h5 id="methods_renderslots_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>slotIds</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-renderslots-page"><p>The slotsIds that need to be re-rendered.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_toggleoverlay">toggleOverlay(showOverlay)</h3>
+<div class="toggleoverlay"><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-toggleoverlay-page"><p>Toggles on/off the visibility of the page overlay (containing the decorators).</p>
+</div><h5 id="methods_toggleoverlay_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showOverlay</td><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="renderserviceinterfacemodule-service-page renderserviceinterfacemodule-service-renderserviceinterface-toggleoverlay-page"><p>Flag that indicates if the overlay must be displayed.</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

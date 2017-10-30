@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<groups xmlns="http://www.isdc.ro/wro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.isdc.ro/wro wro.xsd">
+   <group name="addons_responsive">
+      <js>/_ui/addons/textfieldconfiguratortemplateaddon/responsive/common/js/textfieldconfiguratortemplateaddon.js</js>
+      <css>/_ui/addons/textfieldconfiguratortemplateaddon/responsive/common/css/textfieldconfiguratortemplateaddon.css</css>
+      <js>/_ui/addons/smarteditaddon/shared/common/js/webApplicationInjector.js</js>
+      <js>/_ui/addons/smarteditaddon/shared/common/js/reprocessPage.js</js>
+      <js>/_ui/addons/smarteditaddon/responsive/common/js/smarteditaddon.js</js>
+      <css>/_ui/addons/smarteditaddon/responsive/common/css/smarteditaddon.css</css>
+      <css>/_ui/addons/liveeditaddon/responsive/common/css/liveeditaddon.css</css>
+   </group>
+   <group name="addons_desktop">
+      <js>/_ui/addons/smarteditaddon/shared/common/js/webApplicationInjector.js</js>
+      <js>/_ui/addons/smarteditaddon/shared/common/js/reprocessPage.js</js>
+      <js>/_ui/addons/smarteditaddon/desktop/common/js/smarteditaddon.js</js>
+      <css>/_ui/addons/smarteditaddon/desktop/common/css/smarteditaddon.css</css>
+      <css>/_ui/addons/liveeditaddon/desktop/common/css/liveeditaddon.css</css>
+   </group>
+   <group name="addons_mobile">
+      <js>/_ui/addons/smarteditaddon/shared/common/js/webApplicationInjector.js</js>
+      <js>/_ui/addons/smarteditaddon/shared/common/js/reprocessPage.js</js>
+      <js>/_ui/addons/smarteditaddon/mobile/common/js/smarteditaddon.js</js>
+      <css>/_ui/addons/smarteditaddon/mobile/common/css/smarteditaddon.css</css>
+      <css>/_ui/addons/liveeditaddon/mobile/common/css/liveeditaddon.css</css>
+   </group>
+</groups>
+

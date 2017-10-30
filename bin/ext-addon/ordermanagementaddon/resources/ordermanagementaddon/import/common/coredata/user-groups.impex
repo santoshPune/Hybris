@@ -1,0 +1,24 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Enable access to Warehousing BackOffice
+#
+
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+;warehouseadministratorgroup;employeegroup,backofficeadmingroup,warehouseadministratorrole;
+;warehousemanagergroup;employeegroup,warehousemanagerrole;
+;warehouseagentgroup;employeegroup,warehouseagentrole;
+
+INSERT_UPDATE Employee;uid[unique=true];name;groups(uid);password
+;WarehouseAdministrator;Warehouse Administrator;warehouseadministratorgroup;1234
+;WarehouseManager;Warehouse Manager;warehousemanagergroup;1234
+;WarehouseAgent;Warehouse Agent;warehouseagentgroup;1234

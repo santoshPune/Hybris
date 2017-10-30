@@ -1,0 +1,15 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE CMSCategoryRestriction;pk[unique=true]
+;8796094989362
+;8796094956594
+;8796094923826
+;8796094891058
+;8796094858290
+;8796094825522
+;8796094792754
+;8796094759986
+;8796094727218
+;8796094694450
+;8796094661682
+#  end of pk list for CMSCategoryRestriction
+#  

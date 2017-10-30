@@ -1,0 +1,7 @@
+package de.hybris.platform.promotionengineservices.test
+rule "interceptortest-rulename01"
+@ruleCode("DroolsRuleValidationTest2")
+no-loop true
+    when
+    then
+end

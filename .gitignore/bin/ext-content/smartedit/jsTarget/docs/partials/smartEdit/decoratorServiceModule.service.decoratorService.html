@@ -1,0 +1,45 @@
+<h1><code ng:non-bindable="">decoratorService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">decoratorServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="decoratorservicemodule-service-page decoratorservicemodule-service-decoratorservice-page"><p>This service enables and disables decorators. It also maps decorators to SmartEdit component types–regardless if they are enabled or disabled.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_addmappings">addMappings(map)</h3>
+<div class="addmappings"><div class="decoratorservicemodule-service-page decoratorservicemodule-service-decoratorservice-addmappings-page"><p>This method enables a list of decorators for a group of component types.
+The list to be <a href="#/smartEdit/decoratorServiceModule.service:decoratorService#methods_enable">enable</a> is identified by a matching pattern.
+The list is enabled when a perspective or referenced perspective that it is bound to is activated/enabled.</p>
+</div><h5 id="methods_addmappings_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>map</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="decoratorservicemodule-service-page decoratorservicemodule-service-decoratorservice-addmappings-page"><p>A key-map value; the key is the matching pattern and the value is an array of decorator keys. The key can be an exact type, an ant-like wild card, or a full regular expression:
+<pre class="prettyprint linenums">
+decoratorService.addMappings({
+            '*Suffix': ['decorator1', 'decorator2'],
+            '.*Suffix': ['decorator2', 'decorator3'],
+            'MyExactType': ['decorator3', 'decorator4'],
+            '^((?!Middle).)*$': ['decorator4', 'decorator5']
+        	});
+</pre>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_disable">disable(decoratorKey)</h3>
+<div class="disable"><div class="decoratorservicemodule-service-page decoratorservicemodule-service-decoratorservice-disable-page"><p>Disables a decorator</p>
+</div><h5 id="methods_disable_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>decoratorKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="decoratorservicemodule-service-page decoratorservicemodule-service-decoratorservice-disable-page"><p>the decorator key</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_enable">enable(decoratorKey)</h3>
+<div class="enable"><div class="decoratorservicemodule-service-page decoratorservicemodule-service-decoratorservice-enable-page"><p>Enables a decorator</p>
+</div><h5 id="methods_enable_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>decoratorKey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="decoratorservicemodule-service-page decoratorservicemodule-service-decoratorservice-enable-page"><p>The key that uniquely identifies the decorator.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_getdecoratorsforcomponent">getDecoratorsForComponent(componentType)</h3>
+<div class="getdecoratorsforcomponent"><div class="decoratorservicemodule-service-page decoratorservicemodule-service-decoratorservice-getdecoratorsforcomponent-page"><p>This method retrieves a list of decorator keys that is eligible for the specified component type.
+The list retrieved depends on which perspective is active.</p>
+<p>This method uses the list of decorators enabled by the <a href="#/smartEdit/decoratorServiceModule.service:decoratorService#methods_addmappings">addMappings</a> method.</p>
+</div><h5 id="methods_getdecoratorsforcomponent_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>componentType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="decoratorservicemodule-service-page decoratorservicemodule-service-decoratorservice-getdecoratorsforcomponent-page"><p>The component type to be decorated.</p>
+</div></td></tr></tbody></table><h5 id="methods_getdecoratorsforcomponent_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-promise">Promise</a></td><td><div class="decoratorservicemodule-service-page decoratorservicemodule-service-decoratorservice-getdecoratorsforcomponent-page"><p>It returns a list of decorator keys.</p>
+</div></td></tr></table></div>
+</li>
+</ul>
+</div>
+</div>

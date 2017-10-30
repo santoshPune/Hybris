@@ -1,0 +1,283 @@
+.se-slot-contextual-menu-level1,
+.se-slot-contextual-menu-level2{
+    overflow: visible;
+}
+
+.se-slot-contextual-menu-level2{
+    display: flex;
+    flex-direction: column;
+}
+
+.decorative-panel-area {
+    height: 42px;
+    margin-top: -42px;
+    width: auto;
+    z-index: 9998;
+    border: 2px solid @smartedit-blue;
+    border-bottom: 0;
+    background: @smartedit-blue2 repeat;
+    display:flex;
+    align-items:center;
+}
+
+.decorative-panel-text {
+    padding: 0 10px;
+    font-size: 17px;
+    font-weight: @font-weight--book;
+    font-family: @font-open-sans;
+    color: @smartedit-white;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.decorator-panel-padding-center {
+    flex-grow: 1;
+}
+
+.decorative-panel-slot-contextual-menu {
+    display: flex;
+    z-index: 9999;
+    right: 0px;
+    top: -42px;
+    &.editMode{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.decorative-panel-basic-slot-contextual-menu {
+    position: static;
+    z-index: 9999;
+    margin-top: -42px;
+}
+
+.decorative-panel-slot-contextual-menu .dropdown {
+    position: relative;
+}
+
+.decorator-padding-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.decorator-slot-border {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 2px dashed @smartedit-grey15;
+    &.active {
+        border: 2px solid @smartedit-blue;
+    }
+}
+
+.decorator-basic-slot-border {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 2px dashed @smartedit-grey15;
+}
+
+.decorator-padding-left,
+.decorator-padding-right {
+    background-image: url('../../../images/slot_background_v2.png');
+    flex-grow: 1;
+    display: none;
+    box-shadow: inset 0 0 0 2px @smartedit-blue;
+}
+
+.decorator-padding-right.active {
+    display: flex;
+}
+
+.cmsx-ctx-btns{
+    display: inline;
+}
+
+/* Shared Slot */
+
+.shared-slot-button-template__menu {
+    position: absolute;
+    z-index: 9999;
+    background-color: @smartedit-white;
+    width: 305px;
+    padding: 16px 22px;
+    right: -3px;
+    color: #000000;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: none;
+    margin: 0 0 0 -1px;
+    border-top: none;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.175);
+}
+
+.shared-slot-button-template__menu__title__text {
+    font-family: @font-open-sans;
+    height: inherit;
+    white-space: normal;
+    margin: 0;
+}
+
+.shared-slot-button-template__btn {
+    background-color: transparent;
+    border: 0;
+    height: 44px;
+    width: 62px;
+    padding: 0;
+    font-family: @font-open-sans;
+    font-size: 14px;
+    font-weight: @font-weight--semibold;
+}
+
+.shared-slot-button-template__btn__img {
+    height: 36px;
+    width: 32px;
+}
+
+.shared-slot-button-template__btn.dropdown-toggle {
+    background-color: transparent;
+    border: none;
+}
+
+.shared-slot-button-template__btn-group.open .shared-slot-button-template__btn{
+    background-color: @smartedit-white;
+    border: none;
+    color: @smartedit-blue4;
+}
+
+.shared-slot-button-template__btn-group.open .shared-slot-button-template__btn
+img.shared-slot-button-template__btn__img {
+    box-shadow: none;
+}
+
+
+/* Slot Visibility */
+
+.slot-visibility-button-template__menu{
+    width: 520px;
+    margin: 0 0 0 -1px;
+    border-top: none;
+    padding-top: 0;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.175);
+}
+
+.slot-visibility-button-template__menu__title__text{
+    font-family: @font-open-sans;
+    font-size: 18px;
+    font-weight: @font-weight--semibold;
+    color: @smartedit-leftmenu-color;
+    padding-left: 30px;
+    padding-top: 27px;
+    display: inline-block;
+    padding-bottom: 7px;
+}
+
+.slot-visibility-button-template__menu__title__close-btn{
+    position: absolute;
+    top: 33px;
+    right: 25px;
+    display: inline-block
+}
+
+.slot-visibility-button-template__menu__component{
+    padding: 0 30px;
+    height: 115px;
+}
+
+.slot-visiblity-component-template{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid @smartedit-grey13;
+    vertical-align: middle;
+}
+.slot-visiblity-component-template__icon{
+    vertical-align: middle;
+    float: left;
+    width: 100px;
+    background-color: @smartedit-blue;
+    padding: 13px;
+}
+
+.slot-visiblity-component-template__text{
+    vertical-align: middle;
+    float: right;
+    width: calc(~"100% - 100px");
+    padding-left: 20px;
+    padding-top: 16px;
+}
+
+.slot-visiblity-component-template__icon__image{
+    max-width: 74px;
+}
+
+.slot-visiblity-component-template__text__name{
+    font-family: @font-open-sans;
+    font-size: 15px;
+    font-weight: @font-weight--bold;
+    color: @smartedit-blue;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block
+}
+
+.slot-visiblity-component-template__text__type{
+    font-family: @font-open-sans;
+    font-size: 16px;
+    font-weight: @font-weight--normal;
+    color: @smartedit-grey7;
+    text-transform: uppercase;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.slot-visibility-button-template__btn{
+    width: 62px;
+    height: 44px;
+    padding: 0;
+    font-family: @font-open-sans;
+    font-size: 14px;
+    font-weight: @font-weight--semibold;
+    color: white;
+    padding-left: 2px;
+}
+
+.slot-visibility-button-template__btn__img{
+    height: 26px;
+    width: 30px;
+    margin-right: 5px;
+}
+
+.slot-visibility-button-template__btn.dropdown-toggle{
+    background-color: transparent;
+    border: none;
+}
+
+.slot-visibility-button-template__btn-group.open .slot-visibility-button-template__btn{
+    background-color: @smartedit-white;
+    border: none;
+    color: @smartedit-blue4;
+}
+
+.slot-visibility-button-template__btn-group.open .slot-visibility-button-template__btn img.slot-visibility-button-template__btn__img{
+    box-shadow: none;
+}
+
+.slot-context-menu-divider{
+    width: 2px;
+    height: 20px;
+    background-color: @smartedit-white;
+    opacity: .35;
+    position: absolute;
+    top: 10px;
+}

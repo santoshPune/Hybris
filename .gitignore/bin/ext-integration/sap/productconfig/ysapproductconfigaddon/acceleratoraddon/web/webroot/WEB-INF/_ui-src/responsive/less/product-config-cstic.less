@@ -1,0 +1,360 @@
+.cpq-cstic {
+	padding: @padding-base-vertical @padding-small-horizontal;
+	border-top: @cpq-default-separator;
+}
+
+.cpq-legend-row + .cpq-cstic,
+.cpq-group .cpq-cstic:first-child{
+ 	border-top: 0px;
+ }
+ 
+.cpq-suggestion-box + .cpq-cstic{
+ 	border-top: 0px;
+ }
+ 
+ .cpq-groups > div:last-child{
+ 	border-bottom: 0px;
+ }
+
+.cpq-csticlabel {
+	padding-top: @padding-large-vertical;
+	padding-right: @padding-base-vertical;
+	font-size: @font-size-base;
+	display: block;
+	clear: left;
+	float: left;
+	max-width: 66%;
+	
+	@media (max-width: @screen-xs-max){
+		max-width: 100%;
+	}
+	
+	&.cpq-csticlabel-warning {
+		color: @brand-danger;
+		font-weight: bold;
+	}
+	&.cpq-csticlabel-error {
+		color: @brand-danger;
+		font-weight: bold;
+	}
+}
+
+.cpq-csticlabel-longtext-icon {
+	display: inline-block;
+	cursor: pointer;
+ 	&:after {	
+		.cpq-glyphicon-info-sign;
+		color: @cpq-dark-grey;
+	}
+}
+	
+.cpq-csticlabel-required-icon {
+	display: inline-block;
+ 	&:after {	
+		.cpq-glyphicon-asterisk;
+		color: @cpq-red;
+	}
+}
+
+.cpq-legend .cpq-csticlabel-required-icon {
+	&:after {
+		padding-right: @cpq-padding-xs-horizontal;
+	}
+}
+	
+.cpq-csticValue-multi {
+	display: inline-block;	
+}
+
+option.cpq-csticValue {
+	padding-left: @padding-large-horizontal;
+}
+
+.cpq-csticValue{
+	margin-left: @cpq-margin;
+	padding: @padding-large-vertical 0px;
+	padding-right: @cpq-padding + @padding-large-horizontal; 
+	font-size: @font-size-base;
+	clear: both;
+	float: none;
+	display: block;
+	
+	&.cpq-csticValue-error {
+		input{
+			background-color: @state-danger-bg;
+			border: 1px solid @state-danger-border;
+			float: none;
+		}
+		select{
+			background-color: @state-danger-bg;
+			border: 1px solid @state-danger-border;
+			float: none;
+		}
+	}
+	&.cpq-csticValue-warning input{
+			background-color: @state-danger-bg;
+			border: 1px solid @state-danger-border;
+			float: none;
+	}
+	
+	.checkbox:first-child{
+		margin-top: 0px;
+   }
+   .checkbox:last-child{
+		margin-bottom: 0px;
+	}
+	.radio:first-child{
+		margin-top: 0px;
+	}
+	.radio:last-child{
+		margin-bottom: 0px;
+	}
+}
+
+.cpq-csticValueLabel {
+	text-transform: none;
+	max-width: 75%;
+	padding-left: @padding-small-horizontal * 2;
+ 	margin-bottom: 0;
+ 	font-size: @font-size-base;
+  	color: @label-color;
+}
+
+.cpq-csticValueDeltaPrice{
+	display: inline-block;
+	float: right;
+	text-align: right;
+	max-width: 25%;
+	padding-left: @padding-xs-horizontal;
+	white-space: nowrap;
+	overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.cpq-cstic-long-text {
+	display: block;
+	margin: 0px @cpq-margin @cpq-margin-small-vertical;
+	font-size: @font-size-small;
+	word-wrap: break-word;	
+	text-align: justify;
+	clear: both;
+}
+
+.radio input[type="radio"], 
+.radio-inline input[type="radio"], 
+.checkbox input[type="checkbox"], 
+.checkbox-inline input[type="checkbox"] {
+    margin-left: 0px;
+}
+
+.radio label, 
+.radio-inline label, 
+.checkbox label, 
+.checkbox-inline label {
+  @media (max-width: @screen-xs-max){
+		padding-top: @padding-xs-vertical * 3;
+  }
+}
+
+.cpq-warning-msg,  
+.cpq-error-msg {
+	color: @brand-danger;
+}
+
+.cpq-warning,
+.cpq-conflict,
+.cpq-error {
+	margin: 0px @cpq-margin @cpq-margin-small-vertical;
+	font-size: @font-size-base;
+	display: block;
+	clear: both;
+}
+
+.cpq-conflict {	
+	.cpq-conflict-link {
+		color: @link-color;
+		text-decoration: underline;
+		padding-left: @padding-xs-horizontal;
+	}
+	
+	.cpq-conflict-link:hover {
+		color: @link-hover-color;
+		text-decoration: underline;
+		padding-left: @padding-xs-horizontal;
+	}
+}
+
+.cpq-conflict-to-config {
+	padding-top: @padding-large-vertical;
+	font-size: @font-size-base;
+	display: block;
+	float: right;
+	clear: right;
+	max-width: 33%;
+	
+	@media (max-width: @screen-xs-max){
+		padding-top: @padding-xs-vertical;
+		float: left;
+		clear: both;
+		max-width: 100%;
+	}
+	
+	.cpq-conflict-link-to-config {
+		color: @link-color;
+		text-decoration: underline;
+		padding-left: @padding-xs-horizontal;
+		float:right;
+		overflow: hidden;
+   	text-overflow: ellipsis;	
+   	white-space: nowrap;
+   	width:100%;	
+   	text-align:right;
+   	
+		@media (max-width: @screen-xs-max){
+			padding-left: 0px;
+		}
+	}
+}
+
+.cpq-legend-row {
+	display: block;
+	clear: both;
+	padding-right: @padding-small-horizontal;
+}
+
+.cpq-legend {
+	font-size: @font-size-base;
+	color: @label-color;
+	padding-left:  @padding-small-horizontal;
+	// tablet or bigger, partly in label column, right aligned
+	@media (min-width: @screen-sm-min){
+		max-width: 33%;
+		float: right;
+		text-align: right;
+	}
+	// smartphone own column left aligned
+	@media (max-width: @screen-xs-max){
+		max-width: 100%;
+		text-align:left;
+	}
+}
+
+.cpq-conflictgroup + .cpq-group .cpq-legend {
+  float: none;
+  max-width: 100%;
+}
+
+.cpq-label-config-link-row, .cpq-legend{
+		margin-right: @cpq-margin;
+		margin-left: @cpq-margin;
+}
+
+.cpq-conflict-retractValue-button {
+	/* if you want a button rather than a link, toggle comments below */
+	/* and change the a-tag to a button-tag on the retractAction.tag*/
+	/*
+	.btn-default;
+   .btn-block;
+   padding-top:  @padding-small-vertical;
+   padding-bottom:  @padding-small-vertical;
+   */
+	text-decoration: underline;
+	
+	font-size: @font-size-base;
+	width: 33%;
+	@media (max-width: @screen-xs-max){
+		margin: auto;
+		width: 100%;
+	}
+}
+
+.cpq-conflict-retractValue{
+	margin-left: @cpq-margin;
+	margin-right: @cpq-margin;
+}
+
+.cpq-cstic-image{
+		max-width: 100%;
+	   max-height: @cpq-cstic-image-max-height;
+}
+
+.cpq-cstic-image-container{
+	padding-top: @padding-small-vertical;
+	padding-bottom: @padding-large-vertical;
+	padding-left: @padding-small-horizontal;
+	padding-right: @padding-small-horizontal;
+	clear:none;
+	float:left
+}
+
+.cpq-cstic-images{
+	clear: both;
+	overflow: hidden;
+	margin-left: @cpq-margin - @padding-small-horizontal;
+	margin-right: @cpq-margin - @padding-small-horizontal;
+}
+
+.cpq-cstic-value-with-image{
+	clear:none;
+	display: inline-block;
+	text-align:center;
+	vertical-align: top;
+	padding-top: @padding-small-vertical;
+	padding-bottom: @padding-small-vertical;
+	padding-right: @padding-small-horizontal;
+	padding-left: @padding-small-horizontal;
+}
+
+.cpq-cstic-value-image{
+		max-width: @cpq-cstic-value-image-max-width;
+	   max-height: @cpq-cstic-value-image-max-height;
+}
+
+.cpq-csticValueImageLabel{
+	text-transform: none;
+	max-width: @cpq-cstic-value-image-max-width + (2 * @cpq-cstic-value-image-border) + (2 * @cpq-cstic-value-image-spacing); // 2x3 px border 2x2px spacing
+	text-align: center;
+	font-size: @font-size-base;
+	font-weight: normal;
+  	color: @label-color;
+  	text-overflow: ellipsis;
+  	overflow: hidden;
+  	margin-bottom:0px;
+}
+
+.cpq-cstic-value-with-image{ 
+	.cpq-csticValueDeltaPrice{
+		max-width: @cpq-cstic-value-image-max-width + (2 * @cpq-cstic-value-image-border) + (2 * @cpq-cstic-value-image-spacing); // 2x3 px border 2x2px spacing
+		text-align: center;
+		float: none;
+		display:block;
+		padding-left: 0px;
+	}
+}
+
+.cpq-cstic-value-image-container{
+	text-align: center;
+	line-height: @cpq-cstic-value-image-max-height + (4 * @cpq-cstic-value-image-spacing); // 4x2px spacing
+	width: @cpq-cstic-value-image-max-width + (2 * @cpq-cstic-value-image-border) + (2 * @cpq-cstic-value-image-spacing); // 2x3 px border 2x2px spacing
+	height: @cpq-cstic-value-image-max-height + (2 * @cpq-cstic-value-image-border) + (2 * @cpq-cstic-value-image-spacing); // 2x3 px border 2x2px spacing
+}
+
+.cpq-cstic-value-with-image-changeable{
+	cursor: pointer;
+	.cpq-cstic-value-image-container-hover{
+			border: @cpq-cstic-value-image-border solid @cpq-dark-grey;
+			cursor: pointer;
+			line-height: @cpq-cstic-value-image-max-height + @cpq-cstic-value-image-spacing;
+			&:focus{
+				outline:none;
+			}
+	}
+	.cpq-csticValueImageLabel{
+		cursor:pointer;
+	}
+}
+
+.cpq-cstic-image-value-selected{
+	border: @cpq-cstic-value-image-border solid @brand-primary;
+	line-height: @cpq-cstic-value-image-max-height + @cpq-cstic-value-image-spacing;
+}

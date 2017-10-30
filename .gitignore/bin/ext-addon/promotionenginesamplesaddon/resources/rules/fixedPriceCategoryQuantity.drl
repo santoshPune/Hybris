@@ -1,0 +1,27 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.CategoryRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import java.math.BigDecimal;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderDiscountRAOAction;
+
+global AddOrderDiscountRAOAction addOrderDiscountRAOAction;
+
+rule "fixedPriceCategoryQuantity"
+@ruleCode("fixedPriceCategoryQuantity")
+
+	salience 10
+	when
+		$result : RuleEngineResultRAO()
+        $cart : CartRAO(currencyIsoCode == "USD", subTotal >= 5.00)
+        $websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+        $colourFilmCategory : CategoryRAO(code == "597")
+		$availablecount : Number(intValue >= 3) from accumulate( o : OrderEntryRAO(product.categories contains $colourFilmCategory), sum( o.getQuantity() ) )
+		
+		not $discount:DiscountRAO( firedRuleCode == "fixedPriceCategoryQuantity" )
+	then
+		addOrderDiscountRAOAction.addOrderLevelDiscount($cart, true, new BigDecimal("5.00"), $result, kcontext);
+end

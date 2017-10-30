@@ -1,0 +1,7 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE FooterComponent;pk[unique=true]
+;8796143191100
+;8796142928956
+;8796142011452
+#  end of pk list for FooterComponent
+#  

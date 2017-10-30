@@ -1,0 +1,168 @@
+@import (reference) "../../../web/webroot/static-resources/thirdparties/bootstrap/less/bootstrap.less";
+@import (reference) "variables.less";
+
+.over-slot-enabled {
+  border: solid #00c6ff 1px;
+  opacity: 0.65;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+.over-slot-disabled {
+  border: solid #ff3b30 1px;
+  background-color: #ff3b30;
+  opacity: 0.65;
+  cursor: no-drop;
+}
+
+.over-slot-disabled:after{
+  text-align: center;
+  color: #ffffff;
+  content: attr(data-content);
+  display: block;
+  z-index: 500;
+}
+
+.eligible-slot {
+  border: dashed #b7c1cd 1px;
+}
+
+.ui-sortable-handle {
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.ui-sortable-helper {
+  //cursor: -moz-grabbing;
+  //cursor: -webkit-grabbing;
+  //cursor: grabbing;
+}
+
+.over-slot-enabled .ySEDnDPlaceHolder {
+  border: 1px dashed #00c6ff;
+  background-color: #7ac1f3;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 20px;
+  padding-bottom: 10px;
+  font-family: Dosis, sans-serif;
+  color: black;
+  opacity: 0.65;
+  margin: 4px;
+}
+
+.ySEDirtyHeight.over-slot-enabled .ySEDnDPlaceHolder{
+  .make-md-column(3);
+}
+
+.over-slot-enabled .ySEDnDPlaceHolder:after {
+  content: attr(data-content);
+}
+
+.ySEemptySlot{
+  min-height: 72px;
+  border: 1px dashed #b7c1cd;
+}
+
+.ySEDnDImageRed{
+  background-color: #ff3b30;
+}
+
+
+
+.ySEDnDImageBlue{
+  background-color: #7ac1f3;
+}
+
+body[data-smartedit-ready].UIhintsVisible {
+  padding-top: 65px;
+  transition: .5s padding;
+}
+
+.UIhintDragAndDrop {
+  position: fixed;
+  width: 100%;
+  background-color: rgba(86, 86, 86, .7);
+  text-align: center;
+  z-index: -999;
+  height: 0;
+  opacity: 0;
+  display: table !important;
+  transition: 1s all;
+
+  span {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1.8em;
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  &.top {
+    top: 0;
+  }
+
+  &.top-firefox-fix {
+
+    top: 0;
+
+    &.visible {
+
+      z-index: 999;
+      height: 25px;
+      opacity: 1;
+      transition: .6s all;
+
+    }
+
+  }
+
+  &.bottom {
+    bottom: 0;
+    height: 65px !important;
+
+    &.firefox-fix-applied {
+      visibility: hidden !important;
+    }
+
+  }
+
+  &.bottom-firefox-fix {
+    bottom: 0;
+    height: 65px !important;
+  }
+
+  &.visible {
+    z-index: 999;
+    height: 130px;
+    opacity: 1;
+    transition: .6s all;
+  }
+
+}
+
+body .ySmartEditToolbars .dropdown-menu {
+  overflow: auto !important;
+}
+
+#_sm_helper {
+  position: absolute !important;
+  z-index: 999999 !important;
+  width: 91px !important;
+  height: 57px !important;
+}
+
+body[data-smartedit-ready] [class^="col-"] {
+  position: inherit !important;
+}
+
+body[data-smartedit-ready].is-dragging, body[data-smartedit-ready].is-sorting {
+  .cmsx-ctx-wrapper2.active {
+    border: none !important;
+  }
+  .contextualMenuOverlay {
+    display: none !important;
+  }
+}

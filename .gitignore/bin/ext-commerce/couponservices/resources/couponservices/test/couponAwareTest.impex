@@ -1,0 +1,2 @@
+INSERT_UPDATE SingleCodeCoupon;couponId(id)[unique=true];maxRedemptionsPerCustomer;maxTotalRedemptions;startDate[dateformat=dd-MM-yyyy];endDate[dateformat=dd-MM-yyyy];active[default=true]
+;testCouponCode;1;10;01-01-2016;31-12-2037

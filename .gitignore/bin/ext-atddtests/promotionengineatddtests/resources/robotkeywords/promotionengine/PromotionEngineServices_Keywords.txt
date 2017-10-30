@@ -1,0 +1,141 @@
+ *** Settings ***
+Library           de.hybris.platform.atddimpex.keywords.ImpexKeywordLibrary
+Library           de.hybris.platform.promotionengineatddtests.keywords.PromotionEngineServicesKeywordLibrary
+
+
+*** Keywords ***
+
+import promotionengine sampledata
+	[Documentation]    Imports the promotionengine test data
+	import impex from resource    /impex/testPromotionEngineServices.impex
+
+import electronicsstore sampledata
+	[Documentation]    Imports test data for promotions from the electronic store
+	import impex from resource    /impex/promotionengineSampleData.impex
+	
+import sourcerule data
+	[Documentation]    Imports SourceRule data for compiling
+	import impex from resource    /impex/promotionengineSampleData-sourceRule.impex
+
+initialize ruleengine for electronicsstore
+    [Documentation]    Initializes rule engine
+    initialize rule engine with rules from    orderThresholdDiscountExcludingPowershotA480 orderThreshold200FixedPrice
+    
+configure promotionengine 
+	[Documentation]    Configures the promotionengineservice to use test rule engine context
+    configure promotionengineservice 
+
+initialize ruleengine
+    [Documentation]    Initializes rule engine
+    initialize rule engine with rules from    orderThresholdTestPercentageDiscount3Items.drl orderThresholdTestAbsoluteDiscount.drl orderThresholdTestPercentageDiscount.drl intervalDiscountPromotion12percentOffForConcreteProduct.drl intervalDiscountPromotion25percentOffForCategory3.drl productPromotionTestRuleForCategory0.drl productPromotionTestRuleForCategory1.drl productPromotionTestRuleForConcreteProduct.drl intervalDiscountPromotion10percentOffForConcreteProduct.drl  
+
+log provided text "${logtext:[^"]+}" with level "${loglevel:[^"]+}"
+   [Documentation]    Logs the provided text with the provided log level
+   ${result}=    log text with level    ${logtext}    ${loglevel}
+
+get product by code "${productCode:[^"]+}"
+	[Documentation]     Returns product by code
+	${product}=    get product    ${productCode}
+	[Return]    ${product}
+	
+get category by code "${categoryCode:[^"]+}"
+	[Documentation]     Returns category by code
+	${category}=    get category    ${categoryCode}
+	[Return]    ${category}
+
+evaluate promotion for "${product:[^"]+}" by promotion engine
+   [Documentation]    Evaluates the provided product by the promotionengine
+   ${result}=    evaluate promotion for product    ${product}
+   [Return]    ${result}
+
+get price of "${product:[^"]+}"
+	[Documentation]     Calculates and returns actual product price
+	${price}=    get product price    ${product}
+	[Return]    ${price}
+
+get price of "${product:[^"]+}" with "${promotion:[^"]+}" applied
+	[Documentation]     Calculates and returns product price after promotion applied
+	${price}=    get product price with promotion    ${product}    ${promotion}
+	[Return]    ${price}
+	
+price "${promotedProductPrice:[^"]+}" should be less than "${productPrice:[^"]+}" for "${discount:[^"]+}"
+	[Documentation]     Checks that promoted price less than actual product price for specified discount amount
+	check that price less than for    ${productPrice}    ${promotedProductPrice}    ${discount}
+	
+create cart "${cartId:[^"]+}"
+	[Documentation]  creates new cart with id
+	${cart}=	create cart    ${cartId}
+	[Return]    ${cart}
+	
+create cart "${cartId:[^"]+}" for currency "${currency:[^"]+}"
+	[Documentation]  creates new cart with id and sets currency
+	${cart}=	create cart    ${cartId}    ${currency}
+	[Return]    ${cart}    
+	
+add "${product:[^"]+}" to cart "${cartId:[^"]+}"
+	[Documentation]  adds product to cart with id
+	add product to cart    ${product}    ${cartId}
+	
+get total of "${cart:[^"]+}"
+	[Documentation]  get Cart Total
+	${total}=    get total of cart    ${cart}
+	[Return]    ${total}
+	
+evaluate promotion for cart "${cartId:[^"]+}" by promotion engine
+	[Documentation]  applied promotions and get cart total
+	${total}=    evaluate promotion for cart    ${cartId}
+	[Return]    ${total}
+	
+update entry "${entryNo:[^"]+}" with quantity "${quantity:[^"]+}" for cart "${cartId:[^"]+}"
+	[Documentation]  updates entryNo quantity
+	updateCartQuantity    ${entryNo}    ${quantity}    ${cartId}
+	
+remove product "${product:[^"]+}" for cart "${cartId:[^"]+}"
+	[Documentation]  removes product from cart
+	remove product    ${product}    ${cartId}
+
+check product "${product:[^"]+}" quantity "${quantity:[^"]+}" for cart "${cartId:[^"]+}"
+	[Documentation]  checks the cart has the correct quantity of product
+	check product quantity    ${product}    ${cartId}    ${quantity}
+	
+set cart "${cartId:[^"]+}" to user with id "${userUID}"
+	[Documentation]    log in as the given user
+	set cart to user    ${userUID}    ${cartId}
+
+compile source rule for id "${ruleID:[^"]+}"
+	[Documentation]    get a SourceRule item of certain ID and compile
+	compile source rule    ${ruleID}
+	
+get delivery mode for cart "${cartId:[^"]+}"
+	[Documentation]  returns code of Delivery Mode or null if it is not set
+	${deliveryModeCode}=    get delivery mode for cart    ${cartId}
+	[Return]    ${deliveryModeCode}
+	
+set delivery mode "${deliveryModeCode:[^"]+}" for cart "${cartId:[^"]+}"
+	[Documentation]  sets delivery mode to cart
+    set delivery mode for cart    ${cartId}    ${deliveryModeCode}
+	
+delivery mode of cart "${cartId:[^"]+}" should not be set
+	[Documentation]     Checks that Delivery Mode of the cart is not defined yet
+	check that delivery mode not defined    ${cartId}
+
+redeem coupon with code "${couponCode:[^"]+}" for cart "${cartId:[^"]+}"
+	[Documentation]  reserves coupon with code
+	redeem coupon with code for cart    ${couponCode}    ${cartId}
+	
+release coupon with code "${couponCode:[^"]+}" for cart "${cartId:[^"]+}"
+	[Documentation]  reserves coupon with code
+	release coupon with code for cart    ${couponCode}    ${cartId}
+	
+check coupon with code "${couponCode:[^"]+}" used for cart "${cartId:[^"]+}"
+	[Documentation]  checks if rule based coupon was used for order
+	check order uses coupon    ${cartId}    ${couponCode}
+	
+check coupon with code "${couponCode:[^"]+}" not used for cart "${cartId:[^"]+}"
+	[Documentation]  checks if rule based coupon was not used for order
+	check order not uses coupon    ${cartId}    ${couponCode}
+
+get product total for "${productId:[^"]+}" from cart "${cartId:[^"]+}"
+	[Documentation]  checks if there is a product with given total
+	${productTotal}=    get product total from cart    ${productId}    ${cartId}
+	[Return]    ${productTotal}

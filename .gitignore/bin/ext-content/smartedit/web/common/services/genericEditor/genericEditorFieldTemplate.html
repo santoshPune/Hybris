@@ -1,0 +1,36 @@
+<div data-ng-switch="field.cmsStructureType" validation-id="{{field.qualifier}}" data-ng-cloack class="ySEField">
+
+    <div data-ng-if="field.prefixText" class="ySEText ySEFieldPrefix">{{field.prefixText | translate}}</div>
+    <div data-ng-switch-when="Boolean">
+        <div data-ng-include="'web/common/services/genericEditor/templates/booleanTemplate.html'"></div>
+    </div>
+    <div data-ng-switch-when="ShortString">
+        <div data-ng-include="'web/common/services/genericEditor/templates/shortStringTemplate.html'"></div>
+    </div>
+    <div data-ng-switch-when="LongString">
+        <div data-ng-include="'web/common/services/genericEditor/templates/longStringTemplate.html'"></div>
+    </div>
+    <div data-ng-switch-when="RichText">
+        <div data-ng-include="'web/common/services/genericEditor/templates/richTextTemplate.html'"></div>
+    </div>
+    <div data-ng-switch-when="LinkToggle">
+        <div data-ng-include="'web/common/services/genericEditor/templates/linkToggleTemplate.html'"></div>
+    </div>
+    <div data-ng-switch-when="Media">
+        <div data-ng-include="'web/common/services/genericEditor/templates/mediaTemplate.html'"></div>
+    </div>
+    <div data-ng-switch-when="MediaContainer">
+        <div data-ng-include="'web/common/services/genericEditor/templates/mediaContainerTemplate.html'"></div>
+    </div>
+    <div data-ng-switch-when="Dropdown">
+        <div data-ng-include="'web/common/services/genericEditor/templates/dropdownTemplate.html'"></div>
+    </div>
+    <div data-ng-switch-when="Date">
+        <div data-ng-include="'web/common/services/genericEditor/templates/dateTimePickerWrapperTemplate.html'"></div>
+    </div>
+    <div data-ng-switch-when="Enum">
+        <div data-ng-include="'web/common/services/genericEditor/templates/enumTemplate.html'"></div>
+    </div>
+    <se-generic-editor-field-errors data-field="field" data-qualifier="qualifier"></se-generic-editor-field-errors>
+    <div data-ng-if="field.postfixText" class="ySEText ySEFieldPostfix">{{field.postfixText | translate}}</div>
+</div>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base href="/web/webroot/" />
+
+    <!--3rd prty libs-->
+
+    <script src="static-resources/thirdparties/jquery/dist/jquery.min.js"></script>
+    <script src="static-resources/thirdparties/angular/angular.js"></script>
+    <script src="static-resources/thirdparties/angular-cookies/angular-cookies.js"></script>
+    <script src="static-resources/thirdparties/angular-route/angular-route.js"></script>
+    <script src="static-resources/thirdparties/angular-resource/angular-resource.js"></script>
+    <script src="static-resources/thirdparties/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="static-resources/thirdparties/angular-mocks/angular-mocks.js"></script>
+    <script src="static-resources/thirdparties/angular-translate/angular-translate.min.js"></script>
+    <script src="static-resources/thirdparties/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="static-resources/thirdparties/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="static-resources/thirdparties/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="static-resources/thirdparties/ui-select/dist/select.js"></script>
+    <script src="static-resources/thirdparties/ckeditor/ckeditor.js"></script>
+    <script src="static-resources/thirdparties/moment/min/moment.min.js"></script>
+    <script src="static-resources/thirdparties/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="static-resources/thirdparties/moment/min/moment.min.js"></script>
+    <script src="static-resources/thirdparties/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+
+    <!-- 3rd party css -->
+    <link rel="stylesheet" href="static-resources/dist/smartedit/css/outer-styling.css">
+    <link rel="stylesheet" href="static-resources/thirdparties/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="static-resources/thirdparties/select2/select2.css">
+    <link rel="stylesheet" href="static-resources/thirdparties/selectize/dist/css/selectize.default.css">
+    <link rel="stylesheet" href="/smarteditcontainerJSTests/e2e/genericEditor/common/common.css" />
+
+    <script src="static-resources/smarteditloader/js/smarteditloader.js"></script>
+    <script src="static-resources/smarteditcontainer/js/smarteditcontainer.js"></script>
+
+    <script src="/smarteditcontainerJSTests/e2e/genericEditor/common/common.js"></script>
+    <script src="/smarteditcontainerJSTests/e2e/genericEditor/genericEditorApp.js"></script>
+    <script src="/smarteditcontainerJSTests/e2e/genericEditor/componentWithOnlyUrlLink/backendMocks.js"></script>
+</head>
+
+<body data-ng-app="genericEditorApp" data-ng-controller="defaultController as cont">
+    <generic-editor data-smartedit-component-id="cont.thesmarteditComponentId" data-smartedit-component-type="cont.thesmarteditComponentType" data-structure-api="cont.structureApi" data-content-api="cont.contentApi" display-submit="cont.displaySubmit" display-cancel="cont.displayCancel">
+    </generic-editor>
+
+</body>
+
+</html>

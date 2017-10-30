@@ -1,0 +1,14 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform 
+# 
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+#  
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+
+INSERT_UPDATE BTGConfig[unique=true];defaultTimeUnit(code);usedRuleTypes(code);operandMapping(key(code),value(code))[map-delimiter=|]
+BTGConfig;WEEK;ORDER,CART,USER,WCMS;ORDER->BTGCategoriesInOrdersOperand,BTGEachOrderTotalSumOperand,BTGOrderTotalSumOperand,BTGProductsInOrdersOperand,BTGNumberOfOrdersOperand,BTGNumberOfOrdersRelativeDateOperand,BTGLastOrderDateOperand|CART->BTGCartIsEmptyOperand,BTGCartTotalSumOperand,BTGCategoriesInCartOperand,BTGProductsInCartOperand,BTGQuantityOfProductInCartOperand|WCMS->BTGViewedProductsOperand,BTGViewedCategoriesOperand,BTGVisitedContentpagesOperand,BTGReferalUrlOperand,BTGUrlParameterOperand|USER->BTGUserAddressPostalCodeOperand,BTGUserCountryOperand,BTGUserGenderOperand,BTGUserMemberOfGroupsOperand,BTGSAPInitiativeOperand|SCRIPT->BTGMediaScriptOperand

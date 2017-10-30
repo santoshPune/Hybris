@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<alias name="defaultPageFacade" alias="pageFacade" />
+	<bean id="defaultPageFacade" class="de.hybris.platform.cmswebservices.pages.facade.impl.DefaultPageFacade">
+		<property name="adminPageService" ref="cmsAdminPageService" />
+		<property name="pageDataPopulatorFactory" ref="pageDataPopulatorFactory" />
+		<property name="pageModelConverterFactory" ref="pageModelConverterFactory" />
+		<property name="modelService" ref="modelService" />
+		<property name="facadeValidationService" ref="facadeValidationService" />
+		<property name="createPageValidatorFactory" ref="createPageValidatorFactory"/>
+		<property name="keyGenerator" ref="keyGenerator"/>
+		<property name="supportedPages" ref="supportedPages"/>
+		
+	</bean>
+	
+	<alias name="defaultSupportedPages" alias="supportedPages" />
+	
+	<util:set id="defaultSupportedPages">
+		<value type="java.lang.Class">de.hybris.platform.cms2.model.pages.ContentPageModel</value>
+		<value type="java.lang.Class">de.hybris.platform.cms2.model.pages.ProductPageModel</value>
+		<value type="java.lang.Class">de.hybris.platform.cms2.model.pages.CategoryPageModel</value>
+		<value type="java.lang.Class">de.hybris.platform.cms2.model.pages.CatalogPageModel</value>
+	</util:set>
+	
+
+	<!-- Page data populators and converters -->
+	<alias name="defaultPageDataPopulatingConverters" alias="pageDataPopulatorFactory" />
+	<bean id="defaultPageDataPopulatingConverters" class="org.springframework.beans.factory.config.MapFactoryBean">
+		<property name="targetMapClass">
+			<value>java.util.HashMap</value>
+		</property>
+		<property name="sourceMap">
+			<map merge="true">
+				<entry value-ref="contentPageDataConverter">
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.ContentPageData</value>
+					</key>
+				</entry>
+				<entry value-ref="productPageDataConverter">
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.ProductPageData</value>
+					</key>
+				</entry>
+
+				<entry value-ref="emailPageDataConverter">
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.EmailPageData</value>
+					</key>
+				</entry>
+
+				<entry value-ref="categoryPageDataConverter">
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.CategoryPageData</value>
+					</key>
+				</entry>
+
+				<entry value-ref="catalogPageDataConverter">
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.cmswebservices.data.CatalogPageData</value>
+					</key>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+
+	<alias name="defaultCatalogPageDataConverter" alias="catalogPageDataConverter" />
+	<bean id="defaultCatalogPageDataConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.cms2.model.pages.CatalogPageModel" />
+		<property name="populators">
+			<list merge="true">
+				<ref bean="basicPageDataPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultCategoryPageDataConverter" alias="categoryPageDataConverter" />
+	<bean id="defaultCategoryPageDataConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.cms2.model.pages.CategoryPageModel" />
+		<property name="populators">
+			<list merge="true">
+				<ref bean="basicPageDataPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultProductPageDataConverter" alias="productPageDataConverter" />
+	<bean id="defaultProductPageDataConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.cms2.model.pages.ProductPageModel" />
+		<property name="populators">
+			<list merge="true">
+				<ref bean="basicPageDataPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultEmailPageDataConverter" alias="emailPageDataConverter" />
+	<bean id="defaultEmailPageDataConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.acceleratorservices.model.cms2.pages.EmailPageModel" />
+		<property name="populators">
+			<list merge="true">
+				<ref bean="basicPageDataPopulator" />
+				<ref bean="emailPageDataPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultContentPageDataConverter" alias="contentPageDataConverter" />
+	<bean id="defaultContentPageDataConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.cms2.model.pages.ContentPageModel" />
+		<property name="populators">
+			<list merge="true">
+				<ref bean="basicPageDataPopulator" />
+				<ref bean="contentPageDataPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Page model populators and converters -->
+	<alias name="defaultPageModelPopulatingConverters" alias="pageModelConverterFactory" />
+	<bean id="defaultPageModelPopulatingConverters" class="org.springframework.beans.factory.config.MapFactoryBean">
+		<property name="targetMapClass">
+			<value>java.util.HashMap</value>
+		</property>
+		<property name="sourceMap">
+			<map merge="true">
+				<entry value-ref="contentPageModelConverter">
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.cms2.model.pages.ContentPageModel</value>
+					</key>
+				</entry>
+
+				<entry value-ref="emailPageModelConverter">
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.acceleratorservices.model.cms2.pages.EmailPageModel</value>
+					</key>
+				</entry>
+				
+				<entry value-ref="defaultPageModelConverter">
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.cms2.model.pages.ProductPageModel</value>
+					</key>
+				</entry>
+
+				<entry value-ref="defaultPageModelConverter">
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.cms2.model.pages.CategoryPageModel</value>
+					</key>
+				</entry>
+
+				<entry value-ref="defaultPageModelConverter">
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.cms2.model.pages.CatalogPageModel</value>
+					</key>
+				</entry>
+
+			</map>
+		</property>
+	</bean>
+
+	<alias name="defaultContentPageModelConverter" alias="contentPageModelConverter" />
+	<bean id="defaultContentPageModelConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.cmswebservices.data.ContentPageData" />
+		<property name="populators">
+			<list merge="true">
+				<ref bean="basicPageModelPopulator" />
+				<ref bean="contentPageModelPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultPageModelConverter" alias="pageModelConverter" />
+	<bean id="defaultPageModelConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.cmswebservices.data.AbstractPageData" />
+		<property name="populators">
+			<list merge="true">
+				<ref bean="basicPageModelPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultEmailPageModelConverter" alias="emailPageModelConverter" />
+	<bean id="defaultEmailPageModelConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.cmswebservices.data.EmailPageData" />
+		<property name="populators">
+			<list merge="true">
+				<ref bean="basicPageModelPopulator" />
+				<ref bean="emailPageModelPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="basicPageDataPopulator" class="de.hybris.platform.cmswebservices.pages.facade.populator.data.BasicPageDataPopulator">
+		<property name="cmsAdminPageService" ref="cmsAdminPageService" />
+		<property name="localizedPopulator" ref="cmsLocalizedPopulator"/>
+	</bean>
+
+	<bean id="contentPageDataPopulator" class="de.hybris.platform.cmswebservices.pages.facade.populator.data.ContentPageDataPopulator" />
+
+	<bean id="emailPageDataPopulator" class="de.hybris.platform.cmswebservices.pages.facade.populator.data.EmailPageDataPopulator" >
+		<property name="localizedPopulator" ref="cmsLocalizedPopulator"/>
+	</bean>
+
+	<bean id="basicPageModelPopulator" class="de.hybris.platform.cmswebservices.pages.facade.populator.model.BasicPageModelPopulator" >
+		<property name="localizedPopulator" ref="cmsLocalizedPopulator"/>
+	</bean>
+
+	<bean id="contentPageModelPopulator" class="de.hybris.platform.cmswebservices.pages.facade.populator.model.ContentPageModelPopulator" >
+	</bean>
+
+	<bean id="emailPageModelPopulator" class="de.hybris.platform.cmswebservices.pages.facade.populator.model.EmailPageModelPopulator">
+		<property name="localizedPopulator" ref="cmsLocalizedPopulator"/>
+	</bean>
+
+	<alias name="defaultCMSPageTypeDao" alias="cmsPageTypeDao" />
+	<bean id="defaultCMSPageTypeDao" class="de.hybris.platform.cmswebservices.util.dao.impl.DefaultCMSPageTypeDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+
+	</bean>
+
+	<bean id="cmsPageTemplateModelPopulator" class="de.hybris.platform.cmswebservices.pagetemplates.facade.populator.PageTemplateModelPopulator" />
+
+	<alias name="defaultPageTemplateModelConverter" alias="pageTemplateModelConverter" />
+	<bean id="defaultPageTemplateModelConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.cmswebservices.data.PageTemplateData" />
+		<property name="populators">
+			<list merge="true">
+				<ref bean="cmsPageTemplateModelPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultPageTemplateFacade" alias="pageTemplateFacade" />
+	<bean id="defaultPageTemplateFacade" class="de.hybris.platform.cmswebservices.pagetemplates.facade.impl.DefaultPageTemplateFacade">
+		<property name="cmsPageTypeDao" ref="cmsPageTypeDao" />
+		<property name="cmsAdminPageService" ref="cmsAdminPageService" />
+		<property name="pageTemplateModelConverter" ref="pageTemplateModelConverter"/>
+	</bean>
+	
+	<bean id="keyGenerator" class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator" init-method="init" scope="tenant">
+		<property name="key" value="pageUid"/>
+		<property name="digits" value="8"/>
+		<property name="start" value="00000000"/>
+		<property name="numeric" value="true"/>
+	</bean>
+
+</beans>

@@ -1,0 +1,20 @@
+$siteUid=apparel-de
+$supportedUiExperienceLevels=
+$storeUid=apparel-de
+$channel=b2c
+$solrIndexedType=apparel-deProductType
+$addonExtensionName=personalizationsampledataaddon
+$contentCatalog=apparel-deContentCatalog
+$class=class de.hybris.platform.commerceservices.setup.data.ImpexMacroParameterData
+$configExtensionName=personalizationsampledataaddon
+$productCatalog=apparelProductCatalog
+######
+## PARAMETERS REQUIRED FOR THIS SCRIPT
+##
+##   * contentCatalog   - content catalog id
+##   * addonExtensionName - extension name of the ui addon
+#######
+
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarResourceCmsCockpit=jar:de.hybris.platform.personalizationsampledataaddon.constants.PersonalizationsampledataaddonConstants&/personalizationsampledataaddon/import/cockpit/cmscockpit
+

@@ -1,0 +1,30 @@
+<div class="fluid-container ySEPageListResult">
+
+    <p class="paged-list-count" ng-if="displayCount">
+        <span>({{ filteredItems.length }} {{'pagelist.countsearchresult' | translate}})</span>
+    </p>
+
+    <table class="paged-list-table table table-striped table-hover techne-table">
+        <thead>
+            <tr>
+                <th data-ng-repeat="key in keys" data-ng-click="orderByColumn(key.property)" data-ng-style="{ 'width': columnWidth + '%' }" class="paged-list-header" data-ng-class="'paged-list-header-'+key.property">
+                    {{ key.i18n | translate }}
+                    <span class="header-icon" ng-show="visibleSortingHeader === key.property" ng-class="{ 'down': headersSortingState[key.property] == true, 'up': headersSortingState[key.property] == false }"></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat=" item in filteredItems | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage " class="techne-table-xs-right techne-table-xs-left paged-list-item ">
+                <td ng-repeat="key in keys" ng-class="'paged-list-item-'+key.property">
+                    <div data-ng-if="renderers[key.property]" compile-html="renderers[key.property](item, key)"></div>
+                    <span data-ng-if="!renderers[key.property]">{{ item[key.property] }}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination-container ">
+        <pagination boundary-links="true" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+    </div>
+
+</div>

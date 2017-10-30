@@ -1,0 +1,7 @@
+$defaultPassword=12341234
+
+INSERT_UPDATE UserGroup;uid[unique=true];groups(uid)
+;employeePromotionGroup;
+
+INSERT_UPDATE Employee;UID[unique=true];description;name;groups(uid);sessionLanguage(isocode);backOfficeLoginDisabled;password[default=$defaultPassword]
+;marketingmanager;Marketing Manager;Marketing Manager;marketingManagerGroup;en;false;

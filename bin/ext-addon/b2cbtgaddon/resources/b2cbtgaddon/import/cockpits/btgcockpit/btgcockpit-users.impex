@@ -1,0 +1,23 @@
+#
+# Import Users and Groups for BTG Cockpit
+# 
+
+INSERT_UPDATE UserGroup;uid[unique=true];locname[lang=de];locname[lang=en];
+;btgmanager;btgmanager;btgmanager;
+
+INSERT_UPDATE PrincipalGroupRelation;source(uid)[unique=true];target(uid)[unique=true]
+;cmsmanager;btgmanager;
+
+
+#
+# Import Access Rights for BTG Cockpit
+# 
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;btgmanager;;;;;;;;
+
+# btgcockpit
+;;;;BTGItem;+;+;+;+;+;
+;;;;AbstractAction;+;+;+;+;+;
+$END_USERRIGHTS;;;;;

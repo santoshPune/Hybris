@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="de.hybris.platform.ordermanagementwebservices.dto.order.OrderSearchPageWsDto">
+		<property name="orders" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.order.OrderWsDTO>"/>
+		<property name="sorts" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.search.pagedata.SortWsDTO>"/>
+		<property name="pagination" type="de.hybris.platform.commercewebservicescommons.dto.search.pagedata.PaginationWsDTO"/>
+	</bean>
+
+    <bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderWsDTO">
+        <property name="paymentAddress" type="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO"/>
+    </bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO">
+		<property name="url" type="java.lang.String"/>
+		<property name="quantityAllocated" type="java.lang.Long"/>
+		<property name="quantityUnallocated" type="java.lang.Long"/>
+		<property name="quantityCancelled" type="java.lang.Long"/>
+		<property name="quantityPending" type="java.lang.Long"/>
+		<property name="quantityShipped" type="java.lang.Long"/>
+		<property name="quantityReturned" type="java.lang.Long"/>
+	</bean>
+
+	<bean class="de.hybris.platform.ordermanagementwebservices.dto.returns.ReturnRequestWsDTO">
+		<property name="code" type="java.lang.String"/>
+		<property name="rma" type="java.lang.String"/>
+		<property name="status" type="java.lang.String"/>
+		<property name="order" type="de.hybris.platform.commercewebservicescommons.dto.order.OrderWsDTO"/>
+		<property name="deliveryCost" type="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO"/>
+		<property name="entries"
+		          type="java.util.List&lt;de.hybris.platform.ordermanagementwebservices.dto.returns.ReturnEntryWsDTO>"/>
+		<property name="refundDeliveryCost" type="java.lang.Boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.ordermanagementwebservices.dto.returns.ReturnEntryWsDTO">
+		<property name="expectedQuantity" type="Long"/>
+		<property name="receivedQuantity" type="Long"/>
+		<property name="reachedDate" type="java.util.Date"/>
+		<property name="orderEntry" type="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO"/>
+		<property name="notes" type="java.lang.String"/>
+		<property name="action" type="java.lang.String"/>
+		<property name="refundReason" type="java.lang.String"/>
+		<property name="replacementReason" type="java.lang.String"/>
+		<property name="refundAmount" type="java.math.BigDecimal"/>
+		<property name="refundedDate" type="java.util.Date"/>
+	</bean>
+
+	<bean class="de.hybris.platform.ordermanagementwebservices.dto.returns.ReturnSearchPageWsDTO">
+		<property name="returns" type="java.util.List&lt;de.hybris.platform.ordermanagementwebservices.dto.returns.ReturnRequestWsDTO>"/>
+		<property name="sorts" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.search.pagedata.SortWsDTO>"/>
+		<property name="pagination" type="de.hybris.platform.commercewebservicescommons.dto.search.pagedata.PaginationWsDTO"/>
+	</bean>
+
+	<bean class="de.hybris.platform.ordermanagementwebservices.dto.order.OrderStatusListWsDTO">
+		<property name="statuses" type="java.util.List&lt;java.lang.String>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.ordermanagementwebservices.dto.order.CancelReasonListWsDTO">
+		<property name="reasons" type="java.util.List&lt;java.lang.String>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.ordermanagementwebservices.dto.order.OrderEntrySearchPageWsDTO">
+		<property name="sorts" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.search.pagedata.SortWsDTO>"/>
+		<property name="pagination" type="de.hybris.platform.commercewebservicescommons.dto.search.pagedata.PaginationWsDTO"/>
+		<property name="orderEntries" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.ordermanagementwebservices.dto.returns.ReturnEntrySearchPageWsDTO">
+		<property name="sorts" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.search.pagedata.SortWsDTO>"/>
+		<property name="pagination" type="de.hybris.platform.commercewebservicescommons.dto.search.pagedata.PaginationWsDTO"/>
+		<property name="orderEntries" type="java.util.List&lt;de.hybris.platform.ordermanagementwebservices.dto.returns.ReturnEntryWsDTO>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.ordermanagementwebservices.dto.returns.ReturnStatusListWsDTO">
+		<property name="statuses" type="java.util.List&lt;java.lang.String>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.ordermanagementwebservices.dto.fraud.FraudReportWsDTO">
+		<property name="explanation" type="String" />
+		<property name="fraudSymptomScorings" type="java.util.List&lt;de.hybris.platform.ordermanagementwebservices.dto.fraud.FraudSymptomScoringsWsDTO>" />
+		<property name="provider" type="String" />
+		<property name="status" type="String" />
+		<property name="timestamp" type="java.util.Date" />
+	</bean>
+	
+	<bean class="de.hybris.platform.ordermanagementwebservices.dto.fraud.FraudSymptomScoringsWsDTO">
+		<property name="explanation" type="String" />
+		<property name="name" type="String" />
+		<property name="score" type="Double" />
+	</bean>
+	
+	<bean class="de.hybris.platform.ordermanagementwebservices.dto.fraud.FraudReportListWsDTO">
+		<property name="reports" type="java.util.List&lt;de.hybris.platform.ordermanagementwebservices.dto.fraud.FraudReportWsDTO>" />
+	</bean>
+
+    <bean class="de.hybris.platform.ordermanagementwebservices.dto.returns.CancelReturnRequestWsDTO">
+        <property name="code" type="java.lang.String"/>
+        <property name="cancelReason" type="java.lang.String"/>
+        <property name="notes" type="java.lang.String"/>
+    </bean>
+	
+</beans>

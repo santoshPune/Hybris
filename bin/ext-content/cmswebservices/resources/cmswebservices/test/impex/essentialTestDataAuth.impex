@@ -1,0 +1,26 @@
+# Users
+$defaultPassword=nimda
+$writableCatalogVersions=writableCatalogVersions(catalog(id),version);
+$readableCatalogVersions=readableCatalogVersions(catalog(id),version);
+
+INSERT_UPDATE ContentCatalog;id[unique=true];name[lang=en];defaultCatalog;
+;testCatalogSync;testCatalogSync;true
+
+INSERT_UPDATE CatalogVersion; catalog(id)[unique=true]; version[unique=true];active;
+;testCatalogSync;STAGE;true;
+;testCatalogSync;ONLINE;true;
+
+INSERT_UPDATE Employee;UID[unique=true];groups(uid)[mode=append];sessionLanguage(isocode);password[default=$defaultPassword];name
+;admin;cmsmanagergroup;en;;Admin
+;cmsmanager;cmsmanagergroup;en;1234;CmsManager
+
+INSERT_UPDATE UserGroup;UID[unique=true];groups(uid)[mode=append];$writableCatalogVersions;$readableCatalogVersions;
+;cmsmanagergroup;employeegroup;testCatalogSync:ONLINE;testCatalogSync:STAGE
+
+INSERT_UPDATE User;UID[unique=true];$writableCatalogVersions;$readableCatalogVersions;name;groups(uid);
+;cmsmanager;testCatalogSync:ONLINE;testCatalogSync:STAGE;CmsManager;cmsmanagergroup;
+
+INSERT_UPDATE OAuthClientDetails;clientId[unique=true]	;resourceIds	;scope		;authorizedGrantTypes											;authorities			;clientSecret	;registeredRedirectUri
+;trusted_client			;hybris			;basic		;authorization_code,refresh_token,password,client_credentials	;ROLE_ADMINGROUP,ROLE_CMSMANAGERGROUP			;secret	;http://localhost:9001/authorizationserver/oauth2_callback;
+
+

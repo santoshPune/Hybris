@@ -1,0 +1,29 @@
+$lang=en
+
+$jarResource=jar:de.hybris.platform.ruleengineservices.constants.RuleEngineServicesConstants&/ruleengineservices/images
+
+INSERT_UPDATE CatalogUnawareMedia;code[unique=true];mime;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+;rule-condef-general-icon;image/jpeg;$jarResource/0133_promotion_templates.png
+
+
+############################# CONDITIONS ##########################
+
+INSERT_UPDATE RuleConditionDefinitionCategory;id[unique=true];name[lang=$lang];priority;icon(code)
+;general;General;1000;
+
+INSERT_UPDATE RuleConditionDefinition;id[unique=true];name[lang=$lang];priority;breadcrumb[lang=$lang];allowsChildren;translatorId;translatorParameters;categories(id)
+;y_group;Group;1100;{operator};true;ruleGroupConditionTranslator;;general
+;y_container;Container;1000;{id};true;ruleContainerConditionTranslator;;general
+
+INSERT_UPDATE RuleConditionDefinitionParameter;definition(id)[unique=true];id[unique=true];priority;name[lang=$lang];description[lang=$lang];type;value;required[default=true];validators
+;y_group;operator;1000;Group operator;Combine the conditions in the group using OR/AND;Enum(de.hybris.platform.ruleengineservices.definitions.conditions.RuleGroupOperator);"""AND""";
+;y_container;id;1000;Container ID;Enter ID of the container to be referred in actions;java.lang.String;;;ruleContainerIdParameterValidator
+
+INSERT_UPDATE RuleConditionDefinitionRuleTypeMapping;definition(id)[unique=true];ruleType(code)[unique=true]
+;y_container;SourceRule;
+;y_group;SourceRule;
+
+############################# ACTIONS ##########################
+
+INSERT_UPDATE RuleActionDefinitionCategory;id[unique=true];name[lang=$lang];priority;icon(code)
+;general;General;1000

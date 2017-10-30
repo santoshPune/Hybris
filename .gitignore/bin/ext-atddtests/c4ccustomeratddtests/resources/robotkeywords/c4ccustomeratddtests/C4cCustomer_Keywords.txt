@@ -1,0 +1,203 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+*** Settings ***
+Library           de.hybris.platform.c4ccustomeratddtests.keywords.C4cKeywordLibrary
+Resource          impex/Impex_Keywords.txt
+Resource          atddrunner/AtddRunner_Keywords.txt
+
+*** Keywords ***
+import commercecart sampledata
+    [Documentation]    Imports the commercecart test data
+    prepare environment
+    set atdd properties
+    import impex from resource    /c4ccustomer/import/projectdata-c4cdata-streams.impex
+    ${datahubServerPort}=    get datahub server port
+    create c4cCustomerTestSyncJob to host "localhost" and port "${datahubServerPort}"
+    
+create c4cCustomerTestSyncJob to host "${host:[^"]+}" and port "${port:[^"]+}"
+	[Documentation]    Creates c4cCustomerTestSyncJob to c4c endpoint on specified host and port
+	@{binding}    create list    jobCode    c4cCustomerSyncTestJob
+	...        configurationContainerId    c4cSyncCustomers
+	...        springBeanId    c4cSyncMasterJobPerformable
+	...        syncType    DataHub
+	...        host    ${host}
+	...        port    ${port}
+	...        resource    y2ysync/v60
+	${templateName}=    Set Variable    impex-templates/y2ysyncjob-insert.impex.vm
+	${impEx}=    generate impex from template    ${templateName}    @{binding}
+	import impex "${impEx}" use template "${templateName}"
+
+reset system
+    [Documentation]    Resets the system attributes to the original values
+    remove data
+    set platform properties
+
+create customer with uid "${uid:[^"]+}" and name "${name:[^"]+}"
+    [Documentation]    Create customer with given uid and name
+    ${customer} =      create customer     ${uid}    ${name}
+    [Return]           ${customer}
+
+create customer with uid "${uid:[^"]+}"
+    [Documentation]                Create customer with default name
+    ${customer} =                  create customer with uid "${uid}" and name "John Doe"
+    [Return]                       ${customer}
+
+update customer "${customer}" with name "${name}"
+    ${customer.name} =             Set variable    ${name}
+    update db item                 ${customer}
+    [Return]                       ${customer}
+
+create address for customer with uid "${uid:[^"]+}"
+    [Documentation]    Create address for customer
+    ${address} =       create address for customer     ${uid}
+    [Return]           ${address}
+
+delete address "${address:[^"]+}"
+    [Documentation]    Delete given address
+    delete item        ${address}
+
+update address "${address}" to street name "${street:[^"]*}" street number "${streetnumber:[^"]*}" postal code "${postcode:[^"]*}" post box "${pobox:[^"]*}" district "${district:[^"]*}" town "${town:[^"]*}" region "${region:[^"]*}" country "${country:[^"]*}" appartment "${appartment:[^"]*}" building "${building:[^"]*}"
+    [Documentation]                 Change address fields: full version
+    ${address.streetname} =         Set variable    ${street}
+    ${address.streetnumber} =       Set variable    ${streetnumber}
+    ${address.district} =           Set variable    ${district}
+    ${address.town} =               Set variable    ${town}
+    ${address.region} =             Set variable    ${region}
+    ${address.postalcode} =         Set variable    ${postcode}
+    ${address.pobox} =              Set variable    ${pobox}
+    ${address.building} =           Set variable    ${building}
+    ${address.appartment} =         Set variable    ${appartment}
+    ${address.country} =            Set variable    ${country}
+    update db item                  ${address}
+    [Return]                        ${address}
+
+update contacts of address "${address}" to email "${email:[^"]*}" phone1 "${phone1:[^"]*}" phone2 "${phone2:[^"]*}" fax "${fax:[^"]*}" mobile phone "${cellphone:[^"]*}"
+    [Documentation]              Change contact data: full version
+    ${address.email} =             Set variable    ${email}
+    ${address.phone1} =            Set variable    ${phone1}
+    ${address.phone2} =            Set variable    ${phone2}
+    ${address.fax} =               Set variable    ${fax}
+    ${address.cellphone} =         Set variable    ${cellphone}
+    update db item                 ${address}
+    [Return]                       ${address}
+
+update type of address "${address}" to shipping mark "${shipping:[^"]*}" billing mark "${billing:[^"]*}" contact mark "${contact:[^"]*}"
+    [Documentation]                Change address type: full version
+    ${address.shippingAddress} =   Set Variable    ${shipping}
+    ${address.billingAddress} =    Set variable    ${billing}
+    ${address.contactAddress} =    Set variable    ${contact}
+    update db item                 ${address}
+    [Return]                       ${address}
+
+update email of address "${address}" to "${email:[^"]*}"
+    ${address} =                   update contacts of address "${address}" to email "${email}" phone1 "${address.phone1}" phone2 "${address.phone2}" fax "${address.fax}" mobile phone "${address.cellphone}"
+    [Return]                       ${address}
+
+update postal code of address "${address}" to "${postalcode:[^"]*}"
+    ${address} =                   update address "${address}" to street name "${address.streetname}" street number "${address.streetnumber}" postal code "${postalcode}" post box "${address.pobox}" district "${address.district}" town "${address.town}" region "${address.region}" country "${address.country}" appartment "${address.appartment}" building "${address.building}"
+    [Return]                       ${address}
+
+update postal box of address "${address}" to "${pobox:[^"]*}"
+    ${address} =                   update address "${address}" to street name "${address.streetname}" street number "${address.streetnumber}" postal code "${address.postalcode}" post box "${pobox}" district "${address.district}" town "${address.town}" region "${address.region}" country "${address.country}" appartment "${address.appartment}" building "${address.building}"
+    [Return]                       ${address}
+
+update street of address "${address}" to "${streetname:[^"]*}", "${streetnumber:[^"]*}"
+    ${address} =                   update address "${address}" to street name "${streetname}" street number "${streetnumber}" postal code "${address.postalcode}" post box "${address.pobox}" district "${address.district}" town "${address.town}" region "${address.region}" country "${address.country}" appartment "${address.appartment}" building "${address.building}"
+    [Return]                       ${address}
+
+update district of address "${address}" to "${district:[^"]*}"
+    ${address} =                   update address "${address}" to street name "${address.streetname}" street number "${address.streetnumber}" postal code "${address.postalcode}" post box "${address.pobox}" district "${district}" town "${address.town}" region "${address.region}" country "${address.country}" appartment "${address.appartment}" building "${address.building}"
+    [Return]                       ${address}
+
+update town of address "${address}" to "${town:[^"]*}"
+    ${address} =                   update address "${address}" to street name "${address.streetname}" street number "${address.streetnumber}" postal code "${address.postalcode}" post box "${address.pobox}" district "${address.district}" town "${town}" region "${address.region}" country "${address.country}" appartment "${address.appartment}" building "${address.building}"
+    [Return]                       ${address}
+
+update country of address "${address}" to "${country:[^"]*}"
+    ${countrymodel} =              convert to iso code     ${country}
+    ${address} =                   update address "${address}" to street name "${address.streetname}" street number "${address.streetnumber}" postal code "${address.postalcode}" post box "${address.pobox}" district "${address.district}" town "${address.town}" region "${address.region}" country "${countrymodel}" appartment "${address.appartment}" building "${address.building}"
+    [Return]                       ${address}
+
+update first phone of address "${address}" to "${phone:[^"]*}"
+	${address} =                   update contacts of address "${address}" to email "${address.email}" phone1 "${phone}" phone2 "${address.phone2}" fax "${address.fax}" mobile phone "${address.cellphone}"
+    [Return]                       ${address}
+
+update second phone of address "${address}" to "${phone:[^"]*}"
+	${address} =                   update contacts of address "${address}" to email "${address.email}" phone1 "${address.phone1}" phone2 "${phone}" fax "${address.fax}" mobile phone "${address.cellphone}"
+    [Return]                       ${address}
+
+update fax of address "${address}" to "${fax:[^"]*}"
+	${address} =                   update contacts of address "${address}" to email "${address.email}" phone1 "${address.phone1}" phone2 "${address.phone2}" fax "${fax}" mobile phone "${address.cellphone}"
+    [Return]                       ${address}
+
+update mobile phone of address "${address}" to "${cellphone:[^"]*}"
+	${address} =                   update contacts of address "${address}" to email "${address.email}" phone1 "${address.phone1}" phone2 "${address.phone2}" fax "${address.fax}" mobile phone "${cellphone}"
+    [Return]                       ${address}
+
+read data from c4c
+    [Documentation]    Wait C4C Soap XML file
+    ${result}=    read data
+    [Return]    ${result}
+
+run cron job
+    [Documentation]    Create address for customer
+    remove data
+    trigger cron job    c4cCustomerSyncTestJob    true
+    wait for data processed
+    
+assert cron job does not start when triggered
+    [Documentation]    Triggers the c4cCustomerSyncTestJob and expects it does not start because there are no changes to consume
+    remove data
+    trigger cron job    c4cCustomerSyncTestJob    false
+
+
+update model "${model:[^"]+}"
+    [Documentation]    Save changes made in model
+    update db item     ${model}
+
+generate random id
+    [Documentation]     Generates random Id
+    ${id} =    generate id
+    [Return]    ${id}
+
+extract data from xml "${xml:[^"]+}" by xPath "${xpath:[^"]+}"
+    [Documentation]     Extract data from xml by xpath
+    ${data} =    extract data from xml by xPath    ${xml}    ${xpath}
+    [Return]    ${data}
+
+get customer by uid "${uid:[^"]+}"
+    [Documentation]    Get customer by uid
+    ${customer} =    get customer by uid    ${uid}
+    [Return]    ${customer}
+
+get message URL
+    [Documentation]    Get message URL from c4c
+    ${URL} =    get URL
+    [Return]    ${URL}
+
+run datahub
+    [Documentation]    Starts datahub and endpointmock webapps
+    start server "c4cIntegrationServer1"
+    start server "c4cIntegrationServer2"
+
+stop datahub
+    [Documentation]    Stops datahub and endpointmock webapps
+    stop server "c4cIntegrationServer1"
+    stop server "c4cIntegrationServer2"
+
+set default shipment address "${address:[^"]+}" for customer with uid "${uid:[^"]+}"
+    [Documentation]    Set address as a default shipment address for a customer with given uid
+    set default shipment address for customer    ${address}    ${uid}
+
+set default billing address "${address:[^"]+}" for customer with uid "${uid:[^"]+}"
+    [Documentation]    Set address as a default shipment address for a customer with given uid
+    set default billing address for customer    ${address}    ${uid}

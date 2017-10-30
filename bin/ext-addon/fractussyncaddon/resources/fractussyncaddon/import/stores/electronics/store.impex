@@ -1,0 +1,19 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+$productCatalog=yaasProductCatalog
+
+INSERT_UPDATE BaseStore;uid[unique=true];submitOrderProcessCode;warehouses(code)
+;fractusStore;fractus-order-process;default
+
+# Product catalog
+INSERT_UPDATE Catalog;id[unique=true];baseStores(uid)
+;$productCatalog;fractusStore

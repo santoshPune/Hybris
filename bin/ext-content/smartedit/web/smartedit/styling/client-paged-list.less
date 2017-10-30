@@ -1,0 +1,65 @@
+// UI Client Paged list directive
+
+.paged-list-count {
+    //text-align: center;
+    margin-bottom: 0;
+    margin-left: 1em;
+
+    font-family: @font-open-sans;
+    font-size: 16px;
+    color: @smartedit-grey3;
+    font-style: italic;
+}
+
+.paged-list-table {
+  margin: 0 auto;
+
+  .paged-list-header {
+    position: relative;
+  }
+
+  .header-icon {
+
+    &.down {
+
+      &:after {
+        content: '\2193';
+      }
+
+    }
+
+    &.up {
+
+      &:after {
+        content: '\2191'
+      }
+
+    }
+
+  }
+
+
+
+  .paged-list-item {
+    cursor: default;
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  .paged-list-item td {
+    vertical-align: middle;
+    cursor: default;
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  .paged-list-item-name, .paged-list-item-title {
+    text-transform: uppercase;
+    font-size: 1em;
+    color: #0486E0;
+    font-weight: bolder;
+  }
+
+}

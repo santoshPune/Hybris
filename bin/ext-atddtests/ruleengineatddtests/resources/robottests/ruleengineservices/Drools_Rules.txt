@@ -1,0 +1,12 @@
+*** Settings ***
+Resource          ruleengine/RuleEngineServices_Keywords.txt
+Test Setup        import ruleengine sampledata
+
+
+*** Variables ***
+
+${logText}=    Drools rules!!!!!!!!!!!!!!!!
+
+*** Test Cases ***
+Test_Log_Some_Fatal_Text
+   ${result}=    log provided text "${logText}" with level "FATAL"

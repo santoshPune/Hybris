@@ -1,0 +1,6 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE BreadcrumbComponent;pk[unique=true]
+;8796120482876
+;8796117238844
+#  end of pk list for BreadcrumbComponent
+#  

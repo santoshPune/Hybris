@@ -1,0 +1,35 @@
+$contentCatalog=testContentCatalog
+$productCatalog=testProductCatalog
+$languages=en
+$defaultLanguage=en
+$storeUid=testStore
+$siteUid=testSite
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+
+# Content catalog for CMS contents
+INSERT_UPDATE ContentCatalog;id[unique=true]
+;$contentCatalog
+;$productCatalog
+
+# Catalog versions for content catalogs
+INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode)
+;$contentCatalog;Staged;false;$languages
+;$contentCatalog;Online;true;$languages
+;$productCatalog;Staged;false;$languages
+;$productCatalog;Online;true;$languages
+
+INSERT_UPDATE BaseStore;uid[unique=true];catalogs(id);
+;$storeUid;$productCatalog;
+
+INSERT_UPDATE CMSSite;uid[unique=true];stores(uid);contentCatalogs(id);defaultCatalog(id);urlPatterns;active;
+;$siteUid;$storeUid;$contentCatalog;$productCatalog;(?i)^https?://[^/]+(/[^?]*)?\?(.*\&)?(site=$siteUid)(|\&.*)$,(?i)^https?://$siteUid\.[^/]+(|/.*|\?.*)$;true
+
+
+# Pages
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;LandingPage2Template;Landing Page 2 Template;layout/landingLayout2Page;CategoryPage,ContentPage
+
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='true']
+;;homepage;Homepage;LandingPage2Template;homepage

@@ -1,0 +1,31 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import java.util.ArrayList;
+import java.math.BigDecimal;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderEntryDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rao.EntriesSelectionStrategyRPD;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+
+global AddOrderEntryDiscountRAOAction addOrderEntryDiscountRAOAction;
+
+rule "percentageDiscountForEOS450D"
+@ruleCode("percentageDiscountForEOS450D")
+
+	salience 10
+	when
+		$result : RuleEngineResultRAO()
+		$config : RuleConfigurationRRD(ruleCode == "percentageDiscountForEOS450D")
+		// does the Product have code 1382080 (EOS 450D)?
+		$entries : ArrayList(size > 0)
+  	              from collect(OrderEntryRAO(product.code == "1382080", quantity > 0))
+		
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+		
+	then
+		// give 10% discount to the order entry
+		addOrderEntryDiscountRAOAction.addOrderEntryLevelDiscounts($entries, false, new BigDecimal("10.00"), $result, kcontext);
+end

@@ -1,0 +1,215 @@
+$currencies=USD,EUR
+$defaultCurrency=USD
+$defaultLanguage=en
+$deliveryCountries=US
+$paymentProvider=Mockup
+
+$customergroup=customergroup
+$defaultPassword=12341234
+
+$productCatalog=testCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$supercategories=supercategories(code,catalogversion(catalog(id[default=$productCatalog]),version[default='Online']))
+
+$approved=approvalstatus(code)[default='approved']
+
+INSERT_UPDATE Language;isocode[unique=true];active
+;de;true
+;en;true
+
+UPDATE Language;isocode[unique=true];name[lang=de];name[lang=en]
+;de;Deutsch;German
+;en;Englisch;English
+
+INSERT_UPDATE Unit;unitType[unique=true];code[unique=true];name[lang=de];name[lang=en];conversion
+;pieces;pieces;pieces;pieces;1
+
+INSERT_UPDATE Currency;isocode[unique=true];name[lang=de];name[lang=en];active;base;conversion;digits;symbol
+;EUR;Euro;Euro;true;true;1;2;€
+;USD;US-Dollar;US Dollar;true;false;1,38;2;$
+;JPY;Japanese-Yen;Yen;true;false;1;2;¥
+
+INSERT_UPDATE Customer;groups(uid);uid[unique=true];name;password[default=$defaultPassword];customerId
+;customergroup;testcustomer1@hybris.com;Test Customer;;testcustomer1@hybris.com;
+;customergroup;anonymous;Test Anonymous;;
+
+INSERT_UPDATE Catalog;id[unique=true];name[lang=de];name[lang=en];defaultCatalog
+;$productCatalog;$productCatalog;$productCatalog;true
+
+INSERT_UPDATE CatalogVersion; catalog(id)[unique=true]; version[unique=true]; active;defaultCurrency(isocode)
+;$productCatalog;"Online";true;USD;de,en
+
+INSERT_UPDATE UserGroup;uid[unique=true];groups(uid)
+;customergroup;
+;employeePromotionGroup;
+;anotherGroup;
+
+# Zone Delivery Mode for 'free-standard-shipping' set to active
+INSERT_UPDATE ZoneDeliveryMode;code[unique=true];net;active
+;free-standard-shipping;true;true
+;standard-net;true;true
+
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;name[lang=de];name[lang=en];$supercategories
+;587;;Tripods;Tripods;
+;576;;Digital Compacts;Digital Compacts;
+;902;;Flash Memory;Flash Memory;
+;576;;Digital Compacts;Digital Compacts;
+;586;;Camera Flashes;
+;902;;Flash Memory;
+;brands;;;
+;brand_1;;;;brands;
+;brand_10;;Canon;Canon;
+;brand_5;;Sony;Sony;
+;578;;Digital SLR;Digital SLR;
+;584;;Hand-held Camcorders;;
+;brand_2;;Toshiba;Toshiba;
+;585;;Camera Accessories and Supplies;Camera Accessories and Supplies;
+;604;;Blank Video Tapes;Blank Video Tapes;585
+;827;;Power Adapters & Inverters;Power Adapters & Inverters;
+;829;;Battery Chargers;Battery Chargers;
+;brand_2171;;ICIDU;ICIDU;
+;brand_18;;Kingston;Kingston;
+;814;;Rechargeable Batteries;Rechargeable Batteries;
+;1288;;Camera Kits;Camera Kits;
+;588;;Camera Lenses;Camera Lenses;
+;brand_88;;Kodak;Kodak;
+;597;;Colour Films;
+;598;;Black & White Films;
+;brand_26;;Samsung;Samsung;
+ 
+INSERT_UPDATE Product;code[unique=true];$supercategories;manufacturerName;manufacturerAID;unit(code);ean;variantType(code);$catalogVersion;$approved
+;2934302;578, brand_5;Sony;DSLR-A330L;pieces;7501450750079
+;325414;576, brand_88;Kodak;Z730;pieces;
+;493683;588, brand_88;Kodak;1033323;pieces;6004177103332
+;1641905;902, brand_18;Kingston;SD4/32GB;pieces;0740617135084
+;266685;586, brand_5;Sony;HVL-20DMA;pieces;0027242648838
+;1934793;576, brand_10;Canon;3477B013AA;pieces;8714574533421
+;1934794;576, brand_10;Canon;3476B013AA;pieces;8714574533261
+;23210;576, brand_5;Sony;DSC-P71;pieces;4901780755943
+;443175;902;Kingston;SD/2GB;pieces;2007009230009
+;300938;576, brand_1;HP;L2051A#200;pieces;0829160974095
+;1382080;578, brand_10;Canon;2758B015AA;pieces;8714574516769
+;1432722;584, brand_2;Toshiba;GSC-K80HE;pieces;4026203537095
+;1776947;584, brand_2;Toshiba;PX1478E-1CAM;pieces;4026203604308
+;1776948;584, brand_2;Toshiba;PX1505E-1CAM;pieces;4026203604636
+;301233;604;Sony;3N860P;pieces;4901780625390
+;514518;827;Canon;2419A002AA;pieces;4960999501505
+;137220;604;Sony;2DVM60PR-BT;pieces;4901780530007
+;1934406;584,brand_5;Sony;HDRCX105ER;pieces;4905524596595
+;1687508;587;Sony;1687508;pieces;
+;278688;829;Sony;AC-VQP10;pieces;4901780859825
+;266899;827;Sony;AC-LS5K;pieces;0027242663169
+;872912;902, brand_2171;ICIDU;SI-707104;pieces;8717591971917
+;1366001;902, brand_2171;ICIDU;SI-707123;pieces;8717591973652
+;443175;902, brand_18;Kingston;SD/2GB;pieces;2007009230009
+;482105;814;Sony;NP-FM55H;pieces;;
+;805693;814;Sony;NP-FH50;pieces;0027242707603
+;824267;814;Sony;NP-FH100;pieces;0027242706552
+;861175;1288;Sony;NP-FH70;pieces;0490552438251
+;784343;588;Canon;2529A015AA;pieces;;
+;779866;598, brand_88;Kodak;1629617;pieces;6004177162961
+;779848;597, brand_88;Kodak;3919958;pieces;4041777221577
+;816780;578;Sony;DSLR-A100H;pieces;4905524385649
+;4812254;578,brand_10;Canon;3820B105AA;pieces;
+;1981413;576, brand_26;Samsung;EC-PL60ZABP/GB;pieces;8806386912775
+;1099413;586,brand_10;Canon;2356A002AA;pieces;0082966150425
+;479956;902, brand_5;Sony;MSX-M4GSX;pieces;4905524333688
+;824259;814, brand_5;Sony;NP-FH70;pieces;0027242706569
+
+INSERT_UPDATE PriceRow;productId[unique=true];unit(code[unique=true,default=pieces]);currency(isocode)[unique=true];price;minqtd;unitFactor;net
+;2934302;pieces;USD;508.88;1;1;false
+;2934302;pieces;JPY;43350;1;1;false
+;325414;pieces;USD;147.04;1;1;false
+;325414;pieces;JPY;12520;1;1;false
+;493683;pieces;USD;118.45;1;1;false
+;493683;pieces;JPY;10090;1;1;false
+;1641905;pieces;USD;142.7;1;1;false
+;1641905;pieces;JPY;12150;1;1;false
+;1934793;pieces;USD;99.85;1;1;false
+;1934793;pieces;JPY;8500;1;1;false
+;266685;pieces;USD;154.5;1;1;false
+;266685;pieces;JPY;13160;1;1;false
+;443175;pieces;USD;6.04;1;1;false
+;443175;pieces;JPY;510;1;1;false
+;300938;pieces;USD;114.12;1;1;false
+;300938;pieces;JPY;9720;1;1;false
+;1934794;pieces;USD;99.85;1;1;false
+;1934794;pieces;JPY;8500;1;1;false
+;23210;pieces;USD;110;1;1;false
+;23210;pieces;JPY;9364;1;1;false
+;1382080;pieces;USD;574.88;1;1;false
+;1382080;pieces;JPY;48970;1;1;false
+;1432722;pieces;USD;396.88;1;1;false
+;1432722;pieces;JPY;33810;1;1;false
+;1776947;pieces;USD;243.88;1;1;false
+;1776947;pieces;JPY;20770;1;1;false
+;1776948;pieces;USD;146.88;1;1;false
+;1776948;pieces;JPY;12510;1;1;false
+;301233;pieces;USD;21.56;1;1;false
+;301233;pieces;JPY;1830;1;1;false
+;514518;pieces;USD;315.52;1;1;false
+;514518;pieces;JPY;26880;1;1;false
+;137220;pieces;USD;8.00;1;1;false
+;137220;pieces;JPY;600.00;1;1;false
+;1934406;pieces;USD;452.88;1;1;false
+;1934406;pieces;JPY;38580;1;1;false
+;1687508;pieces;USD;149.71;1;1;false
+;1687508;pieces;JPY;12750;1;1;false
+;278688;pieces;USD;137.96;1;1;false
+;278688;pieces;JPY;11750;1;1;false
+;266899;pieces;USD;86.86;1;1;false
+;266899;pieces;JPY;7400;1;1;false
+;872912;pieces;USD;10;1;1;false
+;872912;pieces;JPY;850;1;1;false
+;1366001;pieces;USD;12;1;1;false
+;1366001;pieces;JPY;1020;1;1;false
+;482105;pieces;USD;149.69;1;1;false
+;482105;pieces;JPY;12750;1;1;false
+;805693;pieces;USD;136.50;1;1;false
+;805693;pieces;JPY;11620;1;1;false
+;824267;pieces;USD;283.85;1;1;false
+;824267;pieces;JPY;24180;1;1;false
+;861175;pieces;USD;184.58;1;1;false
+;861175;pieces;JPY;15720;1;1;false
+;784343;pieces;USD;818.33;1;1;false
+;784343;pieces;JPY;69720;1;1;false
+;779866;pieces;USD;7.5;1;1;false
+;779866;pieces;JPY;630;1;1;false
+;779848;pieces;USD;8.5;1;1;false
+;779848;pieces;JPY;720;1;1;false
+;816780;pieces;USD;1086;1;1;false
+;816780;pieces;JPY;92520;1;1;false
+;4812254;pieces;USD;927.89;1;1;false
+;4812254;pieces;JPY;79050;1;1;false
+;1099413;pieces;USD;360.86;1;1;false
+;1099413;pieces;JPY;30740;1;1;false
+;479956;pieces;USD;102.37;1;1;false
+;479956;pieces;JPY;8720;1;1;false
+;1981413;pieces;USD;184.69;1;1;false
+;1981413;pieces;JPY;15730;1;1;false
+;824259;pieces;USD;184.58;1;1;false
+;824259;pieces;JPY;15720;1;1;false
+
+INSERT_UPDATE DroolsKIEModule;name[unique=true];mvnGroupId;mvnArtifactId;mvnVersion;ruleType(code);active;version;
+;promotions-module-junit;hybris-rules;promotions-junit;1.0.0;PROMOTION;true;0;
+
+INSERT_UPDATE DroolsKIEBase;name[unique=true];kieModule(name)[unique=true];equalityBehavior(code);eventProcessingMode(code);
+;promotions-base-junit;promotions-module-junit;EQUALITY;STREAM;
+
+INSERT_UPDATE DroolsKIESession;name[unique=true];kieBase(name)[unique=true];sessionType(code)
+;promotions-session-junit;promotions-base-junit;STATELESS
+
+INSERT_UPDATE DroolsRuleEngineContext;name[unique=true];kieSession(name);ruleFiringLimit;
+;promotions-junit-context;promotions-session-junit;200;
+
+
+INSERT_UPDATE PromotionGroup;Identifier[unique=true];
+;testPromoGrp;
+;electronicsPromoGrp;
+;powertoolsPromoGrp;
+
+UPDATE DroolsKIEModule;name[unique=true];defaultKIEBase(name)
+;promotions-module-junit;promotions-base-junit
+
+UPDATE DroolsKIEBase;name[unique=true];defaultKIESession(name)
+;promotions-base-junit;promotions-session-junit

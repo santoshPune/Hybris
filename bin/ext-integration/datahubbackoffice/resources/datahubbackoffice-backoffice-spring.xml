@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="datahubbackofficeLabelLocator" class="com.hybris.cockpitng.util.labels.ResourcesLabelLocator" scope="singleton"
+		  init-method="init" lazy-init="false">
+		<property name="location" value="/datahubbackoffice-labels/" />
+		<property name="name" value="labels" />
+	</bean>
+
+    <import resource="classpath:/datahub-ui-rest-spring.xml" />
+	<import resource="classpath:/datahub-ui-spring.xml" />
+	<import resource="classpath:/datahub-ui-strategy-spring.xml" />
+	<import resource="classpath:/datahub-ui-service-spring.xml" />
+	
+	<!-- This is essential to make the hybris properties resolution mechanism to function properly -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+  		<property name="properties" ref="hybrisProperties"/>
+	</bean>
+
+	<alias name="propertySecurityCredentialsInfo" alias="securityCredentialsInfo"/>
+	<bean name="propertySecurityCredentialsInfo" class="com.hybris.datahub.client.BasicSecurityCredentialsInfo">
+		<constructor-arg name="username" value="${datahub.backoffice.rest.client.username:}"/>
+		<constructor-arg name="password" value="${datahub.backoffice.rest.client.password:}"/>
+	</bean>
+	
+	<alias name="typeSystemBasedDataHubNameService" alias="dataHubNameService" />
+	<bean id="typeSystemBasedDataHubNameService" class="com.hybris.datahub.service.TypeSystemBasedDataHubNameService">
+		<property name="dataHubInstanceDAO" ref="dataHubInstanceDao" />
+	</bean>
+
+	<bean id="dataHubInstanceDao" class="com.hybris.datahub.daos.impl.DefaultDataHubInstanceDAOImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+</beans>

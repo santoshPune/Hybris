@@ -1,0 +1,38 @@
+<h1><code ng:non-bindable="">editorTabsetService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">editorTabsetModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="editortabsetmodule-service-page editortabsetmodule-service-editortabsetservice-page"><p>The Editor Tabset Service keeps track of a list of tabs and their configuration, which includes the id, title,
+and template  URL. The service allows registering, removing, and listing tabs. By default it contains the following ones:</p>
+<ul>
+<li>Admin Tab</li>
+<li>Basic Tab</li>
+<li>Generic Tab</li>
+</ul>
+<p>This service is used by the <a href="#/cmssmarteditContainer/editorTabsetModule.directive:editorTabset">editorTabset</a>
+directive to determine the tabs to be displayed in the tabset.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_deletetab">deleteTab(tabId)</h3>
+<div class="deletetab"><div class="editortabsetmodule-service-page editortabsetmodule-service-editortabsetservice-deletetab-page"><p>Removes a tab from the list of registered tabs.</p>
+</div><h5 id="methods_deletetab_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>tabId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="editortabsetmodule-service-page editortabsetmodule-service-editortabsetservice-deletetab-page"><p>The ID of the tab to be removed.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_gettabslist">getTabsList()</h3>
+<div class="gettabslist"><div class="editortabsetmodule-service-page editortabsetmodule-service-editortabsetservice-gettabslist-page"><p>Retrieves the list of registered tabs to display in an editing tabset.</p>
+</div><h5 id="methods_gettabslist_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="editortabsetmodule-service-page editortabsetmodule-service-editortabsetservice-gettabslist-page"><p>array containing the registered tabs to display in an editing tabset.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_registertab">registerTab(tabId, tabTitle, tabTemplateUrl)</h3>
+<div class="registertab"><div class="editortabsetmodule-service-page editortabsetmodule-service-editortabsetservice-registertab-page"><p>This method allows registering a tab to be displayed in an editing tabset.</p>
+<p>Note: If the tabId is not unique, this method will override the previous tab configuration.</p>
+</div><h5 id="methods_registertab_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>tabId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="editortabsetmodule-service-page editortabsetmodule-service-editortabsetservice-registertab-page"><p>An ID for the tab. It has to be unique, otherwise the previous tab configuration will be overriden.</p>
+</div></td></tr><tr><td>tabTitle</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="editortabsetmodule-service-page editortabsetmodule-service-editortabsetservice-registertab-page"><p>The string displayed as the tab header.</p>
+</div></td></tr><tr><td>tabTemplateUrl</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="editortabsetmodule-service-page editortabsetmodule-service-editortabsetservice-registertab-page"><p>Path to the HTML fragment to be displayed as the tab content.</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

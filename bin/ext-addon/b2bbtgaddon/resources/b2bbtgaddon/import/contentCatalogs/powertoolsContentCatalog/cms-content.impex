@@ -1,0 +1,32 @@
+#
+# Import the CMS content for the Powertools site
+#
+$contentCatalog=powertoolsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+
+
+## Core data
+# The CrossSelling and UpSelling slots are designed for related products, cross-sells and up-sells.
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProductDetailsPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;BTGBannerProductDetail;;SimpleBannerComponent;narrow
+
+# Create Content Slots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active
+;;BTGBannerProductDetailSlot;BTG Banner Product Detail;true
+
+# Bind Content Slots to Page Templates
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProductDetailsPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;BTGBannerProductDetail-ProductDetails;BTGBannerProductDetail;;BTGBannerProductDetailSlot;true
+
+
+
+
+
+## Sample data
+## BTG banner product detail slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;BTGBannerProductDetailSlot;BTGBannerProductDetail
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;BTGBannerProductDetail;BTG Product Detail Banner Bosch PSR 14.4 LI-2;BTGBannerProductDetail;/Open-Catalogue/Tools/Power-Drills/PSR-14-4-LI-2/p/3756505

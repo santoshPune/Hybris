@@ -1,0 +1,3 @@
+
+INSERT_UPDATE SolrIndexConfig;name[unique=true];batchSize;distributedIndexing
+;testIndexConfig${testId};100;true

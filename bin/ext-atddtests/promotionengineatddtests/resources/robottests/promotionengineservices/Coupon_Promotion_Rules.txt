@@ -1,0 +1,287 @@
+*** Settings ***
+Resource          promotionengine/PromotionEngineServices_Keywords.txt
+Resource          ruleengine/Util_Keywords.txt
+
+*** Test Cases ***
+Test_Coupon_Code_Fixed_Discount_On_Carts
+	[Documentation]     Apply fixed discount on carts using one coupon code
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	import sourcerule data
+	compile source rule for id "coupon_code_fixed_discount"
+	configure promotionengine
+  	
+	# Setting variables
+	${cartIdCustomerA}=    Set Variable    "022222"
+    ${cartIdCustomerB}=    Set Variable    "022244"
+	${product1}=    get product by code "1382080"
+	
+  	${couponCodeA}=    Set Variable    SUMMER69
+	
+	# Test for cartIdCustomerA
+  	create cart "${cartIdCustomerA}"
+	add "${product1}" to cart "${cartIdCustomerA}"
+	${cartBeforePromo}=    get total of "${cartIdCustomerA}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    574.88
+ 
+	# $10 discount on cartIdCustomerA with coupon
+	redeem coupon with code "${couponCodeA}" for cart "${cartIdCustomerA}"
+ 
+  	${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerA}" by promotion engine
+  	Should Be Equal As Numbers    ${cartAfterPromo}    564.88
+ 
+  	# Test for cartIdCustomerB
+  	create cart "${cartIdCustomerB}"
+	add "${product1}" to cart "${cartIdCustomerB}"
+	${cartBeforePromo}=    get total of "${cartIdCustomerB}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    574.88
+ 
+  	# $10 discount on cartIdCustomerB with coupon
+  	redeem coupon with code "${couponCodeA}" for cart "${cartIdCustomerB}"
+  	${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerB}" by promotion engine
+ 
+  	Should Be Equal As Numbers    ${cartAfterPromo}    564.88
+  	
+  	# release coupon for cartIdCustomerB
+  	release coupon with code "${couponCodeA}" for cart "${cartIdCustomerB}"
+  	
+   ${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerB}" by promotion engine
+  	Should Be Equal As Numbers    ${cartAfterPromo}    574.88
+
+Test_Coupon_Code_Fixed_Discount_On_Carts_Discount_Over_Cart_Total
+	[Documentation]     Apply fixed discount on cart using one coupon code
+	...					Discount from coupon is over cart total
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	import sourcerule data
+	compile source rule for id "coupon_code_fixed_discount"
+	configure promotionengine
+  	
+	# Setting variables
+	${cartIdCustomerA}=    Set Variable    "022223"
+	${product1}=    get product by code "137220"
+	
+  	${couponCodeA}=    Set Variable    SUMMER69
+	
+	# Test for cartIdCustomerA
+  	create cart "${cartIdCustomerA}"
+	add "${product1}" to cart "${cartIdCustomerA}"
+	${cartBeforePromo}=    get total of "${cartIdCustomerA}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    8.00
+ 
+	# $10 discount on cartIdCustomerA with coupon
+	redeem coupon with code "${couponCodeA}" for cart "${cartIdCustomerA}"
+ 
+  	${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerA}" by promotion engine
+  	Should Be Equal As Numbers    ${cartAfterPromo}    8.00
+
+ Test_Coupon_Code_Fixed_Discount_On_Carts_One_MultiCodeCoupon
+	[Documentation]     Apply fixed discount on carts using one coupon code more than once (MultiCodeCoupon)
+	...					
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	import sourcerule data
+	compile source rule for id "coupon_code_fixed_discount"
+	configure promotionengine
+  	
+	# Setting variables
+	${cartIdCustomerA}=    Set Variable    "022224"
+	${product1}=    get product by code "301233"
+	
+  	${couponCodeA}=    Set Variable    SUMMER69
+	
+	# Test for cartIdCustomerA
+  	create cart "${cartIdCustomerA}"
+	add "${product1}" to cart "${cartIdCustomerA}"
+	${cartBeforePromo}=    get total of "${cartIdCustomerA}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    21.56
+ 
+	# $10 discount on cartIdCustomerA with coupon
+	redeem coupon with code "${couponCodeA}" for cart "${cartIdCustomerA}"
+ 
+  	${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerA}" by promotion engine
+  	Should Be Equal As Numbers    ${cartAfterPromo}    11.56
+  	
+	# $10 discount on cartIdCustomerA with coupon
+	release coupon with code "${couponCodeA}" for cart "${cartIdCustomerA}"
+	
+  	${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerA}" by promotion engine
+  	Should Be Equal As Numbers    ${cartAfterPromo}    21.56
+
+Test_Coupon_Code_Percentage_Discount_On_Carts
+	[Documentation]     Apply fixed percentage discount on carts using one coupon code
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	import sourcerule data
+	compile source rule for id "coupon_code_percentage_discount"
+	configure promotionengine
+  	
+	# Setting variables
+	${cartIdCustomerA}=    Set Variable    "022233"
+    ${cartIdCustomerB}=    Set Variable    "022255"
+	${product1}=    get product by code "1382080"
+	
+  	${couponCodeA}=    Set Variable    WINTER16
+	
+	# Test for cartIdCustomerA
+  	create cart "${cartIdCustomerA}"
+	add "${product1}" to cart "${cartIdCustomerA}"
+	${cartBeforePromo}=    get total of "${cartIdCustomerA}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    574.88
+ 
+	# 10% discount on cartIdCustomerA with coupon
+	redeem coupon with code "${couponCodeA}" for cart "${cartIdCustomerA}"
+ 
+  	${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerA}" by promotion engine
+  	Should Be Equal As Numbers    ${cartAfterPromo}    517.39
+ 
+  	# Test for cartIdCustomerB
+  	create cart "${cartIdCustomerB}"
+	add "${product1}" to cart "${cartIdCustomerB}"
+	${cartBeforePromo}=    get total of "${cartIdCustomerB}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    574.88
+ 
+  	# 10% discount on cartIdCustomerB with coupon
+  	redeem coupon with code "${couponCodeA}" for cart "${cartIdCustomerB}"
+  	${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerB}" by promotion engine
+ 
+  	Should Be Equal As Numbers    ${cartAfterPromo}    517.39
+  	
+  	# redeem coupon for cartIdCustomerA
+  	redeem coupon with code "${couponCodeA}" for cart "${cartIdCustomerA}"
+  	
+   	${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerA}" by promotion engine
+  	Should Be Equal As Numbers    ${cartAfterPromo}    517.39
+
+	# release coupon for cartIdCustomerB
+  	release coupon with code "${couponCodeA}" for cart "${cartIdCustomerB}"
+  	
+   ${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerB}" by promotion engine
+  	Should Be Equal As Numbers    ${cartAfterPromo}    574.88
+  	
+Test_Coupon_Code_Free_Gift_Order_Threshold_On_Carts
+	[Documentation]     Apply Free Gift on carts using one coupon code
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	import sourcerule data
+	compile source rule for id "coupon_code_free_gift_order_threshold"
+	configure promotionengine
+  	
+	# Setting variables
+	 ${cartIdCustomerA}=    Set Variable    "022255"
+    ${cartIdCustomerB}=    Set Variable    "022266"
+    ${product1}=    get product by code "1382080"  
+	 ${sdcardFreeGift}=    get product by code "443175"
+	 
+	 
+  	 ${couponCodeA}=    Set Variable    CHRISTMAS16
+	
+	# Test for cartIdCustomerA
+  	create cart "${cartIdCustomerA}"
+  	add "${product1}" to cart "${cartIdCustomerA}"
+	${cartBeforePromo}=    get total of "${cartIdCustomerA}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    574.88
+ 
+	# Free Gift Product on cartIdCustomerA with coupon
+
+	redeem coupon with code "${couponCodeA}" for cart "${cartIdCustomerA}"
+  	${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerA}" by promotion engine
+  	check product "${sdcardFreeGift}" quantity "1" for cart "${cartIdCustomerA}"
+  	Should Be Equal As Numbers    ${cartAfterPromo}    574.88
+ 
+  	# Test for cartIdCustomerB
+  	create cart "${cartIdCustomerB}"
+  	add "${product1}" to cart "${cartIdCustomerB}"
+	${cartBeforePromo}=    get total of "${cartIdCustomerB}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    574.88
+	
+	#Free Gift Product on cartIdCustomerB with coupon
+  	redeem coupon with code "${couponCodeA}" for cart "${cartIdCustomerB}"
+  	${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerB}" by promotion engine
+  	check product "${sdcardFreeGift}" quantity "1" for cart "${cartIdCustomerB}"
+  	Should Be Equal As Numbers    ${cartAfterPromo}    574.88
+  	
+  	# release coupon for cartIdCustomerB
+  	release coupon with code "${couponCodeA}" for cart "${cartIdCustomerB}"
+  	
+   ${cartAfterPromo}=    evaluate promotion for cart "${cartIdCustomerB}" by promotion engine
+  	Should Be Equal As Numbers    ${cartAfterPromo}    574.88
+
+Test_Coupon_Code_And_Fixed_Threshold
+	[Documentation]     Apply coupon code then over cart total threshold
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	import sourcerule data
+	compile source rule for id "coupon_cart_threshold"
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "034556"
+	${product1}=    get product by code "23210"
+	${product2}=    get product by code "300938"
+	
+	# The codes are actual for current implementation of CouponMockRepository
+  	${couponCode}=    Set Variable    SUMMER69
+  	
+  	# Test for coupon and below threshold
+  	create cart "${cartId}"
+  	
+	add "${product1}" to cart "${cartId}"
+	# redeem discount - promotion shouldn't trigger yet because cart total below threshold
+	redeem coupon with code "${couponCode}" for cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    110
+
+	add "${product2}" to cart "${cartId}"
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}    214.12
+
+	check coupon with code "${couponCode}" used for cart "${cartId}"
+	
+	remove product "${product2}" for cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	check coupon with code "${couponCode}" not used for cart "${cartId}"
+	
+Test_Coupon_Code_And_Product
+	[Documentation]     Apply coupon code then conditional product
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	import sourcerule data
+	compile source rule for id "coupon_PowershotA480"
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "034557"
+	${product1}=    get product by code "23210"
+	${product2}=    get product by code "1934794"
+	
+	# The codes are actual for current implementation of CouponMockRepository
+  	${couponCode}=    Set Variable    SUMMER69
+  	
+  	# Test for coupon and below threshold
+  	create cart "${cartId}"
+  	
+	add "${product1}" to cart "${cartId}"
+	# redeem discount - promotion shouldn't trigger yet because cart total below threshold
+	redeem coupon with code "${couponCode}" for cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    110
+	check coupon with code "${couponCode}" not used for cart "${cartId}"
+
+	add "${product2}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	check coupon with code "${couponCode}" used for cart "${cartId}"
+	
+	remove product "${product2}" for cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	check coupon with code "${couponCode}" not used for cart "${cartId}"
+
+
+ 	

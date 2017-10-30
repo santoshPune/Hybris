@@ -1,0 +1,26 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddFixedPriceEntryDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+
+global AddFixedPriceEntryDiscountRAOAction addFixedPriceEntryDiscountRAOAction;
+
+rule "fixedPriceForPowershotA480"
+@ruleCode("fixedPriceForPowershotA480")
+
+	salience 10
+	when
+		$result : RuleEngineResultRAO()
+        $entries : ArrayList(size > 0) from collect( OrderEntryRAO(product.code==1934793, quantity > 0) )
+		$cart : CartRAO(currencyIsoCode == "USD")
+		$config : RuleConfigurationRRD(ruleCode == "fixedPriceForPowershotA480")
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+	then
+		addFixedPriceEntryDiscountRAOAction.addFixedPriceEntryDiscounts($entries, new BigDecimal("60.00"), $result, kcontext);
+end

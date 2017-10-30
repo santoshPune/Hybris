@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+    <!-- fractus order process actions -->
+    <bean id="fractusCheckOrderAction" parent="abstractAction"
+          class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.actions.FractusCheckOrderAction">
+	<property name="checkOrderService" ref="fractusCheckOrderService"/>
+    </bean>
+    
+     <bean id="fractusUpdateOrderStatusAction" parent="abstractAction"
+          class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.actions.FractusUpdateOrderStatusAction">
+		<property name="yaasOrderStatusService" ref="yaasOrderStatusService" />
+		<property name="syncExecutionId" value="y2ySyncToDataHubOrderStatusCronJob"/>
+        <property name="syncExecutionService" ref="fractusSyncExecutionService"/>
+    </bean>
+    
+     <bean id="fractusTakePaymentAction" parent="abstractAction"
+          class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.actions.FractusTakePaymentAction">
+         <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <bean id="fractusSplitOrderAction" parent="abstractAction" class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.actions.FractusSplitOrderAction">
+        <property name="orderSplittingService" ref="orderSplittingService"/>
+        <property name="businessProcessService" ref="businessProcessService"/>
+    </bean>
+
+    <bean id="fracutsSubprocessesCompletedAction" parent="abstractAction"
+          class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.actions.FracutsSubprocessesCompletedAction">
+    </bean>
+
+    <!-- Order status ECP-YaaS conversion -->
+	<alias name="defaultYaasOrderStatusDao" alias="yaasOrderStatusDao"/>
+	<bean id="defaultYaasOrderStatusDao"
+	      class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.orderstatus.dao.impl.DefaultYaasOrderStatusDao"/>
+
+	<alias name="defaultYaasOrderStatusService" alias="yaasOrderStatusService"/>
+	<bean id="defaultYaasOrderStatusService"
+	      class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.orderstatus.impl.DefaultYaasOrderStatusService">
+		<property name="yaasOrderStatusDao" ref="yaasOrderStatusDao" />
+	</bean>
+     <bean id="fractusShippedOrderAction" parent="abstractAction"
+          class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.actions.FractusShippedOrderAction">
+		<property name="syncExecutionId" value="y2ySyncToDataHubOrderShipmentInfoCronJob"/>
+        <property name="syncExecutionService" ref="fractusSyncExecutionService"/>
+    </bean>	
+	
+</beans>

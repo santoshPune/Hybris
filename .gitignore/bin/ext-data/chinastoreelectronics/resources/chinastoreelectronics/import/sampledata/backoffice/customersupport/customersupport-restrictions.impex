@@ -1,0 +1,5 @@
+#
+# Add restriction on backend order visibility
+#
+INSERT_UPDATE SearchRestriction;code[unique=true];principal(uid);query;restrictedType(code);active;generate
+;backendOrderVisibility;customerservicegroup;{versionID} IS NULL;Order;true;true

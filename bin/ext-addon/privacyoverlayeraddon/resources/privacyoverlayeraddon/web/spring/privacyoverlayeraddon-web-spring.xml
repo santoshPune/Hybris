@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+
+
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:annotation-config/> 
+
+
+	<!-- Expose /acceleratoraddon/web/webroot/WEB-INF/messages/base.js.properties  resource bundle as javascript variables -->
+	<bean id="defaultPrivacyoverlayeraddonJavaScriptMessageResourceAccessor" parent="abstractJavaScriptMessageResourceAccessor">
+		<property name="addOnName" value="privacyoverlayeraddon"/>
+	</bean>
+
+	<!--<bean id="defaultPrivacyoverlayeraddonBeforeViewJsPropsHandlerAdaptee" parent="abstractBeforeViewJsPropsHandlerAdaptee" class="de.hybris.platform.addonsupport.interceptors.ExportJsPropertiesBeforeViewHandler">-->
+		<!--<property name="messageSource" ref="defaultPrivacyoverlayeraddonJavaScriptMessageResourceAccessor"/>-->
+	<!--</bean>-->
+
+	<bean id="defaultPrivacyoverlayeraddonBeforeViewJsPropsHandlerAdaptee" parent="abstractBeforeViewJsPropsHandlerAdaptee" class="com.hybris.yprofile.interceptors.beforeview.PrivacyOverlayerAddonBeforeViewHandler">
+		<property name="messageSource" ref="defaultPrivacyoverlayeraddonJavaScriptMessageResourceAccessor"/>
+		<property name="i18NService" ref="i18NService"/>
+		<property name="siteConfigService" ref="siteConfigService"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="profileConfigurationService" ref="profileConfigurationService"/>
+	</bean>
+
+	<bean id="getPrivacyoverlayeraddonBeforeViewHandler" parent="beforeViewHandlerAdapter">
+		<property name="adaptee">
+			<ref bean="defaultPrivacyoverlayeraddonBeforeViewJsPropsHandlerAdaptee"/>
+		</property>
+	</bean>
+	<bean id="PrivacyoverlayeraddonBeforeViewHandlerListMergeDirective" depends-on="beforeViewHandlersList" parent="listMergeDirective">
+		<property name="add" ref="getPrivacyoverlayeraddonBeforeViewHandler"/>
+	</bean>
+
+	<bean id="privacyOverlayComponentRenderer" parent="addOnJspIncludeCMSComponentRenderer" />
+
+	<bean id="privacyOverlayComponentRendererMapping" parent="addonCmsComponentRendererMapping">
+		<property name="typeCode" value="PrivacyOverlayComponent" />
+		<property name="renderer" ref="privacyOverlayComponentRenderer" />
+	</bean>
+
+	<bean id="consentReferenceLinkComponentRenderer" parent="addOnJspIncludeCMSComponentRenderer" />
+
+	<bean id="consentReferenceLinkComponentRendererMapping" parent="addonCmsComponentRendererMapping">
+		<property name="typeCode" value="ConsentReferenceLinkComponent" />
+		<property name="renderer" ref="consentReferenceLinkComponentRenderer" />
+	</bean>
+
+	<bean id="privacyOverlayerAddOnFilterListMergeDirective" depends-on="storefrontTenantDefaultFilterChainList" parent="listMergeDirective">
+		<property name="add" ref="consentLayerFilter"/>
+	</bean>
+
+	<alias name="defaultPrivacyOverlayerController" alias="privacyOverlayerController"/>
+	<bean id="defaultPrivacyOverlayerController" class="com.hybris.yprofile.controllers.DefaultPrivacyOverlayerController">
+		<property name="consentService" ref="consentService"/>
+	</bean>
+
+</beans>

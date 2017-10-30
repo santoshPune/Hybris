@@ -1,0 +1,28 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.CategoryRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import java.util.ArrayList;
+import java.math.BigDecimal;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderEntryDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+
+global AddOrderEntryDiscountRAOAction addOrderEntryDiscountRAOAction;
+
+rule "entryDiscountForCamcorderCategory"
+@ruleCode("entryDiscountForCamcorderCategory")
+
+	salience 10
+	when
+		$result : RuleEngineResultRAO()
+		$config : RuleConfigurationRRD(ruleCode == "entryDiscountForCamcorderCategory")
+        $camcorderCategory : CategoryRAO(code == "584")
+        $entries : ArrayList(size > 0) from collect(OrderEntryRAO(product.categories contains $camcorderCategory, quantity > 0, (product.code != "1776948" && product.code != "1776947")))
+		$cart : CartRAO(currencyIsoCode == "USD")
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+	then
+		addOrderEntryDiscountRAOAction.addOrderEntryLevelDiscounts($entries, true, new BigDecimal("15.00"), $result, kcontext);
+end

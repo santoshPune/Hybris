@@ -1,0 +1,30 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.CategoryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import java.util.ArrayList;
+import java.math.BigDecimal;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderEntryDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+
+global AddOrderEntryDiscountRAOAction addOrderEntryDiscountRAOAction;
+
+rule "percentageDiscountForCanonCompact"
+@ruleCode("percentageDiscountForCanonCompact")
+
+	salience 10
+	when
+		$result : RuleEngineResultRAO()
+		$config : RuleConfigurationRRD(ruleCode == "percentageDiscountForCanonCompact")
+        $compactCameraCategory : CategoryRAO(code == "576")
+        $canonBrandCategory : CategoryRAO(code == "brand_10")
+                
+		$entries : ArrayList(size > 0) from collect(OrderEntryRAO(product.categories contains $compactCameraCategory && product.categories contains $canonBrandCategory, quantity > 0))
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+	then
+		// give 10% discount to the order entry
+		addOrderEntryDiscountRAOAction.addOrderEntryLevelDiscounts($entries, false, new BigDecimal("10.00"), $result, kcontext);
+end

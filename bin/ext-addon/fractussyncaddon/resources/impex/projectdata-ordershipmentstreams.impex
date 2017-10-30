@@ -1,0 +1,33 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+INSERT_UPDATE Y2YStreamConfigurationContainer;id[unique=true];catalogVersion(catalog(id),version);feed;pool
+;y2ySyncOrderShipmentInfo;;Y2YSYNC_ORDER_STATUS_FEED;Y2YSYNC_ORDER_STATUS_POOL;
+
+INSERT_UPDATE Y2YStreamConfiguration;streamId[unique=true];container(id);itemTypeForStream(code);dataHubType;whereClause;versionSelectClause;catalogVersion(catalog(id),version);infoExpression[default=''];
+;orderShipmentStream;y2ySyncOrderShipmentInfo;Consignment;YaasOrderShipmentRaw;;;;"#{getOrder().getCode()}:#{getTrackingID()}:#{getCarrier()}:#{getShippingDate()}";
+
+INSERT_UPDATE Y2YColumnDefinition;position[unique=true];attributeDescriptor(enclosingType(code),qualifier);language(isocode)[default=en];impexHeader;streamConfiguration(streamId)[unique=true];columnName
+;0;Consignment:code;;code[unique=true];orderShipmentStream;r_shipmentId
+;1;Consignment:order;;order(code);orderShipmentStream;r_orderId
+;2;Consignment:trackingID;;trackingID;orderShipmentStream;r_trackingID
+;3;Consignment:carrier;;carrier;orderShipmentStream;r_carrier
+;4;Consignment:shippingDate;;shippingDate;orderShipmentStream;r_shippingDate
+;5;;;@yaasApplication[translator=de.hybris.platform.fractussyncservices.translator.FractusApplicationTranslator];orderShipmentStream;r_yaasApplication
+
+
+INSERT_UPDATE Y2YStreamConfiguration;streamId[unique=true];excludedTypes(code);
+
+INSERT_UPDATE Y2YSyncJob;code[unique=true];streamConfigurationContainer(id);syncType(code);
+;y2ySyncOrderShipmentInfoJob;y2ySyncOrderShipmentInfo;DataHub
+
+INSERT_UPDATE Y2YSyncCronJob;code[unique=true];singleExecutable;job(code);sessionLanguage(isocode)
+;y2ySyncToDataHubOrderShipmentInfoCronJob;false;y2ySyncOrderShipmentInfoJob;en

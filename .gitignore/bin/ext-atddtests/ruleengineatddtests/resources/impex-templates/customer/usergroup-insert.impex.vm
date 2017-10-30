@@ -1,0 +1,5 @@
+#parse( "impex-templates/common-macros.impex.vm" )
+#[[
+INSERT UserGroup;UID[unique=true];locname[lang=en];
+]]#
+;${userGroupCode};${userGroupCode};

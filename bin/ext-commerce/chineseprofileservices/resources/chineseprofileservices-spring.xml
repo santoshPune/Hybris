@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+	<bean id="chineseprofileservicesCoreDataImportedEventListener" parent="abstractCoreDataImportedEventListener">
+		<property name="supportedChannels">
+			<list value-type="de.hybris.platform.commerceservices.enums.SiteChannel">
+				<value>B2C</value>
+				<!-- <value>B2B</value> -->
+			</list>
+		</property>
+		<property name="addonExtensionMetadata">
+			<bean class="de.hybris.platform.addonsupport.data.AddonExtensionMetadata">
+				<property name="suffixChannel" value="false" />
+				<property name="baseExtensionName" value="chineseprofileservices" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="chineseprofileservicesSampleDataEventListener" parent="abstractGenericAddOnSampleDataEventListener">
+		<property name="extensionName" value="chineseprofileservices" />
+	</bean>
+
+	<bean class="de.hybris.platform.chineseprofileservices.setup.ChineseProfileServiceSystemSetup" parent="abstractCoreSystemSetup" />
+
+	<alias name="chineseAbstractEmailContext" alias="abstractEmailContext" />
+	<bean id="chineseAbstractEmailContext" class="de.hybris.platform.chineseprofileservices.process.email.context.ChineseAbstractEmailContext"
+		parent="defaultAbstractEmailContext">
+	</bean>
+	
+	<alias name="defaultChineseUserDao" alias="chineseUserDao"/>
+	<bean id="defaultChineseUserDao" class="de.hybris.platform.chineseprofileservices.user.daos.impl.DefaultChineseUserDao"/>
+	
+	<alias name="chineseUserDetailsService" alias="originalUidUserDetailsService"/>
+	<bean id="chineseUserDetailsService" class="de.hybris.platform.chineseprofileservices.security.ChineseUserDetailsService" >
+		<property name="userDao" ref="chineseUserDao" />
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+	
+	<bean id="chineseCustomerAccountService" class="de.hybris.platform.chineseprofileservices.customer.impl.ChineseCustomerAccountService" parent="customerAccountService" >
+		<property name="verificationCodeGenerationStrategy" ref="verificationCodeGenerationStrategy"/>
+		<property name="verificationCodeSendingStrategy" ref="verificationCodeSendingStrategy"/>
+		<property name="userDao" ref="chineseUserDao"/>
+	</bean>
+	
+	<alias name="chineseVerificationCodeGenerationStrategy" alias="verificationCodeGenerationStrategy"/>
+	<bean id="chineseVerificationCodeGenerationStrategy" class="de.hybris.platform.chineseprofileservices.strategies.impl.ChineseVerificationCodeGenerationStrategy">
+		<property name="length" value="4"/>
+	</bean>
+	
+	<alias name="chineseVerificationCodeSendingStrategy" alias="verificationCodeSendingStrategy"/>
+	<bean id="chineseVerificationCodeSendingStrategy" class="de.hybris.platform.chineseprofileservices.strategies.impl.ChineseVerificationCodeSendingStrategy">
+		<property name="smsService" ref="smsService"/>
+	</bean>
+	
+	<alias name="chineseSmsService" alias="smsService"/>
+	<bean id="chineseSmsService" class="de.hybris.platform.chineseprofileservices.sms.impl.ChineseSmsService"/>
+	
+</beans>

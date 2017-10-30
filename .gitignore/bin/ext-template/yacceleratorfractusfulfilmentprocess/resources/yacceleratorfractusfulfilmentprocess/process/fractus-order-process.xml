@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="checkOrder" name="fractus-order-process" processClass="de.hybris.platform.yacceleratorfractusfulfilmentprocess.orderprocessing.model.FractusOrderProcessModel">
+
+	<action id="checkOrder" bean="fractusCheckOrderAction">
+		<transition name="OK" to="updateOrderConfirmedStatus"/>
+		<transition name="NOK" to="error"/>
+	</action>
+	
+	<action id="updateOrderConfirmedStatus" bean="fractusUpdateOrderStatusAction">
+		<transition name="OK" to="reserveAmount"/>
+		<transition name="NOK" to="error"/>
+	</action>
+	
+
+    <action id="reserveAmount" bean="reserveOrderAmountAction">
+		<transition name="OK" to="checkTransactionReviewStatus"/>
+		<transition name="NOK" to="sendPaymentFailedNotification"/>
+	</action>
+
+	<action id="checkTransactionReviewStatus" bean="checkTransactionReviewStatusAction">
+		<transition name="OK" to="sendOrderPlacedNotification"/>
+		<transition name="NOK" to="error"/>
+		<transition name="WAIT" to="waitForReviewDecision"/>
+	</action>
+	
+	<wait id="waitForReviewDecision" then="checkTransactionReviewStatus" prependProcessCode="false">
+  		<event>${process.order.code}_ReviewDecision</event>
+	</wait>
+	
+	<action id="sendOrderPlacedNotification" bean="sendOrderPlacedNotificationAction">
+		<transition name="OK" to="takePayment"/>
+	</action>
+	
+	<action id="takePayment" bean="fractusTakePaymentAction">
+		<transition name="OK" to="splitOrder"/>
+		<transition name="NOK" to="sendPaymentFailedNotification"/>
+	</action>	
+
+	<action id="sendPaymentFailedNotification" bean="sendPaymentFailedNotificationAction">
+		<transition name="OK" to="failed"/>
+	</action>
+
+	<action id="splitOrder" bean="fractusSplitOrderAction">
+		<transition name="OK" to="waitForWarehouseSubprocessEnd"/>		
+	</action>
+	
+	<wait id="waitForWarehouseSubprocessEnd" then="isProcessCompleted" prependProcessCode="false" >
+		<event>${process.code}_ConsignmentSubprocessEnd</event>
+	</wait>
+
+	<action id="isProcessCompleted" bean="fracutsSubprocessesCompletedAction">
+		<transition name="OK" to="syncShipmentInfo"/>
+		<transition name="NOK" to="waitForWarehouseSubprocessEnd"/>
+	</action> 
+
+	<action id="syncShipmentInfo" bean="fractusShippedOrderAction">
+		<transition name="OK" to="updateOrderShippedStatus"/>
+		<transition name="NOK" to="error"/>		
+	</action>
+	
+	<action id="updateOrderShippedStatus" bean="fractusUpdateOrderStatusAction">
+		<transition name="OK" to="sendOrderCompletedNotification"/>
+	    <transition name="NOK" to="error"/>
+	</action>
+
+	<action id="sendOrderCompletedNotification" bean="sendOrderCompletedNotificationAction">
+		<transition name="OK" to="success"/>
+	</action>
+	
+	<end id="error" state="ERROR">All went wrong.</end>
+	<end id="failed" state="FAILED">Order not placed.</end>
+	<end id="success" state="SUCCEEDED">Order placed.</end>
+
+</process>

@@ -1,0 +1,20 @@
+# Create Store Employee Group for POS
+INSERT StoreEmployeeGroup;UID[unique=true];name;store(name)
+;dortmundmusemployeegroup;Dortmund Museum;Dortmund Museum;
+;dusseldorfparkemployeegroup;Düsseldorf Rheinpark;Düsseldorf Rheinpark;
+;hamburghotelemployeegroup;Hamburg Hotel;Hamburg Hotel;
+;hannoverarenaemployeegroup;Hannover Arena;Hannover Arena;
+;essengrugaemployeegroup;Essen Gruga;Essen Gruga;
+
+# Assign Sales Employees to the POS
+INSERT_UPDATE PrincipalGroupRelation;source(uid)[unique=true];target(uid)[unique=true]
+;dot.cohan@acme.com;dortmundmusemployeegroup;
+;dorthy.geoghegan@acme.com;dusseldorfparkemployeegroup;
+;marie.kempner@acme.com;hamburghotelemployeegroup;
+;dietrich.brand@acme.com;hannoverarenaemployeegroup;
+;dagmar.fischer@acme.com;essengrugaemployeegroup;
+;angelyn.lobaugh@acme.com;dortmundmusemployeegroup;
+;angelyn.lobaugh@acme.com;dusseldorfparkemployeegroup;
+;angelyn.lobaugh@acme.com;hamburghotelemployeegroup;
+;angelyn.lobaugh@acme.com;hannoverarenaemployeegroup;
+;angelyn.lobaugh@acme.com;essengrugaemployeegroup;

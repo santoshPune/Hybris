@@ -1,0 +1,24 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import java.math.BigDecimal;
+import de.hybris.platform.ruleengineservices.rule.evaluation.ChangeDeliveryModeRAOAction;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+
+global ChangeDeliveryModeRAOAction changeDeliveryModeRAOAction;
+
+rule "orderThresholdChangeDeliveryMode"
+@ruleCode("orderThresholdChangeDeliveryMode")
+
+salience 10
+	when
+		$config : RuleConfigurationRRD(ruleCode == "orderThresholdChangeDeliveryMode")
+		$cart : CartRAO(subTotal > 100, currencyIsoCode == "USD")
+		$result : RuleEngineResultRAO()
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+	then
+		// give free delivery to the cart
+		changeDeliveryModeRAOAction.changeDeliveryMode($cart, "free-standard-shipping", $result, kcontext);
+end

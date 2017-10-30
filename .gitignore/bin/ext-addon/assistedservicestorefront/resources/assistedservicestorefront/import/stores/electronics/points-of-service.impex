@@ -1,0 +1,85 @@
+$defaultPassword=123456
+$storeUid=electronics
+$siteUid=electronics
+$jarResourceCms=jar:de.hybris.platform.assistedservicestorefront.constants.AssistedservicestorefrontConstants&/assistedservicestorefront/import/stores/$storeUid/images
+
+INSERT_UPDATE StoreEmployeeGroup;UID[unique=true];locname[lang=en];store(name);groups[ignorenull=false,default= ]
+;nakanostoreemployees;Nakano Store Employee Group;Nakano;
+;ichikawastoreemployees;Ichikawa Store Employee Group;Ichikawa;
+
+INSERT_UPDATE Employee;name;password[default=$defaultPassword];uid[unique=true];groups[ignorenull=false,default= ]
+;Nakano Customer Support Agent;;customer.support@nakano.com;
+;Ichikawa Customer Support Agent;;customer.support@ichikawa.com;
+
+INSERT_UPDATE UserGroup;UID[unique=true];locname[lang=en];groups[ignorenull=false,default= ]
+;POS_NAKANO;Nakano Store Customer Group;
+;POS_ICHIKAWA;Ichikawa Store Customer Group;
+
+
+# Media preparation section
+INSERT_UPDATE CatalogUnawareMedia;code[unique=true];mime;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+;profile_pic_user_id_0_media;image/jpeg;$jarResourceCms/profile_userID-0.jpg
+;profile_pic_user_id_1_media;image/jpeg;$jarResourceCms/profile_userID-1.jpg
+;profile_pic_user_id_2_media;image/jpeg;$jarResourceCms/profile_userID-2.jpg
+;profile_pic_user_id_3_media;image/jpeg;$jarResourceCms/profile_userID-3.jpg
+
+INSERT_UPDATE Customer;uid[unique=true];name;password[default=$defaultPassword];customerId;profilePicture(code);defaultShipmentAddress(owner(Customer.uid), streetname, streetnumber, postalcode, duplicate);groups[ignorenull=false,default= ]
+;"aaron.customer@hybris.com";"Aaron Customer";;"aaron.customer@hybris.com";profile_pic_user_id_0_media;aaron.customer@hybris.com:Aizumicho:1-4-6:160-0005:false;
+;"andrew.customer@hybris.com";"Andrew Customer";;"andrew.customer@hybris.com";profile_pic_user_id_1_media;andrew.customer@hybris.com:Akagishitamachi:1-4-6:162-0803:false;
+;"anette.customer@hybris.com";"Anette Customer";;"anette.customer@hybris.com";profile_pic_user_id_2_media;anette.customer@hybris.com:Akagimotomachi:1-4-6:162-0817:false;
+;"bridget.customer@hybris.com";"Bridget Customer";;"bridget.customer@hybris.com";profile_pic_user_id_3_media;bridget.customer@hybris.com:Agebacho:1-4-6:162-0824:false;
+;"arnold.customer@hybris.com";"Arnold Customer";;"arnold.customer@hybris.com";;arnold.customer@hybris.com:Arakicho:1-4-6:160-0007:false;
+;"anne.customer@hybris.com";"Anne Customer";;"anne.customer@hybris.com";;anne.customer@hybris.com:Ichigaya Kagacho:1-4-6:162-0062:false;
+;"andrea.customer@hybris.com";"Andrea Customer";;"andrea.customer@hybris.com";;andrea.customer@hybris.com:Ichigaya Sadoharacho:1-4-6:162-0842:false;
+;"brian.customer@hybris.com";"Brian Customer";;"brian.customer@hybris.com";;brian.customer@hybris.com:Ichigaya Takajomachi:1-4-6:162-0848:false;
+;"bobby.customer@hybris.com";"Bobby Customer";;"bobby.customer@hybris.com";;bobby.customer@hybris.com:Iwatocho:1-4-6:162-0832:false;
+;"anthony.customer@hybris.com";"Anthony Customer";;"anthony.customer@hybris.com";;anthony.customer@hybris.com:Okubo:1-4-6:169-0072:false;
+;"bernard.customer@hybris.com";"Bernard Customer";;"bernard.customer@hybris.com";;bernard.customer@hybris.com:Kaitaicho:1-4-6:162-0802:false;
+
+INSERT_UPDATE PrincipalGroupRelation;source(uid)[unique=true];target(uid)[unique=true]
+;nakanostoreemployees;asagentgroup
+;ichikawastoreemployees;asagentgroup
+;customer.support@nakano.com;nakanostoreemployees
+;customer.support@ichikawa.com;ichikawastoreemployees
+;asagent;ichikawastoreemployees
+;asagent;nakanostoreemployees
+;POS_NAKANO;customergroup
+;POS_ICHIKAWA;customergroup
+;aaron.customer@hybris.com;POS_NAKANO
+;andrew.customer@hybris.com;POS_NAKANO
+;anette.customer@hybris.com;POS_NAKANO
+;bridget.customer@hybris.com;POS_NAKANO
+;arnold.customer@hybris.com;POS_NAKANO
+;anne.customer@hybris.com;POS_NAKANO
+;andrea.customer@hybris.com;POS_NAKANO
+;brian.customer@hybris.com;POS_NAKANO
+;bobby.customer@hybris.com;POS_ICHIKAWA
+;anthony.customer@hybris.com;POS_ICHIKAWA
+;bernard.customer@hybris.com;POS_ICHIKAWA
+
+INSERT_UPDATE Address;owner(Customer.uid)[unique=true];streetname[unique=true];streetnumber[unique=true];postalcode[unique=true];duplicate[unique=true];town;country(isocode);billingAddress;contactAddress;shippingAddress;unloadingAddress;firstname;lastname;email;gender(code);middlename;phone1;title(code);url;company;fax;department
+;aaron.customer@hybris.com;Aizumicho;1-4-6;160-0005;false;Aizumicho;JP;true;false;true;true;Aaron;Customer;aaron.customer@hybris.com;MALE;;090 0987 653;;;hybris GmbH;;
+;andrew.customer@hybris.com;Akagishitamachi;1-4-6;162-0803;false;Akagishitamachi;JP;true;false;true;true;Andrew;Customer;andrew.customer@hybris.com;MALE;;090 77777 666;;;hybris GmbH;;
+;anette.customer@hybris.com;Akagimotomachi;1-4-6;162-0817;false;Akagimotomachi;JP;true;false;true;true;Anette;Customer;anette.customer@hybris.com;FEMALE;;090 12345 678;;;hybris GmbH;;
+;bridget.customer@hybris.com;Agebacho;1-4-6;162-0824;false;Agebacho;JP;true;false;true;true;Bridget;Customer;bridget.customer@hybris.com;FEMALE;;090 12345 678;;;hybris GmbH;;
+;arnold.customer@hybris.com;Arakicho;1-4-6;160-0007;false;Arakicho;JP;true;false;true;true;Arnold;Customer;arnold.customer@hybris.com;MALE;;090 01233 547;;;hybris GmbH;;
+;anne.customer@hybris.com;Ichigaya Kagacho;1-4-6;162-0062;false;Ichigaya Kagacho;JP;true;false;true;true;Anne;Customer;anne.customer@hybris.com;FEMALE;;090 12345 678;;;hybris GmbH;;
+;andrea.customer@hybris.com;Ichigaya Sadoharacho;1-4-6;162-0842;false;Ichigaya Sadoharacho;JP;true;false;true;true;Andrea;Customer;andrea.customer@hybris.com;FEMALE;;090 12345 678;;;hybris GmbH;;
+;brian.customer@hybris.com;Ichigaya Takajomachi;1-4-6;162-0848;false;Ichigaya Takajomachi;JP;true;false;true;true;Brian;Customer;brian.customer@hybris.com;MALE;;090 12345 977;;hybris GmbH;;
+;bobby.customer@hybris.com;Iwatocho;1-4-6;162-0832;false;Iwatocho;JP;true;false;true;true;Bobby;Customer;bobby.customer@hybris.com;MALE;;090 12345 678;;;hybris GmbH;;
+;anthony.customer@hybris.com;Okubo;1-4-6;169-0072;false;Okubo;JP;true;false;true;true;Anthony;Customer;anthony.customer@hybris.com;MALE;;090 05253 547;;;hybris GmbH;;
+;bernard.customer@hybris.com;Kaitaicho;1-4-6;162-0802;false;Kaitaicho;JP;true;false;true;true;Bernard;Customer;bernard.customer@hybris.com;MALE;;090 12345 689;;;hybris GmbH;;
+
+INSERT_UPDATE Order;code[unique=true];user(uid);date[dateformat=dd.MM.yyyy HH:mm];currency(isocode);net;deliveryMode(code);Discounts(code);calculated;store(uid);site(uid)
+;00001001;aaron.customer@hybris.com;26.01.2010 10:58;USD;false;;;false;$storeUid;$siteUid
+;00001002;andrea.customer@hybris.com;26.01.2010 10:48;USD;false;;;false;$storeUid;$siteUid
+;00001003;andrea.customer@hybris.com;26.01.2010 10:48;USD;false;;;false;$storeUid;$siteUid
+
+INSERT_UPDATE Consignment;code[unique=true];status(code);order(code);shippingAddress(owner(Customer.uid),streetname,streetnumber);warehouse(code);deliveryPointOfService(name)
+;a00000001;READY_FOR_PICKUP;00001001;aaron.customer@hybris.com:Aizumicho:1-4-6;warehouse_e;Nakano
+;a00000002;READY_FOR_PICKUP;00001002;andrea.customer@hybris.com:Ichigaya Sadoharacho:1-4-6;warehouse_s;Ichikawa
+;a00000003;READY_FOR_PICKUP;00001003;andrea.customer@hybris.com:Ichigaya Sadoharacho:1-4-6;warehouse_e;Nakano
+
+INSERT_UPDATE CustomerList;uid[unique=true];locname[lang=en];implementationType;priority;members(uid)[mode=append];
+;instoreCustomers;"Current In-Store Customers";"IN_STORE";2;asagent,customer.support@nakano.com,customer.support@ichikawa.com;
+;bopisCustomers;"Pick-Up In-Store Customers";"BOPIS";3;customer.support@nakano.com,customer.support@ichikawa.com,asagent;

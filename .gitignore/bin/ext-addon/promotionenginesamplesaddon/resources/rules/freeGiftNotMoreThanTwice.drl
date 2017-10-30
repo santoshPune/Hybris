@@ -1,0 +1,57 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.CategoryRAO;
+import de.hybris.platform.ruleengineservices.rao.ProductRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.AbstractRuleActionRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import de.hybris.platform.ruleengineservices.rao.EntriesSelectionStrategyRPD;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddProductToCartRAOAction;
+import de.hybris.platform.ruleengineservices.enums.OrderEntrySelectionStrategy;
+
+global AddProductToCartRAOAction addProductToCartRAOAction;
+
+rule "freeGiftNotMoreThanTwice"
+@ruleCode("freeGiftNotMoreThanTwice")
+	salience 15
+	when
+		$config : RuleConfigurationRRD(ruleCode == "freeGiftNotMoreThanTwice")
+		$result:RuleEngineResultRAO()
+		$cart : CartRAO()
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+
+		$qualifyingCategories : HashSet()
+			from collect (CategoryRAO(code == "576"))
+
+		// qualifying entries have to be: 'not disjoint' with qualfiying categories		
+		$qualifyingEntries: ArrayList()
+			from collect 
+			(
+				OrderEntryRAO 
+				( 
+					(Collections.disjoint(product.categories, $qualifyingCategories) == false) 
+				)
+			) 
+		// accumulate the available quantities of all qualifying entries
+		$qualifyingEntriesCount : Number( intValue >= 1 ) 
+		      from accumulate(OrderEntryRAO($availableQuantity : quantity) from $qualifyingEntries,
+                             sum( $availableQuantity))
+                             
+	then
+		EntriesSelectionStrategyRPD strategy = new EntriesSelectionStrategyRPD();
+		strategy.setSelectionStrategy(OrderEntrySelectionStrategy.CHEAPEST);
+        strategy.setOrderEntries($qualifyingEntries);
+        strategy.setQuantity(1);
+		List<EntriesSelectionStrategyRPD> strategies = new ArrayList<EntriesSelectionStrategyRPD>();
+		strategies.add(strategy);
+		addProductToCartRAOAction.addFreeProductsToCart($cart, "443175", 2, strategies, $result, kcontext);
+	end

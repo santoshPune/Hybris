@@ -1,0 +1,70 @@
+<div id="personalizationsmartedit-right-toolbar-item-template" class="manage-customization">
+
+    <div ng-controller="personalizationsmarteditRightToolbarController" data-customizations-loaded="{{customizationsOnPage.length > 0}}">
+
+        <div class="reset-padding" ng-show="!search.searchCustomizationEnabled">
+            <button class="y-add y-add-btn y-add-btn-lefttoolbar" type="button" data-ng-click="toggleAddMoreCustomizationsClick()">
+                <span class="hyicon hyicon-add" data-translate="personalization.right.toolbar.addmorecustomizations.button" />
+            </button>
+        </div>
+        <div class="text-left search-item-lefttoolbar" ng-show="search.searchCustomizationEnabled">
+            <ui-select multiple class="form-control customizations-from-library-multi-select" ng-model="search.selectedLibraryCustomizations" theme="select2" ng-disabled="disabled" on-select="addCustomizationFromLibrary()" ng-keyup="customizationSearchInputKeypress($event, $select.search)">
+                <ui-select-match placeholder="{{'personalization.right.toolbar.addmorecustomizations.customization.library.search.placeholder' | translate}}">
+                    {{$item.name}} &lt;{{$item.name}}&gt;
+                </ui-select-match>
+                <ui-select-choices repeat="item in search.libraryCustomizations" personalization-infinite-scroll="addMoreCustomizationItems()" personalization-infinite-scroll-distance="2">
+                    <div ng-html-bind="item.name | highlight: $select.search"></div>
+                    <small>{{item.name}}</small>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+        <div class="overflow-wrapper-lefttoolbar">
+            <div class="categoryTable categoryTable-lefttoolbar">
+                <div data-ng-repeat="customization in customizationsOnPage | orderBy: 'rank'" ng-init="initCustomization(customization)">
+                    <div class="row row-lefttoolbar">
+                        <div ng-class="{'custFromLibExtraStyling customization-from-library':customization.fromLibrary, 'customization-rank-{{customization.rank}}':true}">
+                            <div class="col-xs-1 text-right" ng-click="customization.collapsed = !customization.collapsed; customizationClick(customization)">
+                                <a class="btn btn-link category-toggle">
+                                    <span class="glyphicon glyphicon-chevron-down glyphicon-down-lefttoolbar"></span>
+                                </a>
+                            </div>
+                            <div class="col-xs-9 text-left" ng-click="customization.collapsed = !customization.collapsed; customizationClick(customization)">
+                                <span class="primaryData">{{customization.name}}</span>
+                            </div>
+                            <div class="col-xs-1" ng-init="subMenu=false">
+
+                                <button type="button" class="btn btn-link dropdown-toggle pull-right customization-rank-{{customization.rank}}-dropdown-toggle" data-toggle="dropdown" ng-click="subMenu = !subMenu">{{'personalization.right.toolbar.customization.cust.onpage.action' | translate}}
+                                    <span class="hyicon hyicon-more"></span>
+                                </button>
+                                <ul ng-if="subMenu" class="dropdown-menu pull-right text-left dropdown-menu-leftoolbar" role="menu">
+                                    <li>
+                                        <a class="dropdown-menu-single-item cutomization-rank-{{customization.rank}}-edit-button" ng-click="editCustomizationAction(customization)" data-translate="personalization.manager.modal.button.edit"></a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--end row desktopLayout-->
+
+                    <div collapse="customization.collapsed">
+                        <div ng-repeat="variation in customization.variations">
+                            <div class="row row-lefttoolbar" ng-class="getSelectedVariationClass(variation)">
+                                <div class="col-xs-9 col-xs-offset-1 text-left" ng-click="variationClick(customization, variation)">
+                                    <span>{{variation.name}}</span>
+                                </div>
+                                <div class="col-xs-1 text-left selectedVariation-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end data repeat-->
+            </div>
+            <!--end of categoryTable-->
+
+            <personalizationsmartedit-pagination pages="pagination.pages" current-page="pagination.currentPage" page-sizes="pagination.pageSizes" current-size="pagination.currentSize" pages-offset="pagination.pagesOffset" fixed-page-size="pagination.fixedPageSize" callback="paginationCallback" template="personalizationsmarteditPaginationLefttoolbarTemplate.html" />
+        </div>
+        <!--end of overflow-wrapper-lefttoolbar -->
+    </div>
+</div>

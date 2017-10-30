@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	  <property name="properties" ref="hybrisProperties"/>
+	</bean>
+
+	<alias name="sapProductConfigDefaultConfigurationService" alias="sapProductConfigConfigurationService" />
+	<bean id="sapProductConfigDefaultConfigurationService"
+		class="de.hybris.platform.sap.productconfig.services.impl.ProductConfigurationServiceImpl">
+		<property name="configurationProviderFactory" ref="sapProductConfigConfigurationProviderFactory"/>
+		<property name="maxLocksPerMap" value="${sapproductconfigservices.maxLocksPerMap}"/>
+		<property name="maxCachedConfigsInSession" value="${sapproductconfigservices.maxCachedConfigsInSession}"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="sessionAccessService" ref="sapProductConfigSessionAccessService"/>
+	</bean>	
+	
+	<alias name="sapProductConfigFindPricingStrategy" alias="currentFactoryFindPricingStrategy" />
+	<bean id="sapProductConfigFindPricingStrategy"
+			class="de.hybris.platform.sap.productconfig.services.impl.FindPricingForConfigurableProductsStrategy"
+			parent="abstractBusinessService">
+		<property name="prodConfService" ref="sapProductConfigConfigurationService"></property>
+		<property name="configurableSource" value="${sapproductconfigservices.configurable_fieldname}" />			
+	</bean>
+	<alias name="sapProductConfigDefaultPlaceOrderHook" alias="sapProductConfigPlaceOrderHook" />	
+	<bean id="sapProductConfigDefaultPlaceOrderHook"
+			class="de.hybris.platform.sap.productconfig.services.impl.ProductConfigurationPlaceOrderHookImpl" >
+		<property name="productConfigurationService" ref="sapProductConfigConfigurationService"></property>	
+		<property name="sessionAccessService" ref="sapProductConfigSessionAccessService"></property>	
+	</bean>
+	<bean id="sapProductConfigPlaceOrderMethodHooksListMergeDirective" depends-on="commercePlaceOrderMethodHooks" parent="listMergeDirective" >
+		<property name="add" ref="sapProductConfigPlaceOrderHook"  />
+	</bean>	
+	<alias name="sapProductConfigDefaultUpdateCartEntryHook" alias="sapProductConfigUpdateCartEntryHook" />
+	<bean id="sapProductConfigDefaultUpdateCartEntryHook"
+			class="de.hybris.platform.sap.productconfig.services.impl.ProductConfigurationUpdateCartEntryHookImpl" >
+		<property name="productConfigurationService" ref="sapProductConfigConfigurationService"></property>	
+		<property name="sessionAccessService" ref="sapProductConfigSessionAccessService"></property>	
+	</bean>
+	<bean id="sapProductConfigUpdateCartEntryMethodHooksListMergeDirective" depends-on="commerceUpdateCartEntryMethodHooks" parent="listMergeDirective" >
+		<property name="add" ref="sapProductConfigUpdateCartEntryHook"  />
+	</bean>	
+	<alias name="sapProductConfigDefaultAddToCartHook" alias="sapProductConfigAddToCartHook" />
+	<bean id="sapProductConfigDefaultAddToCartHook"
+			class="de.hybris.platform.sap.productconfig.services.impl.ProductConfigAddToCartHookImpl" >
+		<property name="modelService" ref="modelService"></property>
+		<property name="configurableSource" value="${sapproductconfigservices.configurable_fieldname}" />		
+	</bean>
+	<bean id="sapProductConfigAddToCartHookHooksListMergeDirective" depends-on="commerceAddToCartMethodHooks" parent="listMergeDirective" >
+		<property name="add" ref="sapProductConfigAddToCartHook"  />
+	</bean>	
+	
+	<alias name="sapProductConfigDefaultSessionAccessService" alias="sapProductConfigSessionAccessService" />
+	<bean id="sapProductConfigDefaultSessionAccessService"
+		class="de.hybris.platform.sap.productconfig.services.impl.SessionAccessServiceImpl">
+		<property name="sessionService" ref="sessionService"/>
+	</bean>	
+	
+	<alias name="sapProductConfigDefaultCartEntryValidationStrategy" alias="sapProductConfigCartEntryValidationStrategy"/>
+	<bean id="sapProductConfigDefaultCartEntryValidationStrategy"
+		  class="de.hybris.platform.sap.productconfig.services.strategies.impl.ProductConfigurationCartEntryValidationStrategyImpl">
+		<property name="sessionAccessService" ref="sapProductConfigSessionAccessService"></property>	
+		<property name="productConfigurationService" ref="sapProductConfigConfigurationService"></property>	
+	</bean>
+	
+	<alias name="sapProductConfigDefaultCartValidationStrategy" alias="cartValidationStrategy"/>
+	<bean id="sapProductConfigDefaultCartValidationStrategy"
+		  class="de.hybris.platform.sap.productconfig.services.strategies.impl.ProductConfigurationCartValidationStrategyImpl"
+		  parent="defaultCartValidationStrategy">
+		  <property name="productConfigurationCartEntryValidationStrategy" ref="sapProductConfigCartEntryValidationStrategy" />
+	</bean>	
+	
+	<alias alias="sapProductConfigCartConfigurationRestrictionEvaluator" name="sapProductConfigDefaultCartConfigurationRestrictionEvaluator"/>	
+	<bean id="sapProductConfigDefaultCartConfigurationRestrictionEvaluator" class="de.hybris.platform.sap.productconfig.services.evaluator.CMSCartConfigurationRestrictionEvaluator"
+		scope="tenant">
+	</bean>
+
+	<bean id="cmsCartConfigurationRestrictionEvaluatorMapping" class="de.hybris.platform.cms2.servicelayer.services.evaluator.CMSRestrictionEvaluatorMapping"
+		scope="tenant">
+		<property name="restrictionTypeCode" value="CMSCartConfigurationRestriction" />
+		<property name="restrictionEvaluator" ref="sapProductConfigCartConfigurationRestrictionEvaluator" />
+	</bean> 
+	
+	<bean id="sapProductConfigCartRestrictionDynamicDescription" class="de.hybris.platform.sap.productconfig.services.attributehandlers.CartRestrictionDynamicDescription" scope="tenant" />
+	
+	<alias name="sapProductConfigDefaultCommerceCartMergingStrategy" alias="commerceCartMergingStrategy"/>
+	<bean id="sapProductConfigDefaultCommerceCartMergingStrategy"
+			class="de.hybris.platform.sap.productconfig.services.strategies.impl.ProductConfigCommerceCartMergingStrategyImpl"
+			parent="defaultCommerceCartMergingStrategy">
+		<property name="configurableSource" value="${sapproductconfigservices.configurable_fieldname}" />		
+
+	</bean>
+				
+</beans>

@@ -1,0 +1,5 @@
+insert_update NotNullConstraint;active[allownull=true];descriptor(enclosingType(code),qualifier);id[unique=true,allownull=true];message[lang=de];message[lang=en];qualifier;severity(code,itemtype(code));target;type(code)
+;true;SourceRule:code;sourceRuleCode;Code cannot be null or empty;Code cannot be null or empty;code;ERROR:Severity;de.hybris.platform.ruleengineservices.model.SourceRuleModel;SourceRule
+
+insert_update NotNullConstraint;active[allownull=true];descriptor(enclosingType(code),qualifier);id[unique=true,allownull=true];message[lang=de];message[lang=en];qualifier;severity(code,itemtype(code));target;type(code)
+;true;SourceRuleTemplate:code;sourceRuleTemplateCode;Code cannot be null or empty;Code cannot be null or empty;code;ERROR:Severity;de.hybris.platform.ruleengineservices.model.SourceRuleTemplateModel;SourceRuleTemplate

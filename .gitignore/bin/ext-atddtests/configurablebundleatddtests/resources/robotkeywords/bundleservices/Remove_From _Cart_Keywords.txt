@@ -1,0 +1,21 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+*** Settings ***
+Library           de.hybris.platform.atddimpex.keywords.ImpexKeywordLibrary
+Library			  de.hybris.platform.commerceservicesatddtests.keywords.CommerceServicesKeywordLibrary
+Library			  de.hybris.platform.configurablebundleatddtests.bundlecartfacade.keywords.BundleCartFacadeKeyWords
+
+*** Keywords ***
+
+remove from cart bundle with index "${bundleNo}"
+	[Documentation]    Delete all cart entries for the given bundle number.
+	delete cart bundle    ${bundleNo}

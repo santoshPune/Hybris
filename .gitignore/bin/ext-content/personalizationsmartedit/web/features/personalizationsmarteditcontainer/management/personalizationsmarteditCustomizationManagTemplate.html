@@ -1,0 +1,11 @@
+<div>
+    <tabset>
+        <tab ng-repeat="tab in tabsArr" select="selectTab(tab)" active="tab.active" disable="tab.disabled" heading="{{tab.heading}}">
+            <form name="{{tab.formName}}" novalidate>
+                <div>
+                    <ng-include src="tab.template"></ng-include>
+                </div>
+            </form>
+        </tab>
+    </tabset>
+</div>

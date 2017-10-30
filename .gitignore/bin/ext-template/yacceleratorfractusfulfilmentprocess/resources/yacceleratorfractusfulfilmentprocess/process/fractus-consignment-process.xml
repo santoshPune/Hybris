@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="waitBeforeTransmission" name="fractus-consignment-process" processClass="de.hybris.platform.yacceleratorfractusfulfilmentprocess.consingmentprocessing.model.FractusConsignmentProcessModel">
+
+	<action id="waitBeforeTransmission" bean="waitBeforeTransmissionAction">
+		<transition name="NOK" to="waitBeforeTransmission"/>
+		<transition name="OK" to="sendConsignmentToWarehouse"/>
+	</action>
+
+	<action id="sendConsignmentToWarehouse" bean="sendConsignmentToWarehouseAction">
+		<transition name="OK" to="waitForWarehouse"/>
+	</action>
+
+	<wait id="waitForWarehouse" then="receiveConsignmentStatus" prependProcessCode="false">
+		<event>${process.code}_WaitForWarehouse</event>
+	</wait>
+
+	<action id="receiveConsignmentStatus" bean="fractusReceiveConsignmentStatusAction">
+		<transition name="OK" to="allowShipment"/>
+		<transition name="CANCEL" to="cancelConsignment"/>
+		<transition name="ERROR" to="error"/>
+	</action>
+
+	<action id="allowShipment" bean="fractusAllowShipmentAction">
+		<transition name="DELIVERY" to="sendDeliveryMessage"/>		
+		<transition name="ERROR" to="error"/>
+		<transition name="CANCEL" to="cancelConsignment"/>
+	</action>
+
+	<action id="sendDeliveryMessage" bean="sendDeliveryMessageAction">
+		<transition name="OK" to="subprocessEnd"/>		
+	</action>
+	
+	<action id="cancelConsignment" bean="cancelConsignmentAction">
+		<transition name="OK" to="sendCancelMessage"/>
+	</action>
+
+	<action id="sendCancelMessage" bean="sendCancelMessageAction">
+		<transition name="OK" to="subprocessEnd"/>
+	</action>
+	
+	<action id="sendPickedUpMessage" bean="sendPickedUpMessageAction">
+		<transition name="OK" to="subprocessEnd"/>
+	</action>
+
+	<action id="subprocessEnd" bean="fractusSubprocessEndAction">
+		<transition name="OK" to="success"/>
+	</action>
+
+	<end id="error" state="ERROR">All went wrong.</end>
+	<end id="failed" state="FAILED">Order not placed.</end>
+	<end id="success" state="SUCCEEDED">Order placed.</end>
+</process>

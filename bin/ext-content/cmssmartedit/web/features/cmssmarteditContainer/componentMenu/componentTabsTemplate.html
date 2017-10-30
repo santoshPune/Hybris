@@ -1,0 +1,23 @@
+<div class="ySEComponentsResult" ng-controller="ComponentMenuController as menuCtrl">
+    <tabset>
+        <tab class="ySEComTypeTab" heading="{{tabs[0].title | translate}}" active="tabs[0].active" disable="{{tabs[0].disabled}}" ng-click="activateItemsTab(0); selectTab($event); ">
+            <div class="ySEComponents yFixed">
+                <component-type ng-repeat="componentType in menuCtrl.types.componentTypes | nameFilter:searchTerm track by $id(componentType) "></component-type>
+            </div>
+        </tab>
+        <tab class="ySEComTypeTab" heading="{{tabs[1].title | translate}}" active="tabs[1].active" disable="{{tabs[1].disabled}}" ng-click="activateItemsTab(1); selectTab($event); ">
+            <y-infinite-scrolling data-ng-if="tabs[1].active"
+                data-drop-down-class="ySEComponents"
+                data-page-size="10"
+                data-mask="searchTerm"
+                data-fetch-page="menuCtrl.loadComponentItems"
+                data-context="menuCtrl">
+                <div data-ng-repeat="item in menuCtrl.items">
+                    <component-item data-component-item="item"></component-item>
+                </div>
+            </y-infinite-scrolling>
+        </tab>
+    </tabset>
+
+    <span class="label ySEBottomLabel">{{'componentmenu.label.draganddrop' | translate}}</span>
+</div>

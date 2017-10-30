@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+-->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+
+    <collectiontypes>
+        <collectiontype elementtype="java.lang.String" code="ParameterValidatorList"  autocreate="true" generate="true" type="list" />
+    </collectiontypes>
+
+    <enumtypes>
+
+		<enumtype code="RuleStatus" autocreate="true" generate="true">
+			<value code="UNPUBLISHED" />
+			<value code="PUBLISHED" />
+			<value code="MODIFIED" />
+			<value code="ARCHIVED" />
+		</enumtype>
+
+		<enumtype code="OrderEntrySelectionStrategy" autocreate="true" generate="true">
+			<value code="DEFAULT" />
+			<value code="CHEAPEST" />
+		</enumtype>
+
+		<enumtype code="FactContextType" autocreate="true" generate="true">
+			<value code="RULE_GROUP" />
+			<value code="RULE_CONFIGURATION" />
+		</enumtype>
+
+	</enumtypes>
+
+	<maptypes>
+		<maptype code="RuleTranslatorParametersMap" argumenttype="java.lang.String" returntype="java.lang.String" />
+	</maptypes>
+
+	<relations>
+		<relation generate="true" localized="false" code="RuleGroup2AbstractRule" autocreate="true">
+			<sourceElement type="RuleGroup" qualifier="ruleGroup" cardinality="one" />
+			<targetElement type="AbstractRule" qualifier="rules" cardinality="many" collectiontype="set" />
+		</relation>
+		
+		<relation generate="true" localized="false" code="RuleGroup2AbstractRuleTemplate" autocreate="true">
+			<sourceElement type="RuleGroup" qualifier="ruleGroup" cardinality="one" />
+			<targetElement type="AbstractRuleTemplate" qualifier="rules" cardinality="many" collectiontype="set" />
+		</relation>
+
+		<relation code="RuleConditionDefinition2CategoryRelation" autocreate="true" generate="true" localized="false">
+			<deployment table="RuleCondDefCatRel" typecode="5306" />
+			<sourceElement qualifier="definitions" type="RuleConditionDefinition" cardinality="many"
+				collectiontype="list" ordered="true">
+			</sourceElement>
+			<targetElement qualifier="categories" type="RuleConditionDefinitionCategory" cardinality="many"
+				collectiontype="list" ordered="true">
+			</targetElement>
+		</relation>
+
+		<relation code="RuleConditionDefinition2ParametersRelation" autocreate="true" generate="true" localized="false">
+			<sourceElement qualifier="definition" type="RuleConditionDefinition" cardinality="one">
+			</sourceElement>
+			<targetElement qualifier="parameters" type="RuleConditionDefinitionParameter" cardinality="many"
+				collectiontype="list" ordered="true">
+				<modifiers partof="true" />
+			</targetElement>
+		</relation>
+		
+		<relation code="RuleConditionDefinition2RuleTypeMappingRelation" generate="true" localized="false" autocreate="true">
+			<sourceElement type="RuleConditionDefinition" qualifier="definition" cardinality="one" />
+			<targetElement type="RuleConditionDefinitionRuleTypeMapping" qualifier="ruleTypes" cardinality="many" collectiontype="list" ordered="false">
+				<modifiers partof="true" />
+			</targetElement>
+		</relation>
+
+		<relation code="RuleActionDefinition2CategoryRelation" autocreate="true" generate="true" localized="false">
+			<deployment table="RuleActDefCatRel" typecode="5307" />
+			<sourceElement qualifier="definitions" type="RuleActionDefinition" cardinality="many" collectiontype="list"
+				ordered="true">
+			</sourceElement>
+			<targetElement qualifier="categories" type="RuleActionDefinitionCategory" cardinality="many"
+				collectiontype="list" ordered="true">
+			</targetElement>
+		</relation>
+
+		<relation code="RuleActionDefinition2ParametersRelation" autocreate="true" generate="true" localized="false">
+			<sourceElement qualifier="definition" type="RuleActionDefinition" cardinality="one">
+			</sourceElement>
+			<targetElement qualifier="parameters" type="RuleActionDefinitionParameter" cardinality="many"
+				collectiontype="list" ordered="true">
+				<modifiers partof="true" />
+			</targetElement>
+		</relation>
+		
+		<relation code="RuleActionDefinition2RuleTypeMappingRelation" generate="true" localized="false" autocreate="true">
+			<sourceElement type="RuleActionDefinition" qualifier="definition" cardinality="one" />
+			<targetElement type="RuleActionDefinitionRuleTypeMapping" qualifier="ruleTypes" cardinality="many" collectiontype="list" ordered="false">
+				<modifiers partof="true" />
+			</targetElement>
+		</relation>
+	</relations>
+
+	<itemtypes>
+
+		<itemtype code="AbstractRule" abstract="true" generate="true"
+			jaloclass="de.hybris.platform.ruleengineservices.jalo.AbstractRule" extends="GenericItem" autocreate="true">
+			<deployment table="Rules" typecode="5103" />
+			<attributes>
+				<attribute qualifier="uuid" type="java.lang.String">
+					<description>Rule uuid that defines the rule uniquely, cannot be changed after the rule is created</description>
+					<modifiers unique="true" initial="true" write="false" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="code" type="java.lang.String">
+					<description>Rule code that defines the rule uniquely</description>
+					<modifiers unique="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="name" type="localized:java.lang.String">
+					<description>Rule name</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="description" type="localized:java.lang.String">
+					<description>Rule description</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="startDate" type="java.util.Date">
+					<description>Date on which this promotion becomes available, if not set the promotion will not be available.</description>
+					<defaultvalue>
+						new GregorianCalendar(2000, 0, 1).getTime()
+					</defaultvalue>
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="endDate" type="java.util.Date">
+					<description>Date on which this promotion stops being available, if not set the promotion will not be available.</description>
+					<defaultvalue>
+						new GregorianCalendar(2099, 0, 1).getTime()
+					</defaultvalue>
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="priority" type="java.lang.Integer">
+					<description>priority (higher priority gets applied first)</description>
+					<modifiers optional="false" />
+					<persistence type="property" />
+					<defaultvalue>Integer.valueOf(0)</defaultvalue>
+				</attribute>
+				<attribute qualifier="maxAllowedRuns" type="java.lang.Integer">
+					<description>Number of times rule can be applied</description>
+					<modifiers optional="true" />
+					<defaultvalue>Integer.valueOf(1)</defaultvalue>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="stackable" type="java.lang.Boolean">
+					<description>whether the rule is stackable</description>
+					<modifiers optional="false" />
+					<persistence type="property" />
+					<defaultvalue>Boolean.FALSE</defaultvalue>
+				</attribute>
+				<attribute qualifier="status" type="RuleStatus">
+					<description>Status of a rule</description>
+					<modifiers optional="false" />
+					<persistence type="property" />
+					<defaultvalue>em().getEnumerationValue("RuleStatus","UNPUBLISHED")</defaultvalue>
+				</attribute>
+				<attribute 
+					qualifier="messageFired"
+					autocreate="true"
+					type="localized:java.lang.String">
+					<description>Message for fired rule.</description>
+					<persistence type="property">
+						<columntype database="oracle">
+							<value>CLOB</value>
+						</columntype>
+						<columntype database="mysql">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sqlserver">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sap">
+							<value>NCLOB</value>
+						</columntype>
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>					
+				</attribute>
+			</attributes>
+			<indexes>
+				<index name="UC_Abstract_Rule" unique="true">
+					<key attribute="code" />
+				</index>
+			</indexes>
+		</itemtype>
+
+		<itemtype code="SourceRule" generate="true" jaloclass="de.hybris.platform.ruleengineservices.jalo.SourceRule"
+			extends="AbstractRule" autocreate="true">
+			<attributes>
+				<attribute qualifier="conditions" type="java.lang.String">
+					<description>Rule conditions stored in a formatted String</description>
+					<persistence type="property">
+						<columntype database="oracle">
+							<value>CLOB</value>
+						</columntype>
+						<columntype database="mysql">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sqlserver">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sap">
+							<value>NCLOB</value>
+						</columntype>
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>
+				</attribute>
+				<attribute qualifier="actions" type="java.lang.String">
+					<description>Rule consequences stored in a formatted String</description>
+					<persistence type="property">
+						<columntype database="oracle">
+							<value>CLOB</value>
+						</columntype>
+						<columntype database="mysql">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sqlserver">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sap">
+							<value>NCLOB</value>
+						</columntype>
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="AbstractRuleTemplate" abstract="true" generate="true"
+			jaloclass="de.hybris.platform.ruleengineservices.jalo.AbstractRuleTemplate" extends="GenericItem" autocreate="true">
+			<deployment table="RuleTemplates" typecode="5106" />
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<description>Rule code that defines the rule uniquely</description>
+					<modifiers unique="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="name" type="localized:java.lang.String">
+					<description>Rule name</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="description" type="localized:java.lang.String">
+					<description>Rule description</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="maxAllowedRuns" type="java.lang.Integer">
+					<description>Number of times rule can be applied</description>
+					<modifiers optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute 
+					qualifier="messageFired"
+					autocreate="true"
+					type="localized:java.lang.String">
+					<description>Message for fired rule.</description>
+					<persistence type="property">
+						<columntype database="oracle">
+							<value>CLOB</value>
+						</columntype>
+						<columntype database="mysql">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sqlserver">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sap">
+							<value>NCLOB</value>
+						</columntype>
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>
+				</attribute>
+			</attributes>
+			<indexes>
+				<index name="UC_Abstract_Rule_Template" unique="true">
+					<key attribute="code" />
+				</index>
+			</indexes>
+		</itemtype>
+
+		<itemtype code="SourceRuleTemplate" generate="true" jaloclass="de.hybris.platform.ruleengineservices.jalo.SourceRuleTemplate"
+			extends="AbstractRuleTemplate" autocreate="true">
+			<attributes>
+				<attribute qualifier="conditions" type="java.lang.String">
+					<description>Rule conditions stored in a formatted String</description>
+					<persistence type="property">
+						<columntype database="oracle">
+							<value>CLOB</value>
+						</columntype>
+						<columntype database="mysql">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sqlserver">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sap">
+							<value>NCLOB</value>
+						</columntype>
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>
+				</attribute>
+				<attribute qualifier="actions" type="java.lang.String">
+					<description>Rule consequences stored in a formatted String</description>
+					<persistence type="property">
+						<columntype database="oracle">
+							<value>CLOB</value>
+						</columntype>
+						<columntype database="mysql">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sqlserver">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sap">
+							<value>NCLOB</value>
+						</columntype>
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="RuleGroup" generate="true"
+				jaloclass="de.hybris.platform.ruleengineservices.jalo.RuleGroup"
+				extends="GenericItem" autocreate="true">
+			<deployment table="RuleGroup" typecode="5104" />
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<description>the code of the rule group.</description>
+					<modifiers unique="true" optional="false"/>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="description" type="localized:java.lang.String">
+					<description>the description of this rule group.</description>
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="RuleConditionDefinition" extends="GenericItem" autocreate="true" generate="true">
+			<deployment table="RuleCondDef" typecode="5300" />
+			<attributes>
+				<attribute qualifier="id" type="java.lang.String">
+					<modifiers unique="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="name" type="localized:java.lang.String">
+					<persistence type="property" />
+				</attribute>
+                <attribute qualifier="priority" type="java.lang.Integer">
+                    <persistence type="property" />
+                </attribute>
+				<attribute qualifier="breadcrumb" type="localized:java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute type="java.lang.Boolean" qualifier="allowsChildren">
+					<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="translatorId" type="java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="translatorParameters" type="RuleTranslatorParametersMap">
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="RuleConditionDefinitionParameter" extends="GenericItem" autocreate="true" generate="true">
+			<deployment table="RuleCondDefParam" typecode="5301" />
+			<attributes>
+				<attribute qualifier="id" type="java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="name" type="localized:java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="description" type="localized:java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="priority" type="java.lang.Integer">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="type" type="java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="value" type="java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="required" type="java.lang.Boolean">
+					<description>whether the parameter is required</description>
+					<modifiers optional="false" />
+					<persistence type="property" />
+					<defaultvalue>Boolean.FALSE</defaultvalue>
+				</attribute>
+                <attribute qualifier="validators" type="ParameterValidatorList">
+                    <persistence type="property" />
+                </attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="RuleConditionDefinitionCategory" extends="GenericItem" autocreate="true" generate="true">
+			<deployment table="RuleCondDefCat" typecode="5302" />
+			<attributes>
+				<attribute qualifier="id" type="java.lang.String">
+					<modifiers unique="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="name" type="localized:java.lang.String">
+					<persistence type="property" />
+				</attribute>
+                <attribute qualifier="priority" type="java.lang.Integer">
+                    <persistence type="property" />
+                </attribute>
+				<attribute qualifier="icon" type="CatalogUnawareMedia">
+					<modifiers optional="true"/>
+                	<persistence type="property"/>
+             	</attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="RuleConditionDefinitionRuleTypeMapping" extends="GenericItem" autocreate="true" generate="true">
+			<deployment table="RuleConDefRuleTypeMap" typecode="5308" />
+			<attributes>
+				<attribute qualifier="ruleType" type="ComposedType">
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="RuleActionDefinition" extends="GenericItem" autocreate="true" generate="true">
+			<deployment table="RuleActionDef" typecode="5303" />
+			<attributes>
+				<attribute qualifier="id" type="java.lang.String">
+					<modifiers unique="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="name" type="localized:java.lang.String">
+					<persistence type="property" />
+				</attribute>
+                <attribute qualifier="priority" type="java.lang.Integer">
+                    <persistence type="property" />
+                </attribute>
+				<attribute qualifier="breadcrumb" type="localized:java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="translatorId" type="java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="translatorParameters" type="RuleTranslatorParametersMap">
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="RuleActionDefinitionParameter" extends="GenericItem" autocreate="true" generate="true">
+			<deployment table="RuleActionDefParam" typecode="5304" />
+			<attributes>
+				<attribute qualifier="id" type="java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="name" type="localized:java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="description" type="localized:java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="priority" type="java.lang.Integer">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="type" type="java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="value" type="java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="required" type="java.lang.Boolean">
+					<description>whether the parameter is required</description>
+					<modifiers optional="false" />
+					<persistence type="property" />
+					<defaultvalue>Boolean.FALSE</defaultvalue>
+				</attribute>
+                <attribute qualifier="validators" type="ParameterValidatorList">
+                    <persistence type="property" />
+                </attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="RuleActionDefinitionCategory" extends="GenericItem" autocreate="true" generate="true">
+			<deployment table="RuleActionDefCat" typecode="5305" />
+			<attributes>
+				<attribute qualifier="id" type="java.lang.String">
+					<modifiers unique="true" />
+					<persistence type="property" />
+				</attribute>
+                <attribute qualifier="priority" type="java.lang.Integer">
+                    <persistence type="property" />
+                </attribute>
+				<attribute qualifier="name" type="localized:java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="icon" type="CatalogUnawareMedia">
+					<modifiers optional="true"/>
+                	<persistence type="property"/>
+             	</attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="RuleActionDefinitionRuleTypeMapping" extends="GenericItem" autocreate="true" generate="true">
+			<deployment table="RuleActDefRuleTypeMap" typecode="5309" />
+			<attributes>
+				<attribute qualifier="ruleType" type="ComposedType">
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="AbstractRuleEngineRule" autocreate="false" generate="false">
+			<attributes>
+				<attribute qualifier="ruleParameters" type="java.lang.String">
+					<persistence type="property">
+						<columntype database="oracle">
+							<value>CLOB</value>
+						</columntype>
+						<columntype database="mysql">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sqlserver">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sap">
+							<value>NCLOB</value>
+						</columntype>
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>
+				</attribute>
+				<attribute qualifier="maxAllowedRuns" type="java.lang.Integer">
+					<description>Number of times rule can be applied</description>
+					<modifiers optional="true" />
+					<defaultvalue>Integer.valueOf(1)</defaultvalue>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="ruleGroupCode" type="java.lang.String">
+					<description>The code of the rule group that this rule is part of (derived from the AbstractRule).</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="messageFired" autocreate="true" type="localized:java.lang.String">
+					<description>Message for fired rule.</description>
+					<persistence type="property">
+						<columntype database="oracle">
+							<value>CLOB</value>
+						</columntype>
+						<columntype database="mysql">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sqlserver">
+							<value>TEXT</value>
+						</columntype>
+						<columntype database="sap">
+							<value>NCLOB</value>
+						</columntype>
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="RuleToEngineRuleTypeMapping" extends="GenericItem" autocreate="true" generate="true">
+			<deployment table="RuleToEngineRuleTypeMap" typecode="5105" />
+			<attributes>
+				<attribute qualifier="ruleType" type="ComposedType">
+					<modifiers unique="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="engineRuleType" type="RuleType">
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+	</itemtypes>
+</items>

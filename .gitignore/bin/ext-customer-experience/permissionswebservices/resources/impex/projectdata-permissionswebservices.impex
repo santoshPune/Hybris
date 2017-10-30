@@ -1,0 +1,8 @@
+
+
+$defaultPassword=1234
+
+
+INSERT_UPDATE Employee;UID[unique=true];password[default=$defaultPassword];description;name;groups(uid)[mode=append];sessionLanguage(isocode);
+;sampleEmployee;;Sample Employee;Sample Employee;employeegroup;en;
+;sampleEmployeeManager;;Sample Employee Manager;Sample Employee Manager;employeemanagergroup;en;

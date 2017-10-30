@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/util 
+           http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<alias name="defaultRuleModuleFinderStrategy" alias="ruleModuleFinderStrategy" />
+	<bean id="defaultRuleModuleFinderStrategy" class="de.hybris.platform.ruleengine.strategies.impl.DefaultRuleModuleFinderStrategy">
+		<property name="rulesModuleDao" ref="rulesModuleDao" />
+	</bean>
+	
+	<alias name="defaultDroolsKIEBaseFinderStrategy" alias="droolsKIEBaseFinderStrategy" />
+	<bean id="defaultDroolsKIEBaseFinderStrategy" class="de.hybris.platform.ruleengine.strategies.impl.DefaultDroolsKIEBaseFinderStrategy" />
+
+	<alias name="defaultPlatformRuleEngineService" alias="platformRuleEngineService" />
+	<bean id="defaultPlatformRuleEngineService" class="de.hybris.platform.ruleengine.impl.DefaultPlatformRuleEngineService">
+		<property name="ruleExecutionCounterClass" value="de.hybris.platform.ruleengine.impl.RuleMatchCountListener" />
+		<property name="eventService" ref="eventService" />
+		<property name="modelService" ref="modelService" />
+		<property name="configurationService" ref="configurationService" />
+		<property name="engineRuleDao" ref="engineRuleDao"/>
+		<property name="rulesModuleDao" ref="rulesModuleDao"/>
+		<property name="ruleModuleFinderStrategy" ref="ruleModuleFinderStrategy"/>
+		<property name="droolsKIEBaseFinderStrategy" ref="droolsKIEBaseFinderStrategy"/>
+	</bean> 
+
+	<bean id="onTenantStartupProcessor"
+		class="de.hybris.platform.ruleengine.event.OnTenantStartupProcessor"
+		parent="abstractEventListener">
+		<property name="platformRuleEngineService" ref="platformRuleEngineService" />
+		<property name="configurationService" ref="configurationService" />
+		<property name="excludedTenants" ref="onTenantStartupProcessorExcludedTenants"/>
+	</bean>
+	
+	<util:set id="onTenantStartupProcessorExcludedTenants" value-type="java.lang.String">
+		<value>junit</value>
+	</util:set>
+	
+	<bean id="onRuleEngineInitializedProcessor" class="de.hybris.platform.ruleengine.event.OnRuleEngineInitializedProcessor"
+		parent="abstractEventListener">
+		<property name="platformRuleEngineService" ref="platformRuleEngineService" />
+		<property name="rulesModuleDao" ref="rulesModuleDao" />
+		<property name="configurationService" ref="configurationService" />
+	</bean>
+	
+	<alias name="defaultEngineRuleDao" alias="engineRuleDao" />
+	<bean id="defaultEngineRuleDao" class="de.hybris.platform.ruleengine.dao.impl.DefaultEngineRuleDao" parent="abstractItemDao">
+		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<alias name="defaultRuleEngineContextDao" alias="ruleEngineContextDao" />
+    <bean id="defaultRuleEngineContextDao" class="de.hybris.platform.ruleengine.dao.impl.DefaultRuleEngineContextDao" parent="abstractItemDao"/>
+
+	<alias name="defaultRulesModuleDao" alias="rulesModuleDao" />
+    <bean id="defaultRulesModuleDao" class="de.hybris.platform.ruleengine.dao.impl.DefaultRulesModuleDao" parent="abstractItemDao"/>
+
+	<alias name="defaultDroolsKIEBaseDao" alias="droolsKIEBaseDao" />
+	<bean id="defaultDroolsKIEBaseDao" class="de.hybris.platform.ruleengine.dao.impl.DefaultDroolsKIEBaseDao" parent="abstractItemDao" />
+	
+	<alias name="defaultRuleModelChecksumCalculator" alias="ruleModelChecksumCalculator" />
+	<bean id="defaultRuleModelChecksumCalculator" class="de.hybris.platform.ruleengine.versioning.impl.RuleEngineRuleModelChecksumCalculator"/>
+	
+	<alias name="defaultRuleEngineRulePrepareInterceptor" alias="ruleEngineRulePrepareInterceptor" />
+	<bean id="defaultRuleEngineRulePrepareInterceptor" class="de.hybris.platform.ruleengine.dao.interceptors.RuleEngineRulePrepareInterceptor">
+		<property name="ruleModelChecksumCalculator" ref="ruleModelChecksumCalculator"/>
+		<property name="engineRuleDao" ref="engineRuleDao"/>
+		<property name="ruleEngineService" ref="platformRuleEngineService"/>
+		<property name="historicalContentCreator" ref="ruleModelHistoricalContentCreator"/>
+		<property name="moduleVersioningService" ref="moduleVersioningService"/>
+	</bean>
+	
+	<alias name="defaultRuleEngineRulePrepareInterceptorMapping" alias="ruleEngineRulePrepareInterceptorMapping" />
+	<bean id="defaultRuleEngineRulePrepareInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="ruleEngineRulePrepareInterceptor" />
+		<property name="typeCode" value="AbstractRuleEngineRule" />
+	</bean>
+	
+	<alias name="defaultRuleEngineRuleValidateInterceptor" alias="ruleEngineRuleValidateInterceptor" />
+	<bean id="defaultRuleEngineRuleValidateInterceptor" class="de.hybris.platform.ruleengine.dao.interceptors.RuleEngineRuleValidateInterceptor">
+		<property name="validator" ref="ruleEngineRuleModelValidator"/>
+	</bean>
+	
+	<alias name="defaultRuleEngineRuleValidateInterceptorMapping" alias="ruleEngineRuleValidateInterceptorMapping" />
+	<bean id="defaultRuleEngineRuleValidateInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="ruleEngineRuleValidateInterceptor" />
+		<property name="typeCode" value="AbstractRuleEngineRule" />
+	</bean>
+	
+	<alias name="defaultRuleEngineRuleRemoveInterceptor" alias="ruleEngineRuleRemoveInterceptor" />
+	<bean id="defaultRuleEngineRuleRemoveInterceptor" class="de.hybris.platform.ruleengine.dao.interceptors.RuleEngineRuleRemoveInterceptor">
+		<property name="ruleModelRemoveHandler" ref="ruleModelRemoveHandler"/>
+	</bean> 
+	
+	<alias name="defaultRuleEngineRuleRemoveInterceptorMapping" alias="ruleEngineRuleRemoveInterceptorMapping" />
+	<bean id="defaultRuleEngineRuleRemoveInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="ruleEngineRuleRemoveInterceptor" />
+		<property name="typeCode" value="AbstractRuleEngineRule" />
+	</bean> 
+	
+	<alias name="defaultRuleEngineRuleModelValidator" alias="ruleEngineRuleModelValidator" />
+	<bean id="defaultRuleEngineRuleModelValidator" class="de.hybris.platform.ruleengine.versioning.impl.RuleEngineRuleModelValidator">
+		<property name="engineRuleDao" ref="engineRuleDao"/>
+		<property name="ruleModelChecksumCalculator" ref="ruleModelChecksumCalculator"/>
+	</bean>
+	
+	<alias name="defaultRuleModelRemoveHandler" alias="ruleModelRemoveHandler" />
+	<bean id="defaultRuleModelRemoveHandler" class="de.hybris.platform.ruleengine.versioning.impl.RuleEngineRuleModelRemoveHandler">
+		<property name="engineRuleDao" ref="engineRuleDao"/>
+	</bean>
+	
+	<alias name="defaultRuleModelHistoricalContentCreator" alias="ruleModelHistoricalContentCreator" />
+	<bean id="defaultRuleModelHistoricalContentCreator" class="de.hybris.platform.ruleengine.versioning.impl.RuleEngineRuleModelHistoricalContentCreator">
+		<property name="engineRuleDao" ref="engineRuleDao"/>
+		<property name="historicalRuleContentProviders" ref="historicalRuleContentProviders"/>
+	</bean>	
+	
+	<alias alias="historicalRuleContentProviders" name="defaultHistoricalRuleContentProviders"/>
+	<util:list id="defaultHistoricalRuleContentProviders"/>
+	
+	<bean id="ruleEngineHistoricalRuleContentProvider" class="de.hybris.platform.ruleengine.versioning.impl.RuleEngineHistoricalRuleContentProvider"/>
+	
+	<bean depends-on="historicalRuleContentProviders" parent="listMergeDirective">
+		<property name="add" ref="ruleEngineHistoricalRuleContentProvider"/>
+	</bean>
+	
+	<alias name="defaultModuleVersioningService" alias="moduleVersioningService" />
+	<bean id="defaultModuleVersioningService" class="de.hybris.platform.ruleengine.versioning.impl.DefaultModuleVersioningService"/>
+	
+</beans>

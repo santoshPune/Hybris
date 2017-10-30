@@ -1,0 +1,25 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.DiscountRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import java.math.BigDecimal;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderEntryDiscountRAOAction;
+
+global AddOrderEntryDiscountRAOAction addOrderEntryDiscountRAOAction;
+
+rule "intervalDiscountPromotion10percentOffForConcreteProduct"
+@ruleCode("intervalDiscountPromotion10percentOffForConcreteProduct.drl")
+
+salience 10
+	when
+        $orderEntry:OrderEntryRAO(product.getCode()=="product_without_discount_category")
+		$cart : CartRAO(entries contains $orderEntry)
+		$result : RuleEngineResultRAO()
+		// check if no discount with this firedRuleCode has already been applied already (it gets inserted during the consequence's service call)
+		not $discount:DiscountRAO( firedRuleCode == "intervalDiscountPromotion10percentOffForConcreteProduct.drl" )
+	then
+		// give 10% discount to the order entry
+		addOrderEntryDiscountRAOAction.addOrderEntryLevelDiscount($orderEntry, false, new BigDecimal("10.00"), $result, kcontext);
+end

@@ -1,0 +1,35 @@
+{
+  "name": "ysmarteditmodule",
+  "description": "",
+  "version": "0.0.0",
+  "authors": [
+  ],
+  "homepage": "yettobedetermined",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "jsTests"
+  ],
+  "dependencies": {
+    "font-awesome":"4.2.0",
+    "angular": "1.4.0-rc.2",
+    "angular-mocks": "~1.4.x",
+    "jquery": "2.1.4",
+    "jquery-ui": "1.11.4",
+    "moment":"2.9.0",
+    "bootstrap": "3.1.1",
+    "angular-bootstrap":"0.13.0",
+    "angular-route": "~1.4.x",
+    "angular-resource": "~1.4.x",
+    "angular-animate": "~1.4.x",
+    "angular-translate":"2.6.1",
+    "angular-translate-loader-static-files":"2.6.1",
+    "ui-select":"git@github.com:angular-ui/ui-select.git#master"
+  },
+  "resolutions":{
+  	"angular":"1.4.0-rc.2"
+  }
+}

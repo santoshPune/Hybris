@@ -1,0 +1,61 @@
+$regulargroup=regulargroup
+$customergroup=customergroup
+
+$defaultPassword=12341234
+
+# Create Customer Group
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid)[mode=append];;
+;$regulargroup;customergroup;;
+
+
+INSERT_UPDATE CxSegment;code[unique=true];
+;VIPGold;
+;VIPSilver;
+;VIPBronze;
+;BurtonBrandLover;
+;ShortsCategoryLover;
+;Women;
+;Men;
+;BeachwearLover;
+;FlannelShirtsFan;
+;FlipFlopsEnthusiast;
+;ShadesConnoisseur;
+;BeltsOldHand;
+;HatsFan;
+;Under20;
+;20-29;
+;30-39;
+;40-49;
+;50-59;
+;60-69;
+;70-79;
+;80-89;
+;90-99;
+
+
+INSERT_UPDATE Customer;uid[unique=true];groups(uid);password[default=$defaultPassword];name;&userref;
+;vipgold@hybris.com;customergroup;;Customer VIP Gold;vipgold@hybris.com;
+;vipsilver@hybris.com;customergroup;;Customer VIP Silver;vipsilver@hybris.com;
+;vipbronze@hybris.com;customergroup;;Customer VIP Bronze;vipbronze@hybris.com;
+;women@hybris.com;customergroup;;Women;women@hybris.com;
+;men@hybris.com;customergroup;;Men;men@hybris.com;
+;womenvipgold@hybris.com;customergroup;;Women Vip Gold;womenvipgold@hybris.com;
+;womenvipsilver@hybris.com;customergroup;;Women Vip Silver;womenvipsilver@hybris.com;
+;menvipbronze@hybris.com;customergroup;;Men Vip bronze;;menvipbronze@hybris.com;
+;menshortscategorylover@hybris.com;customergroup;;Men Shop Category Lower;;menshortscategorylover@hybris.com;
+
+INSERT_UPDATE CxUserToSegment;segment(code)[unique=true];user(uid)[unique=true];affinity[default=1];
+;VIPGold;vipgold@hybris.com;
+;VIPSilver;vipsilver@hybris.com;
+;VIPBronze;vipbronze@hybris.com;
+;Women;women@hybris.com;
+;Women;womenvipgold@hybris.com;
+;VIPGold;womenvipgold@hybris.com;
+;BurtonBrandLover;womenvipgold@hybris.com;
+;Women;womenvipsilver@hybris.com;
+;VIPSilver;womenvipsilver@hybris.com;
+;Men;men@hybris.com;
+;Men;menvipbronze@hybris.com;
+;VIPBronze;menvipbronze@hybris.com;
+;Men;menshortscategorylover@hybris.com;
+;ShortsCategoryLover;menshortscategorylover@hybris.com;

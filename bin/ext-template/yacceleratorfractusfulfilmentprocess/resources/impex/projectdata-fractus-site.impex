@@ -1,0 +1,38 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+INSERT_UPDATE YaasOrderStatusMap;ecpOrderStatus[unique=true];yaasOrderStatus
+;CREATED;CREATED
+;PROCESSING_ERROR;DECLINED
+;CANCELLING;DECLINED
+;CANCELLED;DECLINED
+;SUSPENDED;
+;FRAUD_CHECK;
+;ON_VALIDATION;
+;CHECKED_VALID;CONFIRMED
+;CHECKED_INVALID;DECLINED
+;WAIT_MANUAL_FRAUD_CHECK;
+;ORDER_SPLIT;SHIPPED;
+;PAYMENT_AUTHORIZED;
+;PAYMENT_NOT_AUTHORIZED;
+;PAYMENT_CAPTURED;
+;PAYMENT_NOT_CAPTURED;
+;COMPLETED;COMPLETED
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true]
+;fractusOrderFulfilmentInitiateCronJob;fractusOrderFulfilmentInitiateCronJob
+
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionUser(uid);sessionLanguage(isocode);sessionCurrency(isocode);active[default=true];logToFile[default=true];;;
+;FractusOrderFulfilmentInitiateCronJob;fractusOrderFulfilmentInitiateCronJob;admin;en;EUR;;;
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+;FractusOrderFulfilmentInitiateCronJob; 0 0/10 * 1/1 * ? *
+

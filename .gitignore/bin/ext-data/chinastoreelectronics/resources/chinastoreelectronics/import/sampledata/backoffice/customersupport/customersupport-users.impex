@@ -1,0 +1,19 @@
+#
+# Enable access to BackOffice
+#
+INSERT_UPDATE UserGroup;uid[unique=true];backOfficeLoginDisabled
+;customerservicegroup;false
+
+
+INSERT_UPDATE Employee;UID[unique=true];name;groups(uid);description;password
+;CustomerSupportAdministrator;Customer Support Administrator;admingroup,CustomerSupportAdministratorRole,CustomerSupportManagerGroup;This generic Customer Support Administrator User is assigned and has access to the Backoffice Administrator, Customer Support Manager and Customer Support Agent Group views - to provide administrative support to these later users.;1234
+;CustomerSupportManager;Customer Support Manager;admingroup,CustomerSupportManagerGroup;This generic Customer Support Manager User is assigned and has access to the Backoffice Customer Support Manager and Customer Support Agent Group views and ASM - to provide restricted Backoffice and ASM customer sales and service manager support.;1234
+;CustomerSupportAgent;Customer Support Agent;CustomerSupportAgentGroup;This generic Customer Support Agent is assigned and has access to the Backoffice Customer Support Agent Group views and ASM - to provide restricted Backoffice and ASM customer sales and service manager support.;1234
+;customer.support.1@sap.com;Customer Support 1;CustomerSupportAgentGroup;This generic Customer Support Agent is assigned and has access to the Backoffice Customer Support Agent Group views and ASM - to provide restricted Backoffice and ASM customer sales and service manager support.;1234
+;customer.support.2@sap.com;Customer Support 2;CustomerSupportAgentGroup;This generic Customer Support Agent is assigned and has access to the Backoffice Customer Support Agent Group views and ASM - to provide restricted Backoffice and ASM customer sales and service manager support.;1234
+;customer.support.3@sap.com;Customer Support 3;CustomerSupportAgentGroup;This generic Customer Support Agent is assigned and has access to the Backoffice Customer Support Agent Group views and ASM - to provide restricted Backoffice and ASM customer sales and service manager support.;1234
+;customer.support.4@sap.com;Customer Support 4;CustomerSupportAgentGroup;This generic Customer Support Agent is assigned and has access to the Backoffice Customer Support Agent Group views and ASM - to provide restricted Backoffice and ASM customer sales and service manager support.;1234
+;customer.support.5@sap.com;Customer Support 5;CustomerSupportAgentGroup;This generic Customer Support Agent is assigned and has access to the Backoffice Customer Support Agent Group views and ASM - to provide restricted Backoffice and ASM customer sales and service manager support.;1234
+;customer.support.6@sap.com;Customer Support 6;CustomerSupportAgentGroup;This generic Customer Support Agent is assigned and has access to the Backoffice Customer Support Agent Group views and ASM - to provide restricted Backoffice and ASM customer sales and service manager support.;1234
+;customer.support.7@sap.com;Customer Support 7;CustomerSupportAgentGroup;This generic Customer Support Agent is assigned and has access to the Backoffice Customer Support Agent Group views and ASM - to provide restricted Backoffice and ASM customer sales and service manager support.;1234
+;customer.support.8@sap.com;Customer Support 8;CustomerSupportAgentGroup;This generic Customer Support Agent is assigned and has access to the Backoffice Customer Support Agent Group views and ASM - to provide restricted Backoffice and ASM customer sales and service manager support.;1234

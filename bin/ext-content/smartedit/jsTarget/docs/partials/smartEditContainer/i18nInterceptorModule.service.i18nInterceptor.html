@@ -1,0 +1,23 @@
+<h1><code ng:non-bindable="">i18nInterceptor</code>
+<div><span class="hint">service in module <code ng:non-bindable="">i18nInterceptorModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="i18ninterceptormodule-service-page i18ninterceptormodule-service-i18ninterceptor-page"><p>A HTTP request interceptor that intercepts all i18n calls and handles them as required in the <a href="#/smartEditContainer/i18nInterceptorModule.service:i18nInterceptor#methods_request">i18nInterceptor.request</a> method.</p>
+<p>The interceptors are service factories that are registered with the $httpProvider by adding them to the $httpProvider.interceptors array.
+The factory is called and injected with dependencies and returns the interceptor object, which contains the interceptor methods.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_request">request(config)</h3>
+<div class="request"><div class="i18ninterceptormodule-service-page i18ninterceptormodule-service-i18ninterceptor-request-page"><p>Interceptor method that is invoked with a HTTP configuration object.
+It intercepts all requests that are i18n calls, that is, it intercepts all requests that have an <a href="#/smartEditContainer/i18nInterceptorModule.object:I18NAPIROOT">I18NAPIROOT</a> in their calls.
+It replaces the URL provided in a request with the URL provided by the <a href="#/smartEditContainer/resourceLocationsModule.object:I18N_RESOURCE_URI">I18N_RESOURCE_URI</a>.
+If a locale has not already been defined, the interceptor method appends the locale retrieved using the <a href="#/smartEditContainer/languageServiceModule.service:languageService#methods_getresolvelocale">languageService.getResolveLocale</a>.</p>
+</div><h5 id="methods_request_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>config</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="i18ninterceptormodule-service-page i18ninterceptormodule-service-i18ninterceptor-request-page"><p>The HTTP configuration information that contains the configuration information.</p>
+</div></td></tr></tbody></table><h5 id="methods_request_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-promise">Promise</a></td><td><div class="i18ninterceptormodule-service-page i18ninterceptormodule-service-i18ninterceptor-request-page"><p>Returns a <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> of the passed configuration object.</p>
+</div></td></tr></table></div>
+</li>
+</ul>
+</div>
+</div>

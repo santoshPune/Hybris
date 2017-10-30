@@ -1,0 +1,99 @@
+package de.hybris.platform.promotionengineservices.test
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderEntryGroupFixedPriceDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderEntryDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddFixedPriceEntryDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.CategoryRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import de.hybris.platform.ruleengineservices.rao.EntriesSelectionStrategyRPD;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import de.hybris.platform.ruleengineservices.enums.OrderEntrySelectionStrategy;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+
+global AddFixedPriceEntryDiscountRAOAction addFixedPriceEntryDiscountRAOAction;
+
+rule "partnerProductFixedPriceListOfStrategies"
+@ruleCode("partnerProductFixedPriceListOfStrategies")
+salience 15
+	when
+		$result : RuleEngineResultRAO()
+		$cart : CartRAO(currencyIsoCode == "USD")
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+		$config : RuleConfigurationRRD(ruleCode == "partnerProductFixedPriceListOfStrategies")
+  	     
+  	     // 1 digital camera (categoryCode: 576)
+  	    $qualifyingCategories3 : HashSet()
+			from collect (CategoryRAO(code == "576"))					
+		$qualifyingEntries1: ArrayList()
+			from collect 
+			(
+				OrderEntryRAO 
+				( 
+					(Collections.disjoint(product.categories, $qualifyingCategories3) == false) 
+				)
+			) 
+		$qualifyingEntriesCount1 : Number( intValue >= 1 ) 
+		      from accumulate(OrderEntryRAO($availableQuantity3 : quantity) from $qualifyingEntries1,
+                             sum( $availableQuantity3))	
+
+  	    
+  	    // 2 memory cards (categoryCode: 902)
+  	    $qualifyingCategories1 : HashSet()
+			from collect (CategoryRAO(code == "902"))					
+		$qualifyingEntries2: ArrayList()
+			from collect 
+			(
+				OrderEntryRAO 
+				( 
+					(Collections.disjoint(product.categories, $qualifyingCategories1) == false) 
+				)
+			) 
+		$qualifyingEntriesCount2 : Number( intValue >= 2 ) 
+		      from accumulate(OrderEntryRAO($availableQuantity1 : quantity) from $qualifyingEntries2,
+                             sum( $availableQuantity1))	
+		
+		// 1 tripod (combination of categoryCode: 587)
+		$qualifyingCategories2 : HashSet()
+			from collect (CategoryRAO(code == "587"))
+		$qualifyingEntries3: ArrayList()
+			from collect 
+			(
+				OrderEntryRAO 
+				( 
+					(Collections.disjoint(product.categories, $qualifyingCategories2) == false) 
+				)
+			)
+		$qualifyingEntriesCount3 : Number( intValue >= 1 ) 
+		      from accumulate(OrderEntryRAO($availableQuantity2 : quantity) from $qualifyingEntries3,
+                             sum( $availableQuantity2))
+  	    
+	then
+		EntriesSelectionStrategyRPD strategy1 = new EntriesSelectionStrategyRPD();
+		strategy1.setSelectionStrategy(OrderEntrySelectionStrategy.CHEAPEST);
+        strategy1.setOrderEntries($qualifyingEntries1);
+        strategy1.setQuantity(1);
+		
+		EntriesSelectionStrategyRPD strategy2 = new EntriesSelectionStrategyRPD();
+		strategy2.setSelectionStrategy(OrderEntrySelectionStrategy.CHEAPEST);
+        strategy2.setOrderEntries($qualifyingEntries2 );
+        strategy2.setQuantity(2);
+        strategy2.setTargetOfAction(true);
+		
+		EntriesSelectionStrategyRPD strategy3 = new EntriesSelectionStrategyRPD();
+		strategy3.setSelectionStrategy(OrderEntrySelectionStrategy.CHEAPEST);
+        strategy3.setOrderEntries($qualifyingEntries3);
+        strategy3.setQuantity(1);
+		
+		List<EntriesSelectionStrategyRPD> strategies = new ArrayList<EntriesSelectionStrategyRPD>();
+		strategies.add(strategy1);
+		strategies.add(strategy2);
+		strategies.add(strategy3);
+		
+		addFixedPriceEntryDiscountRAOAction.addFixedPriceEntriesDiscount(strategies,new BigDecimal("3.00"), -1, $result, kcontext);
+end

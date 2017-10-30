@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="de.hybris.platform.couponservices.rao.CouponRAO" template="resources/couponrao-template.vm">
+	    <property name="couponId" type="String"/>
+		<property name="couponCode" type="String" />
+	</bean>
+	
+	<bean class="de.hybris.platform.ruleengineservices.rao.AbstractOrderRAO">
+		<property name="coupons" type="java.util.List&lt;de.hybris.platform.couponservices.rao.CouponRAO&gt;" />		
+	</bean>
+
+	<bean class="de.hybris.platform.couponservices.service.data.CouponResponse">
+		<property name="couponId" type="String" />
+		<property name="success" type="Boolean" />
+		<property name="message" type="String" />
+		<property name="couponCodeDetails" type="de.hybris.platform.couponservices.service.data.CouponCodeDetails" />
+	</bean>
+	
+	<bean class="de.hybris.platform.couponservices.service.data.CouponCodeDetails" template="resources/code-template.vm">
+		<property name="couponId" type="String"/>
+		<property name="code" type="String"/>
+		<property name="redeemed" type="Boolean"/>
+	</bean>
+
+</beans>

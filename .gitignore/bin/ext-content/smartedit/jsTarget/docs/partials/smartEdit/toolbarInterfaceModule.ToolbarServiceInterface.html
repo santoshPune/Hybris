@@ -1,0 +1,46 @@
+<h1><code ng:non-bindable="">ToolbarServiceInterface</code>
+<div><span class="hint">service in module <code ng:non-bindable="">toolbarInterfaceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="toolbarinterfacemodule-toolbarserviceinterface-page"><p>Provides an abstract extensible toolbar service. Used to manage and perform actions to either the SmartEdit
+application or the SmartEdit container.</p>
+<p>This class serves as an interface and should be extended, not instantiated.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_additems">addItems(actions)</h3>
+<div class="additems"><div class="toolbarinterfacemodule-toolbarserviceinterface-additems-page"><p>Takes an array of actions and maps them internally for display and trigger through an internal callback key.</p>
+</div><h5 id="methods_additems_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>actions</td><td><a href="" class="label type-hint type-hint-object">Object[]</a></td><td><div class="toolbarinterfacemodule-toolbarserviceinterface-additems-page"><ul>
+<li>List of actions</li>
+</ul>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>key</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="toolbarinterfacemodule-toolbarserviceinterface-additems-page"><ul>
+<li>Unique identifier of the toolbar action item.</li>
+</ul>
+</div></td></tr><tr><td>callback</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="toolbarinterfacemodule-toolbarserviceinterface-additems-page"><ul>
+<li>Callback triggered when this toolbar action item is clicked.</li>
+</ul>
+</div></td></tr><tr><td>i18nkey</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="toolbarinterfacemodule-toolbarserviceinterface-additems-page"><ul>
+<li>Description translation key</li>
+</ul>
+</div></td></tr><tr><td>icons</td><td><a href="" class="label type-hint type-hint-string">String[]</a></td><td><div class="toolbarinterfacemodule-toolbarserviceinterface-additems-page"><ul>
+<li>List of image URLs for the icon images (only for ACTION and HYBRID_ACTION)</li>
+</ul>
+</div></td></tr><tr><td>type</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="toolbarinterfacemodule-toolbarserviceinterface-additems-page"><ul>
+<li>TEMPLATE, ACTION, or HYBRID_ACTION</li>
+</ul>
+</div></td></tr><tr><td>include</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="toolbarinterfacemodule-toolbarserviceinterface-additems-page"><ul>
+<li>HTML template URL (only for TEMPLATE and HYBRID_ACTION)</li>
+</ul>
+</div></td></tr><tr><td>priority</td><td><a href="" class="label type-hint type-hint-integer">Integer</a></td><td><div class="toolbarinterfacemodule-toolbarserviceinterface-additems-page"><ul>
+<li>Determines the position of the item in the toolbar, ranging from 0-1000 with the default priority being 500.</li>
+</ul>
+</div></td></tr><tr><td>section</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="toolbarinterfacemodule-toolbarserviceinterface-additems-page"><ul>
+<li>Determines the sections(left, middle or right) of the item in the toolbar.
+An item with a higher priority number will be to the right of an item with a lower priority number in the toolbar.</li>
+</ul>
+</div></td></tr></tbody></table></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

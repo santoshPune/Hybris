@@ -1,0 +1,9 @@
+<ui-select id="uiSelectToolingLanguage" ng-model="ctrl.selectedLanguage" on-select="ctrl.setSelectedLanguage($item)" theme="select2" title="" style="width:100%" search-enabled="false" data-dropdown-auto-width="false">
+    <ui-select-match placeholder="{{'languageselector.dropdown.placeholder' | translate}}">
+        <span ng-bind="ctrl.selectedLanguage.name "></span>
+    </ui-select-match>
+
+    <ui-select-choices repeat="language in ctrl.languages track by language.isoCode" position="down ">
+        <span ng-bind="language.name"></span>
+    </ui-select-choices>
+</ui-select>

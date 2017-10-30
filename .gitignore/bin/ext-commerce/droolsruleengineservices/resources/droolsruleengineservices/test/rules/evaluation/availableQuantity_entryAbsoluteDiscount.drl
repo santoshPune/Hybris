@@ -1,0 +1,25 @@
+package de.hybris.platform.ruleengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.DiscountRAO
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderEntryDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+
+global AddOrderEntryDiscountRAOAction addOrderEntryDiscountRAOAction;
+
+rule "availableQuantity_entryAbsoluteDiscount"
+@ruleCode("availableQuantity_entryAbsoluteDiscount.drl")
+
+salience 20
+	when
+        $entries : ArrayList(size > 0) from collect( OrderEntryRAO(product.getCode()=="1422222", quantity > 0) )
+        $config : RuleConfigurationRRD(ruleCode == "availableQuantity_entryAbsoluteDiscount.drl")
+		$result : RuleEngineResultRAO()
+		not $discount:DiscountRAO( firedRuleCode == "orderEntryAbsolutDiscount" )
+	then
+		addOrderEntryDiscountRAOAction.addOrderEntryLevelDiscounts($entries, true, new BigDecimal("10.00"), $result, kcontext);
+end

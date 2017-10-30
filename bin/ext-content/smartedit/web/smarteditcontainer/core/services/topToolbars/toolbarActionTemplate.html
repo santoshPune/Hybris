@@ -1,0 +1,17 @@
+<div>
+    <div data-ng-if="item.type == 'ACTION'" class="btn-group ">
+        <button type="button" dropdown-toggle="true" data-toggle="button" class="btn" aria-pressed="false" data-ng-click="triggerAction(item, $event)">
+            <span>{{item.name | translate}}</span>
+            <img id="{{toolbarName}}_option_{{item.key}}" data-ng-src="{{::imageRoot}}{{item.icons.default}} " class="file" title="{{item.name | translate}}" alt="{{item.name | translate}}" />
+        </button>
+    </div>
+    <div data-ng-if="item.type == 'HYBRID_ACTION'" class="btn-group ySEHybridAction" dropdown is-open="status.isopen ">
+        <button data-ng-show="item.icons.default" type="button" class="btn btn-default yHybridAction yDddlbResolution" dropdown-toggle ng-disabled="disabled " aria-pressed="false " data-ng-click="triggerAction(item, $event)">
+            <span>{{item.name | translate}}</span>
+            <img id="{{toolbarName}}_option_{{item.key}}" data-ng-src="{{::imageRoot}}{{item.icons.default}}" class="file" title="{{item.name | translate}}" alt="{{item.name | translate}}" />
+        </button>
+
+        <div data-ng-include="item.include" data-ng-if="item.include"></div>
+
+    </div>
+</div>

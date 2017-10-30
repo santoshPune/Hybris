@@ -1,0 +1,35 @@
+<h1><code ng:non-bindable="">httpAuthInterceptor</code>
+<div><span class="hint">service in module <code ng:non-bindable="">httpAuthInterceptorModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="httpauthinterceptormodule-httpauthinterceptor-page"><p>Provides a way for global authentication by intercepting the requests before handing them to the server
+and response before is its given to the application code.</p>
+<p>The interceptors are service factories that are registered with the $httpProvider by adding them to the $httpProvider.interceptors array. 
+The factory is called and injected with dependencies and returns the interceptor object with contains the interceptor methods.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_request">request(config)</h3>
+<div class="request"><div class="httpauthinterceptormodule-httpauthinterceptor-request-page"><p>Interceptor method which gets called with a http config object, intercepts any request made with $http service.
+A call to any REST resource will be intercepted by this method, which then adds a authentication token to the request
+and the forwards it to the REST resource.</p>
+</div><h5 id="methods_request_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>config</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="httpauthinterceptormodule-httpauthinterceptor-request-page"><ul>
+<li>the http config object that holds the configuration information.</li>
+</ul>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_responseerror">responseError(response)</h3>
+<div class="responseerror"><div class="httpauthinterceptormodule-httpauthinterceptor-responseerror-page"><p>Interceptor method which intercepts all the failed responses and handles them based on the response code.</p>
+<p>This method handles the following response:</p>
+<ul>
+    <li>401 response errors: handles authentication failures.</li>
+    <li>Non 400/401 response errors: handles any other errors by displaying an error message.</li>
+</ul></div><h5 id="methods_responseerror_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>response</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="httpauthinterceptormodule-httpauthinterceptor-responseerror-page"><ul>
+<li>the response object which contains the status code and other parameters that explain the response.</li>
+</ul>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

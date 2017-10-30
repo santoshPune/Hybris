@@ -1,0 +1,41 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.DiscountRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import de.hybris.platform.ruleengineservices.rao.EntriesSelectionStrategyRPD;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddFixedPriceEntryDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+import de.hybris.platform.ruleengineservices.enums.OrderEntrySelectionStrategy;
+
+global AddFixedPriceEntryDiscountRAOAction addFixedPriceEntryDiscountRAOAction;
+
+rule "orderThresholdPerfectPartnerFixedPrice"
+@ruleCode("orderThresholdPerfectPartnerFixedPrice")
+
+	salience 10
+	when
+		$result : RuleEngineResultRAO()
+		$cart : CartRAO(subTotal >= 400.00, currencyIsoCode == "USD")
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+		$config : RuleConfigurationRRD(ruleCode == "orderThresholdPerfectPartnerFixedPrice")
+        
+        $entries : ArrayList(size > 0)
+  	              from collect(OrderEntryRAO((product.code == "482105" || product.code == "805693" || product.code == "824267" || product.code == "861175"), quantity > 0))
+
+		not $discount:DiscountRAO( firedRuleCode == "orderThresholdPerfectPartnerFixedPrice" )
+       
+	then
+		EntriesSelectionStrategyRPD strategy = new EntriesSelectionStrategyRPD();
+		strategy.setSelectionStrategy(OrderEntrySelectionStrategy.CHEAPEST);
+        strategy.setOrderEntries($entries);
+        strategy.setQuantity(1);
+        strategy.setTargetOfAction(true);
+        
+    	addFixedPriceEntryDiscountRAOAction.addFixedPriceEntriesDiscount(Arrays.asList(strategy), new BigDecimal("50.00"), 1, $result, kcontext);
+end

@@ -1,0 +1,10 @@
+<div class="row">
+
+    <div class="col-xs-12">
+        <ul class="pagination">
+            <li ng-click="prevClick()" ng-class="hasPrevious()?'enabled':'disabled'"><a>&laquo;</a></li>
+            <li ng-repeat="i in pagesToDisplay()"><a ng-click="pageClick(i)" ng-class="isActive({{i}})?'active':''">{{i+1}}</a></li>
+            <li ng-click="nextClick()" ng-class="hasNext()?'enabled':'disabled'"><a>&raquo;</a></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+package de.hybris.platform.ruleengineservices.test
+
+import java.math.*;
+import de.hybris.platform.ruleengineservices.rao.*;
+import de.hybris.platform.ruleengineservices.rule.evaluation.*;
+
+global ChangeDeliveryModeRAOAction changeDeliveryModeRAOAction;
+
+salience 30;
+//cart with total greater than $200 gets free overnight delivery
+rule "shipping-overnight-free"
+@ruleCode("shipping-overnight-free.drl")
+    when
+    	$cart:CartRAO(total > 200, currencyIsoCode == "USD")
+    	$result:RuleEngineResultRAO()
+    	// check if rule discount is not applied already (it gets inserted during the consequence's service call)
+    	not $discount:ShipmentRAO( firedRuleCode == "shipping-overnight-free.drl" )
+    then
+    	changeDeliveryModeRAOAction.changeDeliveryMode($cart, "free-overnight-domestic", $result, kcontext);
+end

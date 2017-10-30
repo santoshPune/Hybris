@@ -1,0 +1,20 @@
+<h1><code ng:non-bindable="">ToolbarService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">toolbarModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="toolbarmodule-toolbarservice-page"><p>The inner toolbar service is used to add toolbar actions that affect the inner application, publish aliases to
+the outer application through the proxy, and store and manage callbacks made by private key. The service is a
+managed singleton; the <a href="#/smartEdit/toolbarModule.toolbarServiceFactory">toolbarServiceFactory</a> provides a
+getToolbarService function that returns a single instance of the ToolbarService for the gateway identifier,
+that is, the toolbar-name provided by the outer toolbar.</p>
+<p>Uses <a href="#/smartEdit/gatewayProxyModule.gatewayProxy">gatewayProxy</a> for cross iframe communication, using the toolbar name
+as the gateway ID.</p>
+<p><b>Inherited Methods from <a href="#/smartEdit/toolbarInterfaceModule.ToolbarServiceInterface">ToolbarServiceInterface</a></b>: <a href="#/smartEdit/toolbarInterfaceModule.ToolbarServiceInterface#methods_additems">addItems</a></p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage"><pre class="prettyprint linenums">ToolbarService(gatewayId);</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>gatewayId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="toolbarmodule-toolbarservice-page"><p>Toolbar name used by the gateway proxy service.</p>
+</div></td></tr></tbody></table></div>
+</div>

@@ -1,0 +1,5 @@
+INSERT_UPDATE UserGroup;UID[unique=true];groups(uid)[mode=append]
+;cmsmanagergroup;employeegroup
+
+INSERT_UPDATE Employee;UID[unique=true];groups(uid)[mode=append];sessionLanguage(isocode);
+;cmsmanager;cmsmanagergroup;en;

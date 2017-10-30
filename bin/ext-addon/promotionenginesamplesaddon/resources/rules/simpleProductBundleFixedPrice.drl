@@ -1,0 +1,64 @@
+package de.hybris.platform.promotionengineservices.test
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderEntryGroupFixedPriceDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import de.hybris.platform.ruleengineservices.rao.EntriesSelectionStrategyRPD;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+import de.hybris.platform.ruleengineservices.enums.OrderEntrySelectionStrategy;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+global AddOrderEntryGroupFixedPriceDiscountRAOAction addOrderEntryGroupFixedPriceDiscountRAOAction;
+
+rule "simpleProductBundleFixedPrice"
+@ruleCode("simpleProductBundleFixedPrice")
+
+salience 15
+	when
+		$result : RuleEngineResultRAO()
+		$cart : CartRAO(currencyIsoCode == "USD")
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+		$config : RuleConfigurationRRD(ruleCode == "simpleProductBundleFixedPrice")
+        
+        $hdVideoCameraEntries : ArrayList(size > 0)
+  	              from collect(OrderEntryRAO(product.code == 1934406, quantity > 0))
+  	              
+  	    $tripodEntries : ArrayList(size > 0)
+  	              from collect(OrderEntryRAO(product.code == 1687508, quantity > 0))
+  	              
+  	    $batteryChargerEntries : ArrayList(size > 0)
+  	              from collect(OrderEntryRAO(product.code == 278688, quantity > 0))
+  	              
+  	    $qualifyingEntriesCount1 : Number( intValue >= 1 ) 
+		      from accumulate(OrderEntryRAO($availableQuantity : quantity) from $hdVideoCameraEntries, sum( $availableQuantity))
+  	    $qualifyingEntriesCount2 : Number( intValue >= 1 ) 
+		      from accumulate(OrderEntryRAO($availableQuantity : quantity) from $tripodEntries, sum( $availableQuantity))
+  	    $qualifyingEntriesCount3 : Number( intValue >= 1 ) 
+		      from accumulate(OrderEntryRAO($availableQuantity : quantity) from $batteryChargerEntries, sum( $availableQuantity))
+	then
+		EntriesSelectionStrategyRPD strategy1 = new EntriesSelectionStrategyRPD();
+		strategy1.setSelectionStrategy(OrderEntrySelectionStrategy.CHEAPEST);
+        strategy1.setOrderEntries($hdVideoCameraEntries);
+        strategy1.setQuantity(1);
+		
+		EntriesSelectionStrategyRPD strategy2 = new EntriesSelectionStrategyRPD();
+		strategy2.setSelectionStrategy(OrderEntrySelectionStrategy.CHEAPEST);
+        strategy2.setOrderEntries($tripodEntries );
+        strategy2.setQuantity(1);
+		
+		EntriesSelectionStrategyRPD strategy3 = new EntriesSelectionStrategyRPD();
+		strategy3.setSelectionStrategy(OrderEntrySelectionStrategy.CHEAPEST);
+        strategy3.setOrderEntries($batteryChargerEntries);
+        strategy3.setQuantity(1);
+		
+		List<EntriesSelectionStrategyRPD> strategies = new ArrayList<EntriesSelectionStrategyRPD>();
+		strategies.add(strategy1);
+		strategies.add(strategy2);
+		strategies.add(strategy3);
+		
+		addOrderEntryGroupFixedPriceDiscountRAOAction.addOrderEntryGroupFixedPriceDiscount($cart, strategies,new BigDecimal("500.00"), $result, kcontext);
+end

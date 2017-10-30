@@ -1,0 +1,51 @@
+#cookie-bar {
+  background:@table-bg;
+  height:auto;
+  line-height:@line-height-base;
+  color:@text-color;
+  text-align:center;
+  padding:@padding-xs-horizontal @padding-xs-vertical;
+}
+
+#cookie-bar.fixed {
+  position:fixed;
+  top:@padding-xs-vertical;
+  left:@padding-xs-vertical;
+  width:100%;
+}
+
+#cookie-bar.fixed.bottom {
+  bottom:@padding-xs-vertical;
+  top:auto;
+}
+
+#cookie-bar p {
+  margin:@padding-xs-vertical;
+  padding:@padding-xs-vertical;
+}
+#cookie-bar a {
+  color:@gray-darker;
+  display:inline-block;
+  border-radius:@border-radius-base;
+  text-decoration:none;
+  padding:@padding-xs-vertical @padding-xs-horizontal;
+  margin-left:@line-height-computed;
+}
+#cookie-bar .cb-enable {
+  background:@table-bg;
+}
+#cookie-bar .cb-enable:hover {
+  background:@table-bg-hover;
+}
+#cookie-bar .cb-disable {
+  background:@table-bg;
+}
+#cookie-bar .cb-disable:hover {
+  background:@table-bg-hover;
+}
+#cookie-bar .cb-policy {
+  background:@table-bg;
+}
+#cookie-bar .cb-policy:hover {
+  background:@table-bg-hover;
+}

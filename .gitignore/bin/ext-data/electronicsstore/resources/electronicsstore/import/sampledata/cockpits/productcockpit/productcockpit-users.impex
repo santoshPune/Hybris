@@ -1,0 +1,16 @@
+#
+# Import Sample Product Cockpit User
+# 
+
+
+$defaultPassword=1234
+
+INSERT_UPDATE UserGroup;UID[unique=true];groups(uid)[mode=append]
+;productmanagergroup;cockpitgroup,employeegroup
+
+INSERT_UPDATE Employee;UID[unique=true];password[default=$defaultPassword];description;name;groups(uid);sessionLanguage(isocode);sessionCurrency(isocode)
+;productmanager;;Product manager;Product Manager;productmanagergroup;en;EUR
+
+UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];writePrincipals(uid);
+;electronicsProductCatalog;Online;productmanagergroup,productmanager;
+;electronicsProductCatalog;Staged;productmanagergroup,productmanager;

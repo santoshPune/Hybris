@@ -1,0 +1,16 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE EmailPageTemplate;pk[unique=true]
+;8796100461620
+;8796100428852
+;8796100396084
+;8796100363316
+;8796100330548
+;8796100297780
+;8796100265012
+;8796100232244
+;8796100199476
+;8796100166708
+;8796100133940
+;8796100101172
+#  end of pk list for EmailPageTemplate
+#  

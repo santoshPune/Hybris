@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- [y] hybris Platform Copyright (c) 2000-2016 hybris AG All rights reserved. This software is the confidential and proprietary information 
+	of hybris ("Confidential Information"). You shall not disclose such Confidential Information and shall use it only in accordance with 
+	the terms of the license agreement you entered into with hybris. -->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<alias name="sapProductConfigConfigurationProviderSSC" alias="sapProductConfigConfigurationProvider" />
+	<bean id="sapProductConfigConfigurationProviderSSC" scope="prototype"
+		class="de.hybris.platform.sap.productconfig.runtime.ssc.impl.CommonConfigurationProviderSSCImpl">
+		<property name="contextAndPricingWrapper" ref="sapProductConfigurationContextAndPricingWrapper" />
+		<property name="configModelFactory" ref="sapProductConfigModelFactory" />
+		<property name="textConverter" ref="sapProductConfigurationTextConverter" />
+		<property name="conflictAdapter" ref="sapProductConfigConflictAdapter" />
+		<property name="configurationUpdateAdapter" ref="sapProductConfigConfigurationUpdateAdapter" />
+		<property name="i18NService" ref="i18NService" />
+		<property name="intervalInDomainHelper" ref="sapProductConfigIntervalInDomainHelper" />
+		<property name="configurationSessionContainer" ref="sapProductConfigConfigurationSessionContainer" />
+	</bean>
+
+	<alias name="sapDefaultProductConfigurationContextAndPricingWrapper" alias="sapProductConfigurationContextAndPricingWrapper" />
+	<bean id="sapDefaultProductConfigurationContextAndPricingWrapper" class="de.hybris.platform.sap.productconfig.runtime.ssc.impl.ConfigurationContextAndPricingWrapperImpl">
+		<property name="configModelFactory" ref="sapProductConfigModelFactory" />		
+		<property name="i18NService" ref="commonI18NService" />	
+		<property name="pricingConfigurationParameter" ref="sapproductconfigPricingParameters" />
+		<property name="configurationParameterB2B" value="#{getObject('sapproductconfigParametersB2B')}"/>
+		<property name="productService" ref="productService" />		
+	</bean>
+
+	<alias name="sapDefaultProductConfigurationTextConverter" alias="sapProductConfigurationTextConverter" />
+	<bean id="sapDefaultProductConfigurationTextConverter" class="de.hybris.platform.sap.productconfig.runtime.ssc.impl.TextConverterImpl">
+	</bean>
+
+	<alias name="sapProductConfigDefaultIntervalInDomainHelper" alias="sapProductConfigIntervalInDomainHelper" />
+	<bean id="sapProductConfigDefaultIntervalInDomainHelper" class="de.hybris.platform.sap.productconfig.runtime.ssc.impl.IntervalInDomainHelperImpl">
+		<property name="i18NService" ref="i18NService" />
+	</bean>
+
+	<alias name="sapProductConfigDefaultConflictAdapter" alias="sapProductConfigConflictAdapter" />
+	<bean id="sapProductConfigDefaultConflictAdapter" class="de.hybris.platform.sap.productconfig.runtime.ssc.impl.SolvableConflictAdapterImpl">
+		<property name="textConverter" ref="sapProductConfigurationTextConverter" />
+	</bean>
+	
+	<alias name="sapProductConfigDefaultConfigurationUpdateAdapter" alias="sapProductConfigConfigurationUpdateAdapter" />
+	<bean id="sapProductConfigDefaultConfigurationUpdateAdapter" class="de.hybris.platform.sap.productconfig.runtime.ssc.impl.ConfigurationUpdateAdapterImpl">
+		<property name="conflictAdapter" ref="sapProductConfigConflictAdapter" />		 
+	</bean>	
+	
+	<alias name="sapProductConfigDefaultConfigurationSessionContainer" alias="sapProductConfigConfigurationSessionContainer" />
+	<bean id="sapProductConfigDefaultConfigurationSessionContainer" class="de.hybris.platform.sap.productconfig.runtime.ssc.impl.ConfigurationSessionContainerImpl" 
+			scope="prototype">
+	</bean>		
+
+</beans>

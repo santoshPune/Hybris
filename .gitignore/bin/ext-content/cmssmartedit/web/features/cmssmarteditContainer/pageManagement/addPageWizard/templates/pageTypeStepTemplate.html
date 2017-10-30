@@ -1,0 +1,16 @@
+<div class="page-type-step-template">
+
+    <div class="page-type-step-template__text ySEText">{{'se.cms.addpagewizard.pagetype.description' | translate}}</div>
+    <div data-ng-repeat="pageType in addPageWizardCtl.model.pageTypes" data-ng-class="{ 'page-type-step-template__item__selected': pageType.isSelected}" class="page-type-step-template__item" data-ng-click="addPageWizardCtl.selectType(pageType)">
+        <span class="hyicon hyicon-checked page-type-step-template__item__icon"></span>
+        
+        <div class="page-type-step-template__item--info">
+            <!--
+                NOTE: The last translate is only needed while the temporary pageTypeService is used.
+                This should be removed when migrating to the backend service.
+            -->
+            <div class="page-type-step-template__item--info__title">{{addPageWizardCtl.getLocalizedValue(pageType.name) | translate}}</div>
+            <div class="page-type-step-template__item--info__description">{{addPageWizardCtl.getLocalizedValue(pageType.description) | translate}}</div>
+        </div>
+    </div>
+</div>

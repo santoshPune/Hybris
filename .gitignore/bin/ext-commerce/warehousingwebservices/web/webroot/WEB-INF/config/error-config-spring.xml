@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="abstractRestHandlerExceptionResolver" abstract="true">
+		<property name="webserviceErrorFactory" ref="webserviceErrorFactory" />
+		<property name="messageConverters" ref="jaxbMessageConverters" />
+	</bean>
+
+
+	<bean id="restHandlerExceptionResolver" class="de.hybris.platform.webservicescommons.resolver.RestHandlerExceptionResolver"
+		parent="abstractRestHandlerExceptionResolver">
+		<property name="statusCodeMappings" ref="statusCodeMappings" />
+		<property name="defaultStatusCode" value="400" />
+		<property name="logStackTrace" value="true" />
+	</bean>
+
+	<util:map id="statusCodeMappings">
+		<!-- Spring internal exceptions -->
+		<entry key="BindException" value="400" />
+		<entry key="ConversionNotSupportedException" value="500" />
+		<entry key="HttpMediaTypeNotAcceptableException" value="406" />
+		<entry key="HttpMediaTypeNotSupportedException" value="415" />
+		<entry key="HttpMessageNotReadableException" value="400" />
+		<entry key="HttpMessageNotWritableException" value="400" />
+		<entry key="HttpRequestMethodNotSupportedException" value="405" />
+		<entry key="MethodArgumentNotValidException" value="400" />
+		<entry key="MissingServletRequestParameterException" value="400" />
+		<entry key="MissingServletRequestPartException" value="400" />
+		<entry key="NoSuchRequestHandlingMethodException" value="404" />
+		<entry key="TypeMismatchException" value="400" />
+		<!-- Other exceptions -->
+		<entry key="UnknownResourceException" value="404" />
+		<entry key="AccessDeniedException" value="401" />
+		<entry key="AuthenticationException" value="401" />
+		<!-- more exceptions -->
+		<entry key="ModelNotFoundException" value="404" />
+		<entry key="AmbiguousIdentifierException" value="400" />
+		<entry key="ConversionException" value="500" />
+		<entry key="UnsupportedOperationException" value="405" />
+		<entry key="ClassCastException" value="500" />
+		<entry key="IllegalArgumentException" value="500" />
+		<entry key="UnknownIdentifierException" value="400" />
+		<entry key="WebserviceValidationException" value="400" />
+		<entry key="PatternSyntaxException" value="400" />
+		<entry key="NullPointerException" value="500" />
+		<entry key="IllegalStateException" value="400" />
+		<entry key="ModelSavingException" value="500" />
+	</util:map>
+
+	<!-- webservice error factory & converters -->
+
+	<alias alias="webserviceErrorFactory" name="defaultWebserviceErrorFactory" />
+	<bean id="defaultWebserviceErrorFactory" class="de.hybris.platform.webservicescommons.errors.factory.impl.DefaultWebserviceErrorFactory">
+		<property name="converters">
+			<list>
+				<ref bean="validationErrorConverter" />
+				<ref bean="webserviceExceptionConverter" />
+				<ref bean="exceptionConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="abstractLocalizedErrorConverter" abstract="true"
+		class="de.hybris.platform.webservicescommons.errors.converters.AbstractLocalizedErrorConverter">
+		<property name="messageSource" ref="messageSource" />
+	</bean>
+
+	<alias alias="validationErrorConverter" name="defaultValidationErrorConverter" />
+	<bean name="defaultValidationErrorConverter" class="de.hybris.platform.webservicescommons.errors.converters.ValidationErrorConverter"
+		parent="abstractLocalizedErrorConverter">
+		<property name="i18NService" ref="i18NService" />
+	</bean>
+
+	<alias alias="webserviceExceptionConverter" name="defaultWebserviceExceptionConverter" />
+	<bean name="defaultWebserviceExceptionConverter" class="de.hybris.platform.webservicescommons.errors.converters.WebserviceExceptionConverter" />
+
+</beans>

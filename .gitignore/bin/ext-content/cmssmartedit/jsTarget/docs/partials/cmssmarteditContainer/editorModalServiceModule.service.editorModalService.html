@@ -1,0 +1,43 @@
+<h1><code ng:non-bindable="">editorModalService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">editorModalServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="editormodalservicemodule-service-page editormodalservicemodule-service-editormodalservice-page"><p>Convenience service to open an editor modal window for a given component type and component ID.</p>
+<p>Example: A button is bound to the function &#39;$scope.onClick&#39; via the ng-click directive. Clicking the button will
+trigger the opening of an editor modal for a CMSParagraphComponent with the ID &#39;termsAndConditionsParagraph&#39;</p>
+<pre class="prettyprint linenums">
+ angular.module('app', ['editorModalServiceModule'])
+ .controller('someController', function($scope, editorModalService) {
+            $scope.onClick = function() {
+                editorModalService.open('CMSParagraphComponent', 'termsAndConditionsParagraph');
+            };
+        });
+</pre>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_open">open(componentType, componentId)</h3>
+<div class="open"><div class="editormodalservicemodule-service-page editormodalservicemodule-service-editormodalservice-open-page"><p>Uses the <a href="#/cmssmarteditContainer/modalServiceModule.modalService">modalService</a> to open an editor modal.</p>
+<p>The editor modal is initialized with a title in the format &#39;<TypeName> Editor&#39;, ie: &#39;Paragraph Editor&#39;. The
+editor modal is also wired with a save and cancel button.</p>
+<p>The content of the editor modal is the <a href="#/cmssmarteditContainer/editorTabsetModule.directive:editorTabset">editorTabset</a>.</p>
+</div><h5 id="methods_open_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>componentType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="editormodalservicemodule-service-page editormodalservicemodule-service-editormodalservice-open-page"><p>The type of component as defined in the platform.</p>
+</div></td></tr><tr><td>componentId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="editormodalservicemodule-service-page editormodalservicemodule-service-editormodalservice-open-page"><p>The ID of the component as defined in the database.</p>
+</div></td></tr></tbody></table><h5 id="methods_open_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-promise">Promise</a></td><td><div class="editormodalservicemodule-service-page editormodalservicemodule-service-editormodalservice-open-page"><p>A promise that resolves to the data returned by the modal when it is closed.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_openandrerenderslot">openAndRerenderSlot(componentType, componentId, slotId)</h3>
+<div class="openandrerenderslot"><div class="editormodalservicemodule-service-page editormodalservicemodule-service-editormodalservice-openandrerenderslot-page"><p>Uses the <a href="#/cmssmarteditContainer/modalServiceModule.modalService">modalService</a> to open an editor modal.</p>
+<p>The editor modal is initialized with a title in the format &#39;<TypeName> Editor&#39;, ie: &#39;Paragraph Editor&#39;. The
+editor modal is also wired with a save and cancel button.</p>
+<p>The content of the editor modal is the <a href="#/cmssmarteditContainer/editorTabsetModule.directive:editorTabset">editorTabset</a>.</p>
+</div><h5 id="methods_openandrerenderslot_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>componentType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="editormodalservicemodule-service-page editormodalservicemodule-service-editormodalservice-openandrerenderslot-page"><p>The type of component as defined in the platform.</p>
+</div></td></tr><tr><td>componentId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="editormodalservicemodule-service-page editormodalservicemodule-service-editormodalservice-openandrerenderslot-page"><p>The ID of the component as defined in the database.</p>
+</div></td></tr><tr><td>slotId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="editormodalservicemodule-service-page editormodalservicemodule-service-editormodalservice-openandrerenderslot-page"><p>The ID of the slot as defined in the database.</p>
+</div></td></tr></tbody></table><h5 id="methods_openandrerenderslot_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-promise">Promise</a></td><td><div class="editormodalservicemodule-service-page editormodalservicemodule-service-editormodalservice-openandrerenderslot-page"><p>A promise that resolves to the data returned by the modal when it is closed.</p>
+</div></td></tr></table></div>
+</li>
+</ul>
+</div>
+</div>

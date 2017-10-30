@@ -1,0 +1,25 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import java.math.BigDecimal;
+import de.hybris.platform.ruleengineservices.rule.evaluation.DisplayMessageRAOAction;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+
+global DisplayMessageRAOAction displayMessageRAOAction;
+
+rule "potentialBuyTwoGetOneForFreeMessage"
+@ruleCode("potentialBuyTwoGetOneForFreeMessage")
+
+	salience 5
+	when
+		$config : RuleConfigurationRRD(ruleCode == "potentialBuyTwoGetOneForFreeMessage")
+		$result : RuleEngineResultRAO()
+		$memCardCategory : CategoryRAO(code == "902")
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+        $orderEntry : OrderEntryRAO(product.categories contains $memCardCategory, quantity >= 1 && quantity < 3)
+		$cart : CartRAO(entries contains $orderEntry)
+	then
+		displayMessageRAOAction.fireMessage($orderEntry, $result, kcontext);
+end

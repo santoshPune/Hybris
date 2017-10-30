@@ -1,0 +1,10 @@
+[{
+    "key": "previewTicketURI",
+    "value": "\"thepreviewTicketURI\""
+}, {
+    "key" : "i18nAPIRoot",
+    "value" : "{malformed}"
+}, {
+ 	"key": "applications.i18nMockModule",
+	"value": "{\n  \"smartEditLocation\": \"/smarteditcontainerJSTests/e2e/utils/commonMockedModules/i18nMock.js\"\n}"
+}]

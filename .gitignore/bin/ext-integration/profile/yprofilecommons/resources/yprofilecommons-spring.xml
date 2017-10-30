@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ [y] hybris Platform
+  ~ 
+  ~ Copyright (c) 2000-2016 SAP SE
+  ~ All rights reserved.
+  ~ 
+  ~ This software is the confidential and proprietary information of SAP 
+  ~ Hybris ("Confidential Information"). You shall not disclose such 
+  ~ Confidential Information and shall use it only in accordance with the 
+  ~ terms of the license agreement you entered into with SAP Hybris.
+  -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--YaaS configuration -->
+
+	<bean id="profileApplicationPropertyResolver" class="com.hybris.yprofile.services.ProfileApplicationPropertyResolver">
+		<constructor-arg ref="yaasConfigurationService" />
+        <constructor-arg value="${yaas.profile.appId}" />
+	</bean>
+
+	<bean id="profilePlatformPropertyResolver" class="de.hybris.platform.yaasconnect.config.PlatformPropertyResolver">
+		<constructor-arg value="yaas" />
+		<constructor-arg ref="configurationService" />
+	</bean>
+
+	<bean id="profileCombinePropertyResolver" class="com.hybris.charon.conf.CombinePropertyResolver">
+		<constructor-arg ref="profileApplicationPropertyResolver" />
+		<constructor-arg ref="profilePlatformPropertyResolver" />
+	</bean>
+
+	<bean id="profileCharonFactory" class="com.hybris.yprofile.services.ProfileCharonFactory" destroy-method="clearCache">
+		<property name="resolver" ref="profileCombinePropertyResolver" />
+		<property name="yaasConfigurationService" ref="yaasConfigurationService"/>
+	</bean>
+	<!--//-->
+
+	<alias name="defaultProfileConfigurationService" alias="profileConfigurationService"/>
+	<bean name="defaultProfileConfigurationService" class="com.hybris.yprofile.services.DefaultProfileConfigurationService">
+		<constructor-arg value="${yaas.profile.appId}"/>
+		<property name="yaasConfigurationService" ref="yaasConfigurationService" />
+	</bean>
+
+
+	<alias name="defaultConsentService" alias="consentService"/>
+	<bean id="defaultConsentService" class="com.hybris.yprofile.consent.services.DefaultConsentService">
+		<property name="profileConfigurationService" ref="profileConfigurationService"/>
+		<property name="charonFactory" ref="profileCharonFactory"/>
+		<property name="cookieGenerator" ref="consentCookieGenerator"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+
+	<alias name="defaultConsentCookieGenerator" alias="consentCookieGenerator"/>
+	<bean id="defaultConsentCookieGenerator" class="com.hybris.yprofile.consent.cookie.ConsentReferenceCookieGenerator" >
+		<property name="cookieSecure" value="true"/>
+		<property name="cookieMaxAge" value="360000000"/>
+		<property name="useDefaultPath" value="true"/>
+		<property name="httpOnly" value="true"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="profileConfigurationService" ref="profileConfigurationService"/>
+	</bean>
+
+	<!--Add this filter to your filter chain to enable the consent layer for Hybris Profile integration-->
+	<bean id="consentLayerFilter" class="com.hybris.yprofile.consent.filters.ConsentLayerFilter">
+		<property name="consentService" ref="consentService"/>
+		<property name="enabled" value="${yprofilecommons.automatic.consent-reference.generation.enabled}"/>
+	</bean>
+			
+</beans>

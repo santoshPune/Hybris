@@ -1,0 +1,368 @@
+
+#smarteditoverlay{
+
+    z-index: 50 !important;
+}
+
+.cmsx-ctx-more-btn img{
+  -webkit-box-shadow: -1px 5px 12px -2px rgba(117, 117, 117, 0.44);
+  -moz-box-shadow: -1px 5px 12px -2px rgba(117, 117, 117, 0.44);
+  box-shadow: -1px 5px 12px -2px rgba(117, 117, 117, 0.44);
+}
+
+.noboxshadow{
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.yCmsCtxMenu.btn-group{
+  box-shadow: none !important;
+  display: inline-block;
+  position: relative;
+
+  ul.dropdown-menu{
+    top: 41px;
+    padding-top: 0;
+    right: 0 !important;
+    border: none !important;
+    left: inherit !important;
+
+    li a{
+      padding-left: 26px;
+      padding-right: 26px;
+      &:hover{
+        background-color: #00c6ff;
+        color: #fff;
+      }
+    }
+
+    .icontext{
+      font-size: 15px;
+    }
+
+    .labeltext{
+      font-size: 11px;
+    }
+
+  }
+}
+
+.smartEditComponentX {
+	z-index: 10;
+}
+
+.smartEditComponentX > div {
+  height: 100%;
+}
+
+.se\.slotContextualMenu > div {
+  height: 100%;
+}
+
+.cmsx-slot-ctx-wrapper1 {
+  overflow: hidden;
+  display: table;
+  width: 100%;
+  height: 100%;
+
+  .cmsx-slot-ctx-wrapper2 {
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+
+    .yWrapperData{
+      min-width: 51px;
+      min-height: 49px;
+    }
+
+    .decorative-border{
+      background-color: @contextmenuoverlaycolor;
+      position: absolute;
+    }
+
+
+  }
+}
+
+.cmsx-ctx-wrapper1 {
+  overflow: hidden;
+  display: table;
+  width: 100%;
+  height: 100%;
+
+  .cmsx-ctx-wrapper2 {
+    display: table-cell;
+    vertical-align: middle;
+
+    .yWrapperData{
+      min-width: 51px;
+      min-height: 49px;
+    }
+
+    .decorative-border{
+      background-color: @contextmenuoverlaycolor;
+      position: absolute;
+    }
+
+    .decorative-top-border{
+      height: 3px;
+      top: 0;
+      width: 100%;
+    }
+    .decorative-right-border{
+      width: 3px;
+      left: 0;
+      top:0;
+      height: 100%;
+    }
+    .decorative-bottom-border{
+      height: 3px;
+      bottom: 0;
+      width: 100%;
+    }
+    .decorative-left-border{
+      width: 3px;
+      right: 0;
+      top:0;
+      height: 100%;
+    }
+
+    .contextualmenuBackground{
+      position: absolute;
+      top:0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+
+      /* IE 5-7 */
+      filter: alpha(opacity=30);
+
+      /* Netscape */
+      -moz-opacity: 0.30;
+
+      /* Safari 1.x */
+      -khtml-opacity: 0.30;
+
+      /* Good browsers */
+      opacity: 0.30;
+
+      &.editMode{
+        background-color: @contextmenuoverlaycolor;
+      }
+    }
+
+    .cmsx-ctx-btns,
+    .cmsx-ctx-more-btn {
+      position: relative;
+      border-radius: 0;
+      opacity: 1;
+      border: 0;
+      box-shadow: none;
+      padding: 0px 0px;
+      z-index: 5001;
+      width: auto;
+      &:focus {
+        outline-color: transparent;
+        outline-style: none;
+      }
+    }
+
+    .cmsx-ctx-btns {
+      margin-right: 2px;
+      background-color: transparent;
+      width: auto;
+
+      .hySEIcon {
+        max-width: 45px;
+        display: block;
+        max-height: 45px;
+        color: #ffffff;
+        background-color: tomato;
+        font-size: 26px;
+        padding-bottom: 6px;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+
+    .cmsx-ctx-btns img {
+      opacity: 1;
+      -webkit-box-shadow: -1px 5px 12px -2px rgba(117, 117, 117, 0.44);
+      -moz-box-shadow: -1px 5px 12px -2px rgba(117, 117, 117, 0.44);
+      box-shadow: -1px 5px 12px -2px rgba(117, 117, 117, 0.44);
+    }
+
+    .cmsx-ctx-more{
+      height: 100%;
+      .pull-right();
+    }
+
+    .cmsx-ctx-more .dropdown,
+    .cmsx-ctx-more {
+      display: inline;
+    }
+
+    .cmsx-ctx-btns img,
+    .cmsx-ctx-more-btn img {
+      max-width: 45px;
+      -webkit-box-shadow: -1px 5px 12px -2px rgba(117, 117, 117, 0.44);
+      -moz-box-shadow: -1px 5px 12px -2px rgba(117, 117, 117, 0.44);
+      box-shadow: -1px 5px 12px -2px rgba(117, 117, 117, 0.44);
+    }
+
+
+
+    .yCmsCtxMenu.dropdown .dropdown-menu {
+      z-index: 1013;
+      border: 0;
+      border-radius: 0;
+      font-family: Dosis;
+    }
+
+    .cmsx-ctx-menu-more-icon {
+      max-width: 20px;
+      margin-right: 10px;
+    }
+
+    .yCmsCtxMenu.dropdown .dropdown-menu li,
+    .yCmsCtxMenu.dropdown .dropdown-menu li a {
+      z-index: 5000;
+      margin-top: 0;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .yCmsCtxMenu.dropdown ul.dropdown-menu {
+      margin-top: 0;
+    }
+
+    .cmsx-ctx-more-btn .bottom-shadow {
+      box-shadow: 0px 1px 1px 1px rgba(0,0,0,.1);
+      z-index: 1014;
+      position: relative;
+    }
+
+  }
+
+}
+
+
+.cmsx-ctx-btns,
+.cmsx-ctx-more-btn{
+  border-radius: 0;
+  opacity: 1;
+  border: 0;
+  box-shadow: none;
+  padding: 0px 0px;
+  z-index: 5001;
+}
+
+.cmsx-ctx-btns{
+  margin-right: 2px;
+}
+
+.cmsx-ctx-btns img{
+  opacity: 1;
+}
+
+.cmsx-ctx-wrapper1{
+  overflow: hidden;
+  display: table;
+}
+.cmsx-ctx-wrapper2{
+  display: table-cell;
+  vertical-align: middle;
+}
+.cmsx-ctx-more .dropdown,
+.cmsx-ctx-more{
+  display: inline;
+}
+
+.cmsx-ctx-btns img,
+.cmsx-ctx-more-btn img{
+  max-width: 45px;
+}
+
+.yCmsCtxMenu.dropdown .dropdown-menu {
+  z-index: 1013;
+  border: 0;
+  border-radius: 0;
+  font-family: Dosis;
+}
+.cmsx-ctx-menu-more-icon{
+  max-width: 20px;
+  margin-right: 10px;
+}
+.yCmsCtxMenu.dropdown .dropdown-menu li,
+.yCmsCtxMenu.dropdown .dropdown-menu li a{
+  z-index: 5000;
+  margin-top: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.yCmsCtxMenu.dropdown ul.dropdown-menu{
+  margin-top: 0;
+}
+
+.cmsx-ctx-more-btn .bottom-shadow {
+  box-shadow: 0px 1px 1px 1px rgba(0,0,0,.1);
+  z-index: 1014;
+  position: relative;
+}
+
+.cmsx-ctx-btns,
+.cmsx-ctx-more-btn{
+  border-radius: 0;
+  opacity: 1;
+  border: 0;
+  box-shadow: none;
+  padding: 0px 0px;
+  z-index: 5001;
+}
+
+.cmsx-ctx-btns{
+  margin-right: 2px;
+}
+
+.cmsx-ctx-btns img{
+  opacity: 1;
+}
+
+.contextualMenuOverlay{
+  position: absolute;
+  z-index: 9997;
+  left: 3px;
+  top: 3px;
+  right: 3px;
+  &.editMode{
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.decoratorHolder{
+  position:relative;
+}
+.hideDecoratorHolder{
+  visibility:hidden;
+}
+.decorators{
+  position:absolute;
+  visibility:visible;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+}
+
+.ySEEmptySlot{
+  min-height: 47px;
+}
+
+.cmsx-ctx-wrapper2,
+.cmsx-ctx-wrapper1{
+    overflow: visible;
+}

@@ -1,0 +1,28 @@
+.customization-component {
+  word-wrap: break-word;
+  font-size: 15px;
+}
+.customization-component .text-uppercase {
+  text-transform: uppercase;
+}
+.customization-component .text-smaller {
+  font-size: 13px;
+}
+.customization-component .dt-text-grey-semibold {
+  color: #8592a2;
+  font-weight: 500;
+}
+.customization-component .dd-text-dark-blue-bold {
+  color: #27394f;
+  font-weight: bold;
+}
+.customization-component .select2-arrow {
+  font-size: 18px;
+}
+.customization-component .select2-container {
+  margin-bottom: 20px;
+  display: block;
+}
+.customization-component .select2-result-label {
+  font-weight: bold;
+}

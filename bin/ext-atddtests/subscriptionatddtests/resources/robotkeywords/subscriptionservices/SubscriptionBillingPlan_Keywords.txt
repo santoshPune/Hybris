@@ -1,0 +1,23 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+*** Settings ***
+Library         de.hybris.platform.atddimpex.keywords.ImpexKeywordLibrary
+Resource		impex/Impex_Keywords.txt
+
+*** Keywords ***
+create billing plan "${billingPlanId}" with billing frequency "${billingFrequency}" and billing cycle type "${billingCycleType}" and billing cycle day "${billingCycleDay}"
+    [Documentation]    ${billingFrequency}=monthly/quarterly/yearly
+    ...                ${billingCycleType}=subscription_start/day_of_month/end_of_month
+    @{binding}    create list    billingPlanId    "${billingPlanId}"    billingFrequency    "${billingFrequency}"    billingCycleType    "${billingCycleType}"    billingCycleDay    "${billingCycleDay}"
+    ${templateName}=    Set Variable    impex-templates/subscription-billingplan/billingplan-insert.impex.vm
+    ${impEx}=    generate impex from template    ${templateName}    @{binding}
+    import impex "${impEx}" use template "${templateName}"

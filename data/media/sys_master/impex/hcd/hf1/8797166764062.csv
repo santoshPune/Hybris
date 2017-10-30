@@ -1,0 +1,12 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE ImageMapComponent;pk[unique=true]
+;8796146533436
+;8796146435132
+;8796146402364
+;8796146107452
+;8796146074684
+;8796145747004
+;8796145714236
+;8796145615932
+#  end of pk list for ImageMapComponent
+#  

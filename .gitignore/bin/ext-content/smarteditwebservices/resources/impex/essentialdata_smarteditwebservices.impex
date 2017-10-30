@@ -1,0 +1,3 @@
+INSERT_UPDATE SmartEditConfiguration;key[unique=true];value
+;defaultToolingLanguage;"""en"""
+;whiteListedStorefronts;[]

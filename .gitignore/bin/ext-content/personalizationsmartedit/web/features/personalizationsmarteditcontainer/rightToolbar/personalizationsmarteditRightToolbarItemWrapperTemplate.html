@@ -1,0 +1,15 @@
+<div ng-controller="topToolbarMenuController" dropdown is-open="status.isopen" auto-close="disabled" class="ySEComponentMenuW">
+    <button type="button" class="btn btn-default yHybridAction ySEComponentMenuW--button personalizationsmarteditTopToolbarButton" dropdown-toggle ng-disabled="disabled" aria-pressed="false">
+        <img data-ng-src="../personalizationsmartedit/icons/icon_customize.png" />
+        <span class="ySEComponentMenuW--button--txt" data-translate="personalization.right.toolbar"></span>
+    </button>
+    <ul ng-if="status.isopen" class="dropdown-menu dropdown-menu-left btn-block ySEComponentMenu ySEComponentMenu-customized" role="menu" ng-click="preventDefault($event);">
+        <div class="ySEComponentMenu-headers">
+            <h2 class="text-uppercase h2" data-translate="personalization.right.toolbar.customization.heading"></h2>
+            <small class="small" data-translate="personalization.right.toolbar.customization.description"></small>
+        </div>
+        <li role="menuitem" class="item menuitem-lefttoolbar">
+            <personalizationsmartedit-right-toolbar-item selected-item-callbacks="selectedItemCallbacks" close-page-tool-menu="closePageToolMenu()"></personalizationsmartedit-right-toolbar-item>
+        </li>
+    </ul>
+</div>

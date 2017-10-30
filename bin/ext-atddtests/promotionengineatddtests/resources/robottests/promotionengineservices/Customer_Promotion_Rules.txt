@@ -1,0 +1,97 @@
+ *** Settings ***
+Resource          promotionengine/PromotionEngineServices_Keywords.txt
+Resource          ruleengine/Util_Keywords.txt
+
+*** Test Cases *** 
+ Test_Apply_Customer_Specific_Percentage_Discount
+	[Documentation]     A percentage discount is applied to the cart for the specified customer group
+	...					Employees (groupName: employeeCustomerGroup) get 10% off on cart total
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	import sourcerule data
+	compile source rule for id "target_user_group_percentage_discount_cart"
+	configure promotionengine
+
+	# Setting variables
+	${cartId}=    Set Variable    "050001"
+	${powershotA480}=    get product by code "1934793"
+	${eos450D}=    get product by code "1382080"
+
+	# Test	
+	#create user group "employeeCustomerGroup"
+	create customer "employee" with user group "employeePromotionGroup"
+
+	create cart "${cartId}"
+	set cart "${cartId}" to user with id "employee"
+	add "${powershotA480}" to cart "${cartId}"
+	add "${eos450D}" to cart "${cartId}"
+	
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    674.73
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}    607.26
+	
+Test_Apply_Customer_Specific_Percentage_Discount_For_Not_Group_Member
+	[Documentation]     A percentage discount is applied to the cart for the specified customer group ONLY
+	...					customers that are not Employees (groupName: employeeCustomerGroup) don't get 10% off on cart total
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	import sourcerule data
+	compile source rule for id "target_user_group_percentage_discount_cart"
+	configure promotionengine
+
+	# Setting variables
+	${cartId}=    Set Variable    "050002"
+	${powershotA480}=    get product by code "1934793"
+	${eos450D}=    get product by code "1382080"
+
+	# Test
+	#create user group "anotherGroup"
+	create customer "not_employee" with user group "anotherGroup"
+
+	create cart "${cartId}"
+	set cart "${cartId}" to user with id "not_employee"
+
+	add "${powershotA480}" to cart "${cartId}"
+	add "${eos450D}" to cart "${cartId}"
+	
+	${cartBeforePromo}=    get total of "${cartId}"
+	LOG    ${cartBeforePromo}
+	Should Be Equal As Numbers    ${cartBeforePromo}    674.73
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	LOG    ${cartAfterPromo}
+	Should Be Equal As Numbers    ${cartAfterPromo}    674.73
+	
+Test_Apply_Customer_Specific_Percentage_Discount_JPY
+	[Documentation]     A percentage discount is applied to the cart for the specified customer group
+	...					Employees (groupName: employeeCustomerGroup) get 10% off on cart total. Check for JPY currency.
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	import sourcerule data
+	compile source rule for id "target_user_group_percentage_discount_cart"
+	configure promotionengine
+
+	# Setting variables
+	${cartId}=    Set Variable    "050003"
+	${powershotA480}=    get product by code "1934793"
+	${eos450D}=    get product by code "1382080"
+
+	# Test
+	#create user group "employeeCustomerGroup"
+	create customer "employee" with user group "employeePromotionGroup"
+
+	create cart "${cartId}" for currency "JPY"
+	set cart "${cartId}" to user with id "employee"
+
+	add "${powershotA480}" to cart "${cartId}"
+	add "${eos450D}" to cart "${cartId}"
+	
+	${cartBeforePromo}=    get total of "${cartId}"
+	LOG    ${cartBeforePromo}
+	Should Be Equal As Numbers    ${cartBeforePromo}    57470
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	LOG    ${cartAfterPromo}
+	Should Be Equal As Numbers    ${cartAfterPromo}    51723

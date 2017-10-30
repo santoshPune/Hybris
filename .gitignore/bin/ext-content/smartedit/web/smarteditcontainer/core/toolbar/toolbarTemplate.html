@@ -1,0 +1,12 @@
+<div class='{{cssClass}} yToolbar'>
+
+    <div class="yToolbar__Left">
+        <div data-ng-repeat="item in actions | filter:{section:'left'}" class="yTemplateToolbar {{::item.className}}" data-ng-include="item.include && item.type =='TEMPLATE' ? item.include : 'web/smarteditcontainer/core/services/topToolbars/toolbarActionTemplate.html'"></div>
+    </div>
+    <div class="yToolbar__Middle">
+        <div data-ng-repeat="item in actions | filter:{section:'middle'}" class="yTemplateToolbar {{::item.className}}" data-ng-include="item.include && item.type =='TEMPLATE' ? item.include : 'web/smarteditcontainer/core/services/topToolbars/toolbarActionTemplate.html'"></div>
+    </div>
+    <div class="yToolbar__Right">
+        <div data-ng-repeat="item in actions | filter:{section:'right'}" class="yTemplateToolbar {{::item.className}}" data-ng-include="item.include && item.type =='TEMPLATE' ? item.include : 'web/smarteditcontainer/core/services/topToolbars/toolbarActionTemplate.html'"></div>
+    </div>
+</div>

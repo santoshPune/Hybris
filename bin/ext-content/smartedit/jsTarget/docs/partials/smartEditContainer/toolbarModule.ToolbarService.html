@@ -1,0 +1,29 @@
+<h1><code ng:non-bindable="">ToolbarService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">toolbarModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="toolbarmodule-toolbarservice-page"><p>The SmartEdit container toolbar service is used to add toolbar items that can perform actions to either
+the SmartEdit application or the SmartEdit container. Clients can pass items to this service using the
+addItems() function. The items are then forwarded to the <a href="#/smartEditContainer/toolbarModule.directive:toolbar">toolbar</a>
+directive as aliases (a key-name mapping that maps to a specific callback; the alias models the action as it
+is meant to be displayed in the toolbar), which is responsible for mapping the actions to the view displayed
+to the user.</p>
+<p>Uses <a href="#/smartEditContainer/gatewayProxyModule.gatewayProxy">gatewayProxy</a> for cross iframe communication, using the toolbar
+name as the gateway ID.</p>
+<p><b>Inherited Methods from <a href="#/smartEditContainer/toolbarInterfaceModule.ToolbarServiceInterface">ToolbarServiceInterface</a></b>: <a href="#/smartEditContainer/toolbarInterfaceModule.ToolbarServiceInterface#methods_additems">addItems</a></p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage"><pre class="prettyprint linenums">ToolbarService(gatewayId);</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>gatewayId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="toolbarmodule-toolbarservice-page"><p>Toolbar name used by the gateway proxy service.</p>
+</div></td></tr></tbody></table></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_additemsstyling">addItemsStyling(classes)</h3>
+<div class="additemsstyling"><div class="toolbarmodule-toolbarservice-additemsstyling-page"><p>Adds CSS classes to the items on the toolbar.</p>
+</div><h5 id="methods_additemsstyling_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>classes</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="toolbarmodule-toolbarservice-additemsstyling-page"><p>Space-separated list of CSS classes</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

@@ -1,0 +1,26 @@
+############################# CONDITON DEFINITION RULE TYPE MAPPINGS ##########################
+INSERT_UPDATE RuleConditionDefinitionRuleTypeMapping;definition(id)[unique=true];ruleType(code)[default=PromotionSourceRule][unique=true]
+;y_cart_total;
+;y_qualifying_products;
+;y_qualifying_categories;
+;y_target_customers;
+;y_product_price;
+;y_customer_support;
+
+############################# ACTION DEFINITION RULE TYPE MAPPINGS ##########################
+INSERT_UPDATE RuleActionDefinitionRuleTypeMapping;definition(id)[unique=true];ruleType(code)[default=PromotionSourceRule][unique=true]
+;y_order_percentage_discount;
+;y_order_fixed_discount;
+;y_order_entry_percentage_discount;
+;y_order_entry_fixed_discount;
+;y_order_entry_fixed_price;
+;y_target_bundle_price;
+;y_free_gift;
+;y_partner_order_entry_percentage_discount;
+;y_partner_order_entry_fixed_discount;
+;y_partner_order_entry_fixed_price;
+;y_change_delivery_mode;
+;y_trigger_message;
+
+INSERT_UPDATE RuleToEngineRuleTypeMapping;ruleType(code)[unique=true];engineRuleType(code)[default=PROMOTION]
+;PromotionSourceRule;

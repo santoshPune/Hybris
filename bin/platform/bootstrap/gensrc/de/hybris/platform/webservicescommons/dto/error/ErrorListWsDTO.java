@@ -1,0 +1,54 @@
+/*
+ * ----------------------------------------------------------------
+ * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN!
+ * --- Generated at 30 Oct, 2017 12:12:01 PM
+ * ----------------------------------------------------------------
+ *
+ * [y] hybris Platform
+ * 
+ * Copyright (c) 2000-2016 SAP SE
+ * All rights reserved.
+ * 
+ * This software is the confidential and proprietary information of SAP 
+ * Hybris ("Confidential Information"). You shall not disclose such 
+ * Confidential Information and shall use it only in accordance with the 
+ * terms of the license agreement you entered into with SAP Hybris.
+ */
+package de.hybris.platform.webservicescommons.dto.error;
+
+import de.hybris.platform.webservicescommons.dto.error.ErrorWsDTO;
+import java.util.List;
+
+/**
+ * List of errors
+ */
+public  class ErrorListWsDTO  implements java.io.Serializable 
+{
+
+
+	/** <i>Generated property</i> for <code>ErrorListWsDTO.errors</code> property defined at extension <code>webservicescommons</code>. */
+		
+	private List<ErrorWsDTO> errors;
+	
+	public ErrorListWsDTO()
+	{
+		// default constructor
+	}
+	
+	
+	
+	public void setErrors(final List<ErrorWsDTO> errors)
+	{
+		this.errors = errors;
+	}
+	
+	
+	
+	public List<ErrorWsDTO> getErrors() 
+	{
+		return errors;
+	}
+	
+
+
+}

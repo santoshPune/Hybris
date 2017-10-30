@@ -1,0 +1,54 @@
+<div>
+    <nav class="leftNav">
+
+        <ul class="list-unstyled leftNav--user">
+            <li class="leftNav--user__close">
+                <a href="#" class="nav-close" data-ng-click="closeLeftToolbar($event)">
+                    <span class="hyicon hyicon-close"></span>
+                </a>
+            </li>
+            <li class="leftNav--user__info">
+                <p>{{username | uppercase}}</p>
+            </li>
+            <li class="leftNav--user__info">
+                <a href="#" id="" data-ng-click="signOut($event)">{{'left.toolbar.sign.out' | translate}}</a>
+            </li>
+
+            <li class="leftNav--user__info">
+                <language-selector></language-selector>
+            </li>
+            <li class="divider leftNav--user__divider"></li>
+        </ul>
+
+        <ul class="list-unstyled leftNav--level1" id="hamburger-menu-level1">
+            <li class="leftNav--listItem">
+                <a data-ng-click="showSites()">{{'left.toolbar.sites' | translate}}</a>
+            </li>
+            <li class="leftNav--listItem" has-operation-permission="configurationCenterReadPermissionKey">
+                <a id="configurationCenter" data-ng-click="showCfgCenter($event)">{{'left.toolbar.configuration.center' | translate}}
+                    <span class="icon "></span>
+                </a>
+            </li>
+        </ul>
+        <ul class="list-unstyled leftNav--level2 ySELeftHideLevel2" id="hamburger-menu-level2">
+            <li class="leftNav--listItem">
+                <a data-ng-click="goBack()">
+                    <span class=" icon-back ">{{'left.toolbar.back' | translate}}</span>
+                </a>
+            </li>
+            <li class="leftNav--listItem">
+                <general-configuration/>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="navbar-header pull-left leftNavBtn">
+        <button type="button" class="navbar-toggle collapsed " data-toggle="collapse " data-target="#bs-example-navbar-collapse-1 " id="nav-expander" data-ng-click="showToolbar($event) ">
+            <span class="sr-only ">{{'left.toolbar.toggle.navigation' | translate}}</span>
+            <span class="icon-bar "></span>
+            <span class="icon-bar "></span>
+            <span class="icon-bar "></span>
+        </button>
+    </div>
+
+</div>

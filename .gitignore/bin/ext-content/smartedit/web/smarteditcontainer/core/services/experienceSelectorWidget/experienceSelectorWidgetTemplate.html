@@ -1,0 +1,10 @@
+<div dropdown is-open="status.isopen" class="ySEpreview" auto-close="disabled">
+    <button type="button" dropdown-toggle id="experience-selector-btn" class="btn yWebsiteSelectBtn" aria-pressed="false" title="{{action.name}}" alt="{{action.name}}" data-ng-click="resetExperienceSelector()">
+        <span class="yWebsiteSelectBtn--label" data-translate="experience.selector.previewing"></span>
+        <span class="yWebsiteSelectBtn--text">{{buildExperienceText()}}</span>
+        <span class="hyicon hyicon-arrow "></span>
+    </button>
+    <div class="dropdown-menu bottom btn-block yDdResolution " role="menu">
+        <experience-selector data-experience="experience" data-dropdown-status="status" data-reset-experience-selector="resetExperienceSelector"></experience-selector>
+    </div>
+</div>

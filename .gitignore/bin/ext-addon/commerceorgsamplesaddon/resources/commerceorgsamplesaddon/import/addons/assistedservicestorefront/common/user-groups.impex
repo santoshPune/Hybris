@@ -1,0 +1,3 @@
+# Allow members of salesemployeegroup to authenticate in ASM
+INSERT_UPDATE PrincipalGroupRelation;source(uid)[unique=true];target(uid)[unique=true]
+;salesemployeegroup;asagentgroup

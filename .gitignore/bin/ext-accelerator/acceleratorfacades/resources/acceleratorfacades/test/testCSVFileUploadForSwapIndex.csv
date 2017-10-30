@@ -1,0 +1,8 @@
+SKU,QTY,Description,Price,notes
+invalid,HW1210-3422,test sku,100$
+3,HW1210-dummy,test sku 2,200$
+, , , ,
+
+3,HW1210-3423,test sku 2,200$
+3,HW1210-3424,test sku 2,200$
+3,HW1210-3425,test sku 2,200$

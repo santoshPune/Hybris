@@ -1,0 +1,37 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+
+# Associate customers (B2BUnits) with sales units
+INSERT_UPDATE PrincipalGroupRelation;source(uid)[unique=true];target(uid)[unique=true]
+;Pronto;Africa
+;Pronto Services;Nigeria
+;Pronto Goods;South Africa
+;Rustic;Canada
+;Rustic Retail;Montreal North
+;Rustic Services;Montreal South
+;Services East;Quebec
+;Services West;Quebec
+
+# Associate members of salesemployeegroup to the B2B Customer List search strategy
+INSERT_UPDATE CustomerList;uid[unique=true];locname[lang=en];implementationType;priority;members(uid);
+;b2bCustomerList;B2B Customer List;B2B;0;salesemployeegroup
+
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;salesadmingroup;;;;;;;;
+;;;;B2BUnit;+;-;-;-;-
+ 
+UserGroup;salesmanagergroup;;;;;;;;
+;;;;B2BUnit;+;-;-;-;-
+$END_USERRIGHTS;;;;;;;;;

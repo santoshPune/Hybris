@@ -1,0 +1,26 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.DiscountRAO
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.UserGroupRAO
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import java.math.BigDecimal;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderDiscountRAOAction
+
+global AddOrderDiscountRAOAction addOrderDiscountRAOAction;
+
+rule "absoluteCartLevelDiscountForUserGroupAndThreshold"
+@ruleCode("absoluteCartLevelDiscountForUserGroupAndThreshold")
+
+	salience 10
+
+	when
+		$cart : CartRAO(currencyIsoCode == "USD", subTotal > 50, $cartUserGroups : user.groups, user.id != "anonymous")
+		exists (UserGroupRAO(id == "customergroup") from $cartUserGroups)
+		$result : RuleEngineResultRAO()
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+		not $discount:DiscountRAO( firedRuleCode == "absoluteCartLevelDiscountForUserGroupAndThreshold" )
+	then
+		addOrderDiscountRAOAction.addOrderLevelDiscount($cart, true, new BigDecimal("5.00"), $result, kcontext);
+end

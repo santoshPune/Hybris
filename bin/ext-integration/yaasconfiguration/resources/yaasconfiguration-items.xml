@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+ [y] hybris Platform
+ 
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+ 
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:noNamespaceSchemaLocation="items.xsd">
+
+    <relations>
+        <relation code="YaasOrganisationProjectRelation" localized="false" generate="true" autocreate="true">
+            <sourceElement qualifier="yaasOrganisation" type="YaasOrganisation" cardinality="one"/>
+            <targetElement qualifier="yaasProjects" type="YaasProject" cardinality="many" collectiontype="set" ordered="true"/>
+        </relation>
+        <relation code="YaasProjectApplicationRelation" localized="false" generate="true" autocreate="true">
+            <sourceElement qualifier="yaasProject" type="YaasProject" cardinality="one"/>
+            <targetElement qualifier="yaasApplications" type="YaasApplication" cardinality="many" collectiontype="set" ordered="true"/>
+        </relation>
+        <relation code="BaseSiteYaasProjectRelation" localized="false" generate="true" autocreate="true">
+            <sourceElement qualifier="baseSite" type="BaseSite" cardinality="one"/>
+            <targetElement qualifier="yaasProjects" type="YaasProject" cardinality="many" collectiontype="set" ordered="true"/>
+        </relation>
+    </relations>
+
+	<itemtypes>
+        <itemtype code="YaasOrganisation" extends="GenericItem"
+                  jaloclass="de.hybris.platform.yaasconfiguration.jalo.YaasOrganisation"
+                  autocreate="true"
+                  generate="true">
+            <deployment table="YaasOrganisation" typecode="6600"/>
+            <attributes>
+                <attribute qualifier="identifier" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="basePath" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="YaasProject" extends="GenericItem"
+                  jaloclass="de.hybris.platform.yaasconfiguration.jalo.YaasProject"
+                  autocreate="true"
+                  generate="true">
+            <deployment table="YaasProject" typecode="6601"/>
+            <attributes>
+                <attribute qualifier="identifier" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="YaasApplication" extends="GenericItem"
+                  jaloclass="de.hybris.platform.yaasconfiguration.jalo.YaasApplication"
+                  autocreate="true"
+                  generate="true">
+            <deployment table="YaasApplication" typecode="6602"/>
+            <attributes>
+                <attribute qualifier="identifier" type="java.lang.String" >
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
+                </attribute>
+                <attribute qualifier="clientId" type="java.lang.String">
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>                    
+                </attribute>
+                <attribute qualifier="clientSecret" type="java.lang.String">
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>                    
+                </attribute>
+                <attribute qualifier="pubsubClient" type="java.lang.String">
+                    <persistence type="property"/>
+                    <modifiers optional="true"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+	</itemtypes>
+</items>

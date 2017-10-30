@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ [y] hybris Platform
+  ~ 
+  ~ Copyright (c) 2000-2016 SAP SE
+  ~ All rights reserved.
+  ~ 
+  ~ This software is the confidential and proprietary information of SAP 
+  ~ Hybris ("Confidential Information"). You shall not disclose such 
+  ~ Confidential Information and shall use it only in accordance with the 
+  ~ terms of the license agreement you entered into with SAP Hybris.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 
+		TenantTest.testTenantSpecificSpringConfig:
+			this bean should be present within the junit tenant only
+	 -->
+	<bean id="exclusiveJunitBean" class="java.lang.String">
+		<constructor-arg value="Hello Junit World!"/>
+	</bean>
+
+	<bean class="de.hybris.platform.servicelayer.internal.converter.impl.ModelConverterMapping">
+		<property name="typeCode" value="TestEmployee"/>
+		<property name="modelClass"
+				  value="de.hybris.platform.core.model.test.TestEmployeeModel"/>
+		<property name="converter">
+			<bean class="de.hybris.platform.servicelayer.internal.converter.impl.PrefetchAllModelConverter">
+				<constructor-arg ref="modelService"/>
+				<constructor-arg ref="i18nService"/>
+				<constructor-arg ref="commonI18NService"/>
+				<constructor-arg value="TestEmployee"/>
+				<constructor-arg
+						value="de.hybris.platform.core.model.test.TestEmployeeModel"/>
+				<constructor-arg ref="leanSerializationStrategy"/>
+				<constructor-arg ref="sourceTransformer"/>
+				<constructor-arg ref="selfHealingService"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean class="de.hybris.platform.servicelayer.internal.converter.impl.ModelConverterMapping">
+		<property name="typeCode" value="TestUserGroup"/>
+		<property name="modelClass"
+				  value="de.hybris.platform.core.model.test.TestUserGroupModel"/>
+		<property name="converter">
+			<bean class="de.hybris.platform.servicelayer.internal.converter.impl.PrefetchAllModelConverter">
+				<constructor-arg ref="modelService"/>
+				<constructor-arg ref="i18nService"/>
+				<constructor-arg ref="commonI18NService"/>
+				<constructor-arg value="TestUserGroup"/>
+				<constructor-arg
+						value="de.hybris.platform.core.model.test.TestUserGroupModel"/>
+				<constructor-arg ref="leanSerializationStrategy"/>
+				<constructor-arg ref="sourceTransformer"/>
+				<constructor-arg ref="selfHealingService"/>
+			</bean>
+		</property>
+	</bean>
+</beans>

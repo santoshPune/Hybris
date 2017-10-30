@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+   <context:annotation-config/> 
+   
+   <!-- Expose /acceleratoraddon/web/webroot/WEB-INF/messages/base.js.properties  resource bundle as javascript variables -->
+	<bean id="defaultB2cbtgaddonJavaScriptMessageResourceAccessor" parent="abstractJavaScriptMessageResourceAccessor">
+		<property name="addOnName" value="b2cbtgaddon"/>
+	</bean>
+
+	<bean id="defaultB2cbtgaddonBeforeViewJsPropsHandlerAdaptee" parent="abstractBeforeViewJsPropsHandlerAdaptee" class="de.hybris.platform.addonsupport.interceptors.ExportJsPropertiesBeforeViewHandler">
+		<property name="messageSource" ref="defaultB2cbtgaddonJavaScriptMessageResourceAccessor"/>
+	</bean>
+
+	<bean id="getB2cbtgaddonBeforeViewHandler" parent="beforeViewHandlerAdapter">
+		<property name="adaptee">
+			<ref bean="defaultB2cbtgaddonBeforeViewJsPropsHandlerAdaptee"/>
+		</property>
+	</bean>
+	<bean id="B2cbtgaddonBeforeViewHandlerListMergeDirective" depends-on="beforeViewHandlersList" parent="listMergeDirective">
+		<property name="add" ref="getB2cbtgaddonBeforeViewHandler"/>
+	</bean>
+		
+	<!-- BTG event publisher for CMS page visit -->
+	<bean id="addBtgPageVisitedPublisherListMergeDirective" depends-on="beforeViewHandlersList" parent="listMergeDirective" >
+	    <property name="add" ref="btgPageVisitedPublisherBeforeViewHandler" />
+	</bean>
+	<bean id="addBtgSegmentBeforeViewHandlerListMergeDirective" depends-on="beforeViewHandlersList" parent="listMergeDirective" >
+	    <property name="add" ref="btgSegmentBeforeViewHandler" />
+	</bean>
+	
+	<bean id="btgPageVisitedPublisherBeforeViewHandler" class="de.hybris.platform.b2cbtgaddon.interceptors.beforeview.BtgPageVisitedPublisherBeforeViewHandler" />
+	<bean id="btgSegmentBeforeViewHandler" class="de.hybris.platform.b2cbtgaddon.interceptors.beforeview.BtgSegmentBeforeViewHandler" >
+		<property name="btgSegmentStrategy" ref="btgSegmentStrategy"/>
+	</bean>
+	
+	<!-- BTG filters -->
+	<bean id="addRefererHeaderBtgFilterListMergeDirective" depends-on="storefrontTenantDefaultFilterChainList" parent="listMergeDirective" >
+	    <property name="add" ref="refererHeaderBtgFilter" />
+	</bean>
+	
+	<bean id="addRequestParamsBtgFilterListMergeDirective" depends-on="storefrontTenantDefaultFilterChainList" parent="listMergeDirective" >
+	    <property name="add" ref="requestParamsBtgFilter" />
+	</bean>
+	
+	<bean id="addProductVisitedBtgFilterListMergeDirective" depends-on="storefrontTenantDefaultFilterChainList" parent="listMergeDirective" >
+	    <property name="add" ref="productVisitedBtgFilter" />
+	</bean>
+	
+	<bean id="addCategoryVisitedBtgFilterListMergeDirective" depends-on="storefrontTenantDefaultFilterChainList" parent="listMergeDirective" >
+	    <property name="add" ref="categoryVisitedBtgFilter" />
+	</bean>
+	
+	<bean id="addBtgSegmentFilterListMergeDirective" depends-on="storefrontTenantDefaultFilterChainList" parent="listMergeDirective" >
+	    <property name="add" ref="btgSegmentFilter" />
+	</bean>
+	
+	<bean id="abstractBtgFilter" class="de.hybris.platform.b2cbtgaddon.filters.btg.AbstractBtgFilter" abstract="true" >
+		<property name="eventService" ref="eventService"/>
+		<property name="siteConfigService" ref="siteConfigService"/>
+	</bean>
+
+	<bean id="refererHeaderBtgFilter" class="de.hybris.platform.b2cbtgaddon.filters.btg.RefererHeaderBtgFilter" parent="abstractBtgFilter"/>
+
+	<bean id="requestParamsBtgFilter" class="de.hybris.platform.b2cbtgaddon.filters.btg.RequestParamsBtgFilter" parent="abstractBtgFilter"/>
+
+	<bean id="productVisitedBtgFilter" class="de.hybris.platform.b2cbtgaddon.filters.btg.ProductVisitedBtgFilter" parent="abstractBtgFilter">
+		<property name="pkResolvingStrategy" ref="productPkResolvingStrategy"/>
+	</bean>
+
+	<bean id="categoryVisitedBtgFilter" class="de.hybris.platform.b2cbtgaddon.filters.btg.CategoryVisitedBtgFilter" parent="abstractBtgFilter">
+		<property name="pkResolvingStrategy" ref="categoryPkResolvingStrategy"/>
+	</bean>
+
+	<bean id="btgSegmentFilter" class="de.hybris.platform.b2cbtgaddon.filters.btg.BTGSegmentFilter" >
+		<property name="btgSegmentStrategy" ref="btgSegmentStrategy"/>
+	</bean>
+	
+	<!-- BTG strategies -->
+	<bean id="productPkResolvingStrategy" class="de.hybris.platform.b2cbtgaddon.filters.btg.support.impl.ProductPkResolvingStrategy" >
+		<property name="urlParsingStrategy" ref="productUrlParsingStrategy" />
+		<property name="productService" ref="productService" />
+	</bean>
+
+	<bean id="productUrlParsingStrategy" class="de.hybris.platform.b2cbtgaddon.filters.btg.support.impl.DefaultUrlParsingStrategy" >
+		<property name="regex" value="^/.+/p/(\w+)$" />
+	</bean>
+
+	<bean id="categoryPkResolvingStrategy" class="de.hybris.platform.b2cbtgaddon.filters.btg.support.impl.CategoryPkResolvingStrategy" >
+		<property name="urlParsingStrategy" ref="categoryUrlParsingStrategy" />
+		<property name="categoryService" ref="commerceCategoryService" />
+	</bean>
+	<bean id="categoryUrlParsingStrategy" class="de.hybris.platform.b2cbtgaddon.filters.btg.support.impl.DefaultUrlParsingStrategy" >
+		<property name="regex" value="^/.+/c/(\w+)$" />
+	</bean>
+
+	<alias name="defaultBTGSegmentStrategy" alias="btgSegmentStrategy" />
+	<bean id="defaultBTGSegmentStrategy" class="de.hybris.platform.b2cbtgaddon.filters.btg.support.impl.DefaultBTGSegmentStrategy" >
+		<property name="btgEvaluationService" ref="btgEvaluationService"/>
+		<property name="btgResultService" ref="btgResultService"/>
+		<property name="cmsSiteService" ref="cmsSiteService"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="userService" ref="userService"/>
+		<property name="evaluateAnonymousSessions" value="true"/>
+		<property name="siteConfigService" ref="siteConfigService"/>
+		<property name="cmsPageContextService" ref="cmsPageContextService"/>
+	</bean>
+	
+</beans>

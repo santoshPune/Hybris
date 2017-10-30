@@ -1,0 +1,14 @@
+package de.hybris.platform.ruleengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.*;
+
+salience 10;
+rule "looping-rule01"
+@ruleCode("looping-rule01.drl")
+    when
+    	$result:RuleEngineResultRAO()
+    then
+    	System.out.println("looping-rule01...");
+    	$result.setStartTime(new java.util.Date());
+    	update($result);
+end

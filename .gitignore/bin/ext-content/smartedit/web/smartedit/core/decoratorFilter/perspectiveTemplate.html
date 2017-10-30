@@ -1,0 +1,21 @@
+<div>
+    <span class="floating-perspective" data-ng-mouseleave="mouseOff()" data-ng-mouseenter="mouseOn()">
+        <div>
+            <span class="xposed-perspectives">
+                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+            </span>
+        </div>
+        <div class="floating-bg" data-ng-show="!showButtonOnly()">
+            <div>
+                <span data-translate="modal.perpectives.header.perspectives.name"></span>
+            </div>
+            <div class="form-group form-inline">
+                <select data-ng-change="perspectiveSelected(perspective)" class="form-control" data-ng-options="p.name | translate for p in perspectives" ng-model="perspective" />
+                <button type="button" data-ng-click="manage()" class="btn btn-default" aria-hidden="true">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </span>
+</div>
+<div data-ng-transclude></div>

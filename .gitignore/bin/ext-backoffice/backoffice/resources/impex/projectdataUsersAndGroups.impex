@@ -1,0 +1,2 @@
+INSERT_UPDATE UserGroup;UID[unique=true];groups(uid)[mode=append]
+;admingroup;backofficeadmingroup

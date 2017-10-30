@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  ~ [y] hybris Platform
+  ~ 
+  ~ Copyright (c) 2000-2016 SAP SE
+  ~ All rights reserved.
+  ~ 
+  ~ This software is the confidential and proprietary information of SAP 
+  ~ Hybris ("Confidential Information"). You shall not disclose such 
+  ~ Confidential Information and shall use it only in accordance with the 
+  ~ terms of the license agreement you entered into with SAP Hybris.
+  -->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="items.xsd">
+    <maptypes>
+        <maptype code="EditorParameterMap"
+                 argumenttype="java.lang.String"
+                 returntype="java.lang.String"
+                 autocreate="true"
+                 generate="false"/>
+    </maptypes>
+    <relations>
+        <relation code="BackofficeSavedQuery2SearchConditionRelation" localized="false" autocreate="true" generate="true">
+            <sourceElement type="BackofficeSavedQuery" qualifier="savedQuery" cardinality="one"/>
+            <targetElement type="BackofficeSearchCondition" qualifier="conditions" cardinality="many">
+                <modifiers partof="true"/>
+            </targetElement>
+        </relation>
+        <relation code="BackofficeSavedQuery2UserGroupRelation" localized="false" autocreate="true" generate="true">
+            <deployment table="SavedQuery2UserGroupRel" typecode="6402"/>
+            <sourceElement type="BackofficeSavedQuery" qualifier="savedQueries" cardinality="many"/>
+            <targetElement type="UserGroup" qualifier="userGroups" cardinality="many"/>
+        </relation>
+    </relations>
+
+    <itemtypes>
+        <itemtype generate="true"
+                  code="BackofficeSearchCondition"
+                  jaloclass="de.hybris.platform.platformbackoffice.jalo.BackofficeSearchCondition"
+                  autocreate="true"
+                >
+            <deployment table="backofficeSearchCond" typecode="6401"/>
+            <attributes>
+                <attribute qualifier="attribute" type="java.lang.String">
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="value" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="valueReference" type="Item">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="languageCode" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="operatorCode" type="java.lang.String">
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="selected" type="java.lang.Boolean">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="editor" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="editorParameters" type="EditorParameterMap">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="sortable" type="java.lang.Boolean">
+                    <defaultvalue>true</defaultvalue>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="disabled" type="java.lang.Boolean">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="mandatory" type="java.lang.Boolean">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+        <itemtype generate="true"
+                  code="BackofficeSavedQuery"
+                  jaloclass="de.hybris.platform.platformbackoffice.jalo.BackofficeSavedQuery"
+                  autocreate="true"
+                >
+            <deployment table="backofficeSavedQuery" typecode="6400"/>
+            <attributes>
+                <attribute qualifier="name" type="localized:java.lang.String">
+                    <modifiers optional="true"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="queryOwner" type="User">
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="typeCode" type="java.lang.String">
+                    <modifiers optional="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="includeSubtypes" type="java.lang.Boolean">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="globalOperatorCode" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="sortAttribute" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="sortAsc" type="java.lang.Boolean">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="tokenizable" type="java.lang.Boolean">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+    </itemtypes>
+</items>

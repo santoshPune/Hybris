@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Content Slots Type Restrictions-->
+
+	<bean parent="fieldMapper">
+		<property name="sourceClass" value="de.hybris.platform.cmswebservices.dto.ContentSlotTypeRestrictionsWsDTO" />
+		<property name="destClass" value="de.hybris.platform.cmswebservices.data.ContentSlotTypeRestrictionsData" />
+		<property name="fieldMapping">
+			<map>
+				<entry key="validComponentTypes" value="validComponentTypes" />
+				<entry key="contentSlotUid" value="contentSlotUid" />
+			</map>
+		</property>
+	</bean>
+
+	<bean parent="fieldMapper">
+		<property name="sourceClass" value="de.hybris.platform.cmswebservices.dto.ContentSlotTypeRestrictionsListWsDTO" />
+		<property name="destClass" value="de.hybris.platform.cmswebservices.data.ContentSlotTypeRestrictionsListData" />
+		<property name="fieldMapping">
+			<map>
+				<entry key="typeRestrictionsList" value="typeRestrictionsList" />
+			</map>
+		</property>
+	</bean>
+
+	<bean parent="fieldSetLevelMapping">
+		<property name="dtoClass"
+				  value="de.hybris.platform.cmswebservices.dto.ContentSlotTypeRestrictionsWsDTO" />
+		<property name="levelMapping">
+			<map>
+				<entry key="BASIC"
+					   value="validComponentTypes, contentSlotUid" />
+				<entry key="DEFAULT"
+					   value="validComponentTypes, contentSlotUid" />
+				<entry key="FULL"
+					   value="validComponentTypes, contentSlotUid" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- level mapping  - Abstract Component Data-->
+	<bean parent="fieldSetLevelMapping">
+		<property name="dtoClass"
+				  value="de.hybris.platform.cmswebservices.data.ComponentItemListData" />
+		<property name="levelMapping">
+			<map>
+				<entry key="BASIC"
+					   value="componentItems(BASIC)" />
+				<entry key="DEFAULT"
+					   value="componentItems(DEFAULT)" />
+				<entry key="FULL"
+					   value="componentItems(FULL)" />
+			</map>
+		</property>
+	</bean>
+
+
+	<bean parent="fieldSetLevelMapping">
+		<property name="dtoClass"
+				  value="de.hybris.platform.cmswebservices.data.CMSParagraphComponentData" />
+		<property name="levelMapping">
+			<map>
+				<entry key="BASIC"
+					   value="pk,uid,name,content(FULL)" />
+				<entry key="DEFAULT"
+					   value="pk,creationtime,modifiedtime,uid,name,visible,typeCode,slotId,pageId,position,content(FULL)" />
+				<entry key="FULL"
+					   value="pk,creationtime,modifiedtime,uid,name,visible,typeCode,slotId,pageId,position,content(FULL)" />
+			</map>
+		</property>
+	</bean>
+
+	<bean parent="fieldSetLevelMapping">
+		<property name="dtoClass"
+				  value="de.hybris.platform.cmswebservices.data.SimpleBannerComponentData" />
+		<property name="levelMapping">
+			<map>
+				<entry key="BASIC"
+					   value="pk,uid,name,media(FULL),urlLink,external" />
+				<entry key="DEFAULT"
+					   value="pk,creationtime,modifiedtime,uid,name,visible,typeCode,slotId,pageId,position,media(FULL),urlLink,external" />
+				<entry key="FULL"
+					   value="pk,creationtime,modifiedtime,uid,name,visible,typeCode,slotId,pageId,position,media(FULL),urlLink,external" />
+			</map>
+		</property>
+	</bean>
+	<bean parent="fieldSetLevelMapping">
+		<property name="dtoClass"
+				  value="de.hybris.platform.cmswebservices.data.BannerComponentData" />
+		<property name="levelMapping">
+			<map>
+				<entry key="BASIC"
+					   value="pk,uid,name,media(FULL),headline(FULL),content(FULL)" />
+				<entry key="DEFAULT"
+					   value="pk,creationtime,modifiedtime,uid,name,visible,typeCode,slotId,pageId,position,media(FULL),headline(FULL),content(FULL)" />
+				<entry key="FULL"
+					   value="pk,creationtime,modifiedtime,uid,name,visible,typeCode,slotId,pageId,position,media(FULL),headline(FULL),content(FULL)" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- Type API-->
+	<bean parent="fieldMapper">
+		<property name="sourceClass" value="de.hybris.platform.cmswebservices.data.ComponentTypeData" />
+		<property name="destClass" value="de.hybris.platform.cmswebservices.data.ComponentTypeData" />
+	</bean>
+
+	<bean parent="fieldSetLevelMapping">
+		<property name="dtoClass"
+				  value="de.hybris.platform.cmswebservices.data.ComponentTypeData" />
+		<property name="levelMapping">
+			<map>
+				<entry key="BASIC"
+					   value="code,i18nKey,name,attributes" />
+				<entry key="DEFAULT"
+					   value="code,i18nKey,name,attributes" />
+				<entry key="FULL"
+					   value="code,i18nKey,name,attributes" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- Synchronization API -->
+	<bean parent="fieldMapper">
+		<property name="sourceClass" value="de.hybris.platform.cmswebservices.data.SyncJobData" />
+		<property name="destClass" value="de.hybris.platform.cmswebservices.data.SyncJobData" />
+	</bean>
+
+	<bean parent="fieldSetLevelMapping">
+		<property name="dtoClass"
+				  value="de.hybris.platform.cmswebservices.data.SyncJobData" />
+		<property name="levelMapping">
+			<map>
+				<entry key="BASIC"
+					   value="cronJobStatus,lastModifiedDate,syncJobResult" />
+				<entry key="DEFAULT"
+					   value="cronJobStatus,lastModifiedDate,syncJobResult" />
+				<entry key="FULL"
+					   value="cronJobStatus,lastModifiedDate,syncJobResult" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- PageContentSlotComponent API -->
+	<bean parent="fieldMapper">
+		<property name="sourceClass" value="de.hybris.platform.cmswebservices.data.PageContentSlotComponentData" />
+		<property name="destClass" value="de.hybris.platform.cmswebservices.data.PageContentSlotComponentData" />
+	</bean>
+
+	<bean parent="fieldSetLevelMapping">
+		<property name="dtoClass"
+				  value="de.hybris.platform.cmswebservices.data.PageContentSlotComponentData" />
+		<property name="levelMapping">
+			<map>
+				<entry key="BASIC"
+					   value="componentId,slotId,position,pageId" />
+				<entry key="DEFAULT"
+					   value="componentId,slotId,position,pageId" />
+				<entry key="FULL"
+					   value="componentId,slotId,position,pageId" />
+			</map>
+		</property>
+	</bean>
+
+
+
+	<!-- Dynamic Type Factories -->
+	<bean id="customComponentDataObjectFactory" class="de.hybris.platform.webservicescommons.mapping.config.DynamicTypeFactory"
+		  init-method="init">
+		<property name="baseType" value="de.hybris.platform.cmswebservices.data.AbstractCMSComponentData" />
+	</bean>
+
+
+	<bean id="customPageDataObjectFactory" class="de.hybris.platform.webservicescommons.mapping.config.DynamicTypeFactory"
+		  init-method="init">
+		<property name="baseType" value="de.hybris.platform.cmswebservices.data.AbstractPageData" />
+	</bean>
+	
+	<!-- subclass mapping -->
+	<bean parent="subclassMapping">
+		<property name="parentClass"
+				  value="de.hybris.platform.cmswebservices.data.AbstractCMSComponentData" />
+		<property name="subclassesSet">
+			<set>
+				<value>de.hybris.platform.cmswebservices.data.CMSParagraphComponentData</value>
+				<value>de.hybris.platform.cmswebservices.data.SimpleBannerComponentData</value>
+				<value>de.hybris.platform.cmswebservices.data.BannerComponentData</value>
+				<value>de.hybris.platform.cmswebservices.data.CMSLinkComponentData</value>
+				<value>de.hybris.platform.cmswebservices.data.SimpleResponsiveBannerComponentData</value>
+			</set>
+		</property>
+	</bean>
+
+	<bean parent="subclassMapping">
+		<property name="parentClass"
+				  value="de.hybris.platform.cmswebservices.data.AbstractPageData" />
+		<property name="subclassesSet">
+			<set>
+				<value>de.hybris.platform.cmswebservices.data.ContentPageData</value>
+				<value>de.hybris.platform.cmswebservices.data.ProductPageData</value>
+				<value>de.hybris.platform.cmswebservices.data.EmailPageData</value>
+				<value>de.hybris.platform.cmswebservices.data.CategoryPageData</value>
+				<value>de.hybris.platform.cmswebservices.data.CatalogPageData</value>
+			</set>
+		</property>
+	</bean>
+
+</beans>

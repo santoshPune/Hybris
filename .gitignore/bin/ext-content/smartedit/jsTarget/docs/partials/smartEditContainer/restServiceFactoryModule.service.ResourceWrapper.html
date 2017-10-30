@@ -1,0 +1,76 @@
+<h1><code ng:non-bindable="">ResourceWrapper</code>
+<div><span class="hint">service in module <code ng:non-bindable="">restServiceFactoryModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-page"><p>The ResourceWrapper is service used to make REST calls to the wrapped target URI. It is created
+by the <a href="#/smartEditContainer/restServiceFactoryModule.service:restServiceFactory#methods_get">get</a> method of the <a href="#/smartEditContainer/restServiceFactoryModule.service:restServiceFactory">restServiceFactory</a>. Each resource wrapper
+method returns a <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a>.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_get">get(searchParams)</h3>
+<div class="get"><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-get-page"><p>Loads a unique component based on its identifier that must match the specified get parameters.
+<br/>The REST Service Factory evaluates placeholders in the URI, if any are provided, to verify if they
+match the search parameters.</p>
+</div><h5 id="methods_get_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>searchParams</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-get-page"><p>The object that contains the query parameters, which are then mapped to the
+query string</p>
+</div></td></tr></tbody></table><h5 id="methods_get_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-get-page"><p>A <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> that rejects or resolves to the single object returned by the call.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getbyid">getById(identifier)</h3>
+<div class="getbyid"><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-getbyid-page"><p>Loads a component based on its identifier.</p>
+</div><h5 id="methods_getbyid_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>identifier</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-getbyid-page"><p>The value of the object identifier.</p>
+</div></td></tr></tbody></table><h5 id="methods_getbyid_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-getbyid-page"><p>A <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> that rejects or resolves
+to the single object returned by the call.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_page">page(searchParams)</h3>
+<div class="page"><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-page-page"><p>To be called instead of <a href="#/smartEditContainer/restServiceFactoryModule.service:ResourceWrapper#query">query</a> when the list is wrapped by server in an object (ex: Page).
+<br/>The service will evaluate any placeholder in the URI with matching search params.</p>
+</div><h5 id="methods_page_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>searchParams</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-page-page"><p>The object that contains the query parameters, which are then mapped to the
+query string</p>
+</div></td></tr></tbody></table><h5 id="methods_page_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-page-page"><p>a <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> rejecting or resolving to the page object returned by the call.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_query">query(searchParams)</h3>
+<div class="query"><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-query-page"><p>Loads a list of components that match the specified search parameters.
+<br/>The REST service evaluates the placeholders in the URI, if any are provided, to verify if
+they match the search parameters.</p>
+</div><h5 id="methods_query_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>searchParams</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-query-page"><p>The object that contains the query parameters, which are then mapped to the
+query string</p>
+</div></td></tr></tbody></table><h5 id="methods_query_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-query-page"><p>A <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> A promise that rejects
+or resolves to the list of objects returned by the call.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_remove">remove(payload)</h3>
+<div class="remove"><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-remove-page"><p>Deletes a component. It appends the value of the identifier to the URI.</p>
+<p><br/>The REST service wrapper evaluates the placeholders in the URI, if any are provided, to verify if
+they match the search parameters.</p>
+</div><h5 id="methods_remove_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>payload</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-remove-page"><p>The object to be updated.
+<br/>The promise will be rejected if the payload does not contain the identifier.</p>
+</div></td></tr></tbody></table><h5 id="methods_remove_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-remove-page"><p>A <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> that rejects or resolves
+to what the server returns.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_save">save(payload)</h3>
+<div class="save"><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-save-page"><p>Saves a component. It appends the value of the identifier to the URI.</p>
+<p><br/>The REST service wrapper evaluates the placeholders in the URI, if any are provided, to verify if
+they match the search parameters.</p>
+</div><h5 id="methods_save_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>payload</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-save-page"><p>The object to be saved.
+<br/>The promise will be rejected if the payload does not contain the identifier.</p>
+</div></td></tr></tbody></table><h5 id="methods_save_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-save-page"><p>A <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> that rejects or resolves
+to what the server returns.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_update">update(payload)</h3>
+<div class="update"><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-update-page"><p>Updates a component.  It appends the value of the identifier to the URI.</p>
+<p><br/>The REST service warpper evaluates the placeholders in the URI, if any are provided, to verify if
+they match the search parameters.</p>
+</div><h5 id="methods_update_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>payload</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-update-page"><p>The object to be updated. <br/>The promise will be rejected if the payload does not contain the identifier.</p>
+</div></td></tr></tbody></table><h5 id="methods_update_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="restservicefactorymodule-service-page restservicefactorymodule-service-resourcewrapper-update-page"><p>A <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> A promise that rejects or resolves to what the server returns.</p>
+</div></td></tr></table></div>
+</li>
+</ul>
+</div>
+</div>

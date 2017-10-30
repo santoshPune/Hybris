@@ -1,0 +1,416 @@
+*** Settings ***
+Resource          promotionengine/PromotionEngineServices_Keywords.txt
+Resource          ruleengine/Util_Keywords.txt
+
+*** Test Cases ***
+Test_Apply_Fixed_Price_For_Category_Promotion
+	[Documentation]     Apply special target price on selected product(s) or categories
+	...                 Buy any Canon digital compact camera (combination of categoryCode: 576 AND categoryCode: brand_10) for $60
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize rule engine with rule from and maxAllowedRuns    fixedPriceForCanonCompactCameras    1
+	configure promotionengine
+	
+	# Setting variables 
+	${cartId}=    Set Variable    "030001"
+	${canonCompact1}=    get product by code "1934793"
+	${canonCompact2}=    get product by code "1934794"
+	${sonyCompact}=    get product by code "23210"
+	
+	# Test
+    create cart "${cartId}"
+	add "${canonCompact1}" to cart "${cartId}"
+	add "${canonCompact1}" to cart "${cartId}"
+	add "${canonCompact2}" to cart "${cartId}"
+	add "${sonyCompact}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    409.55
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}    290
+	remove product "${canonCompact1}" for cart "${cartId}"
+	remove product "${canonCompact2}" for cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartAfterPromotedProductsRemoved}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartAfterPromotedProductsRemoved}    110 
+	
+
+Test_Apply_Fixed_Price_For_Product_Promotion
+	[Documentation]     Apply special target price on selected product
+	...                 Buy Canon PowershotA480 Digital compact camera for $60
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize rule engine with rule from and maxAllowedRuns    fixedPriceForPowershotA480    1
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "030002"    
+	${powershotA480}=    get product by code "1934793"
+	${anotherCanonCompact}=    get product by code "1934794"
+	${sonyCompact}=    get product by code "23210"
+	
+	# Test
+    create cart "${cartId}"
+	add "${powershotA480}" to cart "${cartId}"
+	add "${powershotA480}" to cart "${cartId}"
+	add "${anotherCanonCompact}" to cart "${cartId}"
+	add "${sonyCompact}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    409.55
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}    329.85
+	remove product "${powershotA480}" for cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartAfterPromotedProductsRemoved}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartAfterPromotedProductsRemoved}    209.85
+
+Test_Apply_Percentage_Discount_For_Product_Promotion
+	[Documentation]     A percentage discount is applied on every qualifying item from a list of products
+	...                 10% off on EOS 450D (productCode: 1382080) but not another Canon products or other brands
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize rule engine with rule from and maxAllowedRuns    percentageDiscountForEOS450D    1
+	configure promotionengine
+	
+	# Setting variables 
+	${cartId}=    Set Variable    "040001" 
+	${eos450D}=    get product by code "1382080"
+	${anotherCanon}=    get product by code "1934794"
+	${sonyCompact}=    get product by code "23210"
+	
+	# Test
+    create cart "${cartId}"
+	add "${eos450D}" to cart "${cartId}"
+	add "${eos450D}" to cart "${cartId}"
+	add "${anotherCanon}" to cart "${cartId}"
+	add "${sonyCompact}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    1359.61
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}    1244.63
+	remove product "${eos450D}" for cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartAfterPromotedProductsRemoved}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartAfterPromotedProductsRemoved}    209.85
+	
+Test_Apply_Percentage_Discount_For_Product_Promotion_JPY
+	[Documentation]     A percentage discount is applied on every qualifying item from a list of products
+	...                 10% off on EOS 450D (productCode: 1382080) but not another Canon products or other brands
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize rule engine with rule from and maxAllowedRuns    percentageDiscountForEOS450D    1
+	configure promotionengine
+	
+	# Setting variables 
+	${cartId}=    Set Variable    "040001" 
+	${eos450D}=    get product by code "1382080"
+	${anotherCanon}=    get product by code "1934794"
+	${sonyCompact}=    get product by code "23210"
+	
+	# Test
+    create cart "${cartId}" for currency "JPY"
+	add "${eos450D}" to cart "${cartId}"
+	add "${eos450D}" to cart "${cartId}"
+	add "${anotherCanon}" to cart "${cartId}"
+	add "${sonyCompact}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    115804
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}    106010
+	remove product "${eos450D}" for cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartAfterPromotedProductsRemoved}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartAfterPromotedProductsRemoved}    17864
+	
+Test_Apply_Percentage_Discount_For_Category_Promotion
+	[Documentation]     A percentage discount is applied on every item with qualifying category
+	...                 10% off on Canon digital compact camera (combination of categoryCode: 576 AND categoryCode: brand_10) but not another Canon or other brands
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize rule engine with rule from and maxAllowedRuns    percentageDiscountForCanonCompact    1
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "040002"
+	${compactCanon1}=    get product by code "1934793"
+	${compactCanon2}=    get product by code "1934794"
+	${anotherCanon}=    get product by code "1382080"
+	${sonyCompact}=    get product by code "23210"
+	
+	# Test
+    create cart "${cartId}"
+	add "${compactCanon1}" to cart "${cartId}"
+	add "${compactCanon1}" to cart "${cartId}"
+	add "${compactCanon2}" to cart "${cartId}"
+	add "${anotherCanon}" to cart "${cartId}"
+	add "${sonyCompact}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    984.43
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}    954.47
+	remove product "${compactCanon1}" for cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartAfterPromotedProductsRemoved}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartAfterPromotedProductsRemoved}    774.74
+	
+Test_Apply_Percentage_Discount_For_Category_Promotion_JPY
+	[Documentation]     A percentage discount is applied on every item with qualifying category
+	...                 10% off on Canon digital compact camera (combination of categoryCode: 576 AND categoryCode: brand_10) but not another Canon or other brands
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize rule engine with rule from and maxAllowedRuns    percentageDiscountForCanonCompact    1
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "040002"
+	${compactCanon1}=    get product by code "1934793"
+	${compactCanon2}=    get product by code "1934794"
+	${anotherCanon}=    get product by code "1382080"
+	${sonyCompact}=    get product by code "23210"
+	
+	# Test
+    create cart "${cartId}" for currency "JPY"
+	add "${compactCanon1}" to cart "${cartId}"
+	add "${compactCanon1}" to cart "${cartId}"
+	add "${compactCanon2}" to cart "${cartId}"
+	add "${anotherCanon}" to cart "${cartId}"
+	add "${sonyCompact}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    83834
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}    81284
+	remove product "${compactCanon1}" for cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartAfterPromotedProductsRemoved}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartAfterPromotedProductsRemoved}    65984
+	
+	
+Test_Apply_Absolute_Discount_Camcorder_Category
+	[Documentation]     Apply discount to entries with products in camcorder category
+	...					discount not applied to non-camcorders or excluded products (1776948 and 1776947)
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize rule engine with rule from and maxAllowedRuns    entryDiscountForCamcorderCategory    1
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "020004"
+	${camcorderProduct}=    get product by code "1432722"
+	${excludedCamcorderProduct}=    get product by code "1776948"
+	${nonCamcorderProduct}=    get product by code "1934793"
+	
+	# Test
+	create cart "${cartId}"
+	add "${camcorderProduct}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal1}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal1}    381.88
+	add "${excludedCamcorderProduct}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal2}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal2}    528.76
+	add "${excludedCamcorderProduct}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal3}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal3}    675.64
+	remove product "${camcorderProduct}" for cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal4}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal4}    293.76
+	
+Test_Order_Threshold_Perfect_Partner_Fixed_Price
+	[Documentation]     Buy a certain product from within a defined set for a fixed price when the threshold order value is exceeded.
+	...					The target price should apply to as many as possible partner products in the cart.
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	import sourcerule data
+	compile source rule for id "order_threshold_perfect_partner"
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "030003"
+	${partnerProduct1}=    get product by code "482105"
+	${partnerProduct2}=    get product by code "805693"
+	${partnerProduct3}=    get product by code "824267"
+	${partnerProduct4}=    get product by code "824259"
+	${notPartnerProduct}=    get product by code "784343"
+
+	# Test
+	create cart "${cartId}"
+	
+	# Test only 482105 in cart
+	add "${partnerProduct1}" to cart "${cartId}"
+	add "${partnerProduct1}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal1}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal1}    299.38
+	add "${partnerProduct1}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal2}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal2}    150.00
+	
+	# Test only 805693
+	remove product "${partnerProduct1}" for cart "${cartId}"
+	add "${partnerProduct2}" to cart "${cartId}"
+	add "${partnerProduct2}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal3}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal3}    273.00
+	add "${partnerProduct2}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal4}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal4}    150.00
+
+	# Test only 824267
+	remove product "${partnerProduct2}" for cart "${cartId}"
+	add "${partnerProduct3}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal5}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal5}    283.85
+	add "${partnerProduct3}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal6}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal6}    100.00
+
+	# Test only 861175
+	remove product "${partnerProduct3}" for cart "${cartId}"
+	add "${partnerProduct4}" to cart "${cartId}"
+	add "${partnerProduct4}" to cart "${cartId}" 
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal7}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal7}    369.16
+	add "${partnerProduct4}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal8}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal8}    150.00
+	
+	# Test not qualifying product in cart
+	remove product "${partnerProduct4}" for cart "${cartId}"
+	add "${notPartnerProduct}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal9}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal9}    818.33
+
+	# Test not qualifying + qualifying with multiple quantities
+	add "${partnerProduct2}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal11}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal11}    868.33
+	
+	add "${partnerProduct1}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal12}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal12}    918.33
+	
+	add "${partnerProduct2}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal13}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal13}    968.33
+
+	# Test undo
+	remove product "${notPartnerProduct}" for cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal14}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal14}    150.00
+	remove product "${partnerProduct1}" for cart "${cartId}"
+	#total below threshold, remaining 2x805693 -> no discount
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal15}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal15}    273.00
+
+Test_Product_Perfect_Partner_Fixed_Price
+	[Documentation]     Buy a product from a defined set and get partner products for fixed price.
+	...					Buy the camera DSLR-A100H and get InfoLITHIUM Battery NP-FM55H for $75
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize rule engine with rule from and maxAllowedRuns    productPerfectPartnerFixedPrice    1
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "030003"
+	${partnerProduct}=    get product by code "482105"
+	${qualifyingProduct}=    get product by code "816780"
+	${notPartnerProduct}=    get product by code "784343"
+	
+	# Test
+	create cart "${cartId}"
+	
+	add "${partnerProduct}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal1}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal1}    149.69
+	
+	add "${qualifyingProduct}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal2}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal2}    1161.00
+	
+	add "${partnerProduct}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal3}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal3}    1310.69
+	
+	add "${qualifyingProduct}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal4}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal4}    2322.00
+	
+	add "${notPartnerProduct}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal5}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal5}    3140.33
+	
+	remove product "${qualifyingProduct}" for cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal16}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal16}    1117.71
+	
+Test_Product_Price_Threshold_Fixed_Discount
+	[Documentation]     A fixed price discount is applied on products whose base price exceeds the specified threshold value.
+	...                 If product price is over $1000 give fixed discount on products $50 off
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	import sourcerule data
+	compile source rule for id "product_price_threshold_fixed_discount"
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "090001"
+	# original price is 508.88$
+	${productCheaper1000}=    get product by code "2934302"
+	# original price is 1086$
+	${productOver1000}=    get product by code "816780"
+
+	# Test
+	create cart "${cartId}"
+	
+	# Test only "cheap" product in cart
+	add "${productCheaper1000}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal1}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal1}    508.88
+
+	# Add another "cheap" product in cart so that in total > 1000$
+	add "${productCheaper1000}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal2}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal2}    1017.76
+	
+	# Test adding "expensive" product in cart
+	add "${productOver1000}" to cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal3}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal3}    2053.76
+	
+	# Remove 1 "expensive" product from cart
+	remove product "${productOver1000}" for cart "${cartId}"
+	evaluate promotion for cart "${cartId}" by promotion engine
+	${cartTotal4}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartTotal4}    1017.76

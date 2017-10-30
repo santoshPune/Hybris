@@ -1,0 +1,12 @@
+<div class="ySEComponentItem col-xs-6">
+
+	<div class="smartEditComponent" data-smartedit-component-id="{{componentItem.uid}}" data-smartedit-component-type="{{componentItem.typeCode}}">
+		<img data-ng-src="{{imageRoot}}/images/component_default.png" class=" " alt="{{componentItem.name}}" />
+	</div>
+	<div class="ySECustomCompTitle" title="{{componentItem.name}} - {{componentItem.typeCode}}">
+		<div class="ySECustCompName" >{{componentItem.name}}</div>
+		<div class="ySECustCompType" >{{componentItem.typeCode}}</div>
+		<img data-ng-if="!componentItem.visible" class="ySEComponentVisibility" ng-src="{{imageRoot}}/images/icon_visibility.png" >
+	</div>
+
+</div>

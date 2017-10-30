@@ -1,0 +1,89 @@
+# Import essential data for the tests
+#
+# Includes:
+# * Users
+# * Languages
+# * Currencies
+# * Titles
+# * Warehouses
+# * Pages
+
+
+# Users
+$defaultPassword=1234
+
+$regulargroup=regulargroup
+$customergroup=customergroup
+
+$defaultCurrency=EUR
+$defaultLanguage=en
+$deliveryCountries=US
+
+$catalog-id=testCatalog
+$catalog-version=Online
+
+$testCategory0-id=testCategory0
+$testCategory1-id=testCategory1
+
+$catalogversion=catalogversion(catalog(id),version)[unique=true,default=$catalog-id:$catalog-version]
+$supercategories=supercategories(code,catalogversion(catalog(id[default=$catalog-id]),version[default=$catalog-version]))
+$prices=europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+
+$testsiteUID=testSite
+
+
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$catalog-id]),CatalogVersion.version[default=$catalog-version])[default=$catalog-id:$catalog-version]
+
+# Create Customer Group
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid)[mode=append]
+;$regulargroup;customergroup
+
+INSERT_UPDATE Customer;uid[unique=true];groups(uid);password[default=$defaultPassword];name
+;testoauthcustomer;customergroup;;Demo Customer
+
+
+INSERT_UPDATE Language;isocode[unique=true];active;;;;;;;;
+;en;true;;;;;;;;
+
+UPDATE Language;isocode[unique=true];name[lang=en];;;;;;;
+;en;English;;;;;;;
+
+INSERT_UPDATE Unit;unitType[unique=true];code[unique=true];name[lang=en];conversion;;;
+;pieces;pieces;pieces;1
+
+INSERT_UPDATE Currency;isocode[unique=true];name[lang=en];active;base;conversion;digits;symbol;;
+;EUR;Euro;true;true;1;2;E
+;USD;US Dollar;true;false;1,38;2;$
+
+INSERT_UPDATE Country;isocode[unique=true];name[lang=en];active;;;;;;
+;US;United States of America;true;;;;;;
+
+INSERT_UPDATE Catalog;id[unique=true];name[lang=en];defaultCatalog;;;;;;
+;$catalog-id;$catalog-id;true;;;;;;
+
+INSERT_UPDATE CatalogVersion; catalog(id)[unique=true]; version[unique=true];active;defaultCurrency(isocode);;;;;;
+;$catalog-id;$catalog-version;true;EUR;;;;;;
+
+INSERT_UPDATE CMSSite;uid[unique=true];defaultCatalog(id);urlPatterns;active
+;testCmsSite;$catalog-id;(?i)^https?://[^/]+(/[^?]*)?\?(.*\&)?(site=testCmsSite)(|\&.*)$;true
+
+
+INSERT_UPDATE OAuthClientDetails;clientId[unique=true]	;resourceIds	;scope		;authorizedGrantTypes											;authorities			;clientSecret	;registeredRedirectUri
+								;mobile_android			;hybris			;basic		;authorization_code,refresh_token,password,client_credentials	;ROLE_CLIENT			;secret	;http://localhost:9001/authorizationserver/oauth2_callback;
+
+
+INSERT_UPDATE UserGroup;UID[unique=true];groups(uid)[mode=append]; 
+;cmsmanagergroup;employeegroup;
+
+INSERT_UPDATE Employee;UID[unique=true];password[default=$defaultPassword];groups(uid)[mode=append];
+;cmsmanager;;cmsmanagergroup;
+;randomuser;;
+
+
+# Pages
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;LandingPage2Template;Landing Page 2 Template;layout/landingLayout2Page;CategoryPage,ContentPage
+
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='true']
+;;homepage;Homepage;LandingPage2Template;homepage

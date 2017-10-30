@@ -1,0 +1,13 @@
+<div dropdown is-open="status.isopen" auto-close="disabled" id="inflectionPtDropdown">
+    <button type="button" class="btn btn-default yHybridAction yDddlbResolution" dropdown-toggle ng-disabled="disabled " aria-pressed="false">
+        <img data-ng-src="{{imageRoot}}{{currentPointSelected.icon}}" data-ng-typeSelected="{{currentPointSelected.type}}" />
+    </button>
+    <ul class="dropdown-menu bottom btn-block yDdResolution " role="menu">
+        <li ng-repeat="choice in points" class="item text-center">
+            <a href data-ng-click="selectPoint(choice);">
+                <img data-ng-show="currentPointSelected.type !== choice.type" data-ng-src="{{imageRoot}}{{choice.icon}}" class="file" />
+                <img data-ng-show="currentPointSelected.type === choice.type" data-ng-src="{{imageRoot}}{{choice.selectedIcon}}" class="file" />
+            </a>
+        </li>
+    </ul>
+</div>

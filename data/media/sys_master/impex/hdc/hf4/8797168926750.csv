@@ -1,0 +1,6 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE AccountBookmarkComponent;pk[unique=true]
+;8796148335676
+;8796148302908
+#  end of pk list for AccountBookmarkComponent
+#  

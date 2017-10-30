@@ -1,0 +1,20 @@
+package de.hybris.platform.ruleengineservices.test
+
+import java.math.*;
+import de.hybris.platform.ruleengineservices.rao.*;
+import de.hybris.platform.ruleengineservices.rule.evaluation.*;
+
+global AddOrderDiscountRAOAction addOrderDiscountRAOAction;
+
+salience 50;
+// cart with code ABC gets $10 discount
+rule "raoRule01"
+@ruleCode("raoRule01.drl")
+    when
+    	$cart:CartRAO(code == "ABC")
+    	$result:RuleEngineResultRAO()
+    	// check if rule discount is not applied already
+    	not $discount:DiscountRAO( firedRuleCode == "raoRule01.drl" )
+    then
+    	addOrderDiscountRAOAction.addOrderLevelDiscount($cart, true, new BigDecimal("10.00"), $result, kcontext);
+end

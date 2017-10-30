@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<project name="ycmssmartedit_buildcallbacks">
+
+	<macrodef name="ycmssmartedit_before_clean">
+		<sequential>
+            <removeLinkToSELibraries path="${ext.ycmssmartedit.path}"/>
+			<gruntBuild path="${ext.ycmssmartedit.path}" phase="clean" />
+            <if>
+                <isset property="ext.cmssmartedit.path"/>
+                <then>
+                    <echo level="info" message="copying ycmssmartedit features to the cmssmartedit extension"/>
+                    <copy todir="${ext.cmssmartedit.path}/web/featureExtensions/ycmssmartedit" overwrite="true" verbose="true">
+                        <fileset dir="${ext.ycmssmartedit.path}/web/features/">
+                            <include name="**/**.*" />
+                        </fileset>
+                    </copy>
+                </then>
+            </if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="ycmssmartedit_before_build">
+		<sequential>
+			<linkToSELibraries path="${ext.ycmssmartedit.path}"/>
+			<gruntBuild path="${ext.ycmssmartedit.path}" phase="compile" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="ycmssmartedit_before_yunit">
+		<sequential>
+			<gruntBuild path="${ext.ycmssmartedit.path}" phase="test_only" />
+			<!--<gruntBuild path="${ext.cmssmartedit.path}" phase="verify_only" />-->
+		</sequential>
+	</macrodef>
+
+</project>

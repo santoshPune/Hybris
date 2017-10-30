@@ -1,0 +1,37 @@
+<h1><code ng:non-bindable="">MODAL_BUTTON_STYLES</code>
+<div><span class="hint">object in module <code ng:non-bindable="">modalServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="modalservicemodule-object-page modalservicemodule-object-modal-button-styles-page"><p>Injectable angular constant<br/>
+Defines the look and feel of a button on a modal window. To be used when adding a button to the modal,
+either when opening a modal (see <a href="#/smartEdit/modalServiceModule.service:ModalManager#methods_getbuttons">ModalManager.getButtons()</a>) or
+when adding a button to an existing modal (see <a href="#/smartEdit/modalServiceModule.modalService#methods_open">modalService.open()</a>)</p>
+<p>Example:
+<pre class="prettyprint linenums">
+     myModalManager.addButton({
+         id: 'button id',
+         label: 'cancel_button',
+         style: MODAL_BUTTON_STYLES.SECONDARY
+     });
+</pre>
+</div></div>
+<div class="member property"><h2 id="properties">Properties</h2>
+<ul class="properties"><li><h3 id="properties_default">DEFAULT</h3>
+<div class="default"><div class="default-page"><p>Equivalent to SECONDARY</p>
+</div></div>
+</li>
+<li><h3 id="properties_primary">PRIMARY</h3>
+<div class="primary"><div class="primary-page"><p>Indicates to the modal window that this button is the primary button of the modal, such as save or submit,
+and should be styled accordingly.</p>
+</div></div>
+</li>
+<li><h3 id="properties_secondary">SECONDARY</h3>
+<div class="secondary"><div class="secondary-page"><p>Indicates to the modal window that this button is a secondary button of the modal, such as cancel,
+and should be styled accordingly.</p>
+</div></div>
+</li>
+</ul>
+</div>
+</div>

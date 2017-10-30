@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+-->
+
+
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<!-- webservice error data -->
+
+	<bean class="de.hybris.platform.webservicescommons.dto.error.ErrorWsDTO">
+		<description>Error message</description>
+		<property name="type" type="String">
+			<description>Type of the error e.g. 'LowStockError'.</description>
+		</property>
+		<property name="reason" type="String">
+			<description>Additional classification specific for each error type e.g. 'noStock'.</description>
+		</property>
+		<property name="message" type="String">
+			<description>Descriptive, human readable error message.</description>
+		</property>
+		<property name="subjectType" type="String">
+			<description>Type of the object related to the error e.g. 'entry'.</description>
+		</property>
+		<property name="subject" type="String">
+			<description>Identifier of the related object e.g. '1'.</description>
+		</property>
+	</bean>
+
+	<bean class="de.hybris.platform.webservicescommons.dto.error.ErrorListWsDTO">
+		<description>List of errors</description>
+		<property name="errors"
+		          type="java.util.List&lt;de.hybris.platform.webservicescommons.dto.error.ErrorWsDTO>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.webservicescommons.dto.PaginationWsDTO">
+		<description>Pagination info</description>
+		<property name="count" type="int">
+			<description>Number of elements on this page</description>
+		</property>
+		<property name="totalCount" type="int">
+			<description>Total number of elements</description>
+		</property>
+		<property name="page" type="int">
+			<description>Current page number</description>
+		</property>
+		<property name="totalPages" type="int">
+			<description>Total number of pages</description>
+		</property>
+	</bean>
+
+</beans>

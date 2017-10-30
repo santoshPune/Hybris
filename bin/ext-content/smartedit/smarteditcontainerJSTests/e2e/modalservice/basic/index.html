@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!--3rd prty libs-->
+    <script src="../../../../web/webroot/static-resources/thirdparties/jquery/dist/jquery.min.js"></script>
+    <script src="../../../../web/webroot/static-resources/thirdparties/angular/angular.js"></script>
+    <script src="../../../../web/webroot/static-resources/thirdparties/angular-cookies/angular-cookies.js"></script>
+    <script src="../../../../web/webroot/static-resources/thirdparties/angular-route/angular-route.js"></script>
+    <script src="../../../../web/webroot/static-resources/thirdparties/angular-resource/angular-resource.js"></script>
+    <script src="../../../../web/webroot/static-resources/thirdparties/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="../../../../web/webroot/static-resources/thirdparties/angular-mocks/angular-mocks.js"></script>
+    <script src="../../../../web/webroot/static-resources/thirdparties/angular-translate/angular-translate.min.js"></script>
+    <script src="../../../../web/webroot/static-resources/thirdparties/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="../../../../web/webroot/static-resources/thirdparties/scriptjs/script.js"></script>
+    <script src="../../../../web/webroot/static-resources/thirdparties/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+
+    <!-- 3rd party css -->
+    <link rel="stylesheet" href="../../../../web/webroot/static-resources/dist/smartedit/css/outer-styling.css">
+
+    <!--libs-->
+    <script src="../../../../web/common/services/functions.js"></script>
+    <script src="../../../../web/common/services/resourceLocations.js"></script>
+    <script src="../../../../web/common/services/restServiceFactory.js"></script>
+
+    <script src="../../../../web/common/services/eventservice.js"></script>
+    <script src="../../../../web/common/services/gatewayFactory.js"></script>
+    <script src="../../../../web/common/services/gatewayProxy.js"></script>
+    <script src="../../../../web/smarteditcontainer/services/storageService.js"></script>
+
+    <script src="../../../../web/common/services/languageService.js"></script>
+    <script src="../../../../web/common/services/interceptorHelper.js"></script>
+    <script src="../../../../web/common/services/i18nInterceptor.js"></script>
+    <script src="../../../../web/common/services/translateService.js"></script>
+    <script src="../../../../web/common/services/modalService.js"></script>
+    <script src="../../../../jsTarget/templates.js"></script>
+    <script src="app.js"></script>
+    <base href="../../../../" />
+</head>
+
+
+
+<body data-ng-app="app" data-ng-controller="defaultController">
+
+    <button id="test1" class="btn btn-primary" data-ng-click="openModal1();">open modal with templateUrl containing directive</button>
+    <br/>
+    <button id="test2" class="btn btn-primary" data-ng-click="openModal2();">open modal with templateUrl and controller ID</button>
+    <br/>
+    <button id="test3" class="btn btn-primary" data-ng-click="openModal3();">open modal with templateUrl and controller function</button>
+    <br/>
+    <button id="test4" class="btn btn-primary" data-ng-click="openModal4();">open modal with template and controller</button>
+    <br/>
+    <button id="test5" class="btn btn-primary" data-ng-click="openModal5();">open modal with template containing directive</button>
+    <br/>
+    <span id="successfulMessage">{{message}}</span>
+    <br/>
+    <span id="failureMessage">{{failure}}</span>
+</body>
+
+</html>

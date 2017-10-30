@@ -1,0 +1,37 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+
+*** Settings ***
+Library         com.hybris.services.entitlements.atdd.keywords.EntitlementsBuilderKeywordLibrary
+Library         com.hybris.services.entitlements.atdd.keywords.EntitlementsExecuteKeywordLibrary
+
+*** Keywords ***
+grant entitlement with entitlementType "${entitlementType:[^"]+}" and conditions "${conditions:[^"]+}" for user "${user:[^"]+}" and expect exception "${exceptionType:[^"]+}" with message "${exceptionMessage:[^"]+}"
+    [Documentation]    Grants entitlement (with given entitlement type) with conditions
+    ${id} =    generate id
+    ${entitlement}=    grant entitlement with params and conditions    ${entitlementType}    ${user}    ${conditions}  ${exceptionType}  ${exceptionMessage}
+    [Return]    ${entitlement}
+
+check entitlement with entitlementType "${entitlementType:[^"]+}" and conditions "${condition:[^"]+}" for user "${user:[^"]+}" and expect exception "${exceptionType:[^"]+}" with message "${exceptionMessage:[^"]+}"
+    [Documentation]    Checks entitlements with conditions for user and expect exception
+    ...                "entitlement type" condition with parameters {"key1":"value", "key2":"value"}
+    execute entitlement with condition    check    ${entitlementType}     ${user}     ${condition}    true    ${exceptionType}  ${exceptionMessage}
+
+use entitlement with entitlementType "${entitlementType:[^"]+}" and conditions "${condition:[^"]+}" for user "${user:[^"]+}" and expect exception "${exceptionType:[^"]+}" with message "${exceptionMessage:[^"]+}"
+    [Documentation]    Checks entitlements with conditions for user. Expect exception
+    ...                "entitlement type" condition with parameters {"key1":"value", "key2":"value"}
+    execute entitlement with condition    use    ${entitlementType}     ${user}     ${condition}    true    ${exceptionType}  ${exceptionMessage}
+
+set property name "${propertyName:[^"]+}" and value "${propertyValue:[^"]+}" for entitlement with id "${entitlementId:[^"]+}" and expect exception
+    [Documentation]     Set property to entitlement
+    ${result}=    update entitlement property exception is expected    ${entitlementId}    ${propertyName}    ${propertyValue}
+    [Return]    ${result}

@@ -1,0 +1,4 @@
+INSERT_UPDATE UserRight;code[unique=true];
+;smartedit.configurationcenter.read;
+
+#% de.hybris.platform.smarteditwebservices.utils.PermissionsImportUtils.importGlobalPermission("admingroup", "smartedit.configurationcenter.read"); 	 	 	 	 	 

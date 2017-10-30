@@ -1,0 +1,35 @@
+<div class="media-selector">
+    <ui-select id="{{ctrl.field.qualifier}}-selector" ng-model="ctrl.model[ctrl.qualifier]" theme="select2" data-ng-disabled="!ctrl.field.editable" reset-search-input="false" title="" style="width:100%">
+        <ui-select-match placeholder="{{'genericeditor.dropdown.placeholder' | translate}}" allow-clear="true">
+            <div class="media-selector--preview">
+                <div class="row">
+                    <span class="col-xs-6">
+                        <se-media-preview data-image-url="ctrl.field.options[ctrl.qualifier][0].url"></se-media-preview>{{ctrl.imagePreviewUrl}}
+                        <div class="se-media-preview-image-wrapper">
+                            <img class="thumbnail thumbnail--image-preview" data-ng-src={{$select.selected.url}}>
+                        </div>
+                        <span class="media-preview-code">{{$select.selected.code}}</span>
+                    </span>
+                    <span class="col-xs-6 media-selector--preview--2">
+                        <se-media-advanced-properties class="media-selector--preview__right" data-code="ctrl.field.options[ctrl.qualifier][0].code" data-description="ctrl.field.options[ctrl.qualifier][0].description" data-alt-text="ctrl.field.options[ctrl.qualifier][0].altText" data-adv-info-icon="ctrl.advInfoIcon"></se-media-advanced-properties>
+
+                        <button class="media-selector--preview__right replace-image btn btn-subordinate" data-ng-click="ctrl.onDelete($select, $event)">
+                            <p class="media-selector--preview__right--p">{{'upload.image.replace' | translate}}</p>
+                            <img class="media-selector--preview--icon" data-ng-src="{{ctrl.replaceIcon}}" />
+                        </button>
+                        <button class="media-selector--preview__right remove-image btn btn-subordinate" data-ng-click="ctrl.onDelete($select, $event)">
+                            <p class="media-selector--preview__right--p">{{'media.format.remove' | translate}}</p>
+                            <img class="media-selector--preview--icon" data-ng-src="{{ctrl.deleteIcon}}" />
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </ui-select-match>
+        <ui-select-choices id="{{ctrl.field.qualifier}}-list" repeat="option.code as option in ctrl.field.options[ctrl.qualifier]" refresh="ctrl.editor.refreshOptions(ctrl.field, ctrl.qualifier, $select.search)" value="{{$select.selected.code}}" refresh-delay="0" position="down">
+            <small>
+                <img class="thumbnail" data-ng-src={{option.url}}>
+                <span>{{option.code}}</span>
+            </small>
+        </ui-select-choices>
+    </ui-select>
+</div>

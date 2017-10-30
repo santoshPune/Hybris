@@ -1,0 +1,21 @@
+package de.hybris.platform.promotionengineservices.test
+
+import java.math.BigDecimal;
+import de.hybris.platform.ruleengineservices.rao.ProductRAO;
+import de.hybris.platform.ruleengineservices.rao.CategoryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddProductDiscountRAOAction;
+
+global AddProductDiscountRAOAction addProductDiscountRAOAction;
+
+rule "productPromotionTestRuleForCategory1"
+@ruleCode("productPromotionTestRuleForCategory1.drl")
+no-loop true
+
+    when
+    	$category:CategoryRAO(code == "testCategory1")
+    	$product:ProductRAO(categories contains $category)
+    	$result:RuleEngineResultRAO()
+    then
+    	addProductDiscountRAOAction.addProductDiscount($product, false, null, new BigDecimal("10.00"), $result, kcontext);
+end

@@ -1,0 +1,30 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.CategoryRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddFixedPriceEntryDiscountRAOAction;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+
+global AddFixedPriceEntryDiscountRAOAction addFixedPriceEntryDiscountRAOAction;
+
+rule "fixedPriceForCanonCompactCameras"
+@ruleCode("fixedPriceForCanonCompactCameras")
+
+	salience 10
+	when
+		$result : RuleEngineResultRAO()
+        $compactCameraCategory : CategoryRAO(code == "576")
+        $canonBrandCategory : CategoryRAO(code == "brand_10")
+		$config : RuleConfigurationRRD(ruleCode == "fixedPriceForCanonCompactCameras")
+        $entries : ArrayList(size > 0) from collect( OrderEntryRAO(product.categories contains $compactCameraCategory && product.categories contains $canonBrandCategory, quantity > 0) )
+        
+		$cart : CartRAO(currencyIsoCode == "USD")
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+	then
+		addFixedPriceEntryDiscountRAOAction.addFixedPriceEntryDiscounts($entries, new BigDecimal("60.00"), $result, kcontext);
+end

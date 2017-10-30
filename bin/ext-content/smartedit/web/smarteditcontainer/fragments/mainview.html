@@ -1,0 +1,14 @@
+<div class="ySmartEditToolbars" style="position:absolute">
+    <div>
+        <toolbar data-css-class="ySmartEditTitleToolbar" data-image-root="imageRoot" data-toolbar-name="smartEditTitleToolbar"></toolbar>
+    </div>
+    <div>
+        <toolbar data-css-class="ySmartEditExperienceSelectorToolbar" data-image-root="imageRoot" data-toolbar-name="experienceSelectorToolbar"></toolbar>
+    </div>
+</div>
+<div ng-class="{'alert-overlay': true, 'ySEEmptyMessage': (!alerts || alerts.length == 0 ) }">
+    <alerts-box alerts="alerts" />
+</div>
+<div id="js_iFrameWrapper" class="iframeWrapper">
+    <iframe src="" hy-dropabpe-iframe></iframe>
+</div>

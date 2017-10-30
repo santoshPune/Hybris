@@ -1,0 +1,6 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE NavigationComponent;pk[unique=true]
+;8796142044220
+;8796141683772
+#  end of pk list for NavigationComponent
+#  

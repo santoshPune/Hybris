@@ -1,0 +1,21 @@
+<div class="ySmartEditToolbars" style="position:absolute">
+    <div>
+        <toolbar data-css-class="ySmartEditTitleToolbar" data-image-root="imageRoot" data-toolbar-name="smartEditTitleToolbar"></toolbar>
+    </div>
+</div>
+<div class="landingPageWrapper">
+    <div class="ySELandingTitle">
+        <h1 class="landing-page-title" data-translate='landingpage.title'></h1>
+        <h4 class="landing-page-label" data-translate='landingpage.label'></h4>
+    </div>
+    <div class="container-fluid ySELandingPage">
+        <div class="row">
+            <div class="ySECatalogEntry" data-ng-repeat="catalog in landingCtl.catalogs | startFrom:(landingCtl.currentPage-1)*landingCtl.CATALOGS_PER_PAGE | limitTo:landingCtl.CATALOGS_PER_PAGE">
+                <catalog-details catalog="catalog"></catalog-details>
+            </div>
+        </div>
+        <div class="pagination-container">
+            <pagination boundary-links="true" total-items="landingCtl.totalItems" items-per-page="landingCtl.CATALOGS_PER_PAGE" ng-model="landingCtl.currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        </div>
+    </div>
+</div>

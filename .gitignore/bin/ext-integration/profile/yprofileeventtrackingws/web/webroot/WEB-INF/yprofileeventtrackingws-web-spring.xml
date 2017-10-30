@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ [y] hybris Platform
+  ~ 
+  ~ Copyright (c) 2000-2016 SAP SE
+  ~ All rights reserved.
+  ~ 
+  ~ This software is the confidential and proprietary information of SAP 
+  ~ Hybris ("Confidential Information"). You shall not disclose such 
+  ~ Confidential Information and shall use it only in accordance with the 
+  ~ terms of the license agreement you entered into with SAP Hybris.
+  -->
+
+
+<!-- 
+  WARNING: This is the Spring WEB configuration file. If you want to replace
+  items or managers you have to do this from the extensions core configuration 
+  file (yprofileeventtrackingws/resources/yprofileeventtrackingws-spring.xml) 
+  -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config/>
+	<context:component-scan base-package="com.hybris.yprofile.eventtracking" scope-resolver="de.hybris.platform.spring.IgnoreTenantScopeMetadataResolver"  />
+
+	<!-- Spring managed FilterChain for hybris Filter stack -->
+	<bean id="yProfileEventTrackingFilterChain" class="de.hybris.platform.servicelayer.web.PlatformFilterChain">
+		<constructor-arg>
+			<list>
+				<ref bean="log4jFilter"/>
+				<ref bean="dynamicTenantActivationFilter"/>
+				<ref bean="sessionFilter"/>
+           		<ref bean="yprofileeventtrackingwsSecureMediaFilter"/>
+				<ref bean="eventTrackingCorsFilter"/>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<alias name="defaultEventTrackingCorsFilter" alias="eventTrackingCorsFilter"/>
+	<bean id="defaultEventTrackingCorsFilter" class="com.hybris.yprofile.eventtracking.filters.EventTrackingCorsFilter">
+		<constructor-arg>
+			<bean class="org.springframework.web.util.UrlPathHelper"/>
+		</constructor-arg>
+	</bean>
+
+   <bean id="yprofileeventtrackingwsSecureMediaFilter" class="de.hybris.platform.servicelayer.web.SecureMediaFilter">
+       <property name="mediaPermissionService" ref="mediaPermissionService"/>
+       <property name="modelService" ref="modelService"/>
+       <property name="userService" ref="userService"/>
+       <property name="mediaService" ref="mediaService"/>
+      <!-- <property name="secureMediaToken" value="securemedias"/>  securemedias is default but you may overwrite it -->
+   </bean>
+
+	<!-- json raw event enricher -->
+	<alias name="defaultRawEventEnricher" alias="rawEventEnricher"/>
+	<bean id="defaultRawEventEnricher" class="com.hybris.yprofile.eventtracking.services.DefaultRawEventEnricher">
+		<property name="userService" ref="userService"/>
+		<property name="consentService" ref="consentService"/>
+	</bean>
+
+	<!--Event endpoint -->
+	<alias name="defaultEventTrackingEndpoint" alias="eventTrackingEndpoint"/>
+	<bean id="defaultEventTrackingEndpoint" class="com.hybris.yprofile.eventtracking.rest.EventTrackingEndpoint">
+		<property name="rawTrackingEventsChannel" ref="rawTrackingEventsChannel"/>
+		<property name="rawEventEnricher" ref="rawEventEnricher"/>
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<bean class="com.hybris.yprofile.eventtracking.web.RuntimeExceptionMapper"/>
+
+
+</beans>

@@ -1,0 +1,2 @@
+INSERT_UPDATE User;UID[unique=true];description;name;sessionLanguage(isocode);password;groups(uid)
+;vjdbcReportsUser;JDBC API Report user. Allowed to perform data fetch queries on platform via VJDBC.;JDBC API Report User;en;1234;vjdbcReportsGroup

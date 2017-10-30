@@ -1,0 +1,201 @@
+//fonts
+.landingPageWrapper h1.landing-page-title{
+    font-family: @font-dosis;
+    color: #212120;
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.landingPageWrapper h4.landing-page-label{
+    font-family: @font-open-sans;
+    color: #8592a2;
+    font-size: 19px;
+    text-align: center;
+}
+
+.landingPageWrapper .catalog-header h4{
+    font-family: @font-open-sans;
+    color: #313440;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.landingPageWrapper .catalog-version-info{
+    font-family: @font-roboto;
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.landingPageWrapper .ySELastSync,
+.landingPageWrapper .catalog-last-synced{
+    font-family: @font-dosis;
+    color: #8592a2;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.landingPageWrapper .ySECatalogStatus .label-error{
+    font-family: @font-dosis;
+    color: #ff3b30;
+    font-size: 13px;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+.landingPageWrapper .ySECatalogSync .ySESyncProgress{
+    font-family: @font-dosis;
+    color: #18bc33;
+    font-size: 16px;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+.ySECatalogEntry:nth-of-type(odd) .ySECatalog{
+    padding-left: @smartedit-gutter;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+.ySECatalogEntry:nth-of-type(even) .ySECatalog{
+    padding-left: 5px;
+    padding-right: @smartedit-gutter;
+    padding-bottom: 10px;
+}
+
+//gutters, padding, and spacing
+.landingPageWrapper {
+    height: 100%;
+    padding-top: 115px;
+}
+
+.ySELandingTitle{
+    padding-bottom: @smartedit-gutter;
+}
+
+.catalog-header{
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.ySECatalogDivider{
+    border-top: 1px solid #cedcec;
+    margin: 15px 20px 25px 20px;
+}
+
+.catalog-container {
+
+    background-color: #fff;
+
+    .catalog-version-item:nth-of-type(even){
+        padding-left: 10px;
+        padding-right: 20px;
+    }
+
+    .catalog-version-item:nth-of-type(odd){
+        padding-left: 20px;
+        padding-right: 10px;
+    }
+
+    .catalog-version-container {
+        width: 100%;
+        margin: 0;
+        height: 250px;
+        position: relative;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+    }
+
+    .catalog-version-info{
+        width:100%;
+        padding: 10px 0px 10px 20px;
+        opacity: 0.7;
+        background-color: #000000;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .catalog-version-info:after{
+        content: ' \276F';
+    }
+
+    .catalog-thumbnail-default-img {
+        background: url('../../../../static-resources/images/icon_site_placeholder.jpg');
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-size: cover;
+        border: 1px solid #cedcec;
+
+        .catalog-thumbnail {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-size: cover;
+        }
+    }
+
+    .catalog-footer {
+        overflow: auto;
+        padding: 0 0 20px 0;
+        label{
+            font-weight: normal;
+        }
+    }
+}
+
+.catalog-body{
+    overflow: auto;
+}
+
+.pagination-container {
+    margin-top: 2em;
+    text-align: center;
+}
+
+.ySECatalogStatus {
+    padding-left: 20px;
+    display: table;
+
+    *{
+        display: table-cell;
+        vertical-align: middle;
+    }
+}
+
+.ySECatalogSync,
+.ySECatalogStatus{
+    height: 40px;
+}
+
+.catalog-body>.row{
+    margin-left:0;
+    margin-right: 0;
+}
+
+.ySECatalogSync{
+    padding-right: 20px;
+    label{
+        padding-top: 10px;
+    }
+}
+
+catalog-details>div{
+    padding-top: 10px;
+}
+
+.ySELastSync,
+.catalog-last-synced{
+    padding-right: 5px;
+}

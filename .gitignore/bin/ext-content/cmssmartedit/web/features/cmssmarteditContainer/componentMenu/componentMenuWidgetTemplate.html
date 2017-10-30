@@ -1,0 +1,15 @@
+<div dropdown is-open="status.isopen" auto-close="disabled" class="ySEComponentMenuW">
+    <button type="button" class="btn btn-default yHybridAction ySEComponentMenuW--button" dropdown-toggle ng-disabled="disabled " aria-pressed="false">
+        <img data-ng-src="{{imageRoot}}{{menuIcon}}"/>
+        <span class="ySEComponentMenuW--button--txt">{{'componentmenu.btn.label.addcomponent' | translate}}</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-left btn-block ySEComponentMenu" role="menu" ng-click="preventDefault($event);" >
+        <li role="menuitem " class="item ">
+            <component-search></component-search>
+        </li>
+        <li class="divider "></li>
+        <li role="menuitem " class="item ">
+            <component-tabs></component-tabs>
+        </li>
+    </ul>
+</div>

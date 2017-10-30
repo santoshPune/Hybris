@@ -1,0 +1,30 @@
+<h1><code ng:non-bindable="">iframeClickDetectionService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">iframeClickDetectionServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="iframeclickdetectionservicemodule-service-page iframeclickdetectionservicemodule-service-iframeclickdetectionservice-page"><p>The iframe Click Detection service uses the  <a href="#/smartEditContainer/gatewayProxyModule.gatewayProxy">gatewayProxy</a> service to listen
+for click events, specifically mousedown events, from the SmartEdit application. This service also provides the
+functionality to register callbacks to click events.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_oniframeclick">onIframeClick()</h3>
+<div class="oniframeclick"><div class="iframeclickdetectionservicemodule-service-page iframeclickdetectionservicemodule-service-iframeclickdetectionservice-oniframeclick-page"><p>Triggers all callbacks currently registered to the service. This function is registered as a listener through
+the  <a href="#/smartEditContainer/gatewayProxyModule.gatewayProxy">gatewayProxy</a>.</p>
+</div></div>
+</li>
+<li><h3 id="methods_registercallback">registerCallback(id, callback)</h3>
+<div class="registercallback"><div class="iframeclickdetectionservicemodule-service-page iframeclickdetectionservicemodule-service-iframeclickdetectionservice-registercallback-page"><p>Registers a callback to be triggered when a click occurs in the iframe.</p>
+</div><h5 id="methods_registercallback_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>id</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="iframeclickdetectionservicemodule-service-page iframeclickdetectionservicemodule-service-iframeclickdetectionservice-registercallback-page"><p>The ID to register the given callback</p>
+</div></td></tr><tr><td>callback</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="iframeclickdetectionservicemodule-service-page iframeclickdetectionservicemodule-service-iframeclickdetectionservice-registercallback-page"><p>The callback to be triggered.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_removecallback">removeCallback(id)</h3>
+<div class="removecallback"><div class="iframeclickdetectionservicemodule-service-page iframeclickdetectionservicemodule-service-iframeclickdetectionservice-removecallback-page"><p>Removes a callback registered to the given ID</p>
+</div><h5 id="methods_removecallback_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>id</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="iframeclickdetectionservicemodule-service-page iframeclickdetectionservicemodule-service-iframeclickdetectionservice-removecallback-page"><p>The ID of the callback to remove</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

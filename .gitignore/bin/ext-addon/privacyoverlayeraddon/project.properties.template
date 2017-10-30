@@ -1,0 +1,34 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform 
+# 
+# Copyright (c) 2000-2016 hybris AG
+# All rights reserved.
+#  
+# This software is the confidential and proprietary information of hybris 
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with hybris.
+#
+#  
+# -----------------------------------------------------------------------
+
+# you can put key/value pairs here.
+# Use Config.getParameter(..) to retrieve the values during runtime.
+
+privacyoverlayeraddon.key=value
+
+# Specifies the location of the spring context file added automatically to the global platform application context.
+privacyoverlayeraddon.application-context=privacyoverlayeraddon-spring.xml
+
+yacceleratorstorefront.additionalWebSpringConfigs.privacyoverlayeraddon=classpath:/privacyoverlayeraddon/web/spring/privacyoverlayeraddon-web-spring.xml
+
+
+privacyoverlayeraddon.javascript.paths.desktop=/responsive/common/js/privacyoverlayeraddon.js;/shared/common/js/jquery.cookiebar.js
+privacyoverlayeraddon.javascript.paths.mobile=/responsive/common/js/privacyoverlayeraddon.js;/shared/common/js/jquery.cookiebar.js
+privacyoverlayeraddon.javascript.paths.responsive=/responsive/common/js/privacyoverlayeraddon.js;/shared/common/js/jquery.cookiebar.js
+privacyoverlayeraddon.css.paths.desktop=/responsive/common/css/privacyoverlayeraddon.css
+privacyoverlayeraddon.css.paths.mobile=/responsive/common/css/privacyoverlayeraddon.css
+privacyoverlayeraddon.css.paths.responsive=/responsive/common/css/privacyoverlayeraddon.css
+
+privacyoverlayeraddon.accept.url=
+privacyoverlayeraddon.accept.https.url=

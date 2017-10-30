@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="com.hybris.yprofile.dto.TrackingEvent">
+		<property name="action_name" type="String"/>
+		<property name="idsite" type="String"/>
+		<property name="rec" type="String"/>
+		<property name="r" type="String"/>
+		<property name="h" type="String"/>
+		<property name="m" type="String"/>
+		<property name="s" type="String"/>
+		<property name="url" type="String"/>
+		<property name="_id" type="String"/>
+		<property name="_idts" type="String"/>
+		<property name="_idvc" type="String"/>
+		<property name="_idn" type="String"/>
+		<property name="_refts" type="String"/>
+		<property name="_viewts" type="String"/>
+		<property name="send_image" type="String"/>
+		<property name="pdf" type="String"/>
+		<property name="qt" type="String"/>
+		<property name="realp" type="String"/>
+		<property name="wma" type="String"/>
+		<property name="dir" type="String"/>
+		<property name="fla" type="String"/>
+		<property name="java" type="String"/>
+		<property name="gears" type="String"/>
+		<property name="ag" type="String"/>
+		<property name="cookie" type="String"/>
+		<property name="res" type="String"/>
+		<property name="data" type="String"/>
+		<property name="cvar" type="String"/>
+		<property name="gt_ms" type="String"/>
+		<property name="date" type="String"/>
+		<property name="piwik_id" type="String"/>
+		<property name="search" type="String"/>
+		<property name="search_cat" type="String"/>
+		<property name="search_count" type="String"/>
+		<property name="ec_id" type="String"/>
+		<property name="ec_st" type="String"/>
+		<property name="ec_tx" type="String"/>
+		<property name="ec_dt" type="String"/>
+		<property name="ec_items" type="String"/>
+		<property name="userId" type="String"/>
+		<property name="brand" type="String"/>
+		<property name="categories" type="java.util.List&lt;com.hybris.yprofile.dto.Category>"/>
+		<property name="price" type="String"/>
+		<property name="userAgent" type="String"/>
+		<property name="accept" type="String"/>
+		<property name="acceptLanguage" type="String"/>
+		<property name="referer" type="String"/>
+	</bean>
+
+	<bean class="com.hybris.yprofile.dto.Category">
+		<property name="name" type="String" equals="true"/>
+		<property name="code" type="String" equals="true"/>
+		<property name="parentId" type="String" equals="true"/>
+	</bean>
+
+</beans>

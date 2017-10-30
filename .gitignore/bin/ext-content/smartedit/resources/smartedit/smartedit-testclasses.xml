@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testclasses><smartedit><testclass>de.hybris.smartedit.controllers.LoginSmartEditControllerTest</testclass><testclass>de.hybris.smartedit.controllers.RootControllerTest</testclass><testclass>de.hybris.smartedit.security.LoginAuthenticationFailureHandlerTest</testclass></smartedit></testclasses>

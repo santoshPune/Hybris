@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<alias name="defaultCouponCodeModelToVoucherDataPopulator" alias="couponCodeModelToVoucherDataPopulator"/>
+	<bean id="defaultCouponCodeModelToVoucherDataPopulator"
+			class="de.hybris.platform.couponfacades.converters.populator.CouponCodeToVoucherDataPopulator">
+	</bean>
+
+	<alias name="defaultCouponCodeModelConverter" alias="couponCodeModelConverter"/>
+	<bean id="defaultCouponCodeModelConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.voucher.data.VoucherData"/>
+		<property name="populators">
+			<list merge="true">
+				<ref bean="couponCodeModelToVoucherDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+			
+	<alias name="defaultCouponCodeDetailsToVoucherDataPopulator" alias="couponCodeDetailsToVoucherDataPopulator"/>
+	<bean id="defaultCouponCodeDetailsToVoucherDataPopulator"
+			class="de.hybris.platform.couponfacades.converters.populator.CouponCodeDetailsModelToVoucherDataPopulator">
+	</bean>
+
+	<alias name="defaultCouponDetailsConverter" alias="couponDetailsConverter"/>
+	<bean id="defaultCouponDetailsConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.voucher.data.VoucherData"/>
+		<property name="populators">
+			<list merge="true">
+				<ref bean="couponCodeDetailsToVoucherDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultCouponFacade" alias="voucherFacade"/>
+	<bean id="defaultCouponFacade" class="de.hybris.platform.couponfacades.facades.impl.DefaultCouponFacade">
+		<property name="couponService" ref="couponService"/>
+		<property name="cartService" ref="cartService"/>
+		<property name="couponCodeModelConverter" ref="couponCodeModelConverter"/>
+		<property name="couponCodeDetailsConverter" ref="couponDetailsConverter"/>
+	</bean>
+				
+</beans>

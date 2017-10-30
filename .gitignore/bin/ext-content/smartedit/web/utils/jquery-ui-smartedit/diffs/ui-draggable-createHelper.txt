@@ -1,0 +1,29 @@
+_createHelper: function(event) {
+
+		var o = this.options,
+			helperIsFunction = $.isFunction( o.helper ),
+			helper = helperIsFunction ?
+				$( o.helper.apply( this.element[ 0 ], [ event ] ) ) :
+				( o.helper === "clone" ?
+					this.element.clone().removeAttr( "id" ) :
+					this.element );
+
+		// SmartEdit Fix
+		// Dont append helper to it's parent. Instead append it to the body, as that will ensure it's position is always
+		// consistent.
+		helper.appendTo( 'body .ySmartEditToolbars' );
+
+		// http://bugs.jqueryui.com/ticket/9446
+		// a helper function can return the original element
+		// which wouldn't have been set to relative in _create
+		if ( helperIsFunction && helper[ 0 ] === this.element[ 0 ] ) {
+			this._setPositionRelative();
+		}
+
+		if (helper[0] !== this.element[0] && !(/(fixed|absolute)/).test(helper.css("position"))) {
+			helper.css("position", "absolute");
+		}
+
+		return helper;
+
+},

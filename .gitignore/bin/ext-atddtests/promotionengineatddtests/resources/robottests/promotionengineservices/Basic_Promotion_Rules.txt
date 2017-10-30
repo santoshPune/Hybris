@@ -1,0 +1,106 @@
+*** Settings ***
+Resource          promotionengine/PromotionEngineServices_Keywords.txt
+Resource          ruleengine/Util_Keywords.txt
+
+*** PLEASE DO NOT ADD ANY OTHER TESTS TO THIS FILE ***
+
+*** Test Cases ***
+Test_Evaluate_Product_Promotion_Price
+
+	# Configuring rules and drools engine
+	import promotionengine sampledata
+	initialize ruleengine
+	configure promotionengine
+	
+	# Setting variables
+	${product}=    get product by code "product_with_discount_category"
+	
+	# Test 
+	${productPrice}=    get price of "${product}"
+	${promotion}=    evaluate promotion for "${product}" by promotion engine
+	${promotedProductPrice}=    get price of "${product}" with "${promotion}" applied
+	price "${promotedProductPrice}" should be less than "${productPrice}" for "10%"
+	
+Test_Evaluate_Product_Promotion_Price_Without_Discount_Category
+
+	# Configuring rules and drools engine
+	import promotionengine sampledata
+	initialize ruleengine
+	configure promotionengine
+	
+	# Setting variables 
+	create product "product_without_discount_category" with unit "pieces" currency "EUR" and price "100"
+	${product}=    get product by code "product_without_discount_category"
+	
+	# Test 
+	${productPrice}=    get price of "${product}"
+	${promotion}=    evaluate promotion for "${product}" by promotion engine
+	${promotedProductPrice}=    get price of "${product}" with "${promotion}" applied
+	Should Be Equal As Numbers    ${promotedProductPrice}    ${productPrice}
+	
+Test_Evaluate_Product_Promotion_Price_Category
+
+	# Configuring rules and drools engine
+	import promotionengine sampledata
+	initialize ruleengine
+	configure promotionengine
+	
+	# Setting variables
+	${product}=    get product by code "HW1210-3420"
+	
+	# Test  
+	${productPrice}=    get price of "${product}"
+	${promotion}=    evaluate promotion for "${product}" by promotion engine
+	${promotedProductPrice}=    get price of "${product}" with "${promotion}" applied
+	price "${promotedProductPrice}" should be less than "${productPrice}" for "15%"
+	
+Test_Evaluate_Product_Promotion_Price_Interval_Promotion_Product
+
+	# Configuring rules and drools engine
+	import promotionengine sampledata
+	initialize ruleengine
+	configure promotionengine
+	
+	# Setting variables 
+	${product}=    get product by code "HW1210-3421"
+	
+	# Test 
+	${productPrice}=    get price of "${product}"
+	${promotion}=    evaluate promotion for "${product}" by promotion engine
+	${promotedProductPrice}=    get price of "${product}" with "${promotion}" applied
+	price "${promotedProductPrice}" should be less than "${productPrice}" for "12%"
+	
+Test_Evaluate_Product_Promotion_Price_Interval_Promotion_Category
+
+	# Configuring rules and drools engine
+	import promotionengine sampledata
+	initialize ruleengine
+	configure promotionengine
+	
+	# Settin variables
+	${product}=    get product by code "HW1210-3423"
+	
+	# Test 
+	${productPrice}=    get price of "${product}"
+	${promotion}=    evaluate promotion for "${product}" by promotion engine
+	${promotedProductPrice}=    get price of "${product}" with "${promotion}" applied
+	price "${promotedProductPrice}" should be less than "${productPrice}" for "25%"
+	
+Test_Evaluate_Product_Promotion_Price_Threshold
+
+	# Configuring rules and drools engine
+	import promotionengine sampledata
+	initialize ruleengine
+	configure promotionengine
+	
+	# Settin variables
+	${cartId}=    Set Variable    "012345"
+    create product "product_without_discount_category_200" with unit "pieces" currency "USD" and price "200"
+    ${product}=    get product by code "product_without_discount_category_200"
+    
+    # Test
+    create cart "${cartId}"
+    add "${product}" to cart "${cartId}"
+    ${cartBeforePromo}=    get total of "${cartId}"
+    ${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+    price "${cartAfterPromo}" should be less than "${cartBeforePromo}" for "20%" 

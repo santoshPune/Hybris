@@ -1,0 +1,43 @@
+<h1><code ng:non-bindable="">iFrameManager</code>
+<div><span class="hint">service in module <code ng:non-bindable="">iFrameManagerModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="iframemanagermodule-iframemanager-page"><p>The iFrame Manager service provides methods to load the storefront into an iframe. The preview of the storefront can be loaded for a specified input homepage and a specified preview ticket. The iframe src attribute is updated with that information in order to display the storefront in SmartEdit.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_initializecatalogpreview">initializeCatalogPreview()</h3>
+<div class="initializecatalogpreview"><div class="iframemanagermodule-iframemanager-initializecatalogpreview-page"><p>If an experience is set in the shared data service, this method will load the preview for this experience (such as Catalog, language, date and time).
+Otherwise, the user will be redirected to the landing page to select an experience.
+To load a preview, we need to get a preview ticket from an API</p>
+</div></div>
+</li>
+<li><h3 id="methods_load">load(URL, [checkIfFailingHTML], [homepageInPreviewMode])</h3>
+<div class="load"><div class="iframemanagermodule-iframemanager-load-page"><p>This method loads the storefront within an iframe by setting the src attribute to the specified input URL.
+If this method is called within the context of a new or updated experience, prior to the loading, it will check if the page exists.
+If the pages does not exist (the server returns a 404 and a content-type:text/html), the user will be redirected to the homepage of the storefront. Otherwise,
+the user will be redirected to the requested page for the experience.</p>
+</div><h5 id="methods_load_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>URL</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="iframemanagermodule-iframemanager-load-page"><p>The URL of the storefront.</p>
+</div></td></tr><tr><td>[checkIfFailingHTML]</td><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="iframemanagermodule-iframemanager-load-page"><p>Boolean indicating if we need to check if the page call returns a 404</p>
+</div></td></tr><tr><td>[homepageInPreviewMode]</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="iframemanagermodule-iframemanager-load-page"><p>URL of the storefront homepage in preview mode if it&#39;s a new experience</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_loadpreview">loadPreview(homePageOrPageFromPageList, previewTicket)</h3>
+<div class="loadpreview"><div class="iframemanagermodule-iframemanager-loadpreview-page"><p>This method loads the preview of the storefront for a specified input homepage URL or a page from the page list, and for a specified preview ticket.
+This method will add &#39;/previewServlet&#39; to the URI and append the preview ticket in the query string.
+<br/>If it is an initial load,  <a href="#/smartEditContainer/iFrameManagerModule.iFrameManager#load">load</a> will be called with this modified homepage or page from page list.
+<br/>If it is a subsequent call, the modified homepage will be called through Ajax to initialize the preview (storefront constraint) and then
+<a href="#/smartEditContainer/iFrameManagerModule.iFrameManager#load">load</a> will be called with the current location.</p>
+</div><h5 id="methods_loadpreview_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>homePageOrPageFromPageList</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="iframemanagermodule-iframemanager-loadpreview-page"><p>The URL of the storefront homepage or a page from the page list for a given experience context.</p>
+</div></td></tr><tr><td>previewTicket</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="iframemanagermodule-iframemanager-loadpreview-page"><p>The preview ticket.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_setcurrentlocation">setCurrentLocation(URL)</h3>
+<div class="setcurrentlocation"><div class="iframemanagermodule-iframemanager-setcurrentlocation-page"><p>This method sets the current page location and stores it in the service. The storefront will be loaded with this location.</p>
+</div><h5 id="methods_setcurrentlocation_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>URL</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="iframemanagermodule-iframemanager-setcurrentlocation-page"><p>Location to be stored</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

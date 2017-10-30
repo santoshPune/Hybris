@@ -1,0 +1,45 @@
+<div>
+    <nav class="pageToolMenu">
+        <ul class="list-unstyled">
+            <li class="text-right yCloseToolbar">
+                <a id="page-tool-menu-close" href="#" class="nav-close" data-ng-click="closePageToolMenu($event)">
+                    <span class="hyicon hyicon-close"></span>
+                </a>
+            </li>
+        </ul>
+        <ul id="page-tool-menu-home" class="list-unstyled page-tool-menu">
+            <li class="text-left" data-ng-repeat="item in actions" data-ng-switch="item.type">
+                <div data-ng-switch-when="TEMPLATE" class="yTemplateToolbar">
+                    <div data-ng-include="item.include" data-ng-if="item.include"></div>
+                </div>
+
+                <div data-ng-switch-when="ACTION">
+                    <a href data-ng-click="triggerAction(item, $event)">
+                        <span id="{{toolbarName}}_option_{{$index}}" class="{{ item.className || 'yStatusDefault' }}">
+                            <img data-ng-src="{{imageRoot}}{{item.icons.default}} " title="{{item.name | translate}}" alt="{{item.name | translate}}" />{{item.name | translate}}
+                        </span>
+                    </a>
+                </div>
+
+                <div data-ng-switch-when="HYBRID_ACTION" dropdown is-open="status.isopen ">
+                    <a href data-ng-click="triggerAction(item, $event)">
+                        <span id="{{toolbarName}}_option_{{$index}}" class="{{ item.className || 'yStatusDefault' }}" dropdown-toggle>
+                            <img data-ng-src="{{imageRoot}}{{item.icons.default}} " title="{{item.name | translate}}" alt="{{item.name | translate}}" />{{item.name | translate}}
+                        </span>
+                    </a>
+                </div>
+
+                <div data-ng-switch-default></div>
+            </li>
+        </ul>
+        <ul class="list-unstyled page-tool-menu hideLevel2" id="page-tool-menu-selected-item">
+            <li class="text-left">
+                <a id="page-tool-menu-back-anchor" data-ng-click="showPageToolMenuHome()">
+                    <span id="page-tool-menu-back" class=" icon-back " />{{backButtonI18nKey | translate}}</a>
+            </li>
+            <li>
+                <div data-ng-include="selected.include" data-ng-if="selected.include"></div>
+            </li>
+        </ul>
+    </nav>
+</div>

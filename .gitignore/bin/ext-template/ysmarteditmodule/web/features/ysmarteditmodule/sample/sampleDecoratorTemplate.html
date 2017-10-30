@@ -1,0 +1,8 @@
+<div>
+    <div class="row" data-ng-if="!active">
+        <div data-ng-transclude></div>
+    </div>
+    <div class="row" data-ng-if="active" data-popover="{{abContent}}" data-popover-title="{{abTitleKey.toLowerCase()}}" data-popover-placement="top" data-popover-trigger="mouseenter">
+        <div data-ng-transclude></div>
+    </div>
+</div>

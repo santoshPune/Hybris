@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base href="../../../../../" />
+
+    <!--3rd prty libs-->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/ui-select/dist/select.js"></script>
+    <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
+    <script src="bower_components/ckeditor/ckeditor.js"></script>
+    <script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+   <script src="buildArtifacts/static-resources/thirdparties/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+	<script src="buildArtifacts/static-resources/thirdparties/angular-sanitize/angular-sanitize.min.js"></script>
+    <!-- 3rd party css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="web/webroot/css/style.css">
+    <link rel="stylesheet" href="bower_components/ui-select/dist/select.js" />
+    <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="bower_components/select2/select2.css" />
+    <link rel="stylesheet" href="bower_components/selectize/dist/css/selectize.default.css" />
+    <style>
+    .selectize-control > .selectize-dropdown {
+        top: 36px;
+    }
+
+    .ui-select-focusser {
+        display: none;
+    }
+
+    .select2-container .select2-choice {
+        height: auto;
+    }
+
+    .thumbnail {
+        width: 64px;
+        display: inline;
+    }
+    .sm-tab-error {
+        background-image: url('/jsTests/cmssmarteditContainer/e2e/features/editorTabset/Images/error-icon.png');
+        background-repeat: no-repeat;
+        padding-left: 20px;
+        color: red
+    }
+    </style>
+
+	 <script src="buildArtifacts/seLibraries/smartEditContainer/services/templates.js"></script>
+    <script src="jsTarget/web/features/commons/templates.js"></script>
+    <script src="jsTarget/web/features/cmssmartedit/templates.js"></script>
+    <script src="jsTarget/web/features/cmssmarteditContainer/templates.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEdit/services/functions.js"></script>
+    <script>
+    	angular.module('sharedDataServiceModule', []).factory('sharedDataService', function(){
+    		return {
+    			set:function(){}
+    		}
+    	})
+
+    	 angular.module('resourceLocationsModule', [])
+		.constant("CONTEXT_CATALOG", "CURRENT_CONTEXT_CATALOG")
+    	.constant("CONTEXT_CATALOG_VERSION", "CURRENT_CONTEXT_CATALOG_VERSION").constant("CONTEXT_SITE_ID", "CURRENT_CONTEXT_SITE_ID")
+
+    </script>
+    <script src="buildArtifacts/seLibraries/smartEdit/services/tabset/yTabset.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEdit/services/loadConfigurationsService.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEdit/services/languageService.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEdit/services/interceptorHelper.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEdit/services/i18nInterceptor.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEdit/services/translateService.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEdit/services/restServiceFactory.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEdit/services/eventservice.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEdit/services/gatewayProxy.js"></script>
+
+    <script>
+        angular.module('sharedDataServiceModule', []).factory('sharedDataService', function($q) {
+            var storage = {};
+            return {
+                get: function(key) {
+                    return $q.when(storage[key]);
+                },
+                set: function(key, value) {
+                    storage[key] = value;
+                }
+            }
+        });
+        angular.module('experienceInterceptorModule', []);
+    </script>
+
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/genericEditorField.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/genericEditor.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/dateTimePicker/dateTimePicker.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/richText/seRichTextField.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/errors/seGenericEditorFieldErrors.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/adapters/fetchDataHandlerInterface.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/adapters/fetchMediaDataHandler.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/adapters/fetchEnumDataHandler.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/components/errorsList/seErrorsList.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/components/fileSelector/seFileSelector.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/components/mediaAdvancedProperties/seMediaAdvancedProperties.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/components/mediaContainerField/seMediaContainerField.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/components/mediaField/seMediaField.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/components/mediaFormat/seMediaFormat.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/components/mediaPreview/seMediaPreview.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/components/mediaSelector/seMediaSelector.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/components/mediaUploadForm/seMediaUploadForm.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/services/seBackendValidationHandler.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/services/seFileMimeTypeService.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/services/seFileValidationService.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/services/seObjectValidatorFactory.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/services/seMediaService.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/media/components/mediaUploadForm/seMediaUploadField.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/genericEditor/services/seValidationErrorParser.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/gatewayFactory.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/storageService.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/languageService.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/resourceLocations.js"></script>
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/tabset/yTabset.js"></script>
+    <script src="web/features/commons/resourceLocations.js"></script>
+    <script src="web/features/cmssmarteditContainer/editorTabset/editorTabset.js"></script>
+    <script src="jsTests/cmssmarteditContainer/e2e/features/editorTabset/tabsetApp.js"></script>
+    <script src="jsTests/cmssmarteditContainer/e2e/features/editorTabset/backendMocks.js"></script>
+    <script src="jsTests/cmssmarteditContainer/e2e/features/editorTabset/mockRenderService.js"></script>
+
+    <script src="buildArtifacts/seLibraries/smartEditContainer/services/localizedElement/localizedElement.js"></script>
+    <script src="jsTarget/web/features/cmssmarteditContainer/editorTabset/tabs/generic/genericTab.js"></script>
+    <script src="jsTarget/web/features/cmssmarteditContainer/editorTabset/tabs/basic/basicTab.js"></script>
+    <script src="jsTarget/web/features/cmssmarteditContainer/editorTabset/tabs/admin/adminTab.js"></script>
+    <script src="jsTarget/web/features/cmssmarteditContainer/editorTabset/tabs/visibility/visibilityTab.js"></script>
+
+    <script type="text/javascript">
+	    window.smartedit = {
+	        i18nAPIRoot: "somepath"
+	    };
+    </script>
+</head>
+
+<body data-ng-app="tabsetApp" data-ng-controller="defaultController as ctl">
+
+    <h1>Tabset Test</h1>
+
+	 <button id="supportedType-button" ng-click="ctl.setComponentType('thesmarteditComponentType')">Supported Type</button>
+	 <button id="unsupportedType-button" ng-click="ctl.setComponentType('unsupportedComponentType')">Unsupported Type</button>
+
+	
+    <editor-tabset control="ctl.tabsetControl" model="ctl.componentData" ng-if="ctl.componentData.componentType !== null"></editor-tabset>
+
+    <br/>
+    <br/>
+
+    <button id="save-button" ng-click="ctl.tabsetControl.saveTabs()">Save Tabs</button>
+    <button id="reset-button" ng-click="ctl.tabsetControl.resetTabs()">Reset Tabs</button>
+    <button id="cancel-button" ng-click="ctl.tabsetControl.cancelTabs()">Cancel Tabs</button>
+
+</body>
+
+</html>

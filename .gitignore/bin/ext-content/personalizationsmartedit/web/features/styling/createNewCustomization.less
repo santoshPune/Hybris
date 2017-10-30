@@ -1,0 +1,70 @@
+/* *
+/* This file includes the styles used in Create New Customization modal
+/* The styles follow the BEM principles - http://getbem.com/introduction/
+*/
+
+@import (reference) "variables.less";
+.customization-form--size-large {
+    margin-top: 43px;
+    margin-bottom: 50px;
+}
+
+.customization-form-control-input--size {
+    margin-bottom: 50px;
+}
+
+.customization-form-control-label--size {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.customization-form-target-group-tab-sub-title--size--font {
+    margin-top: -20px;
+    margin-left: 15px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600; //semibold
+    word-wrap: break-word; //in extreme scenarios
+}
+
+.customization-form-target-group-tab-sub-title--size--font::after {
+    content: " ";
+    display: block;
+    border-bottom: 1px solid @border-color-light-grey;
+    padding-top: 10px;
+    margin-right: 12px;
+}
+
+.customization-form-target-group-tab-sub-title-description--font {
+    font-weight: normal;
+}
+
+li.ui-select-match-item.select2-search-choice.ng-scope {
+    background: @background-color-light-grey2;
+    border-style: none;
+}
+
+li.list-group-item.list-group-item--hover:hover {
+    background-color: @background-color-blue-grey;
+}
+
+li.list-group-item.list-group-item-size {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-style: none;
+}
+
+.customization-criteria-font-size {
+    font-weight: 600;
+}
+
+.customization-variation-code-font-text-style {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: @text-color-blue;
+    word-wrap: break-word; //in extreme scenarios
+}
+
+.hyicon-in-modal-size {
+    font-size: 24px;
+}

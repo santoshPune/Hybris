@@ -1,0 +1,23 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.DiscountRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import java.math.BigDecimal;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddProductToCartRAOAction;
+
+global AddProductToCartRAOAction addProductToCartRAOAction;
+
+rule "orderThresholdFreeTripodGift"
+@ruleCode("orderThresholdFreeTripodGift")
+
+	salience 10
+	when
+		$cart : CartRAO(subTotal >= 500.00, currencyIsoCode == "USD")
+		$result : RuleEngineResultRAO()
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+		not $discount:DiscountRAO( firedRuleCode == "orderThresholdFreeTripodGift" )
+	then
+		addProductToCartRAOAction.addFreeProductsToCart($cart, "1687508", 1, null, 0, $result, kcontext);
+end

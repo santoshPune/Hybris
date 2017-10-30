@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="eclipsebin/notused"/>
+
+				
+				
+	<classpathentry exported="false" kind="src" path="/platform" />
+	<classpathentry exported="true" kind="src" path="/tomcatembeddedserver" />
+	<classpathentry exported="true" kind="lib" path="lib/jackson-jaxrs-base-2.6.4.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/jackson-jaxrs-json-provider-2.6.4.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/jackson-module-jaxb-annotations-2.6.4.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/javax.annotation-api-1.2.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/javax.json-1.0.4.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/javax.json-api-1.0.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.persistence.antlr-2.6.1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.persistence.asm-2.6.1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.persistence.core-2.6.1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.persistence.moxy-2.6.1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/orika-core-1.4.5.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/paranamer-2.6.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/stax2-api-3.1.4.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/woodstox-core-asl-4.4.1.jar" />
+	<classpathentry exported="true" kind="lib" path="bin/webservicescommonsserver.jar" >
+		<attributes>
+			<attribute name="javadoc_location" value="https://download.hybris.com/api/6.0.0"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="resources" />
+	<classpathentry exported="true" output="eclipsebin/classes" kind="src" path="testsrc" />
+				
+</classpath>
+				

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ [y] hybris Platform
+ 
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+ 
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:annotation-config/> 
+
+	<!-- Listeners -->
+    <bean id="submitFractusOrderEventListener" parent="abstractSiteEventListener"
+          class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.listeners.SubmitFractusOrderEventListener">
+        <property name="orderService" ref="orderService"/>
+        <property name="businessProcessService" ref="businessProcessService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+    
+   
+	<alias name="defaultYassOrderDao" alias="orderDao"/>
+	<bean id= "defaultYassOrderDao" parent = "defaultOrderDao" class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.order.dao.impl.DefaultYaasOrderDao"/>
+	
+    <!-- services -->
+ 	
+    <bean id="fractusCommerceCheckoutService" parent="defaultCommerceCheckoutService">
+        <property name="commercePlaceOrderStrategy" ref="fractusCommercePlaceOrderStrategy"/>
+    </bean>
+
+    <alias name="defaultFractusOrderService" alias="orderService"/>
+    <bean id="defaultFractusOrderService" parent="acceleratorDefaultOrderService"
+          class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.order.impl.DefaultFractusOrderService">
+        <property name="submitOrderStrategies">
+            <map>
+                <!-- implementation that sends SubmitOrderEvent -->
+                <entry key="ecp" value-ref="eventPublishingSubmitOrderStrategy"/>
+                <entry key="fractus" value-ref="eventPublishingSubmitFractusOrderStrategy"/>
+            </map>
+        </property>
+		<property name="yaasOrderDao" ref="orderDao"></property>
+        <property name="checkOrderService" ref="fractusCheckOrderService"></property> 
+        <property name="commerceCheckoutService" ref="fractusCommerceCheckoutService"/>
+    </bean>
+    
+    <alias name="defaultCheckYAASOrderService" alias="fractusCheckOrderService"/>
+	<bean id="defaultCheckYAASOrderService" class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.order.impl.DefaultCheckYAASOrderService" />
+	
+	<alias name="defaultFractusSyncExecutionService" alias="fractusSyncExecutionService"/>
+    <bean id="defaultFractusSyncExecutionService" class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.order.impl.DefaultFractusSyncExecutionService" >
+        <property name="y2YSyncDAO" ref="y2ySyncDAO"/>        
+        <property name="cronJobService" ref="cronJobService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="fractusOrderCancelService" alias="orderCancelService"/>
+    <bean id="fractusOrderCancelService" parent="defaultOrderCancelService"
+          class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.ordercancel.impl.FractusOrderCancelService">
+        <property name="eventService" ref="eventService"/>
+    </bean>
+
+    <alias name="defaultFractusOrderCancelListener" alias="yaasOrderCancelListener"/>
+    <bean id="defaultFractusOrderCancelListener" parent="abstractEventListener"
+          class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.ordercancel.impl.FractusOrderCancelListener">
+        <property name="syncExecutionService" ref="fractusSyncExecutionService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="syncExecutionId" value="y2ySyncToDataHubOrderStatusCronJob"/>
+        <property name="yaasOrderStatusService" ref="yaasOrderStatusService"/>
+        <property name="sleepTimer" value="5000"/>
+    </bean>
+    
+    <!-- strategies -->
+    <alias alias="commercePlaceOrderStrategy" name="fractusCommercePlaceOrderStrategy"/>
+    <bean id="fractusCommercePlaceOrderStrategy"
+          class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.order.strategies.impl.FractusCommercePlaceOrderStrategy">
+        <property name="orderService" ref="orderService"/>
+        <property name="commercePlaceOrderStrategy" ref="defaultCommercePlaceOrderStrategy"/>
+    </bean>
+    
+    <bean id="eventPublishingSubmitFractusOrderStrategy" class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.order.strategies.impl.EventPublishingSubmitFractusOrderStrategy">
+        <property name="eventService" ref="eventService"/>
+    </bean>
+    
+    <bean id="fractusOrderProcessDefinitionResource" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+   		<property name="resource" value="classpath:/yacceleratorfractusfulfilmentprocess/process/fractus-order-process.xml"/>
+   	</bean>
+   	
+   	 <bean id="fractusConsignmentDefinitionResource" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+   		<property name="resource" value="classpath:/yacceleratorfractusfulfilmentprocess/process/fractus-consignment-process.xml"/>
+   	</bean>
+
+	
+	<bean id="fractusOrderFulfilmentInitiateCronJob" class="de.hybris.platform.yacceleratorfractusfulfilmentprocess.cronjob.FractusOrderFulfilmentInitiateCronJob" parent ="abstractJobPerformable" autowire="byName">
+	<property name="fractusOrderService" ref="orderService"></property>
+	</bean>
+	
+    <!-- fractus order process actions -->
+    <import resource="/yacceleratorfractusfulfilmentprocess/process/fractus-order-process-spring.xml"/>
+    <import resource="/yacceleratorfractusfulfilmentprocess/process/fractus-consignment-process-spring.xml"/>
+    
+</beans>

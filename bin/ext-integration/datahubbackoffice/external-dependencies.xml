@@ -1,0 +1,76 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.hybris.platform</groupId>
+	<artifactId>datahubbackoffice</artifactId>
+	<version>6.1.0.3-RC1</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<datahub.version>6.1.0.3-RC1</datahub.version>
+		<datahub.ui.core.version>6.1.0.3-RC1</datahub.ui.core.version>
+		<jersey.version>2.22.1</jersey.version>
+		<jackson.version>2.6.4</jackson.version>
+		<lucene.version>4.6.1</lucene.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hybris.datahub</groupId>
+			<artifactId>datahub-ui-core</artifactId>
+			<version>${datahub.ui.core.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hybris.datahub</groupId>
+			<artifactId>datahub-dto</artifactId>
+			<version>${datahub.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hybris.datahub</groupId>
+			<artifactId>datahub-rest-client</artifactId>
+			<version>${datahub.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hybris.datahub</groupId>
+			<artifactId>datahub-api</artifactId>
+			<version>${datahub.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hybris.datahub</groupId>
+			<artifactId>datahub-entity-model</artifactId>
+			<version>${datahub.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queryparser</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-common</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+	</dependencies>
+
+</project>

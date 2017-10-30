@@ -1,0 +1,42 @@
+<h1><code ng:non-bindable="">pageToolMenu</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">pageToolMenuModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="pagetoolmenumodule-directive-page pagetoolmenumodule-directive-pagetoolmenu-page"><p>Once compiled, the page tool menu directive displays the configurable page tool menu. By default, the page tool menu
+is configured to include the synchronization status of the current page. It can also be configured to include
+customizable actions.</p>
+<p>The page tool menu is configured using the <a href="#/smartEditContainer/toolbarModule.ToolbarService">ToolbarService</a> and by specifying the
+toolbar ID &quot;pageToolMenu&quot;.</p>
+<p>Example: The following example shows how to add an item called Extended Page Information to the page tool menu, which
+opens the content in the extendedPageInformation.html file.</p>
+<pre class="prettyprint linenums">
+ angular.module('app', ['toolbarModule'])
+    .run(function(toolbarServiceFactory) {
+
+        var pageToolMenuService = toolbarServiceFactory.getToolbarService('pageToolMenu');
+        pageToolMenuService.addItems([{
+            i18nKey: 'page.tool.menu.extended.page.information.title',
+            type: 'HYBRID_ACTION',
+            icons: {
+                'default': 'static-resources/images/icon_small_extended_info.png'
+            },
+            include: 'web/smarteditcontainer/core/services/pageToolMenu/extendedPageInformation.html'
+        }]);
+    });
+</pre>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;page-tool-menu
+       image-root="{String}"
+       toolbar-name="{String}"&gt;
+&lt;/page-tool-menu&gt;</pre>
+<h3 id="usage_directive-info">Directive info</h3>
+<div class="directive-info"><ul><li>This directive creates new scope.</li>
+</ul>
+</div>
+<h4 id="usage_directive-info_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>imageRoot</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="pagetoolmenumodule-directive-page pagetoolmenumodule-directive-pagetoolmenu-page"><p>Path to the root folder for images.</p>
+</div></td></tr><tr><td>toolbarName</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="pagetoolmenumodule-directive-page pagetoolmenumodule-directive-pagetoolmenu-page"><p>Toolbar name used by the gateway proxy service</p>
+</div></td></tr></tbody></table></div>
+</div>

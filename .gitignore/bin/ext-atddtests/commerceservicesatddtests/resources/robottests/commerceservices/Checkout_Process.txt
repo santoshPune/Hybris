@@ -1,0 +1,20 @@
+*** Settings ***
+Resource          commerce/SampleData_Keywords.txt
+Resource          commerce/CommerceServices_Keywords.txt
+Resource          commerce/Checkout_Keywords.txt
+
+Test Setup        import commerce checkout sample data
+
+*** Variables ***
+
+${userId}=    john.doe@my-email.com
+
+*** Test Cases ***
+Test_Checkout_CartAssignment
+	[Documentation]    Adds PRODUCT01 to Cart and then proceeds with the checkout.
+   using api create customer "${userId}"
+   login customer with id "${userId}"
+   set payment and delivery details for current customer
+   add product "PRODUCT01" to cart
+   ${order} =    do checkout for current customer
+ 

@@ -1,0 +1,27 @@
+<h1><code ng:non-bindable="">editorEnablerService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">editorEnablerServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="editorenablerservicemodule-service-page editorenablerservicemodule-service-editorenablerservice-page"><p>Convenience service to attach the open editor modal action to the contextual menu of a given component type, or
+given regex corresponding to a selection of component types.</p>
+<p>Example: The Edit button is added to the contextual menu of the CMSParagraphComponent, and all types postfixed
+with BannerComponent.</p>
+<pre class="prettyprint linenums">
+    angular.module('app', ['editorEnablerServiceModule'])
+        .run(function(editorEnablerService) {
+            editorEnablerService.enableForComponents(['CMSParagraphComponent', '*BannerComponent']);
+        });
+</pre>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_enableforcomponents">enableForComponents(componentTypes)</h3>
+<div class="enableforcomponents"><div class="editorenablerservicemodule-service-page editorenablerservicemodule-service-editorenablerservice-enableforcomponents-page"><p>Enables the Edit contextual menu item for the given component types.</p>
+</div><h5 id="methods_enableforcomponents_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>componentTypes</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="editorenablerservicemodule-service-page editorenablerservicemodule-service-editorenablerservice-enableforcomponents-page"><p>The list of component types, as defined in the platform, for which to enable the
+Edit contextual menu.</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

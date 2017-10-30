@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17.jar"/>
+	<classpathentry kind="var" path="HYBRIS_PLATFORM/ext/core/bin/coreserver.jar"/>
+	<classpathentry kind="var" path="HYBRIS_PLATFORM/bootstrap/bin/ybootstrap.jar"/>
+	<classpathentry kind="var" path="DATAHUB_UI"/>
+	<classpathentry kind="var" path="HYBRIS_PLATFORM/bootstrap/modelclasses"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-core/4.2.4.RELEASE/spring-core-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/4.2.4.RELEASE/spring-beans-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="output" path="eclipsebin/notused"/>
+
+				
+				
+				
+				
+	<classpathentry exported="false" kind="src" path="/platform" />
+	<classpathentry exported="true" kind="src" path="/backoffice" />
+	<classpathentry exported="true" kind="lib" path="lib/commons-lang3-3.4.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/datahub-api-6.1.0.0-RC3.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/datahub-dto-6.1.0.0-RC3.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/datahub-entity-model-6.1.0.0-RC3.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/datahub-rest-client-6.1.0.0-RC3.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/jackson-jaxrs-json-provider-2.6.4.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/jersey-client-2.22.1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/lucene-analyzers-common-4.6.1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/lucene-core-4.6.1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/lucene-queryparser-4.6.1.jar" />
+	<classpathentry exported="true" kind="lib" path="bin/datahubbackofficeserver.jar" >
+		<attributes>
+			<attribute name="javadoc_location" value="https://download.hybris.com/api/6.0.0"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="resources" />
+				
+</classpath>
+				

@@ -1,0 +1,78 @@
+# ImpEx for Importing Product Reviews
+ 
+# Macros / Replacement Parameter definitions
+$catalog-Online=Online
+$product-catalog=electronicsProductCatalog
+$productCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$product-catalog]),CatalogVersion.version[default=$catalog-Online])[default=$product-catalog:$catalog-Online]
+
+
+$defaultPassword=password
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+
+# Customers
+
+REMOVE Customer;uid[unique=true]
+;"keenreviewer1@hybris.com"
+;"keenreviewer2@hybris.com"
+;"keenreviewer3@hybris.com"
+;"keenreviewer4@hybris.com"
+;"keenreviewer5@hybris.com"
+;"keenreviewer6@hybris.com"
+;"keenreviewer7@hybris.com"
+;"keenreviewer8@hybris.com"
+;"keenreviewer9@hybris.com"
+;"keenreviewer10@hybris.com"
+;"keenreviewer11@hybris.com"
+;"keenreviewer12@hybris.com"
+;"keenreviewer13@hybris.com"
+;"keenreviewer14@hybris.com"
+;"keenreviewer15@hybris.com"
+;"keenreviewer16@hybris.com"
+;"keenreviewer17@hybris.com"
+;"keenreviewer18@hybris.com"
+;"keenreviewer19@hybris.com"
+;"keenreviewer20@hybris.com"
+;"keenreviewer21@hybris.com"
+;"keenreviewer22@hybris.com"
+;"keenreviewer23@hybris.com"
+;"keenreviewer24@hybris.com"
+;"keenreviewer25@hybris.com"
+;"keenreviewer26@hybris.com"
+;"keenreviewer27@hybris.com"
+;"keenreviewer28@hybris.com"
+;"keenreviewer29@hybris.com"
+;"keenreviewer30@hybris.com"
+
+INSERT_UPDATE Customer;groups(uid);uid[unique=true];name;password[default=$defaultPassword];customerId
+;"customergroup";"keenreviewer1@yaastest.com";"Kenneth Reviewer";;"keenreviewer1@yaastest.com";
+;"customergroup";"keenreviewer2@yaastest.com";"Ken Reviewer";;"keenreviewer2@yaastest.com";
+;"customergroup";"keenreviewer3@yaastest.com";"John Reviewer";;"keenreviewer3@yaastest.com";
+;"customergroup";"keenreviewer4@yaastest.com";"Steve Reviewer";;"keenreviewer4@yaastest.com";
+;"customergroup";"keenreviewer5@yaastest.com";"Adam Reviewer";;"keenreviewer5@yaastest.com";
+;"customergroup";"keenreviewer6@yaastest.com";"Honda Reviewer";;"keenreviewer6@yaastest.com";
+;"customergroup";"keenreviewer7@yaastest.com";"Roger Reviewer";;"keenreviewer7@yaastest.com";
+;"customergroup";"keenreviewer8@yaastest.com";"Ronald Reviewer";;"keenreviewer8@yaastest.com";
+;"customergroup";"keenreviewer9@yaastest.com";"Klaus Reviewer";;"keenreviewer9@yaastest.com";
+;"customergroup";"keenreviewer10@yaastest.com";"Stefan Reviewer";;"keenreviewer10@yaastest.com";
+;"customergroup";"keenreviewer11@yaastest.com";"Rick Reviewer";;"keenreviewer11@yaastest.com";
+;"customergroup";"keenreviewer12@yaastest.com";"Richard Reviewer";;"keenreviewer12@yaastest.com";
+;"customergroup";"keenreviewer13@yaastest.com";"Aseem Reviewer";;"keenreviewer13@yaastest.com";
+;"customergroup";"keenreviewer14@yaastest.com";"Toby Reviewer";;"keenreviewer14@yaastest.com";
+;"customergroup";"keenreviewer15@yaastest.com";"Brendan Reviewer";;"keenreviewer15@yaastest.com";
+;"customergroup";"keenreviewer16@yaastest.com";"Katie Reviewer";;"keenreviewer16@yaastest.com";
+;"customergroup";"keenreviewer17@yaastest.com";"Flavia Reviewer";;"keenreviewer17@yaastest.com";
+;"customergroup";"keenreviewer18@yaastest.com";"Thomas Reviewer";;"keenreviewer18@yaastest.com";
+;"customergroup";"keenreviewer19@yaastest.com";"Axel Reviewer";;"keenreviewer19@yaastest.com";
+;"customergroup";"keenreviewer20@yaastest.com";"Moritz Reviewer";;"keenreviewer20@yaastest.com";
+;"customergroup";"keenreviewer21@yaastest.com";"Alistair Reviewer";;"keenreviewer21@yaastest.com";
+;"customergroup";"keenreviewer22@yaastest.com";"Nicko Reviewer";;"keenreviewer22@yaastest.com";
+;"customergroup";"keenreviewer23@yaastest.com";"Claudius Reviewer";;"keenreviewer23@yaastest.com";
+;"customergroup";"keenreviewer24@yaastest.com";"Doris Reviewer";;"keenreviewer24@yaastest.com";
+;"customergroup";"keenreviewer25@yaastest.com";"George Reviewer";;"keenreviewer25@yaastest.com";
+;"customergroup";"keenreviewer26@yaastest.com";"Henry Reviewer";;"keenreviewer26@yaastest.com";
+;"customergroup";"keenreviewer27@yaastest.com";"Frederick Reviewer";;"keenreviewer27@yaastest.com";
+;"customergroup";"keenreviewer28@yaastest.com";"Deepak Reviewer";;"keenreviewer28@yaastest.com";
+;"customergroup";"keenreviewer29@yaastest.com";"Elizabeth Reviewer";;"keenreviewer29@yaastest.com";
+;"customergroup";"keenreviewer30@yaastest.com";"Dorothy Reviewer";;"keenreviewer30@yaastest.com";
+

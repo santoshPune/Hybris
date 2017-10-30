@@ -1,0 +1,22 @@
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+-->
+<?xml version="1.0" encoding="UTF-8"?> 
+<webappext:WebAppExtension xmi:version="2.0"
+          xmlns:xmi="http://www.omg.org/XMI" 
+          xmlns:webappext="webappext.xmi"
+          xmlns:webapplication="webapplication.xmi" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmi:id="WebApp_ID_Ext" >
+    <webApp href="WEB-INF/web.xml#emsui"/> 
+    <jspAttributes xmi:id="JSPAttribute_1" name="jdkSourceLevel" value="16"/>    
+</webappext:WebAppExtension>

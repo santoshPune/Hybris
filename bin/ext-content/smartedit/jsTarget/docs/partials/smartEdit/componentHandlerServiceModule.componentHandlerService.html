@@ -1,0 +1,132 @@
+<h1><code ng:non-bindable="">componentHandlerService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">componentHandlerServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="componenthandlerservicemodule-componenthandlerservice-page"><p>The service provides convenient methods to get DOM references of smartEdit components both in the original laye rof the storefornt and in the smartEdit overlay</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_methodsof_getallcomponentsselector">methodsOf_getAllComponentsSelector()</h3>
+<div class="methodsof_getallcomponentsselector"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getallcomponentsselector-page"><p>Retrieves the jQuery selector matching all smartEdit components that are not of type ContentSlot</p>
+</div></div>
+</li>
+<li><h3 id="methods_methodsof_getallslotsselector">methodsOf_getAllSlotsSelector()</h3>
+<div class="methodsof_getallslotsselector"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getallslotsselector-page"><p>Retrieves the jQuery selector matching all smartEdit components that are of type ContentSlot</p>
+</div></div>
+</li>
+<li><h3 id="methods_methodsof_getcomponent">methodsOf_getComponent(smarteditComponentId, smarteditComponentType, cssClass)</h3>
+<div class="methodsof_getcomponent"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponent-page"><p>Retrieves the jQuery wrapper around a smartEdit component identified by its smartEdit id, smartEdit type and an optional class
+This method can only be invoked from the smartEdit application and not the smartEdit container.</p>
+</div><h5 id="methods_methodsof_getcomponent_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>smarteditComponentId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponent-page"><p>the component id as per the smartEdit contract with the storefront</p>
+</div></td></tr><tr><td>smarteditComponentType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponent-page"><p>the component type as per the smartEdit contract with the storefront</p>
+</div></td></tr><tr><td>cssClass</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponent-page"><p>the css Class to further restrict the search on. This parameter is optional.</p>
+</div></td></tr></tbody></table><h5 id="methods_methodsof_getcomponent_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponent-page"><p>a jQuery object wrapping the searched component</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_getcomponentinoverlay">methodsOf_getComponentInOverlay(smarteditComponentId, smarteditComponentType)</h3>
+<div class="methodsof_getcomponentinoverlay"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponentinoverlay-page"><p>Retrieves the jQuery wrapper around a smartEdit component of the overlay div identified by its smartEdit id, smartEdit type
+This method can only be invoked from the smartEdit application and not the smartEdit container.</p>
+</div><h5 id="methods_methodsof_getcomponentinoverlay_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>smarteditComponentId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponentinoverlay-page"><p>the component id as per the smartEdit contract with the storefront</p>
+</div></td></tr><tr><td>smarteditComponentType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponentinoverlay-page"><p>the component type as per the smartEdit contract with the storefront</p>
+</div></td></tr></tbody></table><h5 id="methods_methodsof_getcomponentinoverlay_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponentinoverlay-page"><p>a jQuery object wrapping the searched component</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_getcomponentunderslot">methodsOf_getComponentUnderSlot(smarteditComponentId, smarteditComponentType, smarteditSlotId, cssClass)</h3>
+<div class="methodsof_getcomponentunderslot"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponentunderslot-page"><p>Retrieves the jQuery wrapper around a smartEdit component identified by its smartEdit id, smartEdit type and an optional class
+This method can only be invoked from the smartEdit application and not the smartEdit container.</p>
+</div><h5 id="methods_methodsof_getcomponentunderslot_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>smarteditComponentId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponentunderslot-page"><p>the component id as per the smartEdit contract with the storefront</p>
+</div></td></tr><tr><td>smarteditComponentType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponentunderslot-page"><p>the component type as per the smartEdit contract with the storefront</p>
+</div></td></tr><tr><td>smarteditSlotId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponentunderslot-page"><p>the slot id of the slot containing the component as per the smartEdit contract with the storefront</p>
+</div></td></tr><tr><td>cssClass</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponentunderslot-page"><p>the css Class to further restrict the search on. This parameter is optional.</p>
+</div></td></tr></tbody></table><h5 id="methods_methodsof_getcomponentunderslot_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getcomponentunderslot-page"><p>a jQuery object wrapping the searched component</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_getfromselector">methodsOf_getFromSelector(selector)</h3>
+<div class="methodsof_getfromselector"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getfromselector-page"><p>This is a wrapper around jQuery selector</p>
+</div><h5 id="methods_methodsof_getfromselector_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>selector</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getfromselector-page"><p>String selector as per jQuery API</p>
+</div></td></tr></tbody></table><h5 id="methods_methodsof_getfromselector_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getfromselector-page"><p>a jQuery object for the given selector</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_getid">methodsOf_getId(component)</h3>
+<div class="methodsof_getid"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getid-page"><p>Gets the smartEdit component id of a given component</p>
+</div><h5 id="methods_methodsof_getid_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>component</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getid-page"><p>the jQuery component for which to get the id</p>
+</div></td></tr></tbody></table><h5 id="methods_methodsof_getid_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getid-page"><p>the component id</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_getoriginalcomponent">methodsOf_getOriginalComponent(smarteditComponentId, smarteditComponentType)</h3>
+<div class="methodsof_getoriginalcomponent"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getoriginalcomponent-page"><p>Retrieves the jQuery wrapper around a smartEdit component of the original storefront layer identified by its smartEdit id, smartEdit type
+This method can only be invoked from the smartEdit application and not the smartEdit container.</p>
+</div><h5 id="methods_methodsof_getoriginalcomponent_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>smarteditComponentId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getoriginalcomponent-page"><p>the component id as per the smartEdit contract with the storefront</p>
+</div></td></tr><tr><td>smarteditComponentType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getoriginalcomponent-page"><p>the component type as per the smartEdit contract with the storefront</p>
+</div></td></tr></tbody></table><h5 id="methods_methodsof_getoriginalcomponent_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getoriginalcomponent-page"><p>a jQuery object wrapping the searched component</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_getoriginalcomponentwithinslot">methodsOf_getOriginalComponentWithinSlot(smarteditComponentId, smarteditComponentType, slotId)</h3>
+<div class="methodsof_getoriginalcomponentwithinslot"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getoriginalcomponentwithinslot-page"><p>Retrieves the jQuery wrapper around a smartEdit component of the original storefront layer identified by its smartEdit id, smartEdit type and slot ID
+This method can only be invoked from the smartEdit application and not the smartEdit container.</p>
+</div><h5 id="methods_methodsof_getoriginalcomponentwithinslot_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>smarteditComponentId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getoriginalcomponentwithinslot-page"><p>the component id as per the smartEdit contract with the storefront</p>
+</div></td></tr><tr><td>smarteditComponentType</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getoriginalcomponentwithinslot-page"><p>the component type as per the smartEdit contract with the storefront</p>
+</div></td></tr><tr><td>slotId</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getoriginalcomponentwithinslot-page"><p>the ID of the slot within which the component resides</p>
+</div></td></tr></tbody></table><h5 id="methods_methodsof_getoriginalcomponentwithinslot_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getoriginalcomponentwithinslot-page"><p>a jQuery object wrapping the searched component</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_getoverlay">methodsOf_getOverlay()</h3>
+<div class="methodsof_getoverlay"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getoverlay-page"><p>Retrieves a handler on the smartEdit overlay div
+This method can only be invoked from the smartEdit application and not the smartEdit container.</p>
+</div></div>
+</li>
+<li><h3 id="methods_methodsof_getpageuid">methodsOf_getPageUID()</h3>
+<div class="methodsof_getpageuid"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getpageuid-page"><p>This extracts the pageUID of the storefront page loaded in the smartedit iframe.</p>
+</div><h5 id="methods_methodsof_getpageuid_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getpageuid-page"><p>a string matching the page&#39;s ID</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_getparent">methodsOf_getParent(component)</h3>
+<div class="methodsof_getparent"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getparent-page"><p>Retrieves the direct smartEdit component parent of a given component.
+The parent is fetched in the same layer (original storefront or smartEdit overlay) as the child 
+This method can only be invoked from the smartEdit application and not the smartEdit container.</p>
+</div><h5 id="methods_methodsof_getparent_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>component</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getparent-page"><p>the jQuery component for which to search a parent</p>
+</div></td></tr></tbody></table><h5 id="methods_methodsof_getparent_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getparent-page"><p>a jQuery object wrapping the smae-layer parent component</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_getparentslotforcomponent">methodsOf_getParentSlotForComponent(the)</h3>
+<div class="methodsof_getparentslotforcomponent"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getparentslotforcomponent-page"><p>Retrieves the the slot ID for a given element</p>
+</div><h5 id="methods_methodsof_getparentslotforcomponent_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>the</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getparentslotforcomponent-page"><p>DOM element which represents the component</p>
+</div></td></tr></tbody></table><h5 id="methods_methodsof_getparentslotforcomponent_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getparentslotforcomponent-page"><p>the slot ID for that particular component</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_getslotoperationrelatedid">methodsOf_getSlotOperationRelatedId(component)</h3>
+<div class="methodsof_getslotoperationrelatedid"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getslotoperationrelatedid-page"><p>Gets the id that is relevant to be able to perform slot related operations for this components
+It typically is <a href="#/smartEdit/componentHandlerServiceModule.CONTAINER_ID_ATTRIBUTE">componentHandlerServiceModule.CONTAINER_ID_ATTRIBUTE</a> when applicable and defaults to <a href="#/smartEdit/componentHandlerServiceModule.ID_ATTRIBUTE">componentHandlerServiceModule.ID_ATTRIBUTE</a></p>
+</div><h5 id="methods_methodsof_getslotoperationrelatedid_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>component</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getslotoperationrelatedid-page"><p>the jQuery component for which to get the id</p>
+</div></td></tr></tbody></table><h5 id="methods_methodsof_getslotoperationrelatedid_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getslotoperationrelatedid-page"><p>the slot operations related id</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_getslotoperationrelatedtype">methodsOf_getSlotOperationRelatedType(component)</h3>
+<div class="methodsof_getslotoperationrelatedtype"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getslotoperationrelatedtype-page"><p>Gets the type that is relevant to be able to perform slot related operations for this components
+It typically is <a href="#/smartEdit/componentHandlerServiceModule.CONTAINER_TYPE_ATTRIBUTE">componentHandlerServiceModule.CONTAINER_TYPE_ATTRIBUTE</a> when applicable and defaults to <a href="#/smartEdit/componentHandlerServiceModule.TYPE_ATTRIBUTE">componentHandlerServiceModule.TYPE_ATTRIBUTE</a></p>
+</div><h5 id="methods_methodsof_getslotoperationrelatedtype_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>component</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getslotoperationrelatedtype-page"><p>the jQuery component for which to get the type</p>
+</div></td></tr></tbody></table><h5 id="methods_methodsof_getslotoperationrelatedtype_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-getslotoperationrelatedtype-page"><p>the slot operations related type</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_gettype">methodsOf_getType(component)</h3>
+<div class="methodsof_gettype"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-gettype-page"><p>Gets the smartEdit component type of a given component</p>
+</div><h5 id="methods_methodsof_gettype_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>component</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-gettype-page"><p>the jQuery component for which to get the type</p>
+</div></td></tr></tbody></table><h5 id="methods_methodsof_gettype_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-gettype-page"><p>the component type</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_methodsof_setid">methodsOf_setId(component, id)</h3>
+<div class="methodsof_setid"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-setid-page"><p>Sets the smartEdit component id of a given component</p>
+</div><h5 id="methods_methodsof_setid_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>component</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-setid-page"><p>the jQuery component for which to set the id</p>
+</div></td></tr><tr><td>id</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-setid-page"><p>the id to be set</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_methodsof_settype">methodsOf_setType(component, type)</h3>
+<div class="methodsof_settype"><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-settype-page"><p>Sets the smartEdit component type of a given component</p>
+</div><h5 id="methods_methodsof_settype_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>component</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-settype-page"><p>the jQuery component for which to set the type</p>
+</div></td></tr><tr><td>type</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="componenthandlerservicemodule-componenthandlerservice-methodsof-settype-page"><p>the type to be set</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

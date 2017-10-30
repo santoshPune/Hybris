@@ -1,0 +1,22 @@
+<h1><code ng:non-bindable="">synchronizeCatalog</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">synchronizationServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="synchronizationservicemodule-directive-page synchronizationservicemodule-directive-synchronizecatalog-page"><p>The Synchronize Catalog directive is used to display the synchronization area in the landing page for 
+each catalog and to update the status of the synchronization button.</p>
+<p>The directive provides communication by exposing the (syncCatalog) method. When called, the directive 
+accesses the synchronization service to synchronize a specified catalog.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;synchronize-catalog
+       catalog="{Object}"
+       sync-catalog="{Function}"&gt;
+&lt;/synchronize-catalog&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>catalog</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="synchronizationservicemodule-directive-page synchronizationservicemodule-directive-synchronizecatalog-page"><p>An object that contains the catalog details. It allows the directive
+to load or update the synchronization data for a specified catalog. </p>
+</div></td></tr><tr><td>syncCatalog</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="synchronizationservicemodule-directive-page synchronizationservicemodule-directive-synchronizecatalog-page"><p>A function that triggers the synchronization of a catalog using the synchronization service.
+It invokes a modal pop-up to confirm the action before it calls the service layer.</p>
+</div></td></tr></tbody></table></div>
+</div>

@@ -1,0 +1,41 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+$productCatalog=yaasProductCatalog
+
+INSERT_UPDATE Y2YStreamConfigurationContainer;id[unique=true];catalogVersion(catalog(id),version);feed;pool;
+;y2ySyncProducts;$productCatalog:Online;Y2YSYNC_FEED;Y2YSYNC_POOL;
+
+INSERT_UPDATE Y2YStreamConfiguration;streamId[unique=true];container(id);itemTypeForStream(code);dataHubType;whereClause;versionSelectClause;catalogVersion(catalog(id),version);infoExpression[default=''];
+;productsStream;y2ySyncProducts;Product;ProductRaw;{catalogVersion}=?catalogVersion;;;"#{getCatalogVersion().getCatalog().getId()}:#{getCatalogVersion().getVersion()}|#{getCode()}";
+
+INSERT_UPDATE Y2YColumnDefinition;position[unique=true];attributeDescriptor(enclosingType(code),qualifier);language(isocode)[default=en];impexHeader;streamConfiguration(streamId)[unique=true];columnName
+# Product column definitions
+;0;Product:code;;code[unique=true];productsStream;r_code
+;1;Product:name;;name[lang=en][translator=de.hybris.platform.fractussyncservices.translator.FractusSyncNullValueTranslator];productsStream;r_name
+;2;Product:description;;description[lang=en][translator=de.hybris.platform.fractussyncservices.translator.FractusSyncNullValueTranslator];productsStream;r_description
+;3;;;@mediaData[translator=de.hybris.platform.fractussyncservices.translator.FractussyncProductMediaDataTranslator, mediaType='picture'];productsStream;r_pictureURL
+;4;Product:approvalStatus;;approvalStatus(code);productsStream;r_approvalStatus
+;5;;;@taxInfoData[translator=de.hybris.platform.fractussyncservices.translator.FractussyncProductTaxTranslator];productsStream;r_tax
+;6;;;@yaasApplication[translator=de.hybris.platform.fractussyncservices.translator.FractusApplicationTranslator];productsStream;r_yaasApplication
+;7;;;@language[translator=de.hybris.platform.fractussyncservices.translator.FractusDefaultLanguageTranslator];productsStream;r_language
+;8;;;@categories[translator=de.hybris.platform.fractussyncservices.translator.FractusProductCategoriesTranslator];productsStream;r_category
+
+INSERT_UPDATE Y2YStreamConfiguration;streamId[unique=true];excludedTypes(code);
+
+INSERT_UPDATE Y2YSyncJob;code[unique=true];streamConfigurationContainer(id);syncType(code);
+;y2ySyncProductsJob;y2ySyncProducts;DataHub
+
+INSERT_UPDATE FractusSyncCronJob;code[unique=true];singleExecutable;job(code);y2ySyncJob(code);sessionLanguage(isocode)
+;y2ySyncToDataHubProductsCronJob;false;fractusSyncCronJobPerformable;y2ySyncProductsJob;en
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];active;relative;cronExpression;
+;y2ySyncToDataHubProductsCronJob;1;1;0 0/1 * * * ?;

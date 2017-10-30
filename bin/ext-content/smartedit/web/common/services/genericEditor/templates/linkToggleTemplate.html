@@ -1,0 +1,8 @@
+<div>
+    <input type="radio" name="external" id="external" data-ng-model="model.external" data-ng-value="true" data-ng-change="editor.emptyUrlLink()" />
+    <label>{{field.externalI18nKey| translate}}</label>
+    <input type="radio" name="external" id="internal" data-ng-model="model.external" data-ng-value="false" data-ng-change="editor.emptyUrlLink()" />
+    <label>{{field.internalI18nKey| translate}}</label>
+    <br/>
+    <input type="text" id="urlLink" name="urlLink" data-ng-model="model.urlLink" class="ng-class:{'col-xs-12':true, 'form-control':true, 'has-error':field.errors.length>0} " />
+</div>

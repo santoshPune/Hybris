@@ -1,0 +1,25 @@
+<h1><code ng:non-bindable="">gatewayProxy</code>
+<div><span class="hint">service in module <code ng:non-bindable="">gatewayProxyModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="gatewayproxymodule-gatewayproxy-page"><p>To seamlessly integrate the gateway factory between two services on different frames, you can use a gateway
+proxy. The gateway proxy service simplifies using the gateway module by providing an API that registers an
+instance of a service that requires a gateway for communication.</p>
+<p>This registration process automatically attaches listeners to each of the service&#39;s functions (turned into promises), allowing stub
+instances to forward calls to these functions using an instance of a gateway from <a href="#/smartEdit/gatewayFactoryModule.gatewayFactory">gatewayFactory</a>. Any function that has an empty body declared on the service is used
+as a proxy function. It delegates a publish call to the gateway under the same function name, and wraps the result
+of the call in a Promise.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_initforservice">initForService(service, methodsSubset)</h3>
+<div class="initforservice"><div class="gatewayproxymodule-gatewayproxy-initforservice-page"><p>Mutates the given service into a proxied service. The method will fail if the service is not
+assigned a gatewayId.</p>
+</div><h5 id="methods_initforservice_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>service</td><td><a href="" class="label type-hint type-hint-service">Service</a></td><td><div class="gatewayproxymodule-gatewayproxy-initforservice-page"><p>Service to mutate into a proxied service.</p>
+</div></td></tr><tr><td>methodsSubset</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="gatewayproxymodule-gatewayproxy-initforservice-page"><p>OPTIONAL : subset of methods on which the gatewayProxy will trigger. If not specified, all functions will be eligible. This is particularly useful to avoid inner methods being unnecessarily turned into promises.</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

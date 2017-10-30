@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:annotation-config/> 
+
+	<bean id="b2bbtgaddonCoreDataImportedEventListener" parent="abstractCoreDataImportedEventListener">
+		<property name="supportedChannels">
+			<list value-type="de.hybris.platform.commerceservices.enums.SiteChannel">
+				<value>B2C</value>
+				<!--
+								<value>B2B</value>
+				-->
+			</list>
+		</property>
+		<property name="addonExtensionMetadata">
+			<bean class="de.hybris.platform.addonsupport.data.AddonExtensionMetadata">
+				<property name="suffixChannel" value="false"/>
+				<property name="baseExtensionName" value="b2bbtgaddon"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="b2bbtgaddonSampleDataEventListener" parent="abstractGenericAddOnSampleDataEventListener"  >
+		<property name="extensionName" value="b2bbtgaddon" />
+	</bean>
+
+	<!-- Organization reporting -->
+	<bean id="organizationOrdersReportingJob"
+          class="de.hybris.platform.b2bbtgaddon.btg.OrganizationOrdersReportingJob"
+          parent="abstractJobPerformable">
+        <property name="b2BUnitService" ref="b2bUnitService"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="catalogVersionService" ref="catalogVersionService"/>
+        <property name="currencies">
+            <list>
+                <value>USD</value>
+                <value>EUR</value>
+                <value>CAD</value>
+            </list>
+        </property>
+        <property name="catalog" value="powertoolsProductCatalog"/>
+    </bean>
+
+    <bean id="organizationCategoryPurchasedReportingJob"
+          class="de.hybris.platform.b2bbtgaddon.btg.OrganizationOrdersReportingJob"
+          parent="abstractJobPerformable">
+        <property name="b2BUnitService" ref="b2bUnitService"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+        <property name="catalogVersionService" ref="catalogVersionService"/>
+        <property name="currencies">
+            <list>
+                <value>USD</value>
+                <value>EUR</value>
+                <value>CAD</value>
+            </list>
+        </property>
+        <property name="categories">
+            <list>
+                <value>1360</value>
+            </list>
+        </property>
+        <property name="catalog" value="powertoolsProductCatalog"/>
+    </bean>
+
+	<bean id="abstractTotalSpentByOrgOperandProvider" abstract="true"
+          class="de.hybris.platform.b2bbtgaddon.btg.condition.operand.valueproviders.AbstractTotalSpentByOrgOperandProvider"
+          parent="abstractOrderOperandValueProvider" />
+
+    <bean id="organizationTotalSpentInCurrencyLastYearOperandValueProvider"
+          class="de.hybris.platform.b2bbtgaddon.btg.condition.operand.valueproviders.OrganizationTotalSpentInCurrencyLastYearOperandValueProvider"
+          parent="abstractTotalSpentByOrgOperandProvider">
+        <property name="b2bUnitService" ref="b2bUnitService" />
+    </bean>
+
+    <bean id="organizationTotalSpentInCurrencyRelativeDateOperandValueProvider"
+          class="de.hybris.platform.b2bbtgaddon.btg.condition.operand.valueproviders.OrganizationTotalSpentInCurrencyRelativeDateOperandValueProvider"
+          parent="abstractTotalSpentByOrgOperandProvider">
+        <property name="b2bUnitService" ref="b2bUnitService" />
+    </bean>
+    
+    <bean id="numberOfOrdersAboveAmountRelativeDateOperandValueProvider"
+		class="de.hybris.platform.b2bbtgaddon.btg.condition.operand.valueproviders.NumberOfOrdersAboveAmountRelativeDateOperandValueProvider"
+		 parent="abstractOrderOperandValueProvider" />
+
+	<bean id="organizationUIDOfUserOperandValueProvider"
+		class="de.hybris.platform.b2bbtgaddon.btg.condition.operand.valueproviders.OrganizationUIDOfUserOperandValueProvider"
+		 parent="abstractOrderOperandValueProvider">
+		<property name="b2bUnitService" ref="b2bUnitService" />
+	</bean>
+
+	<bean id="organizationUIDsOperandValueProvider"
+		class="de.hybris.platform.b2bbtgaddon.btg.condition.operand.valueproviders.OrganizationUIDsOperandValueProvider"
+		 parent="abstractOrderOperandValueProvider" />
+
+	<bean id="assignOrganizationToGroup"
+		class="de.hybris.platform.b2bbtgaddon.btg.outputaction.impl.AssignOrganizationToGroup" >
+		<property name="modelService" ref="modelService"/>
+		<property name="b2BUnitService" ref="b2bUnitService"/>
+	</bean>
+
+	<bean id="unassignOrganizationToGroup"
+		class="de.hybris.platform.b2bbtgaddon.btg.outputaction.impl.UnAssignOrganizationToGroup">
+		<property name="modelService" ref="modelService" />
+		<property name="b2BUnitService" ref="b2bUnitService" />
+	</bean>
+</beans>

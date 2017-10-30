@@ -1,0 +1,41 @@
+<h1><code ng:non-bindable="">ConfigurationEditor</code>
+<div><span class="hint">service in module <code ng:non-bindable="">administration</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="administration-configurationeditor-page"><p>The Configuration Editor Service is a convenience service that provides the methods to manage configurations within the Configuration Editor UI, such as filtering configurations, adding entries and removing entries.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_addentry">addEntry()</h3>
+<div class="addentry"><div class="administration-configurationeditor-addentry-page"><p>The Add Entry method adds an entry to the list of configurations.</p>
+</div></div>
+</li>
+<li><h3 id="methods_filterconfiguration">filterConfiguration()</h3>
+<div class="filterconfiguration"><div class="administration-configurationeditor-filterconfiguration-page"><p>Method that returns a list of configurations by filtering out only those configurations whose &#39;toDelete&#39; parameter is set to false.</p>
+</div><h5 id="methods_filterconfiguration_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="administration-configurationeditor-filterconfiguration-page"><p>A list of filtered configurations.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_init">init(loadCallback)</h3>
+<div class="init"><div class="administration-configurationeditor-init-page"><p>The init method initializes the configuration editor and loads all the configurations so they can be edited.</p>
+</div><h5 id="methods_init_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>loadCallback</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="administration-configurationeditor-init-page"><p>The callback to be executed after loading the configurations.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_removeentry">removeEntry(entry, configurationForm)</h3>
+<div class="removeentry"><div class="administration-configurationeditor-removeentry-page"><p>The Remove Entry method deletes the specified entry from the list of configurations. The method does not delete the actual configuration, but just removes it from the array of configurations.
+The entry will be deleted when a user clicks the Submit button.</p>
+</div><h5 id="methods_removeentry_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>entry</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="administration-configurationeditor-removeentry-page"><p>The object to be deleted</p>
+</div></td></tr><tr><td>configurationForm</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="administration-configurationeditor-removeentry-page"><p>The form object which is an instance of <a href="https://docs.angularjs.org/api/ng/type/form.FormController">FormController</a>
+that provides methods to monitor and control the state of the form.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_submit">submit(configurationForm)</h3>
+<div class="submit"><div class="administration-configurationeditor-submit-page"><p>The Submit method saves the list of available configurations by making a REST call to a web service.
+The method is called when a user clicks the Submit button in the configuration editor.</p>
+</div><h5 id="methods_submit_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>configurationForm</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="administration-configurationeditor-submit-page"><p>The form object that is an instance of <a href="https://docs.angularjs.org/api/ng/type/form.FormController">FormController</a>.
+It provides methods to monitor and control the state of the form.</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

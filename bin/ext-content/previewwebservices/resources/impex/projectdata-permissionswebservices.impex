@@ -1,0 +1,7 @@
+
+
+$defaultPassword=1234
+
+
+INSERT_UPDATE Employee;UID[unique=true];password[default=$defaultPassword];groups(uid)[mode=append];
+;cmsmanager;;cmsmanagergroup;

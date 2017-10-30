@@ -1,0 +1,5 @@
+INSERT_UPDATE CoverageConstraintGroup;id[unique=true];coverageDomainID;dedicatedTypes(code);interfaceName
+;defaultBackofficeValidationGroup;defaultDomain;Item;de.hybris.platform.validation.groupinterfaces.DefaultBackofficeValidationGroup
+
+INSERT_UPDATE CoverageConstraintGroup;id[unique=true];coverageDomainID;dedicatedTypes(code);interfaceName
+;emptyValidationGroup;defaultDomain;Item;de.hybris.platform.validation.groupinterfaces.EmptyValidationGroup

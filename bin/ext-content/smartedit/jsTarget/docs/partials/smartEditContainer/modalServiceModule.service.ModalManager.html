@@ -1,0 +1,148 @@
+<h1><code ng:non-bindable="">ModalManager</code>
+<div><span class="hint">service in module <code ng:non-bindable="">modalServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-page"><p>The ModalManager is a service designed to provide easy runtime modification to various aspects of a modal window,
+such as the modifying the title, adding a buttons, setting callbacks, etc...</p>
+<p>The ModalManager constructor is not exposed publicly, but an instance of ModalManager is added to the scope of
+the modal content implicitly through the scope chain/prototyping. As long as you don&#39;t create an
+<a href="https://docs.angularjs.org/guide/scope">isolated scope</a> for the modal, you can access it through $scope.modalManager</p>
+<pre class="prettyprint linenums">
+ .controller('modalTestController', function($scope, $log) {
+   var buttonHandlerFn = function (buttonId) {
+       $log.debug("button with id", buttonId, "was pressed!");
+   };
+   $scope.modalManager.setButtonHandler(buttonHandlerFn);
+   ...
+</pre>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_addbutton">addButton(conf)</h3>
+<div class="addbutton"><h5 id="methods_addbutton_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>conf</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-addbutton-page"><p>(OPTIONAL) Button configuration</p>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>id</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-addbutton-page"><p>An ID for the button. It does not need to be unique, but it is suggested.
+Can be used with the modal manager to enable/disable buttons, see which button is fired in the button handler, etc...</p>
+</div> <p><em>(default: 'button.id')</em></p></td></tr><tr><td>label</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-addbutton-page"><p>An i18n key that will be translated, and applied as the label of the button</p>
+</div> <p><em>(default: 'button.label')</em></p></td></tr><tr><td>disabled</td><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-addbutton-page"><p>Flag to enable/disable the button on the modal</p>
+</div> <p><em>(default: false)</em></p></td></tr><tr><td>style</td><td><a href="" class="label type-hint type-hint-modal_button_styles">MODAL_BUTTON_STYLES</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-addbutton-page"><p>One of <a href="#/smartEditContainer/modalServiceModule.object:MODAL_BUTTON_STYLES">MODAL_BUTTON_STYLES</a></p>
+</div> <p><em>(default: MODAL_BUTTON_STYLES.DEFAULT)</em></p></td></tr><tr><td>action</td><td><a href="" class="label type-hint type-hint-modal_button_actions">MODAL_BUTTON_ACTIONS</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-addbutton-page"><p>One of <a href="#/smartEditContainer/modalServiceModule.object:MODAL_BUTTON_ACTIONS">MODAL_BUTTON_ACTIONS</a></p>
+</div> <p><em>(default: MODAL_BUTTON_ACTIONS.NONE)</em></p></td></tr><tr><td>callback</td><td><a href="" class="label type-hint type-hint-function">function</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-addbutton-page"><p>A function that will be called with no parameters when the button is pressed.
+This (optional) function may return null, undefined, or a <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a>.
+Resolving the <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> will trigger the
+<a href="#/smartEditContainer/modalServiceModule.object:MODAL_BUTTON_ACTIONS">button action</a> (if any), and rejecting the
+<a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> will prevent the action from being executed.</p>
+<p>Note: If a button has a callback and the ModalManager has registered a
+<a href="#/smartEditContainer/modalServiceModule.service:ModalManager#methods_setbuttonhandler">button handler</a>, only the button callback
+will be executed on button press. This is to avoid the unnecessary complexity of having multiple handlers for a single button.</p>
+</div> <p><em>(default: null)</em></p></td></tr></tbody></table></td></tr></tbody></table><h5 id="methods_addbutton_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-addbutton-page"><p>An object representing the newly added button</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_close">close(data)</h3>
+<div class=""><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-close-page"><p>The close function will close the modal window, passing the provided data (if any) to the successCallback
+of the modal <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> by resolving the <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a>.</p>
+</div><h5 id="methods_close_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>data</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-close-page"><p>Any data to be returned to the resolved modal <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> when the modal is closed.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_disablebutton">disableButton(id)</h3>
+<div class="disablebutton"><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-disablebutton-page"><p>Disabled a button on the modal window, preventing it from be pressed.</p>
+</div><h5 id="methods_disablebutton_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>id</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-disablebutton-page"><p>The id of the button to be disabled.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_dismiss">dismiss(data)</h3>
+<div class="dismiss"><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-dismiss-page"><p>The dismiss function will close the modal window, passing the provided data (if any) to the <a href="https://docs.angularjs.org/api/ng/service/$q">errorCallback</a>
+of the modal <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> by rejecting the <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a>.</p>
+</div><h5 id="methods_dismiss_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>data</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-dismiss-page"><p>Any data to be returned to the rejected modal <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> when the modal is closed.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_enablebutton">enableButton(id)</h3>
+<div class="enablebutton"><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-enablebutton-page"><p>Enables a button on the modal window, allowing it to be pressed.</p>
+</div><h5 id="methods_enablebutton_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>id</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-enablebutton-page"><p>The id of the button to be enabled.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_getbutton">getButton(id)</h3>
+<div class="getbutton"><h5 id="methods_getbutton_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>id</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-getbutton-page"><p>The id of the button to be fetched</p>
+</div></td></tr></tbody></table><h5 id="methods_getbutton_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-getbutton-page"><p>The first button found with a matching id, or null</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_getbuttons">getButtons()</h3>
+<div class="getbuttons"><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-getbuttons-page"><p>Caution!</p>
+<p>This is a reference to the buttons being used by the modal manager, not a clone. This should
+only be used to read or update properties provided in the Button configuration. See
+<a href="#/smartEditContainer/modalServiceModule.service:ModalManager#methods_addbutton">addButton()</a> for more details.</p>
+</div><h5 id="methods_getbuttons_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-getbuttons-page"><p>An array of all the buttons on the modal window, empty array if there are no buttons.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_removeallbuttons">removeAllButtons()</h3>
+<div class="removeallbuttons"><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-removeallbuttons-page"><p>Remove all buttons from the modal window</p>
+</div></div>
+</li>
+<li><h3 id="methods_removebutton">removeButton(id)</h3>
+<div class="removebutton"><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-removebutton-page"><p>Remove a buttons from the modal window</p>
+</div><h5 id="methods_removebutton_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>id</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-removebutton-page"><p>The id of the button to be removed.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_setbuttonhandler">setButtonHandler(buttonPressedCallback)</h3>
+<div class="setbuttonhandler"><h5 id="methods_setbuttonhandler_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>buttonPressedCallback</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-setbuttonhandler-page"><p>The buttonPressedCallback is a function that is called when any button on the
+modal, that has no <a href="#/smartEditContainer/modalServiceModule.service:ModalManager#methods_addbutton">button callback</a>, is pressed. If a button has a
+<a href="#/smartEditContainer/modalServiceModule.service:ModalManager#methods_addbutton">button callback</a> function, then that function will be
+called instead of the buttonPressedCallback.</p>
+<p>This buttonPressedCallback receives a single parameter, which is the string ID of the button that was pressed.
+Additionally, this function must either return null, undefined or a <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a>.</p>
+<p>If null/undefined is return, the modal will continue to process the <a href="#/smartEditContainer/modalServiceModule.object:MODAL_BUTTON_ACTIONS">button action</a>
+In this case, no data will be returned to the modal <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> if the modal is closed.</p>
+<p>If a promise is returned by this function, then the <a href="#/smartEditContainer/modalServiceModule.object:MODAL_BUTTON_ACTIONS">button action</a>
+may be cancelled/ignored by rejecting the promise. If the promise is resolved, the <a href="#/smartEditContainer/modalServiceModule.service:ModalManager">ModalManager</a>
+will continue to process the <a href="#/smartEditContainer/modalServiceModule.object:MODAL_BUTTON_ACTIONS">button action</a>.</p>
+<p>If by resolving the promise returned by the buttonHandlerFunction with data passed to the resolve, and the <a href="#/smartEditContainer/modalServiceModule.object:MODAL_BUTTON_ACTIONS">button action</a>
+is such that it results in the modal closing, then the modal promise is resolved/rejected with that same data. This allows you to pass data from the  buttonHandlerFunction
+the the modalService.open(...) caller.</p>
+<p>See <a href="#/smartEditContainer/modalServiceModule.service:ModalManager#methods_addbutton">addButton() for more details on the button callback</a></p>
+<p>A few scenarios for example:</p>
+<p>#1 A button with a button callback is pressed.
+<br/>Result: buttonPressedCallback is never called.</p>
+<p>#2 A button is pressed, buttonPressedCallback return null
+<br/>Result: The modal manager will execute any action on the button</p>
+<p>#3 A button is pressed, buttonPressedCallback returns a promise, that promise is rejected
+<br/>Result: Modal Manager will ignore the button action and nothing else will happen</p>
+<p>#4 A button with a dismiss action is pressed, buttonPressedCallback returns a promise, and that promise is resolved with data &quot;Hello&quot;
+<br/>Result: ModalManager will execute the dismiss action, closing the modal, and errorCallback of the modal promise, passing &quot;Hello&quot; as data</p>
+<p>Code sample of validating some data before closing the modal
+<pre class="prettyprint linenums">
+             function validateSomething() {
+        return true;
+    };
+
+             var buttonHandlerFn = function (buttonId) {
+        if (buttonId == 'submit') {
+            var deferred = $q.defer();
+            if (validateSomething()) {
+                deferred.resolve("someResult");
+            } else {
+                deferred.reject();  // cancel the submit button's close action
+            }
+            return deferred.promise;
+        }
+    };
+
+             $scope.modalManager.setButtonHandler(buttonHandlerFn);
+</pre>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_setdismisscallback">setDismissCallback(dismissCallback)</h3>
+<div class="setdismisscallback"><h5 id="methods_setdismisscallback_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>dismissCallback</td><td><a href="" class="label type-hint type-hint-function">function</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-setdismisscallback-page"><p>A function to be called when the X dismiss button at the top right corner of the modal window
+is pressed. This function must either return null or a <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a>.</p>
+<p>If the <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> is resolved, or if the function returns null or undefined, then the modal is closed and the returned
+modal <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> is rejected.</p>
+<p>If the callback <a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> is rejected, the modal is not closed, allowing you to provide some kind of validation
+before closing.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_setshowheaderdismiss">setShowHeaderDismiss(showX)</h3>
+<div class="setshowheaderdismiss"><h5 id="methods_setshowheaderdismiss_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>showX</td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="modalservicemodule-service-page modalservicemodule-service-modalmanager-setshowheaderdismiss-page"><p>Flag to show/hide the X dismiss button at the top right corner of the modal window,
+when the modal header is displayed</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

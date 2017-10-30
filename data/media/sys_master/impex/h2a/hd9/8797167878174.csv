@@ -1,0 +1,6 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE SearchBoxComponent;pk[unique=true]
+;8796143617084
+;8796142076988
+#  end of pk list for SearchBoxComponent
+#  

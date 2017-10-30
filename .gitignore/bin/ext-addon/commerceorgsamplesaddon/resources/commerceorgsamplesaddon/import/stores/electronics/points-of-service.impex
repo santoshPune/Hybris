@@ -1,0 +1,20 @@
+# Create Store Employee Group for POS
+INSERT_UPDATE StoreEmployeeGroup;UID[unique=true];name;store(name)
+;nakanoemployeegroup;Nakano;Nakano;
+;chibaemployeegroup;Chiba Store;Chiba;
+;tokiometroemployeegroup;Tokio Hotel Metropolitan Tokyo;Tokio Hotel Metropolitan Tokyo;
+;matsudoemployeegroup;Matsudo;Matsudo;
+;kotoemployeegroup;Koto;Koto;
+
+# Assign Sales Employees to the POS
+INSERT_UPDATE PrincipalGroupRelation;source(uid)[unique=true];target(uid)[unique=true]
+;yuka.kobayashi@acme.com;nakanoemployeegroup;
+;shun.watanabe@acme.com;chibaemployeegroup;
+;natsumi.takahashi@acme.com;tokiometroemployeegroup;
+;keita.tanaka@acme.com;matsudoemployeegroup;
+;ayumi.nakamura@acme.com;kotoemployeegroup;
+;yu.yamamoto@acme.com;nakanoemployeegroup;
+;yu.yamamoto@acme.com;chibaemployeegroup;
+;yu.yamamoto@acme.com;tokiometroemployeegroup;
+;yu.yamamoto@acme.com;matsudoemployeegroup;
+;yu.yamamoto@acme.com;kotoemployeegroup;

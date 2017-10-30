@@ -1,0 +1,29 @@
+<h1><code ng:non-bindable="">seValidationErrorParser</code>
+<div><span class="hint">service in module <code ng:non-bindable="">seValidationErrorParserModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="sevalidationerrorparsermodule-sevalidationerrorparser-page"><p>This service provides the functionality to parse validation errors received from the backend.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_parse">parse()</h3>
+<div class="parse"><div class="sevalidationerrorparsermodule-sevalidationerrorparser-parse-page"><p>Parses extra details, such as language and format, from a validation error message. These details are also
+stripped out of the final message. This function expects the message to be in the following format:</p>
+<pre class="prettyprint linenums">
+var message = "Some validation error occurred. Language: [en]. Format: [widescreen]. SomeKey: [SomeVal]."
+</pre>
+<p>The resulting error object is as follows:
+<pre class="prettyprint linenums">
+{
+    message: "Some validation error occurred."
+    language: "en",
+    format: "widescreen",
+    somekey: "someval"
+}
+</pre>
+</div></div>
+</li>
+</ul>
+</div>
+</div>

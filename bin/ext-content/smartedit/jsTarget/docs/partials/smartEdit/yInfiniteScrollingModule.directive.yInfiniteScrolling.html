@@ -1,0 +1,37 @@
+<h1><code ng:non-bindable="">yInfiniteScrolling</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">yInfiniteScrollingModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="yinfinitescrollingmodule-directive-page yinfinitescrollingmodule-directive-yinfinitescrolling-page"><p>A directive that you can use to implement infinite scrolling for an expanding content (typically with a ng-repeat) nested in it.
+It is meant to handle paginated requests from a backend when data is expected to be large.
+Since the expanding content is a <b>transcluded</b> element, we must specify the context to which the items will be attached:
+If context is myContext, each pagination will push its new items to myContext.items.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;y-infinite-scrolling
+       page-size="{String}"
+       mask="{String}"
+       distance="{String}"
+       context="{Object}"
+       fetch-page="{Function}"
+       drop-down-container-class="{String}"
+       drop-down-class="{String}"&gt;
+&lt;/y-infinite-scrolling&gt;</pre>
+<h3 id="usage_directive-info">Directive info</h3>
+<div class="directive-info"><ul><li>This directive creates new scope.</li>
+</ul>
+</div>
+<h4 id="usage_directive-info_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>pageSize</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="yinfinitescrollingmodule-directive-page yinfinitescrollingmodule-directive-yinfinitescrolling-page"><p>The maximum size of each page requested from the backend.</p>
+</div></td></tr><tr><td>mask</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="yinfinitescrollingmodule-directive-page yinfinitescrollingmodule-directive-yinfinitescrolling-page"><p>A string value sent to the server upon fetching a page to further restrict the search, it is sent as query string &quot;mask&quot;.
+<br>The directive listens for change to mask and will reset the scroll and re-fetch data.
+<br/>It it left to the implementers to decide what it filters on</p>
+</div></td></tr><tr><td>distance</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="yinfinitescrollingmodule-directive-page yinfinitescrollingmodule-directive-yinfinitescrolling-page"><p>A number representing how close the bottom of the element must be to the bottom of the container before the expression specified by fetchPage function is triggered. Measured in multiples of the container height; for example, if the container is 1000 pixels tall and distance is set to 2, the infinite scroll expression will be evaluated when the bottom of the element is within 2000 pixels of the bottom of the container. Defaults to 0 (e.g. the expression will be evaluated when the bottom of the element crosses the bottom of the container).</p>
+</div></td></tr><tr><td>context</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="yinfinitescrollingmodule-directive-page yinfinitescrollingmodule-directive-yinfinitescrolling-page"><p>The container object to which the items of the fetched <a href="#/smartEdit/yInfiniteScrollingModule.object:Page">Page</a> will be added</p>
+</div></td></tr><tr><td>fetchPage</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="yinfinitescrollingmodule-directive-page yinfinitescrollingmodule-directive-yinfinitescrolling-page"><p>function to fetch the next page when the bottom of the element approaches the bottom of the container.
+fetchPage will be invoked with 3 arguments : <b>mask, pageSize, currentPage</b>. The currentPage is determined by the scrolling and starts with 0. The function must return a page of type <a href="#/smartEdit/yInfiniteScrollingModule.object:Page">Page</a>.</p>
+</div></td></tr><tr><td>dropDownContainerClass</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="yinfinitescrollingmodule-directive-page yinfinitescrollingmodule-directive-yinfinitescrolling-page"><p>An optional CSS class to be added to the container of the dropdown. It would typically be used to override the default height. <b>The resolved CSS must set a height (or max-height) and overflow-y:scroll.</b></p>
+</div></td></tr><tr><td>dropDownClass</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="yinfinitescrollingmodule-directive-page yinfinitescrollingmodule-directive-yinfinitescrolling-page"><p>An optional CSS class to be added to the dropdown. <b>Neither height nor overflow should be set on the dropdown, it must be free to fill up the space and reach the container size. Failure to do so will cause the directive to call nextPage as many times as the number of available pages on the server.</b></p>
+</div></td></tr></tbody></table></div>
+</div>

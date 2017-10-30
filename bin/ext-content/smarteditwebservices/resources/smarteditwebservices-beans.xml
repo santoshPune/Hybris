@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+	
+	<bean class="de.hybris.platform.smarteditwebservices.dto.ConfigurationDataListWsDto">
+		<property name="configurations" type="java.util.Collection&lt;de.hybris.platform.smarteditwebservices.data.ConfigurationData>" />
+	</bean>
+	
+	<bean class="de.hybris.platform.smarteditwebservices.data.ConfigurationData">
+        <property name="key" type="java.lang.String" />
+        <property name="value" type="java.lang.String" />
+    </bean>
+
+    <bean class="de.hybris.platform.smarteditwebservices.dto.UpdateConfigurationDto">
+        <property name="uid" type="java.lang.String" />
+        <property name="key" type="java.lang.String" />
+        <property name="value" type="java.lang.String" />
+    </bean>
+
+	<!-- Translation Map Data -->
+	<bean class="de.hybris.platform.smarteditwebservices.data.TranslationMapData">
+		<property name="value" type="java.util.Map&lt;String, String>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.smarteditwebservices.data.SmarteditLanguageData">
+        <property name="name" type="java.lang.String" />
+        <property name="isoCode" type="java.lang.String"></property>
+    </bean>
+	
+	<bean class="de.hybris.platform.smarteditwebservices.data.SmarteditLanguageListData">
+		<property name="languages" type="java.util.List&lt;de.hybris.platform.smarteditwebservices.data.SmarteditLanguageData>" />
+	</bean>
+	
+</beans>

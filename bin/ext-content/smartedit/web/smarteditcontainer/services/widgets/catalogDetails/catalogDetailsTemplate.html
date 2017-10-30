@@ -1,0 +1,24 @@
+<div class="col-xs-12 col-sm-6 ySECatalog">
+    <div class="catalog-container">
+        <div class="catalog-body">
+            <div class="catalog-header row">
+                <h4>{{catalog.name | l10n}}</h4>
+            </div>
+
+            <div class="row">
+                <div data-ng-repeat="catalogVersion in catalog.catalogVersions" class="col-xs-6 catalog-version-item">
+                    <div class="catalog-version-container" data-ng-click="onCatalogSelect(catalogVersion)">
+                        <div class="catalog-thumbnail-default-img">
+                            <div class="catalog-thumbnail" style="background-image: url('{{catalogVersion.thumbnailUrl}}');"></div>
+                        </div>
+                        <div class="catalog-version-info">{{catalogVersion.catalogVersion}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="catalog-footer row">
+                <div data-ng-repeat="template in templates" ng-include="template.include" />
+            </div>
+        </div>
+    </div>
+</div>

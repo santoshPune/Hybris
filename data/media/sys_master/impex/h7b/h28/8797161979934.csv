@@ -1,0 +1,13 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE CxVariation;pk[unique=true]
+;8796093550097
+;8796093517329
+;8796093484561
+;8796093451793
+;8796093419025
+;8796093386257
+;8796093353489
+;8796093320721
+;8796093287953
+#  end of pk list for CxVariation
+#  

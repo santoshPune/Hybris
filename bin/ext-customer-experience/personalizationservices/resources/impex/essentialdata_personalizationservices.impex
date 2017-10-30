@@ -1,0 +1,25 @@
+# Import essential data for the cxm core;;;;
+#;;;;
+# Includes:;;;;
+# * Customers;;;;
+;;;;
+;;;;
+# Users;;;;
+$defaultPassword=12341234
+$defaultCatalog=Default
+$defaultCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$defaultCatalog]),CatalogVersion.version[default=Staged])[default=$defaultCatalog:Staged]
+
+;;;;
+$regulargroup=regulargroup;;;;
+$customergroup=customergroup;;;;
+;;;;
+# Create Customer Group;;;;
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid)[mode=append];;
+;$regulargroup;customergroup;;
+;;;;
+INSERT_UPDATE Customer;uid[unique=true];groups(uid);password[default=$defaultPassword];name
+;cxcontextcustomer@hybris.com;customergroup;;Cxer Contexter
+;;;;
+
+INSERT_UPDATE CxCustomizationsGroup;code[unique=true];$defaultCV[unique=true];
+;default;;

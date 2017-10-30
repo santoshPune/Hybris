@@ -1,0 +1,31 @@
+/* Make iFrame 100% height of the screen by default + fix drag and drop jumping */
+body, html, body[data-ng-app] > div[data-ng-view] {
+    height: 100%;
+}
+
+html.smartedit-html-container {
+    height: auto;
+}
+
+body[data-smartedit-ready] {
+    height: auto;
+    overflow-x: hidden !important;
+}
+
+#js_iFrameWrapper {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    padding-top: 130px; // default offset for the storefront. It will be overwritten with jQuery at runtime in smarteditcontainer.js
+    overflow: hidden;
+}
+/* -- end */
+
+/*override of bootstrap css*/
+iframe{
+    box-sizing:content-box;
+    border: none;
+}

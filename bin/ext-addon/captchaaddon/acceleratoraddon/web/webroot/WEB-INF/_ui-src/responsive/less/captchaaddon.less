@@ -1,0 +1,85 @@
+#registerForm .form_field_error {
+  width:auto;
+  float: none;
+  padding-right:0;
+  clear:both;
+}
+
+.js-recaptcha-captchaaddon {
+  margin-top: 30px;
+}
+
+
+
+#recaptcha_widget {
+  #recaptcha_image,
+  #recaptcha_image > img{
+    width: 240px !important;
+    height:46px !important;
+  }
+
+
+  #recaptcha_image{
+    border-radius: 3px 3px 3px 3px;
+    border: 1px solid @input-border;
+    overflow:hidden;
+    margin:0 0 5px 0;
+    display: inline-block;
+    position: relative;
+
+    #recaptcha_audio_play_again,
+    #recaptcha_audio_download {
+      position: absolute;
+      font-size: 12px;
+      left: 10px;
+    }
+
+    #recaptcha_audio_play_again {
+      top: 5px;
+    }
+
+    #recaptcha_audio_download {
+      bottom: 5px;
+    }
+
+  }
+
+  .recaptcha_icons {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .cicon {
+    display:block;
+    width:20px;
+    height:20px;
+    margin:5px 0 0 5px;
+    color: @captcha-icons;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .recaptcha-help-icon {
+    color: @captcha-icons;
+    background: #ffffff;
+    top: 0;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .error {
+    label {
+      color: @input-error;
+    }
+
+    .form-control {
+      background: @input-error-bg;
+      border-color: @input-error;
+    }
+  }
+
+}

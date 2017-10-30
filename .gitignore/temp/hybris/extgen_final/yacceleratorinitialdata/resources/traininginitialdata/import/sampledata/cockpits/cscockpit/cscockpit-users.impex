@@ -1,0 +1,9 @@
+#
+# Import CS Cockpit Users
+#
+
+
+$defaultPassword=1234
+
+
+INSERT_UPDATE Employee;UID[unique=true];password[default=$defaultPassword];description;name;groups(uid);sessionLanguage(isocode);sessionCurrency(isocode)

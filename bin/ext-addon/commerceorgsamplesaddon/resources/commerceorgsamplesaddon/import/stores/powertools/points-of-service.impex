@@ -1,0 +1,20 @@
+# Create Store Employee Group for POS
+INSERT_UPDATE StoreEmployeeGroup;UID[unique=true];name;store(name)
+;tulsa1employeegroup;Hybris Powertools Tulsa1;Hybris Powertools Tulsa1;
+;tampaemployeegroup;Hybris Powertools Tampa;Hybris Powertools Tampa;
+;indianapolisemployeegroup;Hybris Powertools Indianapolis;Hybris Powertools Indianapolis;
+;elcajonemployeegroup;Hybris Powertools El Cajon;Hybris Powertools El Cajon;
+;tacomaemployeegroup;Hybris Powertools Tacoma;Hybris Powertools Tacoma;
+
+# Assign Sales Employees to the POS
+INSERT_UPDATE PrincipalGroupRelation;source(uid)[unique=true];target(uid)[unique=true]
+;sade.mcdougall@acme.com;tulsa1employeegroup;
+;latisha.latimer@acme.com;tampaemployeegroup;
+;tom.ziebarth@acme.com;indianapolisemployeegroup;
+;mara.martino@acme.com;elcajonemployeegroup;
+;elizabeth.juhlin@acme.com;tacomaemployeegroup;
+;sheilah.duffin@acme.com;tulsa1employeegroup;
+;sheilah.duffin@acme.com;tampaemployeegroup;
+;sheilah.duffin@acme.com;indianapolisemployeegroup;
+;sheilah.duffin@acme.com;elcajonemployeegroup;
+;sheilah.duffin@acme.com;tacomaemployeegroup;

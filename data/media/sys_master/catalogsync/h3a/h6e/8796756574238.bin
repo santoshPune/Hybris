@@ -1,0 +1,60 @@
+#------------------------------------------------
+#Schedules for root type 'Category'
+#------------------------------------------------
+#file: '8796104851957_Category_create_1033585068303852223.csv'
+#file: '8796104851957_Category_update_1405673708722832844.csv'
+#file: '8796104851957_Category_connect_478706267656137324.csv'
+#------------------------------------------------
+#Schedules for root type 'Product'
+#------------------------------------------------
+#file: '8796104851957_Product_create_4523816811453287705.csv'
+#file: '8796104851957_Product_update_298070095224755095.csv'
+#file: '8796104851957_Product_connect_8564280530227539134.csv'
+#------------------------------------------------
+#Schedules for root type 'SolrHeroProductDefinition'
+#------------------------------------------------
+#file: '8796104851957_SolrHeroProductDefinition_create_6494802203462002052.csv'
+#file: '8796104851957_SolrHeroProductDefinition_update_2641644498881716957.csv'
+#file: '8796104851957_SolrHeroProductDefinition_connect_3206816244835766560.csv'
+#------------------------------------------------
+#Schedules for root type 'Media'
+#------------------------------------------------
+#file: '8796104851957_Media_create_1437118064077604346.csv'
+#file: '8796104851957_Media_update_5957817423841485296.csv'
+#file: '8796104851957_Media_connect_4459865194660506679.csv'
+#------------------------------------------------
+#Schedules for root type 'Keyword'
+#------------------------------------------------
+#file: '8796104851957_Keyword_create_3741068333314707241.csv'
+#file: '8796104851957_Keyword_update_4025461375572042653.csv'
+#file: '8796104851957_Keyword_connect_2857653233174740561.csv'
+#------------------------------------------------
+#Schedules for root type 'TaxRow'
+#------------------------------------------------
+#file: '8796104851957_TaxRow_create_5855683724305956575.csv'
+#file: '8796104851957_TaxRow_update_6422226364607996656.csv'
+#file: '8796104851957_TaxRow_connect_3697526893629282813.csv'
+#------------------------------------------------
+#Schedules for root type 'PriceRow'
+#------------------------------------------------
+#file: '8796104851957_PriceRow_create_1585525264785962041.csv'
+#file: '8796104851957_PriceRow_update_5691695456381197739.csv'
+#file: '8796104851957_PriceRow_connect_137872761955009778.csv'
+#------------------------------------------------
+#Schedules for root type 'DiscountRow'
+#------------------------------------------------
+#file: '8796104851957_DiscountRow_create_6992991576851564945.csv'
+#file: '8796104851957_DiscountRow_update_116346454167131593.csv'
+#file: '8796104851957_DiscountRow_connect_2376208461548653607.csv'
+#------------------------------------------------
+#Schedules for root type 'MediaContainer'
+#------------------------------------------------
+#file: '8796104851957_MediaContainer_create_6844202948741611825.csv'
+#file: '8796104851957_MediaContainer_update_2946122624084766761.csv'
+#file: '8796104851957_MediaContainer_connect_8927007759440409350.csv'
+#------------------------------------------------
+#Schedules for root type 'AbstractConfiguratorSetting'
+#------------------------------------------------
+#file: '8796104851957_AbstractConfiguratorSetting_create_1814099581226775730.csv'
+#file: '8796104851957_AbstractConfiguratorSetting_update_565088903189108720.csv'
+#file: '8796104851957_AbstractConfiguratorSetting_connect_8596104105195544874.csv'

@@ -1,0 +1,6 @@
+<div class="input-group date ySEDateField" data-ng-class="{'ySEDataDisabled':!isEditable}" id="date-time-picker-{{name}}">
+    <input type='text' class="form-control" placeholder="{{ placeholderText | translate}}" ng-disabled="!isEditable" name="{{name}}" data-ng-model="model" />
+    <span class="input-group-addon" data-ng-show="isEditable">
+        <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+</div>

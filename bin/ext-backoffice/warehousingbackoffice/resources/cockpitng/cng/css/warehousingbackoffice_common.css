@@ -1,0 +1,195 @@
+.y-toolbar-leftslot .cng-action-group td.z-hbox-separator{
+    margin-left: -2px;
+    display: inline-block;
+    height: 32px;
+}
+
+.y-toolbar-leftslot .cng-action-group .cng-action td.z-hbox-separator{
+    margin: 0;
+    height: auto;
+}
+
+.y-toolbar-leftslot .cng-action-group .cng-action {
+    margin-right: 2px;
+}
+
+.y-toolbar-leftslot .cng-action.cng-action-disabled{
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+.y-toolbar-leftslot .cng-action.cng-action-disabled:hover{
+    background: none;
+}
+
+.y-toolbar-leftslot .cng-action.cng-action-disabled  tr{
+    display: none;
+}
+
+.cng-action .z-hbox-separator {
+	background-color: inherit;
+}
+
+.cng-action:hover {
+	background-color: #6f7c91;
+	color: white;
+}
+
+button.z-button.declineitem {
+	background-image: url("images/icon_action_decline_default.png");
+	background-color: #FFFFFF;
+	width: 30px;
+	border: 1px solid #C0C0C0;
+	background-position: center;
+}
+
+button.z-button.declineitem:hover {
+	background-image: url("images/icon_action_decline_hover.png"); #
+	background-color: #085ABC;
+}
+
+button.z-button.edititem {
+	background-image: url("images/icon_action_edit_default.png");
+	background-color: #FFFFFF;
+	width: 20px;
+	border: 1px solid #C0C0C0;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+button.z-button.edititem:hover {
+	background-image: url("images/icon_action_edit_hover.png"); #
+	background-color: #085ABC;
+}
+
+button.z-button.edititem.disabled {
+    background-image: url("images/icon_action_edit_disabled.png");
+}
+
+button.z-button.edititem.disabled:hover {
+    background-color: #F6F6F6;
+    border: 1px solid #DFDFDF;
+}
+
+
+.y-editor-area-attributes-cnt-max .z-groupbox-content .z-hbox, 
+.y-editor-area-attributes-cnt-max.z-groupbox-content table {
+	width: 100%;
+}
+
+.y-toolbar-leftslot .cng-action-group .ya-de_hybris_platform_warehousingbackoffice_actions_printpickslipaction.cng-action:not(.cng-action-disabled),
+.y-toolbar-leftslot .cng-action-group .ya-de_hybris_platform_warehousingbackoffice_actions_printpackaction.cng-action:not(.cng-action-disabled),
+.y-toolbar-leftslot .cng-action-group .ya-de_hybris_platform_warehousingbackoffice_actions_printshippinglabelaction.cng-action:not(.cng-action-disabled),
+.y-toolbar-leftslot .cng-action-group .ya-de_hybris_platform_warehousingbackoffice_actions_shipaction.cng-action:not(.cng-action-disabled),
+.y-toolbar-leftslot .cng-action-group .ya-de_hybris_platform_warehousingbackoffice_actions_confirmpickupaction.cng-action:not(.cng-action-disabled),
+.y-toolbar-leftslot .cng-action-group .ya-de_hybris_platform_warehousingbackoffice_actions_reallocateaction.cng-action:not(.cng-action-disabled),
+.y-toolbar-leftslot .cng-action-group .ya-de_hybris_platform_warehousingbackoffice_actions_returns_acceptgoods.cng-action:not(.cng-action-disabled),
+.y-toolbar-leftslot .cng-action-group .ya-de_hybris_platform_warehousingbackoffice_actions_returns_cancelreturnaction.cng-action:not(.cng-action-disabled){
+	padding-top: 6px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 6px;
+}
+.y-toolbar-leftslot .cng-action-group .ya-de_hybris_platform_warehousingbackoffice_actions_stock_adjustment.cng-action:not(.cng-action-disabled){
+	padding: 2px 10px;
+}
+.y-toolbar-leftslot .cng-action-group .ya-de_hybris_platform_warehousingbackoffice_actions_stock_adjustment.cng-action:not(.cng-action-disabled) tr{
+    vertical-align: middle;
+}
+
+
+.yw-editorarea-tabbox-tabpanels-tabpanel .atpformulas-header{
+    background-color: #6f7c91;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.yw-editorarea-tabbox-tabpanels-tabpanel .atpformulas-header .atpformulabuilderheadervariables>span,
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row>div:nth-child(3){
+    padding-left: 25px;
+}
+
+.yw-editorarea-tabbox-tabpanels-tabpanel .atpformulabuilderheaderactions>span{
+    width: 75px;
+    padding-left: 10px;
+}
+
+.yw-editorarea-tabbox-tabpanels-tabpanel .atpformulabuilderheaderactions>span,
+.yw-editorarea-tabbox-tabpanels-tabpanel .atpformulabuilderheadervariables>span{
+    font-family:'Arial-BoldMT', 'Arial Bold', 'Arial';
+    font-size: 13px;
+    font-style: normal;
+    font-weight: bold;
+    color: #FFFFFF;
+    height: 30px;
+    display:flex;
+    align-items:center;
+    padding-right: 10px;
+}
+
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row {
+    border-bottom: 1px solid #bcbcbc;
+}
+
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row button.addvariableatpformula{
+    background-image: url("images/icon_action_add.png");
+    margin: 3px;
+    height: 28px;
+    width: 28px;
+    min-height: initial;
+}
+
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row button.subvariableatpformula{
+    background-image: url("images/icon_action_sub.png");
+    margin: 3px;
+    height: 28px;
+    width: 28px;
+    min-height: initial;
+}
+
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row button.clearvariableatpformula{
+
+    background-image: url("images/icon_action_remove.png");
+    margin: 3px;
+    height: 28px;
+    width: 28px;
+    min-height: initial;
+}
+
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row .atpformulas-variables,
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row .atpformulas-variables__cancel{
+    font-family:'Arial-MT', 'Arial', 'Arial';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    height: 34px;
+    display:flex;
+    align-items:center;
+    width: calc(100% - 120px);
+    margin-bottom: 0;
+}
+
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row>div:first-child,
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row>div:nth-child(2),
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row>div:nth-child(3){
+    float: left;
+}
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row>div:last-child{
+    float: right;
+}
+
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row>div:first-child,
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row>div:nth-child(2),
+.yw-editorarea-tabbox-tabpanels-tabpanel-groupbox-ed .atpformulas-row>div:last-child{
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.atpformulas-row .ye-default-reference-editor-remove-button.ye-default_remove_formula{
+    background-image: url("images/icon_action_remove1.png");
+    position: initial;
+    right: initial;
+    top: initial;
+    margin-top: 5px;
+}

@@ -1,0 +1,6 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE CMSProductListComponent;pk[unique=true]
+;8796143682620
+;8796142339132
+#  end of pk list for CMSProductListComponent
+#  

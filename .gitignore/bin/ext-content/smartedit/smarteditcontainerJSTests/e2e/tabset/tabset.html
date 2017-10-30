@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!--3rd prty libs-->
+    <script src="../../../web/webroot/static-resources/thirdparties/jquery/dist/jquery.min.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/jquery-ui-smartedit/jquery-ui.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/jquery-ui-smartedit/jquery-ui-smartedit-extension.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/angular/angular.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/angular-cookies/angular-cookies.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/angular-route/angular-route.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/angular-resource/angular-resource.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/bootstrap/dist/js//bootstrap.min.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/angular-mocks/angular-mocks.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/angular-translate/angular-translate.min.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/scriptjs/script.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/ckeditor/ckeditor.js"></script>
+    <script src="../../../web/webroot/static-resources/thirdparties/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+
+    <!-- 3rd party css -->
+    <link rel="stylesheet" href="../../../web/webroot/static-resources/dist/smartedit/css/outer-styling.css">
+    <link rel="stylesheet" href="../../../web/webroot/static-resources/thirdparties/ui-select/dist/select.js" />
+
+    <!--libs-->
+    <script src="../../../web/webroot/static-resources/smarteditloader/js/smarteditloader.js"></script>
+    <script src="../../../web/webroot/static-resources/smarteditcontainer/js/smarteditcontainer.js"></script>
+
+    <base href="../../../" />
+
+    <style>
+    .selectize-control > .selectize-dropdown {
+        top: 36px;
+    }
+    
+    .ui-select-focusser {
+        display: none;
+    }
+    
+    .select2-container .select2-choice {
+        height: auto;
+    }
+    
+    .thumbnail {
+        width: 64px;
+        display: inline;
+    }
+    
+    body {
+        background-color: #ffffff;
+    }
+    </style>
+
+    <script src="jsTarget/templates.js"></script>
+
+    <script>
+    angular.module('sharedDataServiceModule', []).factory('sharedDataService', function() {
+        return {
+            set: function() {}
+        }
+    })
+    </script>
+    <script src="web/common/services/loadConfigurationsService.js"></script>
+    <script src="web/common/services/languageService.js"></script>
+    <script src="web/common/services/interceptorHelper.js"></script>
+    <script src="web/common/services/i18nInterceptor.js"></script>
+    <script src="web/common/services/translateService.js"></script>
+    <script src="web/common/services/restServiceFactory.js"></script>
+    <script src="web/common/services/eventservice.js"></script>
+    <script src="web/common/services/gatewayProxy.js"></script>
+    <script src="web/common/services/tabset/yTabset.js"></script>
+    <script src="/smarteditcontainerJSTests/e2e/tabset/tabsetApp.js"></script>
+    <script src="/smarteditcontainerJSTests/e2e/tabset/backendMocks.js"></script>
+    <script src="web/common/services/resourceLocations.js"></script>
+
+    <script type="text/javascript">
+    window.smartedit = {
+        i18nAPIRoot: "somepath"
+    };
+    </script>
+</head>
+
+<body data-ng-app="tabsetApp" data-ng-controller="defaultController as ctl">
+
+    <h1>Generic Tabset Test</h1>
+
+    <y-tabset data-model="ctl.componentData" tabs-list="ctl.tabsList" data-num-tabs-displayed=3>
+
+    </y-tabset>
+
+    <br/>
+    <br/>
+
+    <button id="add-error1-button" ng-click="ctl.addErrorToTab(0)">Add Error To Tab1</button>
+    <button id="add-error2-button" ng-click="ctl.addErrorToTab(2)">Add Error To Tab 3</button>
+    <button id="reset-button" ng-click="ctl.resetErrors()">Reset Errors</button>
+
+</body>
+
+</html>

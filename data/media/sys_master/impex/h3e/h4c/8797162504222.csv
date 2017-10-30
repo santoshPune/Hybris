@@ -1,0 +1,8 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE CxCustomization;pk[unique=true]
+;8796093255186
+;8796093222418
+;8796093189650
+;8796093156882
+#  end of pk list for CxCustomization
+#  

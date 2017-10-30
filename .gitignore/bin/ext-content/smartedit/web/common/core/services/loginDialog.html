@@ -1,0 +1,33 @@
+<div data-ng-cloak data-ng-class="{'smartEditLogin':modalController.initialized!==true, 'smartEditLoginModal':modalController.initialized!==false, 'vertical-center':true}">
+    <div class="ySELoginContent">
+        <div class="row text-center ySELogo">
+            <img src="static-resources/images/SmartEditLogo.png">
+        </div>
+        <form data-ng-submit="modalController.submit(loginDialogForm)" class="signinForm" name='loginDialogForm' novalidate>
+            <div class="row ySELoginAuthMessage" data-ng-show="modalController.initialized!==false">
+                <div data-ng-class="{'col-xs-8 col-xs-push-2 text-center':true}" data-translate="logindialogform.reauth.message1"></div>
+                <div data-ng-class="{'col-xs-8 col-xs-push-2 text-center':true}" data-translate="logindialogform.reauth.message2"></div>
+            </div>
+
+            <div class="row form-group hyLoginError" data-ng-if="loginDialogForm.errorMessage && loginDialogForm.posted && (loginDialogForm.$invalid || loginDialogForm.failed)">
+                <div data-ng-class="{'col-xs-12 col-sm-8 col-md-6 col-sm-push-2 col-md-push-3 ':modalController.initialized!==true, 'col-xs-8 col-xs-push-2':modalController.initialized!==false, 'alert alert-error-bluebg errorDiv':true}" id="invalidError"> {{loginDialogForm.errorMessage | translate}}</div>
+            </div>
+
+            <div class="row form-group ">
+                <input data-ng-class="{'col-xs-12 col-sm-8 col-md-6 col-sm-push-2 col-md-push-3 ':modalController.initialized!==true, 'col-xs-8 col-xs-push-2':modalController.initialized!==false}" type="text" id="username_{{modalController.authURIKey}}" name="username" placeholder="{{ 'authentication.form.input.username' | translate}}" autofocus data-ng-model="modalController.auth.username" required/>
+            </div>
+            <div class="row form-group">
+                <input data-ng-class="{'col-xs-12 col-sm-8 col-md-6 col-sm-push-2 col-md-push-3 ':modalController.initialized!==true, 'col-xs-8 col-xs-push-2':modalController.initialized!==false}" type="password" id='password_{{modalController.authURIKey}}' name='password' placeholder="{{ 'authentication.form.input.password' | translate}}" data-ng-model="modalController.auth.password" required/>
+            </div>
+
+            <div class="row form-group">
+                <language-selector data-ng-class="{'col-xs-12 col-sm-8 col-md-6 col-sm-push-2 col-md-push-3 ':modalController.initialized!==true, 'col-xs-8 col-xs-push-2':modalController.initialized!==false}"></language-selector>
+            </div>
+
+            <div class="row form-group top-buffer2">
+                <button data-ng-class="{'btn btn-lg btn-primary':true, 'col-xs-12 col-sm-8 col-md-6 col-sm-push-2 col-md-push-3 ':modalController.initialized!==true, 'col-xs-8 col-xs-push-2':modalController.initialized!==false, 'text-uppercase':true}" id="submit_{{modalController.authURIKey}}" name="submit" type="submit" data-translate="authentication.form.button.submit"></button>
+            </div>
+
+        </form>
+    </div>
+</div>

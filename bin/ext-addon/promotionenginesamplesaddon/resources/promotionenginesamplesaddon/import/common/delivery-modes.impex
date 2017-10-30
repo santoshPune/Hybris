@@ -1,0 +1,3 @@
+# Zone Delivery Mode for 'free-standard-shipping' set to active
+INSERT_UPDATE ZoneDeliveryMode;code[unique=true];net;active
+;free-standard-shipping;true;true

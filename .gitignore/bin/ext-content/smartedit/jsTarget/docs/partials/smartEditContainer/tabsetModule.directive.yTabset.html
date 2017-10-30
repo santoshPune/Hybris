@@ -1,0 +1,36 @@
+<h1><code ng:non-bindable="">yTabset</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">tabsetModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="tabsetmodule-directive-page tabsetmodule-directive-ytabset-page"><p>The directive responsible for displaying and organizing tabs within a tabset. A specified number of tabs will
+display a tab header. If there are more tabs than the maximum number defined, the remaining tabs will be grouped
+in a drop-down menu with the header &quot;More&quot;. When a user clicks on a tab header or an item from the drop-down
+menu, the content of the tabset changes to the body of the selected tab.</p>
+<p>Note: The body of each tab is wrapped within a <a href="#/smartEditContainer/tabsetModule.directive:yTab">yTab</a> directive.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;y-tabset
+       model="{Object}"
+       tabs-list="{Object[]}"
+       tab-control="{Function}"
+       num-tabs-displayed="{Number}"&gt;
+&lt;/y-tabset&gt;</pre>
+<h3 id="usage_directive-info">Directive info</h3>
+<div class="directive-info"><ul><li>This directive creates new scope.</li>
+</ul>
+</div>
+<h4 id="usage_directive-info_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>model</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="tabsetmodule-directive-page tabsetmodule-directive-ytabset-page"><p>Custom data to be passed to each tab. Neither the smartedit-tabset directive or the
+smartedit-tab directive can modify this value. The tabs&#39; contents determine how to parse and use this object.</p>
+</div></td></tr><tr><td>tabsList</td><td><a href="" class="label type-hint type-hint-object">Object[]</a></td><td><div class="tabsetmodule-directive-page tabsetmodule-directive-ytabset-page"><p>A list that contains the configuration for each of the tabs to be displayed in the tabset.</p>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>id</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="tabsetmodule-directive-page tabsetmodule-directive-ytabset-page"><p>The ID used to track the tab within the tabset.</p>
+</div></td></tr><tr><td>title</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="tabsetmodule-directive-page tabsetmodule-directive-ytabset-page"><p>The tab header.</p>
+</div></td></tr><tr><td>templateUrl</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="tabsetmodule-directive-page tabsetmodule-directive-ytabset-page"><p>Path to the HTML fragment to be displayed as the tab content.</p>
+</div></td></tr><tr><td>hasErrors</td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="tabsetmodule-directive-page tabsetmodule-directive-ytabset-page"><p>Flag that indicates whether a visual error is to be displayed in the tab or not.</p>
+</div></td></tr></tbody></table></td></tr><tr><td>tabControl</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="tabsetmodule-directive-page tabsetmodule-directive-ytabset-page"><p>An optional parameter. A function that will be called with scope as its parameter.
+It allows the caller to register extra functionality to be executed in the child tabs.</p>
+</div></td></tr><tr><td>numTabsDisplayed</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="tabsetmodule-directive-page tabsetmodule-directive-ytabset-page"><p>The number of tabs for which tab headers will be displayed. The remaining tab
+headers will be grouped within the &#39;MORE&#39; drop-down menu.</p>
+</div></td></tr></tbody></table></div>
+</div>

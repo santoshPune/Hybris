@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+-->
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris" >
+
+	<!-- Explorer Tree configuration -->
+   	<context component="explorer-tree" parent="auto" merge-by="module">
+      <n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+         <n:navigation-node id="ruleengine" merge-mode="append">
+            <n:type-node id="SourceRule" code="SourceRule" />
+            <n:type-node id="SourceRuleTemplate" code="SourceRuleTemplate" />
+            <n:navigation-node id="hmc_typenode_drools_rules"/>
+         </n:navigation-node>
+      </n:explorer-tree>
+   	</context>
+   
+   	<context type="AbstractRule">
+   		<context merge-by="type" parent="GenericItem" component="base">
+			<y:base>
+				<y:labels>
+					<y:label> ( name ?: '' ) + ' ['+ code +']'</y:label>
+				</y:labels>
+			</y:base>
+		</context>
+ 
+   		<context merge-by="type" parent="GenericItem" component="listview">
+			<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+				<list-view:column qualifier="code"/>
+				<list-view:column qualifier="name"/>
+				<list-view:column qualifier="priority"/>
+				<list-view:column qualifier="stackable"/>
+				<list-view:column qualifier="ruleGroup"/>
+				<list-view:column qualifier="status"/>
+			</list-view:list-view>
+		</context>
+		
+		<context merge-by="type" parent="GenericItem" component="advanced-search">
+			<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+				<advanced-search:field-list>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="code" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="name" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="description" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="status" editor="com.hybris.cockpitng.editor.defaultenum" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="priority" editor="com.hybris.cockpitng.editor.defaultinteger" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="ruleGroup" editor="com.hybris.cockpitng.editor.defaultreferenceeditor" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="stackable" editor="com.hybris.cockpitng.editor.boolean.checkbox" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="startDate" editor="com.hybris.cockpitng.editor.defaultdate" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="endDate" editor="com.hybris.cockpitng.editor.defaultdate" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="comments" merge-mode="remove"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="owner" merge-mode="remove"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="pk" merge-mode="remove"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="creationtime" merge-mode="remove"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="modifiedtime" merge-mode="remove"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="itemtype" merge-mode="remove"/>
+				</advanced-search:field-list>
+			</advanced-search:advanced-search>
+		</context>
+		
+		<context merge-by="type" parent="GenericItem" component="editor-area">
+			<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+				<editorArea:tab name="tab.configuration.abstractrule">
+					<editorArea:section name="sec.configuration.abstractrule.details">
+						<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="code"/>
+						<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea"
+													 qualifier="name"/>
+						<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="description"/>
+					</editorArea:section>
+					<editorArea:section name="sec.configuration.abstractrule.rulemanagement">
+						<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea"
+													 qualifier="priority"/>
+				        <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="stackable"/>
+						<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="ruleGroup"/>
+						<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="startDate"
+								label="ruleengine.abstractrule.startdate">
+                            <editorArea:editor-parameter>
+                                <editorArea:name>timeZoneReadOnly</editorArea:name>
+                                <editorArea:value>false</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>selectedTimeZone</editorArea:name>
+                                <editorArea:value>GMT+00:00</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>displayedTimeZones</editorArea:name>
+                                <editorArea:value>GMT-12:00,GMT-11:00,GMT-10:00,GMT-09:30,GMT-09:00,GMT-08:00,GMT-07:00,GMT-06:00,GMT-05:00,GMT-04:30,GMT-04:00,GMT-03:30,GMT-03:00,GMT-02:00,GMT-01:00,GMT+00:00,GMT+01:00,GMT+02:00,GMT+03:00,GMT+03:30,GMT+04:00,GMT+04:30,GMT+05:00,GMT+05:30,GMT+05:45,GMT+06:00,GMT+06:30,GMT+07:00,GMT+08:00,GMT+08:30,GMT+08:45,GMT+09:00,GMT+09:30,GMT+10:00,GMT+10:30,GMT+11:00,GMT+12:00,GMT+12:45,GMT+13:00,GMT+14:00</editorArea:value>
+                            </editorArea:editor-parameter>
+                        </editorArea:attribute>
+						<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="endDate"
+								label="ruleengine.abstractrule.enddate">
+                            <editorArea:editor-parameter>
+                                <editorArea:name>timeZoneReadOnly</editorArea:name>
+                                <editorArea:value>false</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>selectedTimeZone</editorArea:name>
+                                <editorArea:value>GMT+00:00</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>displayedTimeZones</editorArea:name>
+                                <editorArea:value>GMT-12:00,GMT-11:00,GMT-10:00,GMT-09:30,GMT-09:00,GMT-08:00,GMT-07:00,GMT-06:00,GMT-05:00,GMT-04:30,GMT-04:00,GMT-03:30,GMT-03:00,GMT-02:00,GMT-01:00,GMT+00:00,GMT+01:00,GMT+02:00,GMT+03:00,GMT+03:30,GMT+04:00,GMT+04:30,GMT+05:00,GMT+05:30,GMT+05:45,GMT+06:00,GMT+06:30,GMT+07:00,GMT+08:00,GMT+08:30,GMT+08:45,GMT+09:00,GMT+09:30,GMT+10:00,GMT+10:30,GMT+11:00,GMT+12:00,GMT+12:45,GMT+13:00,GMT+14:00</editorArea:value>
+                            </editorArea:editor-parameter>
+                        </editorArea:attribute>
+					</editorArea:section>
+					<editorArea:section name="sec.configuration.abstractrule.others">
+						<editorArea:panel colspan="4" name="messageFiredPanel">
+							<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="messageFired"/>
+						</editorArea:panel>
+						<editorArea:panel colspan="1" name="statusPanel">
+							<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="status" readonly="true"/>
+						</editorArea:panel>
+					</editorArea:section>
+				</editorArea:tab>
+				<editorArea:tab name="hmc.administration">
+			        <editorArea:section name="sec.configuration.abstractrule.ruleadministration" position="0">
+						<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="maxAllowedRuns"/>
+				        <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="allDocuments" readonly="true"/>
+	 			        <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="comments" readonly="true"/>
+				        <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="uuid" readonly="true"/>
+				        <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="synchronizedCopies" readonly="true" merge-mode="remove"/>
+				        <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="synchronizationSources" readonly="true" merge-mode="remove"/>
+					</editorArea:section>
+	            </editorArea:tab>
+			</editorArea:editorArea>
+		</context>
+   	</context>
+	
+	<context type="AbstractRuleTemplate">
+		<context merge-by="type" parent="GenericItem" component="base">
+			<y:base>
+				<y:labels>
+					<y:label> ( name ?: '' ) + ' ['+ code +']'</y:label>
+				</y:labels>
+			</y:base>
+		</context>
+		
+		<context merge-by="type" parent="GenericItem" component="listview">
+			<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+				<list-view:column qualifier="code"/>
+				<list-view:column qualifier="name"/>
+			</list-view:list-view>
+		</context>
+		
+		<context merge-by="type" parent="GenericItem" component="simple-search">
+			<simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+				<simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="code"/>
+				<simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="name"/>
+			</simple-search:simple-search>
+		</context>
+		
+		<context merge-by="type" parent="GenericItem" component="advanced-search">
+			<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+				<advanced-search:field-list>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="code" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="name" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="description" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="ruleGroup" editor="com.hybris.cockpitng.editor.defaultreferenceeditor" selected="false"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="comments" merge-mode="remove"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="owner" merge-mode="remove"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="pk" merge-mode="remove"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="creationtime" merge-mode="remove"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="modifiedtime" merge-mode="remove"/>
+					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="itemtype" merge-mode="remove"/>
+				</advanced-search:field-list>
+			</advanced-search:advanced-search>
+		</context>
+		
+		<context merge-by="type" parent="GenericItem" component="editor-area">
+			<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+				<editorArea:tab name="tab.configuration.abstractruletemplate">
+				<editorArea:section name="sec.configuration.abstractruletemplate.details">
+						<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="code"/>
+						<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="name"/>
+						<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="description"/>
+				</editorArea:section>
+				<editorArea:section name="sec.configuration.abstractruletemplate.rulemanagement">
+						<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="ruleGroup"/>
+				</editorArea:section>
+				<editorArea:section name="sec.configuration.abstractruletemplate.others">
+						<editorArea:panel colspan="4" name="messageFiredPanel">
+							<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="messageFired"/>
+						</editorArea:panel>
+				</editorArea:section>
+				</editorArea:tab>
+				<editorArea:tab name="hmc.administration">
+			        <editorArea:section name="sec.configuration.abstractruletemplate.ruletemplateadministration" position="0">
+			        	<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="maxAllowedRuns"/>
+					</editorArea:section>
+	            </editorArea:tab>
+			</editorArea:editorArea>
+		</context>
+	</context>
+	
+	<context type="SourceRule">
+		<context merge-by="type" parent="AbstractRule" component="simple-search">
+			<simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+				<simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="code"/>
+				<simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="name"/>
+				<simple-search:sort-field name="priority" asc="false"/>
+			</simple-search:simple-search>
+		</context>
+	
+		<context merge-by="type" parent="AbstractRule" component="listviewactions">
+	        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+	           <y:group qualifier="common">
+	              <y:action action-id="com.hybris.cockpitng.action.create" property="pageable.typeCode" >
+	              	<y:parameter>
+				  		<y:name>targetComponent</y:name>
+				  		<y:value>editorArea</y:value>
+				  	</y:parameter>
+				  	<y:parameter>
+				  		<y:name>initializeEntity</y:name>
+				  		<y:value>true</y:value>
+				  	</y:parameter>
+	              </y:action>
+	              <y:action action-id="de.hybris.platform.ruleenginebackoffice.action.rulecompileallaction" property="pageable" />
+	           </y:group>
+	        </y:actions>
+    	</context>
+    
+    	<context merge-by="type" parent="AbstractRule" component="editor-area">
+			<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+				 <editorArea:tab name="tab.configuration.conditionsandactions">
+					<editorArea:section name="sec.configuration.sourcerule.conditions">
+						<editorArea:panel name="conditionsPanel" colspan="4">
+							<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="conditions"/>
+						</editorArea:panel>				
+					</editorArea:section>
+					<editorArea:section name="sec.configuration.sourcerule.actions">
+						<editorArea:panel name="actionsPanel" colspan="4">
+							<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="actions"/>				
+						</editorArea:panel>
+					</editorArea:section>
+				</editorArea:tab>
+			</editorArea:editorArea>
+		</context>
+	
+		<context merge-by="type" parent="AbstractRule" component="editorareaactions">
+			<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+				<y:group qualifier="common">
+					<y:label>actiongroup.common</y:label>
+					<y:action action-id="de.hybris.platform.ruleenginebackoffice.action.deletesourcerule" property="currentObject"/>
+					<y:action action-id="de.hybris.platform.ruleenginebackoffice.action.rulearchiveaction" property="currentObject"/>
+					<y:action action-id="de.hybris.platform.ruleenginebackoffice.action.rulecloneaction" property="currentObject"/>				
+					<y:action action-id="de.hybris.platform.ruleenginebackoffice.action.rulecompileaction" property="currentObject"/>
+				</y:group>
+			</y:actions>
+		</context>
+	</context>
+	
+	<context type="SourceRuleTemplate">
+		<context merge-by="type" parent="AbstractRuleTemplate" component="listviewactions">
+	         <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+	            <y:group qualifier="common">
+	               <y:action action-id="com.hybris.cockpitng.action.create" property="pageable.typeCode" >
+	              	<y:parameter>
+				  		<y:name>targetComponent</y:name>
+				  		<y:value>editorArea</y:value>
+				  	</y:parameter>
+				  	<y:parameter>
+				  		<y:name>initializeEntity</y:name>
+				  		<y:value>true</y:value>
+				  	</y:parameter>
+	              </y:action>
+	            </y:group>
+	         </y:actions>
+    	</context>
+	
+		<context merge-by="type" parent="AbstractRuleTemplate" component="editor-area">
+			<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+				 <editorArea:tab name="tab.configuration.conditionsandactions">
+					<editorArea:section name="sec.configuration.sourcerule.conditions">
+						<editorArea:panel name="conditionsPanel" colspan="4">
+							<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="conditions"/>
+						</editorArea:panel>				
+					</editorArea:section>
+					<editorArea:section name="sec.configuration.sourcerule.actions">
+						<editorArea:panel name="actionsPanel" colspan="4">
+							<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="actions"/>				
+						</editorArea:panel>
+					</editorArea:section>
+				</editorArea:tab>
+			</editorArea:editorArea>
+		</context>
+	
+		<context merge-by="type" parent="AbstractRuleTemplate" component="editorareaactions">
+			<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+				<y:group qualifier="common">
+					<y:label>actiongroup.common</y:label>
+					<y:action action-id="de.hybris.platform.ruleenginebackoffice.widgets.actions.deleteruletemplate" property="currentObject"/>
+				</y:group>
+			</y:actions>
+		</context>
+	</context>
+   
+	<context type="DroolsRulePriceRow" component="droolsRulePriceRowListView">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="description" />
+			<list-view:column qualifier="currency" />
+			<list-view:column qualifier="value" />
+			<list-view:column qualifier="id" />
+		</list-view:list-view>
+	</context>
+    <context component="base" merge-by="type" type="DroolsRulePriceRow" parent="GenericItem">
+         <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+               <y:label>description + ': ' + currency + ' ' + value</y:label>
+            </y:labels>
+         </y:base>
+    </context>   
+    <context component="base" merge-by="type" type="DroolsKIEBase">
+         <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+               <y:label>name</y:label>
+            </y:labels>
+         </y:base>
+    </context>   
+    <context component="base" merge-by="type" type="DroolsKIEModule">
+         <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+               <y:label>name + '(' + mvnGroupId + ':' + mvnArtifactId + ':' + mvnVersion + ')'</y:label>
+            </y:labels>
+         </y:base>
+    </context>   
+    
+   <!-- specific configuration for rules -->      
+   <context type="DroolsRule">
+      <context component="editorareaactions" merge-by="type" parent="AbstractRuleEngineRule">
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+	 	                <y:action action-id="de.hybris.platform.ruleenginebackoffice.widgets.actions.deleterule" property="currentObject" />
+				<y:action action-id="de.hybris.platform.ruleenginebackoffice.action.pushruletoengineaction" property="currentObject"/>
+			</y:group>
+		</y:actions>
+      </context>
+      <context component="editor-area" merge-by="type" parent="GenericItem">
+         <ea:editorArea xmlns:ea="http://www.hybris.com/cockpitng/component/editorArea">
+         	<ea:essentials>
+         		<ea:essentialSection name="hmc.essential">
+                    <ea:attribute qualifier="code"/>
+                    <ea:attribute qualifier="ruleType"/>
+                    <ea:attribute qualifier="active"/>
+                    <ea:attribute qualifier="currentVersion"/>
+                    <ea:attribute qualifier="ruleGroupCode"/>
+                    <ea:attribute qualifier="messageFired"/>
+                    <ea:attribute qualifier="version" readonly="true"/>
+            	</ea:essentialSection>
+         	</ea:essentials>
+            <ea:tab xmlns="http://www.hybris.com/cockpitng/component/editorArea" name="tab.droolsruleengine.droolsrule.main" position="99">
+
+               <section name="sec.droolsruleengine.droolsrule.drl" description="sec.droolsruleengine.droolsrule.drl.description">
+                  <ea:panel colspan="2" name="panel1">
+	                  <attribute qualifier="ruleContent">
+	                    <editor-parameter>
+	                        <name>rows</name>
+	                        <value>12</value>
+	                    </editor-parameter>
+	                    <editor-parameter>
+	                        <name>base64Encoded</name>
+	                        <value>true</value>
+	                    </editor-parameter>
+	                  </attribute>
+                  </ea:panel>
+               </section>
+               
+            </ea:tab>
+         </ea:editorArea>
+      </context>
+      <context component="base" merge-by="type" parent="GenericItem">
+         <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+               <y:label>name</y:label>
+            </y:labels>
+         </y:base>
+      </context>
+      <context component="simple-search" parent="auto" merge-by="type">
+         <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="active" />
+            <yss:field name="code" />
+            <yss:sort-field name="code" asc="true" />
+         </yss:simple-search>
+      </context>
+      
+     <context merge-by="type" parent="auto" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+                <advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="code" selected="true"/>
+                <advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="ruleType" selected="true"/>
+                <advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="active" selected="true"/>
+                <advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="ruleGroupCode" selected="true"/>
+                <advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="ruleContent" selected="true"/>
+                <advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="version" editor="com.hybris.cockpitng.editor.defaultlong" operator="lessOrEquals" selected="true"/>
+                <advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="currentVersion" selected="true"/>
+            </advanced-search:field-list>
+              <advanced-search:sort-field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="code" asc="true" />
+		</advanced-search:advanced-search>
+	</context>
+
+      <context component="listview" merge-by="type" parent="GenericItem">
+         <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+            <list-view:column qualifier="code" />
+            <list-view:column qualifier="ruleType" />
+            <list-view:column qualifier="active" />
+            <list-view:column qualifier="ruleGroupCode" />
+            <list-view:column qualifier="version" />
+            <list-view:column qualifier="currentVersion" />
+         </list-view:list-view>
+      </context>
+
+      <context component="listviewactions" merge-by="type" parent="auto">
+         <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:group qualifier="common">
+               <y:action action-id="de.hybris.platform.ruleenginebackoffice.widgets.listview.actions.deleterules" property="currentObject" />
+               <y:action action-id="com.hybris.cockpitng.action.create" property="pageable.typeCode" />
+               <y:action action-id="de.hybris.platform.ruleenginebackoffice.widgets.listview.actions.pushrulestoengine" />
+            </y:group>
+         </y:actions>
+      </context>
+
+	  <context component="create-wizard">
+			<wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" id="DroolsRuleWizard" title="create.title(ctx.TYPE_CODE)">
+				<wz:prepare id="droolsRulePrepare">
+					<wz:initialize property="newDroolsRule" type="ctx.TYPE_CODE" />
+				</wz:prepare>
+	            <wz:step id="step1" label="create.drools.rule.label">
+					<wz:content id="step1.content">
+						<wz:property-list root="newDroolsRule">
+							<wz:property qualifier="code" type="java.lang.String" />
+							<wz:property qualifier="ruleType" type="de.hybris.platform.ruleengineservices.enums.RuleType" />
+						</wz:property-list>
+					</wz:content>
+					<wz:navigation id="step1.navigation">
+	                    <wz:cancel/>
+	                    <wz:done visible="!#empty(newDroolsRule.code)">
+	                        <wz:save property="newDroolsRule"/>
+	                    </wz:done>
+	                </wz:navigation>
+				</wz:step>
+			</wz:flow>
+		</context>  
+   </context>
+   
+   <context type="RuleGroup">
+   		<context component="base">
+			<y:base>
+				<y:labels>
+					<y:label>code</y:label>
+				</y:labels>
+			</y:base>
+		</context>
+   		<context component="create-wizard">
+	   		<wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" id="SourceRuleWizard" title="create.title(ctx.TYPE_CODE)">
+					<wz:prepare id="ruleGroupPrepare">
+						<wz:initialize property="newRuleGroup" type="ctx.TYPE_CODE" />
+					</wz:prepare>
+		            <wz:step id="step1" label="create.rule.group.label">
+						<wz:content id="step1.content">
+							<wz:property-list root="newRuleGroup">
+								<wz:property qualifier="code" type="java.lang.String" />
+							</wz:property-list>
+						</wz:content>
+						<wz:navigation id="step1.navigation">
+		                    <wz:cancel/>
+		                    <wz:done visible="!#empty(newRuleGroup.code)">
+		                        <wz:save property="newRuleGroup"/>
+		                    </wz:done>
+		                </wz:navigation>
+					</wz:step>
+			</wz:flow>
+   		</context>
+	</context>
+
+</config>

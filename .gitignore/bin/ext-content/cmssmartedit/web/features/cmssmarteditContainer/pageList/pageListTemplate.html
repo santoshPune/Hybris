@@ -1,0 +1,49 @@
+<div class="ySmartEditToolbars" style="position:absolute">
+    <div>
+        <toolbar data-css-class="ySmartEditTitleToolbar" data-image-root="imageRoot" data-toolbar-name="smartEditTitleToolbar"></toolbar>
+    </div>
+</div>
+<div ng-class="{'alert-overlay': true, 'ySEEmptyMessage': (!alerts || alerts.length == 0 ) }">
+    <alerts-box alerts="alerts" />
+</div>
+<div class="pageListWrapper">
+    <div class="ySEPageListTitle">
+        <h1 class="ySEPage-list-title" data-translate='pagelist.title'></h1>
+        <h4 class="ySEPage-list-label">{{pageListCtl.catalogName | l10n}} - {{pageListCtl.catalogVersion}}</h4>
+    </div>
+
+    <div class="ySEPage-list-search input-group">
+        <span class="input-group-addon glyphicon glyphicon-search ySEPage-list-search-icon" ng-click="preventDefault($event); "></span>
+        <input type="text" class="form-control ySEPage-list-search-input" placeholder="{{ 'pagelist.searchplaceholder' | translate }}" data-ng-model="pageListCtl.query.value" name="query">
+    </div>
+
+    <div class="ySEAdd-Page-button">
+        <button class="" data-ng-click="pageListCtl.openAddPageWizard()">
+            <img data-ng-src="../cmssmartedit/images/icon_add.png" />
+            <span class="">{{'se.cms.addpagewizard.addpage' | translate}}</span>
+        </button>
+    </div>
+
+    <client-paged-list items="pageListCtl.pages"
+                keys="[{
+                    property:'name',
+                    i18n:'pagelist.headerpagename'
+                    },{
+                    property:'uid',
+                    i18n:'pagelist.headerpageid'
+                    },{
+                    property:'typeCode',
+                    i18n:'pagelist.headerpagetype'
+                    },{
+                    property:'template',
+                    i18n:'pagelist.headerpagetemplate'
+                    }]"
+                renderers="pageListCtl.renderers"
+                injected-context="pageListCtl.injectedContext"
+                sort-by="'name'"
+                reversed="false"
+                items-per-page="10"
+                query="pageListCtl.query.value"
+                display-count="true"
+    ></client-paged-list>
+</div>

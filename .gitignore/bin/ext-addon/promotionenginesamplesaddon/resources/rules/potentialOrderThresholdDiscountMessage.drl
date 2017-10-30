@@ -1,0 +1,23 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import java.math.BigDecimal;
+import de.hybris.platform.ruleengineservices.rule.evaluation.DisplayMessageRAOAction;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+
+global DisplayMessageRAOAction displayMessageRAOAction;
+
+rule "potentialOrderThresholdDiscountMessage"
+@ruleCode("potentialOrderThresholdDiscountMessage")
+
+	salience 5
+	when
+		$config : RuleConfigurationRRD(ruleCode == "potentialOrderThresholdDiscountMessage")
+		$cart : CartRAO(subTotal >= 100.00, subTotal < 200.00, currencyIsoCode == "USD")
+		$result : RuleEngineResultRAO()
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+	then
+		displayMessageRAOAction.fireMessage($cart, $result, kcontext);
+end

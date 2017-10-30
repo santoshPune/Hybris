@@ -1,0 +1,9 @@
+*** Settings ***
+Resource          impex/Impex_Keywords.txt
+
+*** Keywords ***
+
+prepare emsclientatddtests test setup
+   [Documentation]    Prepares Test with essential/data data.
+   import impex from resource not failing if resource does not exist "/impex/testCommerceCart.csv"
+   import impex from resource "/impex/prepare-for-checkout.csv"

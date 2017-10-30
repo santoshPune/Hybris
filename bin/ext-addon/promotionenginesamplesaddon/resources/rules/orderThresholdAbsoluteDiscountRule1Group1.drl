@@ -1,0 +1,33 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.CategoryRAO;
+import de.hybris.platform.ruleengineservices.rao.ProductRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.AbstractRuleActionRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+import de.hybris.platform.ruleengineservices.rrd.RuleGroupExecutionRRD;
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddOrderDiscountRAOAction
+
+global AddOrderDiscountRAOAction addOrderDiscountRAOAction;
+
+rule "orderThresholdAbsoluteDiscountRule1Group1"
+@ruleCode("orderThresholdAbsoluteDiscountRule1Group1")
+	salience 10
+	when
+		$config : RuleConfigurationRRD(ruleCode == "orderThresholdAbsoluteDiscountRule1Group1")
+		$result:RuleEngineResultRAO()
+		$cart : CartRAO(subTotal > 250.00, currencyIsoCode == "USD")
+		$websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+
+	then
+		addOrderDiscountRAOAction.addOrderLevelDiscount($cart, true, new BigDecimal("11.00"), $result, kcontext);
+end

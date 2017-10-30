@@ -1,0 +1,31 @@
+ *** Settings ***
+Library           de.hybris.platform.atddimpex.keywords.ImpexKeywordLibrary
+Resource	  impex/Impex_Keywords.txt
+
+
+*** Keywords ***
+
+create product "${code:[^"]+}" with unit "${unit:[^"]+}" currency "${currency:[^"]+}" and price "${price:[^"]+}"
+	[Documentation]    Creates a product with the given code
+	@{binding1}    create list    productCode    ${code}    unit     ${unit}
+	${templateName1}=    Set Variable    impex-templates/product/product-insert.impex.vm
+	${impEx1}=    generate impex from template    ${templateName1}    @{binding1}
+	import impex "${impEx1}" use template "${templateName1}"
+	@{binding2}    create list    productCode    ${code}    unit     ${unit}    currency    ${currency}    price    ${price}
+	${templateName2}=    Set Variable    impex-templates/product/pricerow-insert.impex.vm
+	${impEx2}=    generate impex from template    ${templateName2}    @{binding2}
+	import impex "${impEx2}" use template "${templateName2}"	
+
+create user group "${userGroupCode}"
+	[Documentation]    Creates a new UserGroup
+	@{binding}    create list    userGroupCode    ${userGroupCode}
+	${templateName}=    Set Variable    impex-templates/customer/usergroup-insert.impex.vm
+	${impEx}=    generate impex from template    ${templateName}    @{binding}
+	import impex "${impEx}" use template "${templateName}"
+	
+create customer "${userUID:[^"]+}" with user group "${userGroupCode}"
+	[Documentation]    Creates a customer with the given unique ID and user group.
+	@{binding}    create list    userUID    ${userUID}    userGroupCode    ${userGroupCode}
+	${templateName}=    Set Variable    impex-templates/customer/customer-insert.impex.vm
+	${impEx}=    generate impex from template    ${templateName}    @{binding}
+	import impex "${impEx}" use template "${templateName}"

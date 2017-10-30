@@ -1,0 +1,655 @@
+@import (reference) "variables.less";
+
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}
+
+/*left menu animation*/
+.ySELeftHideLevel1{
+    margin-left: -200px;
+    opacity: 0;
+    -webkit-transition: margin-left 0.5s, opacity 0.7s;
+    transition: margin-left 0.5s, opacity 0.7s;
+}
+
+.ySELeftShowLevel1{
+    margin-left: 0;
+    opacity: 1;
+    -webkit-transition: margin-left 0.5s, opacity 0.7s;
+    transition: margin-left 0.5s, opacity 0.7s;
+}
+
+.ySELeftHideLevel2{
+    margin-left: 320px;
+    position: absolute;
+    opacity: 0;
+    top: 250px;
+    -webkit-transition: margin-left 0.5s, opacity 0.7s;
+    transition: margin-left 0.5s, opacity 0.7s;
+}
+.ySELeftShowLevel2{
+    margin-left: 0;
+    position: absolute;
+    top: 250px;
+    opacity: 1;
+    -webkit-transition: margin-left 0.5s, opacity 0.7s;
+    transition: margin-left 0.5s, opacity 0.7s;
+}
+/*left menu animation*/
+
+/*right page tool menu animation*/
+.hideLevel1{
+    margin-left: -200px;
+    opacity: 0;
+    -webkit-transition: margin-left 0.5s, opacity 0.7s;
+    transition: margin-left 0.5s, opacity 0.7s;
+}
+
+.showLevel1{
+    margin-left: 0;
+    opacity: 1;
+    -webkit-transition: margin-left 0.5s, opacity 0.7s;
+    transition: margin-left 0.5s, opacity 0.7s;
+}
+
+.hideLevel2{
+    margin-left: 320px;
+    position: absolute;
+    opacity: 0;
+    top: 40px;
+    -webkit-transition: margin-left 0.5s, opacity 0.7s;
+    transition: margin-left 0.5s, opacity 0.7s;
+}
+.showLevel2{
+    margin-left: 0;
+    position: absolute;
+    top: 40px;
+    opacity: 1;
+    -webkit-transition: margin-left 0.5s, opacity 0.7s;
+    transition: margin-left 0.5s, opacity 0.7s;
+}
+
+.hide1{
+    position: fixed;
+    top: 0;
+    right: -200px;
+    transition: right 3s;
+    -webkit-transition: right 3s;
+}
+/*right page tool menu animation*/
+
+/*right nav*/
+.nav-expanded-right .ySmartEditExperienceSelectorToolbar{
+
+    a.nav-expander,
+    button.nav-expander{
+        background: none repeat scroll 0 0 #000000;
+        color: #0f0f0f;
+        display: block;
+        font-size: 15px;
+        font-weight: 400;
+        height: 50px;
+        margin-right: 0;
+        padding: 1em 1.6em 2em;
+        position: absolute;
+        left: 0;
+        text-decoration: none;
+        text-transform: uppercase;
+        top: 0;
+        transition: right 0.3s ease-in-out 0s;
+        width: 130px;
+        z-index: 12;
+
+        transition: right 0.3s ease-in-out 0s;
+        -webkit-transition: right 0.3s ease-in-out 0s;
+        -moz-transition: right 0.3s ease-in-out 0s;
+        -o-transition: right 0.3s ease-in-out 0s;
+
+    }
+
+    a.nav-expander.fixed,
+    button.nav-expander.fixed{
+        right: 20em;
+    }
+
+    nav {
+        right: 0;
+    }
+}
+/*right nav*/
+
+.ySmartEditToolbars {
+    z-index: 1;
+
+    position: fixed !important;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+.ySmartEditTitleToolbar,
+.ySmartEditExperienceSelectorToolbar {
+    background-color: #0486e0;
+    height: 65px;
+}
+
+.open div .dropdown-menu{
+    display: block;
+}
+
+.ySmartEditTitleToolbar .yTemplateToolbar nav.leftNav{
+    overflow: hidden;
+}
+
+/*left nav*/
+.ySmartEditTitleToolbar{
+    a.nav-expander:hover,
+    button.nav-expander:hover{
+        cursor: pointer;
+    }
+
+    a.nav-expander.fixed,
+    button.nav-expander.fixed{
+        position: fixed;
+    }
+
+    .navbar-inverse,
+    .navbar-toggle{
+        background: #0486e0;
+        color: #ffffff;
+        border: none;
+    }
+
+    .navbar-inverse .navbar-toggle:hover,
+    .navbar-inverse .navbar-toggle:focus{
+        background-color: #0486e0;
+    }
+
+    nav {
+        background: #233243;
+        display: block;
+        height: 100%;
+        overflow: auto;
+        position: fixed;
+        left: -20em;
+        font-size: 15px;
+        top: 0;
+        width: 20em;
+        z-index: 1001;
+
+        transition: left 0.3s ease-in-out 0s;
+        -webkit-transition: left 0.3s ease-in-out 0s;
+        -moz-transition: left 0.3s ease-in-out 0s;
+        -o-transition: left 0.3s ease-in-out 0s;
+    }
+
+    .icon:before {
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        line-height: 1;
+        text-transform: none;
+        content: '>';
+    }
+
+    .icon-back:before {
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        line-height: 1;
+        text-transform: none;
+        content: '< ';
+    }
+
+    .nav-close {
+        font-size: 20px;
+        padding-left: 30px;
+        padding-top: 30px;
+    }
+}
+
+
+body.nav-expanded-left {
+    margin-right: 0em;/*123*/
+    transition: left 0.4s ease-in-out 0s;
+    -webkit-transition: left 0.4s ease-in-out 0s;
+    -moz-transition: left 0.4s ease-in-out 0s;
+    -o-transition: left 0.4s ease-in-out 0s;
+}/*left nav*/
+
+
+.ySmartEditTitleToolbar {
+
+    .navbar{
+        padding-top: 15px;
+    }
+
+    .dropdown-menu{
+        background-color: #32a0ec;
+        min-width: 0;
+    }
+
+    .leftNav .nav-close{
+        font-size: 18px;
+        margin-right: 32px;
+        color: #DBE3ED;
+    }
+
+    .yToolbarBtn{
+        .yDdResolution>li>a:hover{
+            color: inherit;
+            background-color: inherit;
+        }
+
+        .yHybridAction{
+            box-shadow: none;
+        }
+        .btn-group{
+            padding-top: 15px;
+            box-shadow: none;
+        }
+        .btn-group.open{
+            background-color: #32a0ec;
+        }
+    }
+
+    .divider-vertical {
+        height: 50px;
+        margin: 0 9px;
+        border-left: 1px solid #F2F2F2;
+        border-right: 1px solid #FFF;
+    }
+
+    .navbar-toggle{
+        display: inline-block;
+        padding: 0;
+        margin: 25px 30px 0 35px;
+        border-radius: 0;
+
+        .icon-bar{
+            background-color: #fff;
+            border-radius: 0;
+            height: 3px;
+        }
+    }
+    .nav-pills button + .ySmartEditTitleToolbar .nav-pills button{
+        margin-right: 18px;
+    }
+
+    .yTemplateToolbar{
+        display: inline;
+    }
+}
+
+.nav-expanded-left .ySmartEditTitleToolbar{
+
+    a.nav-expander,
+    button.nav-expander{
+        background: none repeat scroll 0 0 #000000;
+        color: #FFFFFF;
+        display: block;
+        font-size: 15px;
+        font-weight: 400;
+        height: 50px;
+        margin-left: 0;
+        padding: 1em 1.6em 2em;
+        position: absolute;
+        left: 0;
+        text-decoration: none;
+        text-transform: uppercase;
+        top: 0;
+        transition: left 0.3s ease-in-out 0s;
+        width: 130px;
+        z-index: 12;
+
+        transition: left 0.3s ease-in-out 0s;
+        -webkit-transition: left 0.3s ease-in-out 0s;
+        -moz-transition: left 0.3s ease-in-out 0s;
+        -o-transition: left 0.3s ease-in-out 0s;
+    }
+
+    a.nav-expander.fixed,
+    button.nav-expander.fixed{
+        left: 20em;
+    }
+
+    nav {
+        left: 0;
+    }
+}
+
+.yToolbar__Left,
+//.yToolbar__Middle,
+.yToolbar__Right{
+    .make-xs-column(3);
+    height: 100%;
+}
+
+.yToolbar__Middle{
+    .make-xs-column(6);
+    height: 100%;
+}
+
+.yToolbar__Left{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.yToolbar__Middle>div{
+    //.text-center();
+}
+
+.yToolbar__Right div{
+    .pull-right();
+}
+
+.ySmartEditExperienceSelectorToolbar{
+    background-color: @smartedit-grey; 
+}
+
+//left menu
+.ySmartEditTitleToolbar{
+    a.nav-expander:hover,
+    button.nav-expander:hover{
+        cursor: pointer;
+    }
+
+    a.nav-expander.fixed,
+    button.nav-expander.fixed{
+        position: fixed;
+    }
+
+    .navbar-inverse,
+    .navbar-toggle{
+        background: @smartedit-blue;
+        color: @smartedit-white;
+        border: none;
+    }
+
+    .navbar-inverse .navbar-toggle:hover,
+    .navbar-inverse .navbar-toggle:focus{
+        background-color: @smartedit-blue;
+    }
+
+    nav {
+        background: smartedit-leftmenu-color;
+        display: block;
+        height: 100%;
+        overflow: auto;
+        position: fixed;
+        left: -20em;
+        font-size: 15px;
+        top: 0;
+        width: 20em;
+        z-index: 1001;
+
+        transition: left 0.3s ease-in-out 0s;
+        -webkit-transition: left 0.3s ease-in-out 0s;
+        -moz-transition: left 0.3s ease-in-out 0s;
+        -o-transition: left 0.3s ease-in-out 0s;
+    }
+
+    .icon:before {
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        line-height: 1;
+        text-transform: none;
+        content: '>';
+    }
+
+    .icon-back:before {
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        line-height: 1;
+        text-transform: none;
+        content: '< ';
+    }
+
+    .nav-close {
+        font-size: 20px;
+        padding-left: 30px;
+        padding-top: 30px;
+    }
+}
+
+.leftNav{
+    font-family: @font-dosis;
+}
+
+.leftNav--listItem a{
+    text-transform: uppercase;
+    font-size: 16px;
+    color: @smartedit-grey2;
+    opacity: 0.6;
+    font-weight: @font-weight--medium;
+    
+    &:hover,
+    &:focus{
+        text-decoration: none;
+        opacity: 0.8;
+    } 
+}
+
+.leftNav--user__info{
+    .text-left();
+    p{
+        color: @smartedit-grey2;
+        opacity: 0.8; 
+        font-size: 16px;
+        font-weight: @font-weight--book;
+    }
+    a{
+        font-size: 16px;
+        color: @smartedit-grey2;
+        opacity: 0.6; 
+        font-weight: @font-weight--book;
+        
+        &:hover,
+        &:focus{
+            text-decoration: none;
+            opacity: 0.8;
+        }    
+    }
+    .ui-select-container {
+        margin-left: -20px;
+        margin-top: 35px;
+        margin-bottom: 35px;
+        background-color: white;
+        color: @smartedit-grey4;
+    }
+}
+
+.leftNav--user__close{
+    padding-top: 20px;
+    .text-right();
+}
+
+.leftNav--user,
+.leftNav--level1,
+.leftNav--level2{
+    padding-left: @smartedit-gutter;
+}
+
+.leftNav--user__divider{
+    border-bottom: 1px solid #172535;
+    padding-top: (1/2* @smartedit-gutter);
+}
+
+.leftNav--listItem{
+    padding-top: (1/2* @smartedit-gutter);
+    padding-bottom: (1/2* @smartedit-gutter);
+}
+
+//left menu
+
+.ySmartEditAppLogo{
+    padding-top: 18.5px;
+}
+
+//inflection point 
+.yToolbar__Right{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.yDddlbResolution{
+    box-shadow: none;
+    padding: 15px (1/2*@smartedit-gutter);
+    background-color: @smartedit-blue;
+}
+
+.yDddlbResolution:focus,
+.yDddlbResolution:active,
+.yDddlbResolution:active:focus{
+    background-color: @smartedit-blue;
+}
+
+#inflectionPtDropdown{
+    margin-right: (1/2*@smartedit-gutter);
+}
+
+#inflectionPtDropdown.open .yDddlbResolution{
+    background-color: @smartedit-lightblue;
+    img{ 
+        opacity: 0.6;
+    }
+}
+
+.yDddlbResolution:hover,
+.yDddlbResolution:active{
+    box-shadow: none;
+    background-color: @smartedit-blue;  
+    img{
+        opacity: 0.8;
+    }
+    border: none;
+}
+
+.yDdResolution{
+    width: auto;
+    position: relative;
+    top: 0;
+    float: none;
+    margin: 0;
+    border: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+} 
+
+.yDdResolution li > a:hover,
+.yDdResolution li > a:focus{
+    opacity: 0.6;
+    background-color: inherit;
+} 
+
+.yDdResolution li > a{
+    border-top: 1px solid rgba(255, 255, 255, .35);
+}
+
+//preview selector 
+.yWebsiteSelectBtn{
+    background-color: inherit;
+    background-color: @smartedit-blue;
+    color: @smartedit-white;
+    font-family: @font-open-sans;
+    font-weight: @font-weight--bold;
+}
+
+.yWebsiteSelectBtn--label{
+    display: block;
+    font-size: 13px;
+    color: #b4dbf4;
+}
+
+.yWebsiteSelectBtn .hyicon{
+    opacity: 0.6;
+}
+
+.yWebsiteSelectBtn--text{
+    text-transform: none;
+    font-size: 16px;
+}
+
+//perspective selector 
+.ySEPerspectiveSelector button{
+    background-color: @smartedit-grey;
+    color: @smartedit-blue;
+    box-shadow: none;
+    padding: 21px @smartedit-gutter 21px (2*@smartedit-gutter);
+    font-size: 15px;
+    font-family: @font-open-sans;
+    font-weight: @font-weight--bold;
+    &:hover,
+    &:active{
+        background-color: inherit;
+        box-shadow: none;
+        color: @smartedit-blue;
+        opacity: 0.8;
+    }
+    .hyicon{
+        opacity: 0.6;
+        font-size: 15px;
+    }
+}
+
+.ySEPerspectiveSelector button:focus:active,
+.ySEPerspectiveSelector button:focus,
+.ySEPerspectiveSelector button:active{
+    box-shadow: none;
+    background-color: @smartedit-grey;
+    color: @smartedit-blue;
+}
+
+.ySEPerspectiveList{
+    width: auto;
+    position: relative;
+    float: none;
+    margin: 0;
+    min-width: 0;
+    border: none;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+li.ySEPerspectiveList--item{
+    .text-right();
+    height: 65px;
+    border-top: 1px solid rgba(255, 255, 255, .35);
+    >a{
+        font-size: 15px;
+        padding-top: 21px;
+        padding-bottom: 21px;
+        padding-right: 70px;
+        font-family: @font-open-sans;
+        font-weight: @font-weight--bold;
+        color: @smartedit-white;
+        text-transform: uppercase;
+    }
+}
+
+li.ySEPerspectiveList--item > a:hover,
+li.ySEPerspectiveList--item > a:focus{
+    background-color: inherit;
+    box-shadow: none;
+    color: @smartedit-white;
+    opacity: 0.8;
+}
+
+.ySEPerspectiveSelector.open .yHybridAction,
+.ySEPerspectiveList{
+    background-color: @smartedit-lightblue;
+    color: @smartedit-white;
+}
+
+.ySEPerspectiveList--item__selected{
+    opacity: 0.6;
+}
+
+.ySEHybridAction{
+    box-shadow: none;
+}

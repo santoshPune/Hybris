@@ -1,0 +1,10 @@
+$siteUid=apparel-de
+$supportedUiExperienceLevels=
+$storeUid=apparel-de
+$channel=b2c
+$solrIndexedType=apparel-deProductType
+$addonExtensionName=commerceorgsamplesaddon
+$contentCatalog=apparel-deContentCatalog
+$class=class de.hybris.platform.commerceservices.setup.data.ImpexMacroParameterData
+$configExtensionName=commerceorgsamplesaddon
+$productCatalog=apparelProductCatalog

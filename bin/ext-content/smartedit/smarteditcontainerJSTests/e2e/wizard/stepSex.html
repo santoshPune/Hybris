@@ -1,0 +1,13 @@
+<div>
+    Select a Gender:
+    <select ng-model="personController.person.gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+    <br />
+    <br />
+    <label>
+        <input type="checkbox" data-ng-model="personController.person.offended"> How DARE you?
+    </label>
+    <button type="button" data-ng-click="personController.toggleExtraStep()">Manual Step Toggle</button>
+</div>

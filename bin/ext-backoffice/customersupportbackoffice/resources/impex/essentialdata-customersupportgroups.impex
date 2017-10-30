@@ -1,0 +1,43 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import new Customer Support Groups
+#
+INSERT_UPDATE BackofficeRole;UID[unique=true];locname[lang=en];backOfficeLoginDisabled;authorities
+# we are going to add the employeegrouop to the admin role only as the restriction is working per level and in this case we would get our desired behavior (employee group runs first and then our role restriction
+# runs after and would override some restrictions from employeegroup
+;customersupportadministratorrole;Customer Support Administrator Role;FALSE;customersupportadministratorrole
+;customersupportmanagerrole;Customer Support Manager Role;FALSE;customersupportmanagerrole
+;customersupportagentrole;Customer Support Agent Role;FALSE;customersupportagentrole
+;;;;;
+INSERT_UPDATE UserGroup;UID[unique=true];locname[lang=en];description
+;customersupportadministratorgroup;Customer Support Administrator Group;The Customer Support Administrator Group has access to the Customer Support Backoffice's Customer Support Administrator Group and Customer Support Agent Group views AND/OR the Assisted Service Module.
+
+INSERT_UPDATE CsAgentGroup;UID[unique=true];locname[lang=en];description
+;customersupportmanagergroup;Customer Support Manager Group;The Customer Support Manager Group has access to the Customer Support Backoffice's Customer Support Manager Group and Customer Support Agent Group views AND/OR the Assisted Service Module.
+;customersupportagentgroup;Customer Support Agent Group;The Customer Support Agent Group has access to the Customer Support Backoffice's Customer Support Agent Group views and AND/OR the Assisted Service Module.
+
+INSERT_UPDATE PrincipalGroupRelation;source(uid)[unique=true];target(uid)[unique=true]
+;customersupportadministratorrole;employeegroup
+;customersupportmanagerrole;employeegroup
+;customersupportagentrole;employeegroup
+;customersupportadministratorgroup;backofficeadmingroup
+;customersupportadministratorgroup;customersupportadministratorrole
+;customersupportadministratorgroup;customersupportmanagerrole
+;customersupportadministratorgroup;customersupportagentrole
+;customersupportadministratorgroup;csagentmanagergroup
+;customersupportmanagergroup;employeegroup
+;customersupportmanagergroup;customersupportmanagerrole
+;customersupportmanagergroup;customersupportagentrole
+;customersupportmanagergroup;csagentmanagergroup
+;customersupportagentgroup;employeegroup
+;customersupportagentgroup;customersupportagentrole

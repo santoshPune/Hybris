@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+           
+	<!-- CONDITIONS -->
+
+	<alias alias="ruleCartTotalConditionTranslator" name="defaultRuleCartTotalConditionTranslator" />
+	<bean id="defaultRuleCartTotalConditionTranslator" class="de.hybris.platform.ruledefinitions.conditions.RuleCartTotalConditionTranslator" />
+
+	<alias alias="ruleQualifyingProductsConditionTranslator" name="defaultRuleQualifyingProductsConditionTranslator" />
+	<bean id="defaultRuleQualifyingProductsConditionTranslator" class="de.hybris.platform.ruledefinitions.conditions.RuleQualifyingProductsConditionTranslator" />
+
+	<alias alias="qualifyingCategoriesConditionTranslator" name="defaultQualifyingCategoriesConditionTranslator" />
+	<bean id="defaultQualifyingCategoriesConditionTranslator" class="de.hybris.platform.ruledefinitions.conditions.RuleQualifyingCategoriesConditionTranslator" />
+
+	<alias alias="ruleTargetCustomersConditionTranslator" name="defaultRuleTargetCustomersConditionTranslator" />
+	<bean id="defaultRuleTargetCustomersConditionTranslator" class="de.hybris.platform.ruledefinitions.conditions.RuleTargetCustomersConditionTranslator" />
+	
+	<alias alias="ruleProductPriceConditionTranslator" name="defaultRuleProductPriceConditionTranslator" />
+	<bean id="defaultRuleProductPriceConditionTranslator" class="de.hybris.platform.ruledefinitions.conditions.RuleProductPriceConditionTranslator" />
+
+	<alias alias="ruleCustomerSupportConditionTranslator" name="defaultRuleCustomerSupportConditionTranslator" />
+	<bean id="defaultRuleCustomerSupportConditionTranslator" class="de.hybris.platform.ruledefinitions.conditions.RuleCustomerSupportConditionTranslator" />
+	
+	<!-- ACTIONS -->
+
+	<alias alias="ruleChangeDeliveryModeAction" name="defaultRuleChangeDeliveryModeAction" />
+	<bean id="defaultRuleChangeDeliveryModeAction" class="de.hybris.platform.ruledefinitions.actions.RuleChangeDeliveryModeAction">
+		<property name="changeDeliveryModeRAOAction" ref="changeDeliveryModeRAOAction" />
+	</bean>
+
+	<alias alias="ruleFreeGiftAction" name="defaultRuleFreeGiftAction" />
+	<bean id="defaultRuleFreeGiftAction" class="de.hybris.platform.ruledefinitions.actions.RuleFreeGiftAction">
+		<property name="addProductToCartRAOAction" ref="addProductToCartRAOAction" />
+	</bean>
+
+	<alias alias="ruleOrderEntryFixedDiscountAction" name="defaultRuleOrderEntryFixedDiscountAction" />
+	<bean id="defaultRuleOrderEntryFixedDiscountAction" class="de.hybris.platform.ruledefinitions.actions.RuleOrderEntryFixedDiscountAction">
+		<property name="addOrderEntryDiscountRAOAction" ref="addOrderEntryDiscountRAOAction" />
+		<property name="ruleCurrencyConverterStrategy" ref="ruleCurrencyConverterStrategy" />
+	</bean>
+
+	<alias alias="ruleOrderEntryFixedPriceAction" name="defaultRuleOrderEntryFixedPriceAction" />
+	<bean id="defaultRuleOrderEntryFixedPriceAction" class="de.hybris.platform.ruledefinitions.actions.RuleOrderEntryFixedPriceAction">
+		<property name="addFixedPriceEntryDiscountRAOAction" ref="addFixedPriceEntryDiscountRAOAction" />
+		<property name="ruleCurrencyConverterStrategy" ref="ruleCurrencyConverterStrategy" />
+	</bean>
+
+	<alias alias="ruleOrderEntryPercentageDiscountAction" name="defaultRuleOrderEntryPercentageDiscountAction" />
+	<bean id="defaultRuleOrderEntryPercentageDiscountAction" class="de.hybris.platform.ruledefinitions.actions.RuleOrderEntryPercentageDiscountAction">
+		<property name="addOrderEntryDiscountRAOAction" ref="addOrderEntryDiscountRAOAction" />
+	</bean>
+
+	<alias alias="ruleOrderFixedDiscountAction" name="defaultRuleOrderFixedDiscountAction" />
+	<bean id="defaultRuleOrderFixedDiscountAction" class="de.hybris.platform.ruledefinitions.actions.RuleOrderFixedDiscountAction">
+		<property name="addOrderDiscountRAOAction" ref="addOrderDiscountRAOAction" />
+		<property name="ruleCurrencyConverterStrategy" ref="ruleCurrencyConverterStrategy" />
+	</bean>
+
+	<alias alias="ruleOrderPercentageDiscountAction" name="defaultRuleOrderPercentageDiscountAction" />
+	<bean id="defaultRuleOrderPercentageDiscountAction" class="de.hybris.platform.ruledefinitions.actions.RuleOrderPercentageDiscountAction">
+		<property name="addOrderDiscountRAOAction" ref="addOrderDiscountRAOAction" />
+	</bean>
+
+	<alias alias="rulePartnerOrderEntryFixedDiscountAction" name="defaultRulePartnerOrderEntryFixedDiscountAction" />
+	<bean id="defaultRulePartnerOrderEntryFixedDiscountAction" class="de.hybris.platform.ruledefinitions.actions.RulePartnerOrderEntryFixedDiscountAction">
+		<property name="addOrderEntryDiscountRAOAction" ref="addOrderEntryDiscountRAOAction" />
+		<property name="ruleCurrencyConverterStrategy" ref="ruleCurrencyConverterStrategy" />
+	</bean>
+
+	<alias alias="rulePartnerOrderEntryFixedPriceAction" name="defaultRulePartnerOrderEntryFixedPriceAction" />
+	<bean id="defaultRulePartnerOrderEntryFixedPriceAction" class="de.hybris.platform.ruledefinitions.actions.RulePartnerOrderEntryFixedPriceAction">
+		<property name="addFixedPriceEntryDiscountRAOAction" ref="addFixedPriceEntryDiscountRAOAction" />
+		<property name="ruleCurrencyConverterStrategy" ref="ruleCurrencyConverterStrategy" />
+	</bean>
+
+	<alias alias="rulePartnerOrderEntryPercentageDiscountAction" name="defaultRulePartnerOrderEntryPercentageDiscountAction" />
+	<bean id="defaultRulePartnerOrderEntryPercentageDiscountAction" class="de.hybris.platform.ruledefinitions.actions.RulePartnerOrderEntryPercentageDiscountAction">
+		<property name="addOrderEntryDiscountRAOAction" ref="addOrderEntryDiscountRAOAction" />
+	</bean>
+
+	<alias alias="ruleTargetBundlePriceAction" name="defaultRuleTargetBundlePriceAction" />
+	<bean id="defaultRuleTargetBundlePriceAction" class="de.hybris.platform.ruledefinitions.actions.RuleTargetBundlePriceAction">
+		<property name="addOrderEntryGroupFixedPriceDiscountRAOAction" ref="addOrderEntryGroupFixedPriceDiscountRAOAction" />
+		<property name="ruleCurrencyConverterStrategy" ref="ruleCurrencyConverterStrategy" />
+	</bean>
+
+	<alias alias="ruleTriggerMessageAction" name="defaultRuleTriggerMessageAction" />
+	<bean id="defaultRuleTriggerMessageAction" class="de.hybris.platform.ruledefinitions.actions.RuleTriggerMessageAction">
+		<property name="displayMessageRAOAction" ref="displayMessageRAOAction" />
+	</bean>
+
+	<alias alias="ruleCurrencyConverterStrategy" name="defaultRuleCurrencyConverterStrategy" />
+	<bean id="defaultRuleCurrencyConverterStrategy" class="de.hybris.platform.ruledefinitions.strategies.impl.DefaultRuleCurrencyConverterStrategy">
+		<property name="commonI18NService" ref="commonI18NService" />
+	</bean>
+
+    <bean id="rulePercentageParameterValidator" class="de.hybris.platform.ruledefinitions.validation.RulePercentageParameterValidator">
+        <property name="ruleCompilerProblemFactory" ref="ruleCompilerProblemFactory" />
+    </bean>
+
+    <bean id="rulePositiveNumberParameterValidator" class="de.hybris.platform.ruledefinitions.validation.RulePositiveNumberParameterValidator">
+        <property name="ruleCompilerProblemFactory" ref="ruleCompilerProblemFactory" />
+    </bean>
+</beans>

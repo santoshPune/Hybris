@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  ~ [y] hybris Platform
+  ~ 
+  ~ Copyright (c) 2000-2016 SAP SE
+  ~ All rights reserved.
+  ~ 
+  ~ This software is the confidential and proprietary information of SAP 
+  ~ Hybris ("Confidential Information"). You shall not disclose such 
+  ~ Confidential Information and shall use it only in accordance with the 
+  ~ terms of the license agreement you entered into with SAP Hybris.
+  -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="de.hybris.eventtracking.model.events.AbstractTrackingEvent" type="event">
+		<property name="idsite" type="String"/>
+		<property name="cvar" type="String"/>
+		<property name="res" type="String"/>
+		<property name="data" type="String"/>
+		<property name="search_cat" type="String"/>
+		<property name="search_count" type="String"/>
+		<property name="ec_id" type="String"/>
+		<property name="ec_st" type="String"/>
+		<property name="ec_tx" type="String"/>
+		<property name="ec_dt" type="String"/>
+		<property name="ec_items" type="String"/>
+		<property name="consentReference" type="String"/>
+		<property name="userAgent" type="String"/>
+		<property name="accept" type="String"/>
+		<property name="acceptLanguage" type="String"/>
+		<property name="referer" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.eventtracking.publisher.csv.model.TrackingEventCsvData">
+		<property name="idsite" type="String"/>
+		<property name="cvar" type="String"/>
+		<property name="res" type="String"/>
+		<property name="data" type="String"/>
+		<property name="search_cat" type="String"/>
+		<property name="search_count" type="String"/>
+		<property name="ec_id" type="String"/>
+		<property name="ec_st" type="String"/>
+		<property name="ec_tx" type="String"/>
+		<property name="ec_dt" type="String"/>
+		<property name="ec_items" type="String"/>
+		<property name="consentReference" type="String"/>
+		<property name="productPrice" type="String"/>
+		<property name="userAgent" type="String"/>
+		<property name="accept" type="String"/>
+		<property name="acceptLanguage" type="String"/>
+		<property name="referer" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.eventtracking.services.constants.TrackingEventJsonFields">
+		<property type="idsite" name="IDSITE"/>
+		<property type="res" name="SCREEN_RESOLUTION"/>
+		<property type="ec_st" name="COMMERCE_ST"/>
+		<property type="ec_tx" name="COMMERCE_TX"/>
+		<property type="ec_dt" name="COMMERCE_DT"/>
+		<property type="consent_reference" name="CONSENT_REFERENCE"/>
+		<property type="user_agent" name="USER_AGENT"/>
+		<property type="accept" name="ACCEPT"/>
+		<property type="accept_language" name="ACCEPT_LANGUAGE"/>
+		<property type="referer" name="REFERER"/>
+		<property type="data" name="DATA"/>
+	</bean>
+
+	<bean class="de.hybris.eventtracking.model.events.AbstractProductAwareTrackingEvent" type="event"
+		  extends="de.hybris.eventtracking.model.events.AbstractTrackingEvent">
+		<property name="categoryId" type="String"/>
+		<property name="productPrice" type="String"/>
+	</bean>
+
+</beans>

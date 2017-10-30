@@ -1,0 +1,34 @@
+<h1><code ng:non-bindable="">editorTabset</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">editorTabsetModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="editortabsetmodule-directive-page editortabsetmodule-directive-editortabset-page"><p>Directive responsible for displaying and organizing editing forms as tabs within a tabset.</p>
+<p>The directive allows communication with it via the control object. To do so, it exposes several methods
+(saveTabs, resetTabs, and cancelTabs). When called, the directive will delegate the corresponding operation to
+each of the tabs, which are represented internally as SmartEdit yTab directives.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;editor-tabset
+       control="{Object}"
+       data="{Object}"&gt;
+&lt;/editor-tabset&gt;</pre>
+<h3 id="usage_directive-info">Directive info</h3>
+<div class="directive-info"><ul><li>This directive creates new scope.</li>
+</ul>
+</div>
+<h4 id="usage_directive-info_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>control</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="editortabsetmodule-directive-page editortabsetmodule-directive-editortabset-page"><p>The object that enables communication with the directive itself. It exposes the
+following methods:</p>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>saveTabs</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="editortabsetmodule-directive-page editortabsetmodule-directive-editortabset-page"><p>Instructs internal tabs to execute their onSave callback, where they shall
+validate and persist their changes. If a tab is unable to complete the save operation successfully, the tabset
+will display an error in the tab&#39;s header.</p>
+</div></td></tr><tr><td>resetTabs</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="editortabsetmodule-directive-page editortabsetmodule-directive-editortabset-page"><p>Instructs internal tabs to execute their onReset callback, where they shall
+discard their modifications and return to a pristine state. It also clears all errors in the tabset.</p>
+</div></td></tr><tr><td>cancelTabs</td><td><a href="" class="label type-hint type-hint-function">Function</a></td><td><div class="editortabsetmodule-directive-page editortabsetmodule-directive-editortabset-page"><p>Instructs internal tabs to execute their onCancel callback, which allows them to discard
+their modifications and clean up as necessary. It also clears all errors in the tabset.</p>
+</div></td></tr><tr><td>isDirty</td><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="editortabsetmodule-directive-page editortabsetmodule-directive-editortabset-page"><p>States whether one or more tabs are not in pristine state (e.g., have been modified).</p>
+</div></td></tr></tbody></table></td></tr><tr><td>data</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="editortabsetmodule-directive-page editortabsetmodule-directive-editortabset-page"><p>The custom data to pass to each of the individual tabs. When used within the editor modal
+it must contain component information, such as the componentID and the componentType.</p>
+</div></td></tr></tbody></table></div>
+</div>

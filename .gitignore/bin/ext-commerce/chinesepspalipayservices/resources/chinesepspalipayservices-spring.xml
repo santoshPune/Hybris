@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="alipayConfiguration" class="de.hybris.platform.chinesepspalipayservices.alipay.AlipayConfiguration">
+		<property name="webPartner" value="${web.partner}" />
+		<property name="webKey" value="${web.key}" />
+		<property name="webSellerEmail" value="${web.seller.email}" />
+		<property name="webGateway" value="${alipay.gateway.url}" />
+		<property name="basepath" value="${basepath}" />
+		<property name="returnBaseUrl" value="${returnBaseUrl}" />
+		<property name="testAmount" value="${alipay.test.amount}" />
+		<property name="testMode" value="${alipay.testmode}" />
+		<property name="requestTimeout" value="${request.timeout}" />
+		<property name="requestSubject" value="${request.subject}" />
+		<property name="httpsVerifyUrl" value="${alipay.verify.url}" />
+		<property name="alipayTimezone" value="${alipay.timezone}" />
+		<property name="directPayServiceApiName" value="${direct.pay.service.api.name}" />
+		<property name="directayPaymethodName" value="${direct.pay.paymethod.name}" />
+		<property name="expressPaymethodName" value="${express.paymethod.name}" />
+		<property name="closeTradeServiceApiName" value="${close.trade.service.api.name}" />
+		<property name="checkTradeServiceApiName" value="${check.trade.service.api.name}" />
+		<property name="signType" value="${alipay.signType}" />
+		<property name="trustGateway" value="${alipay.trustgateway}" />
+		<property name="refundServiceApiName" value="${refund.service.api.name}" />
+		<property name="webSellerId" value="${web.seller.id}" />
+		<property name="refundReason" value="${refund.reason}" />
+	</bean>
+
+	<bean id="alipayPaymentService" class="de.hybris.platform.chinesepspalipayservices.payment.DefaultAlipayPaymentService">
+		<property name="alipayPaymentInfoStrategy" ref="alipayPaymentInfoStrategy" />
+		<property name="commerceCheckoutService" ref="commerceCheckoutService" />
+		<property name="alipayOrderService" ref="alipayOrderService" />
+		<property name="alipayCreateRequestStrategy" ref="alipayCreateRequestStrategy" />
+		<property name="alipayPaymentTransactionStrategy" ref="alipayPaymentTransactionStrategy" />
+		<property name="alipayResponseValidationStrategy" ref="alipayResponseValidationStrategy" />
+		<property name="alipayHandleResponseStrategy" ref="alipayHandleResponseStrategy"/>
+		<property name="mediaService" ref="mediaService" />
+		<property name="chineseOrderService" ref="chineseOrderService"/>
+		<property name="alipayConfiguration" ref="alipayConfiguration"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="cmsSiteService" ref="cmsSiteService"/>
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService"/>
+	</bean>
+
+	<bean id="alipayPaymentInfoStrategy" class="de.hybris.platform.chinesepspalipayservices.strategies.impl.DefaultAlipayPaymentInfoStrategy">
+		<property name="userService" ref="userService" />
+		<property name="modelService" ref="modelService" />
+	</bean>
+
+	<bean id="alipayHandleResponseStrategy" class="de.hybris.platform.chinesepspalipayservices.strategies.impl.DefaultAlipayHandleResponseStrategy">
+	</bean>
+
+
+	<bean id="alipayPaymentTransactionStrategy" class="de.hybris.platform.chinesepspalipayservices.strategies.impl.DefaultAlipayPaymentTransactionStrategy">
+		<property name="modelService" ref="modelService" />
+		<property name="paymentTransactionKeyGenerator" ref="paymentTransactionKeyGenerator" />
+		<property name="alipayPaymentTransactionEntryDao" ref="alipayPaymentTransactionEntryDao" />
+		<property name="alipayPaymentTransactionDao" ref="alipayPaymentTransactionDao" />
+	</bean>
+
+
+	<alias alias="orderService" name="alipayOrderService" />
+	<bean id="alipayOrderService" class="de.hybris.platform.chinesepspalipayservices.order.impl.DefaultAlipayOrderService" parent="defaultOrderService">
+		<property name="submitOrderStrategies">
+			<list>
+				<!-- implementation that sends SubmitOrderEvent -->
+				<ref bean="alipaySubmitOrderStrategy" />
+			</list>
+		</property>
+		<property name="alipayOrderDao" ref="alipayOrderDao" />
+	</bean>
+
+	<bean id="alipayOrderDao" class="de.hybris.platform.chinesepspalipayservices.dao.impl.DefaultAlipayOrderDao">
+	</bean>
+	
+    <!--//TODO check whether this is useful.  -->
+	<alias alias="paymentTransactionKeyGenerator" name="alipayPayTransKeyGenerator" />
+	<bean id="alipayPayTransKeyGenerator" class="de.hybris.platform.chinesepspalipayservices.alipay.PrefixablePersistentKeyGenerator"
+		init-method="initializeKeyGenerator">
+		<property name="key" value="alipay_payment_trans_code" />
+		<property name="digits" value="10" />
+		<property name="start" value="0000000000" />
+		<property name="prefix" value="" />
+		<property name="numeric" value="true" /> <!-- TODO: CHECK IF OK comment rephrase or remove --><!-- IMPORTANT because Alipay does not supports of 3 consecutive of 0, i.e. fail at any occurrence of just-000, in the code we are 
+			replacing all the 0 as A. -->
+	</bean>
+
+	<bean id="alipayPaymentTransactionEntryDao" class="de.hybris.platform.chinesepspalipayservices.dao.impl.DefaultAlipayPaymentTransactionEntryDao">
+	</bean>
+
+	<bean id="alipayPaymentTransactionDao" class="de.hybris.platform.chinesepspalipayservices.dao.impl.DefaultAlipayPaymentTransactionDao">
+	</bean>
+
+	<bean id="alipayCreateRequestStrategy" class="de.hybris.platform.chinesepspalipayservices.strategies.impl.DefaultAlipayCreateRequestStrategy">
+		<property name="alipayConfiguration" ref="alipayConfiguration" />
+	</bean>
+
+	<bean id="alipayResponseValidationStrategy" class="de.hybris.platform.chinesepspalipayservices.strategies.impl.DefaultAlipayResponseValidationStrategy">
+		<property name="alipayConfiguration" ref="alipayConfiguration" />
+	</bean>
+
+	<bean id="alipaySubmitOrderStrategy" class="de.hybris.platform.chinesepspalipayservices.strategies.impl.DefaultAlipaySubmitOrderStrategy">
+		<property name="alipayPaymentInfoStrategy" ref="alipayPaymentInfoStrategy" />
+	</bean>
+	
+	<bean id="alipaySystemSetup" class="de.hybris.platform.chinesepspalipayservices.setup.AlipaySystemSetup" parent="abstractCoreSystemSetup"/>
+</beans>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ [y] hybris Platform
+  ~ 
+  ~ Copyright (c) 2000-2016 SAP SE
+  ~ All rights reserved.
+  ~ 
+  ~ This software is the confidential and proprietary information of SAP 
+  ~ Hybris ("Confidential Information"). You shall not disclose such 
+  ~ Confidential Information and shall use it only in accordance with the 
+  ~ terms of the license agreement you entered into with SAP Hybris.
+  -->
+  
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="weChatPayPaymentInfoStrategy" class="de.hybris.platform.chinesepspwechatpayservices.strategies.impl.DefaultWeChatPayPaymentInfoStrategy">
+		<property name="userService" ref="userService" />
+		<property name="modelService" ref="modelService" />
+	</bean>
+			
+	<bean id="wechatpayPaymentService" class="de.hybris.platform.chinesepspwechatpayservices.payment.impl.DefaultWechatPayPaymentService">
+		<property name="weChatPayPaymentInfoStrategy" ref="weChatPayPaymentInfoStrategy" />
+		<property name="commerceCheckoutService" ref="commerceCheckoutService" />
+		<property name="mediaService" ref="mediaService" />
+		<property name="configurationService" ref="configurationService" />	
+		<property name="orderDao" ref="wechatPayOrderDao"/>
+		<property name="wechatPayPaymentTransactionStrategy" ref="wechatPayPaymentTransactionStrategy"/>	
+		<property name="wechatPayConfiguration" ref="wechatPayConfiguration"/>
+		<property name="wechatPayHttpClient" ref="wechatPayHttpClient"/>	
+		<property name="chineseOrderService" ref="chineseOrderService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+	<bean id="wechatPayPaymentTransactionStrategy" class="de.hybris.platform.chinesepspwechatpayservices.strategies.impl.DefaultWechatPayPaymentTransactionStrategy">
+		<property name="modelService" ref="modelService" />
+		<property name="paymentTransactionKeyGenerator" ref="wechatPayPayTransKeyGenerator" />
+		<property name="wechatPayPaymentTransactionDao" ref="wechatPayPaymentTransactionDao" />
+		<property name="wechatPayPaymentTransactionEntryDao" ref="wechatPayPaymentTransactionEntryDao" />
+	</bean>
+	
+	<bean id="wechatPayNotificationService" class="de.hybris.platform.chinesepspwechatpayservices.notifications.impl.DefaultWechatPayNotificationService">
+		<property name="modelService" ref="modelService" />
+		<property name="wechatPayOrderDao" ref="wechatPayOrderDao" />
+		<property name="chineseOrderService" ref="chineseOrderService" />
+		<property name="wechatPayPaymentTransactionStrategy" ref="wechatPayPaymentTransactionStrategy" />
+	</bean>
+	
+	<bean id="wechatPayPaymentTransactionDao" class="de.hybris.platform.chinesepspwechatpayservices.dao.impl.DefaultWechatPayPaymentTransactionDao">
+	</bean>
+	
+	<bean id="wechatPayPaymentTransactionEntryDao" class="de.hybris.platform.chinesepspwechatpayservices.dao.impl.DefaultWechatPayPaymentTransactionEntryDao">
+	</bean>
+
+	<bean id="wechatpaySystemSetup" class="de.hybris.platform.chinesepspwechatpayservices.setup.WeChatPaySystemSetup" parent="abstractCoreSystemSetup"/>
+
+	<bean id="wechatPayOrderService" class="de.hybris.platform.chinesepspwechatpayservices.order.impl.DefaultWechatPayOrderService" parent="defaultOrderService">
+		<property name="wechatPayOrderDao" ref="wechatPayOrderDao" />
+	</bean>
+
+	<bean id="wechatPayOrderDao" class="de.hybris.platform.chinesepspwechatpayservices.dao.impl.DefaultWechatPayOrderDao">
+	</bean>	
+	
+	<bean id="wechatPayConfiguration" class="de.hybris.platform.chinesepspwechatpayservices.wechatpay.WechatPayConfiguration">
+		<property name="appId" value="${wechatpay.app.id}" />
+		<property name="appSecret" value="${wechatpay.app.secret}" />
+		<property name="mechId" value="${wechatpay.merchant.id}" />
+		<property name="oauthURL" value="${wechatpay.oauth.url}" />
+		<property name="accessTokenURL" value="${wechatpay.accesstoken.url}" />
+		<property name="unifiedOrderURL" value="${wechatpay.unifiedorder.url}" />
+		<property name="orderQueryURL" value="${wechatpay.orderquery.url}" />
+		<property name="basePath" value="${wechatpay.basepath}" />
+		<property name="mechKey" value="${wechatpay.merchant.key}" />
+		<property name="testMode" value="${wechatpay.testmode}" />
+		<property name="timeout" value="${wechatpay.timeout}" />
+	</bean>	
+	
+	<bean id="wechatPayHttpClient" class="de.hybris.platform.chinesepspwechatpayservices.wechatpay.WechatPayHttpClient">
+    	<constructor-arg>
+			<bean class="org.apache.commons.httpclient.HttpClient">
+		    	<constructor-arg>
+		        	<bean class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager">        	
+		            	<property name="params">
+				        	<bean class="org.apache.commons.httpclient.params.HttpConnectionManagerParams">
+				            	<property name="defaultMaxConnectionsPerHost" value="30"/>
+				            	<property name="maxTotalConnections" value="100"/>
+				        	</bean>
+		            	</property>
+		        	</bean>        	
+		    	</constructor-arg>
+			</bean>
+		</constructor-arg>	
+	</bean>
+			
+	<bean id="wechatPayPayTransKeyGenerator" class="de.hybris.platform.chinesepspwechatpayservices.wechatpay.PrefixablePersistentKeyGenerator"
+		init-method="initializeKeyGenerator">
+		<property name="key" value="wechatpay_payment_trans_code" />
+		<property name="digits" value="10" />
+		<property name="start" value="0000000000" />
+		<property name="prefix" value="" />
+		<property name="numeric" value="true" />
+	</bean>
+</beans>

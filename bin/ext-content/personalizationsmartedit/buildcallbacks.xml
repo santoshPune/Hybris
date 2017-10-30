@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+
+
+-->
+<project name="personalizationsmartedit_buildcallbacks">
+
+	<patternset id="extension.personalizationsmartedit.binary.filter">
+		<patternset refid="extension.binary.filter"/>
+		<exclude name="node_modules/"/>
+		<exclude name="jsTarget/"/>
+		<exclude name="**/static-resources/dist/"/>
+		<exclude name="**/webroot/personalizationsmartedit/"/>
+		<exclude name="**/webroot/css/style.css"/>
+		<exclude name="buildArtifacts/"/>
+	</patternset>
+ 
+	<patternset id="extension.personalizationsmartedit.source.filter">
+		<patternset refid="extension.source.filter"/>
+		<exclude name="node_modules/"/>
+		<exclude name="jsTarget/"/>
+		<exclude name="**/static-resources/dist/"/>
+		<exclude name="**/webroot/personalizationsmartedit/"/>
+		<exclude name="**/webroot/css/style.css"/>
+		<exclude name="buildArtifacts/"/>
+	</patternset>
+
+	<macrodef name="personalizationsmartedit_before_clean">
+		<sequential>
+			<gruntBuild path="${ext.personalizationsmartedit.path}" phase="clean"/>
+		</sequential>
+	</macrodef>
+	<macrodef name="personalizationsmartedit_before_build">
+		<sequential>
+			<linkToSELibraries path="${ext.personalizationsmartedit.path}"/>
+			<gruntBuild path="${ext.personalizationsmartedit.path}" phase="compile_only"/>
+			<gruntBuild path="${ext.personalizationsmartedit.path}" phase="package_only"/>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="personalizationsmartedit_before_yunit">
+		<sequential>
+			<gruntBuild path="${ext.personalizationsmartedit.path}" phase="test_only"/>
+			<!--<gruntBuild path="${ext.personalizationsmartedit.path}" phase="verify_only" />-->
+		</sequential>
+	</macrodef>
+
+</project>

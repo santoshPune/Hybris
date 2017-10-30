@@ -1,0 +1,41 @@
+package $packageName;
+ 
+#if ( $hasDescription )
+/**
+ * $description
+ */
+#end
+public enum $shortClassName   
+{
+ 
+#foreach($v in $enumValue)
+    $v.comment
+    ${StringUtils.upperCase($v.name)}#if ($foreach.last); #else , #end
+ 
+#end
+ 
+    final private String code;
+ 
+    private $shortClassName(String code) {
+        this.code = code;
+    }
+ 
+    public String getCode() {
+        return code;
+    }
+ 
+    public static $shortClassName fromCode(String code) {
+        switch (code) {
+        #foreach($v in $enumValue)
+            #set ($code = $v.name.substring($v.name.indexOf('(')))
+            #set ($code2 = $code.substring(1, $code.indexOf(')')))
+            #set ($value = $v.name.substring(0, $v.name.indexOf('(')))
+    case $code2:
+                return $value;
+        #end
+         
+        }
+ 
+        throw new IllegalArgumentException("Unknown code \"" + code + "\"");
+    }
+}

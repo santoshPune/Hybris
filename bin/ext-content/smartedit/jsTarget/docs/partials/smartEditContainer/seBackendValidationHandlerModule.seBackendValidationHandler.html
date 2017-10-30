@@ -1,0 +1,48 @@
+<h1><code ng:non-bindable="">seBackendValidationHandler</code>
+<div><span class="hint">service in module <code ng:non-bindable="">seBackendValidationHandlerModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="sebackendvalidationhandlermodule-sebackendvalidationhandler-page"><p>The seBackendValidationHandler service handles validation errors received from the backend.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_handleresponse">handleResponse(response, errorsContext)</h3>
+<div class="handleresponse"><div class="sebackendvalidationhandlermodule-sebackendvalidationhandler-handleresponse-page"><p>Extracts validation errors from the provided response and appends them to a specified contextual errors list.</p>
+<p>The expected error response from the backend matches the contract of the following response example:</p>
+<pre class="prettyprint linenums">
+var response = {
+    data: {
+        errors: [{
+            type: 'ValidationError',
+            subject: 'mySubject',
+            message: 'Some validation exception occurred'
+        }, {
+            type: 'SomeOtherError',
+            subject: 'mySubject'
+            message: 'Some other exception occurred'
+        }]
+    }
+}
+</pre>
+<p>Example of use:
+<pre class="prettyprint linenums">
+var errorsContext = [];
+seBackendValidationHandler.handleResponse(response, errorsContext);
+</pre>
+<p>The resulting errorsContext would be as follows:
+<pre class="prettyprint linenums">
+[{
+    subject: 'mySubject',
+    message: 'Some validation exception occurred'
+}]
+</pre>
+</div><h5 id="methods_handleresponse_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>response</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="sebackendvalidationhandlermodule-sebackendvalidationhandler-handleresponse-page"><p>A response consisting of a list of errors; for details of the expected format, see the
+example above.</p>
+</div></td></tr><tr><td>errorsContext</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="sebackendvalidationhandlermodule-sebackendvalidationhandler-handleresponse-page"><p>An array that all validation errors are appended to. It is an output parameter.</p>
+</div></td></tr></tbody></table><h5 id="methods_handleresponse_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="sebackendvalidationhandlermodule-sebackendvalidationhandler-handleresponse-page"><p>The error context list originally provided, or a new list, appended with the validation errors</p>
+</div></td></tr></table></div>
+</li>
+</ul>
+</div>
+</div>

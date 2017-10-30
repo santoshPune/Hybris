@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="eclipsebin/notused"/>
+
+				
+				
+	<classpathentry exported="false" kind="src" path="/platform" />
+	<classpathentry exported="true" kind="lib" path="lib/dummy-creator-1.2.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-activemq-local-6.0.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-client-5.5.1.0-M0.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-configuration-6.0.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-context-6.0.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-conversion-5.5.1.0-M0.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-dto-5.5.1.0-M0.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-exporter-5.5.1.0-M0.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-lang-6.0.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-mock-6.0.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-rest-client-6.0.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-rest-resources-6.0.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-rest-utils-6.0.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-security-6.0.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-tenant-6.0.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-tenant-rest-client-6.0.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/hybris-commons-web-authorization-6.0.0.0-RC1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/java-reflection-1.1.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/jul-to-slf4j-1.6.4.jar" />
+	<classpathentry exported="true" kind="lib" path="lib/logback-core-1.0.13.jar" />
+	<classpathentry exported="true" kind="lib" path="bin/corepluscommonsserver.jar" >
+		<attributes>
+			<attribute name="javadoc_location" value="https://download.hybris.com/api/6.0.0"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="resources" />
+				
+</classpath>
+				

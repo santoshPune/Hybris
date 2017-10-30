@@ -1,0 +1,322 @@
+*** Settings ***
+Resource          promotionengine/PromotionEngineServices_Keywords.txt
+Resource          ruleengine/Util_Keywords.txt
+
+*** Test Cases ***
+# Test without excluded products
+Test_Apply_Promotion_To_Cart_With_Total_Equal_100
+	[Documentation]     Apply promotion to cart with total value = 100
+	...                 To cart is added only one item with price = 100
+	...                 Promotion applied = 15%
+	
+	# Configuring rules and drools engine
+	import promotionengine sampledata
+	initialize ruleengine
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "012345"
+	create product "product_without_discount" with unit "pieces" currency "USD" and price "100"
+	${product}=    get product by code "product_without_discount"
+	
+	# Test
+	create cart "${cartId}"
+	add "${product}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	price "${cartAfterPromo}" should be less than "${cartBeforePromo}" for "15%"
+    
+# Test without excluded products
+Test_Apply_Promotion_To_Cart_With_Total_Less_Than_100
+	[Documentation]     Try to apply promotion to cart with total value < 100
+	...                 Drools engine doesn't have a proper rule (discount will not be applied)
+	...                 To cart is added only one item with price = 50
+	
+	# Configuring rules and drools engine
+	import promotionengine sampledata
+	initialize ruleengine
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "012012"
+	create product "product_without_discount_50_USD" with unit "pieces" currency "USD" and price "50"
+	${product}=    get product by code "product_without_discount_50_USD"
+	
+	# Test
+	create cart "${cartId}"
+	add "${product}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers  ${cartAfterPromo}  ${cartBeforePromo}
+    
+# Test without excluded products
+Test_Apply_Promotion_To_Cart_Total_Bigger_100_Three_Same_Products
+	[Documentation]     Apply promotion to cart with total value > 100
+	...                 To cart is added the same product with price = 50
+	...                 Promotion applied = 15%
+	
+	# Configuring rules and drools engine
+	import promotionengine sampledata
+	initialize ruleengine
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "112233"
+	create product "product_without_discount" with unit "pieces" currency "USD" and price "50"
+	${product_01}=    get product by code "product_without_discount"
+	
+	# Test
+	create cart "${cartId}"
+	add "${product_01}" to cart "${cartId}"
+	add "${product_01}" to cart "${cartId}"
+	add "${product_01}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	price "${cartAfterPromo}" should be less than "${cartBeforePromo}" for "20"
+
+# Test without excluded products
+Test_Apply_Promotion_To_Cart_Total_Bigger_100_Three_Different_Products
+	[Documentation]     Apply promotion to cart with total value = 100
+	...                 To cart are added products with price = 30, 20, 50
+	...                 Promotion applied = 15%
+	
+	# Configuring rules and drools engine
+	import promotionengine sampledata
+	initialize ruleengine
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "001122"
+	create product "product_without_discount_30" with unit "pieces" currency "USD" and price "30"
+	create product "product_without_discount_20" with unit "pieces" currency "USD" and price "20"
+	create product "product_without_discount_50" with unit "pieces" currency "USD" and price "50"
+	${product_30}=    get product by code "product_without_discount_30"
+	${product_20}=    get product by code "product_without_discount_20"
+	${product_50}=    get product by code "product_without_discount_50"
+	
+	# Test
+	create cart "${cartId}"
+	add "${product_30}" to cart "${cartId}"
+	add "${product_20}" to cart "${cartId}"
+	add "${product_50}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	price "${cartAfterPromo}" should be less than "${cartBeforePromo}" for "15%"
+    
+# Test without excluded products
+Test_Apply_Remove_Promotion_To_Cart_Total_Three_Same_Products
+	[Documentation]     Apply promotion to cart with total value > 100
+	...                 To cart is added the same product with price = 50
+	...                 Promotion applied = 15%
+	...                 Remove product and recalculate total discount (discount after recalculation = 0)
+	
+	# Configuring rules and drools engine
+	import promotionengine sampledata
+	initialize ruleengine
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "001001"
+	create product "product_without_discount_50" with unit "pieces" currency "USD" and price "50"
+	${product}=    get product by code "product_without_discount_50"
+	
+	# Test
+	create cart "${cartId}"
+	add "${product}" to cart "${cartId}"
+	add "${product}" to cart "${cartId}"
+	add "${product}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	price "${cartAfterPromo}" should be less than "${cartBeforePromo}" for "20"
+	remove product "${product}" for cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}   ${cartBeforePromo}
+	
+# Test with excluded products
+Test_Apply_Threshold_Promotion_Excluding_Product
+	[Documentation]     Apply order threshold (Excluding product) Promotion to cart
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize ruleengine for electronicsstore
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "020001"
+	${product1}=    get product by code "1934793"
+	${product2}=    get product by code "266685"
+    
+    # Test
+    create cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    299.55
+	${cartTotal2}=    evaluate promotion for cart "${cartId}" by promotion engine
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    279.55
+	add "${product2}" to cart "${cartId}"
+	add "${product2}" to cart "${cartId}"
+	${cartBeforePromo2}=    get total of "${cartId}"
+	${cartTotal2}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartTotal2}    557.65
+	
+	
+# Test without excluded products
+Test_Apply_Threshold_Fixed_Discount
+	[Documentation]     Fixed price applied to cart when $200 threshold is reached discount to the cart
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize ruleengine for electronicsstore
+	configure promotionengine
+	
+	# Settin variables
+	${cartId}=    Set Variable    "020002"
+	${product1}=    get product by code "300938"
+	
+	# Test 
+    create cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    228.24
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}    208.24
+	remove product "${product1}" for cart "${cartId}"
+	${cartTotal2}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartTotal2}    0.0
+	
+# Test with excluded products
+Test_Apply_Two_Threshold_Promotion_Excluding_Product_And_Remove
+	[Documentation]     Apply threshold promotion with excluded products and remove.
+	...					Two overlapping order threshold promotions are applied here
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize ruleengine for electronicsstore
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "020003"
+	${product1}=    get product by code "1934793"
+	${product2}=    get product by code "266685"
+	${product3}=    get product by code "443175"
+	
+	# Test
+    create cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    299.55
+	add "${product2}" to cart "${cartId}"
+	add "${product2}" to cart "${cartId}"
+	${cartBeforePromo2}=    get total of "${cartId}"
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}    557.65
+	add "${product3}" to cart "${cartId}"
+	${cartAfterPromo2}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo2}    563.09
+	remove product "${product1}" for cart "${cartId}"
+	${cartAfterPromo3}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo3}    263.54
+	remove product "${product2}" for cart "${cartId}"
+	${cartAfterPromo4}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo4}    6.04
+	
+# Test with excluded products
+Test_No_Promotion_Applied_Only_Excluded_Product
+	[Documentation]     Cart contain only excluded product.
+	...					No promotions should be applied.
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize rule engine with rule from and maxAllowedRuns    orderThresholdDiscountExcludingPowershotA480    1
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "020050"
+	${product1}=    get product by code "1934793"
+	
+	# Test
+    create cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartBeforePromo}    ${cartAfterPromo}
+	add "${product1}" to cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	${cartBeforePromo2}=    get total of "${cartId}"
+	${cartAfterPromo2}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartBeforePromo2}    ${cartAfterPromo2}
+	
+# Test without excluded products
+Test_Apply_Percentage_Threshold_Promotion_Without_Excluded_Products
+	[Documentation]     Apply threshold promotion only without excluded products.
+	...					Cart containt only not exluded products. 
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize rule engine with rule from and maxAllowedRuns    orderThresholdDiscountExcludingPowershotA480    1
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "020099"
+	${product2}=    get product by code "1382080"
+	${product3}=    get product by code "1432722"
+	
+	# Test
+    create cart "${cartId}"
+	add "${product2}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    574.88
+	add "${product3}" to cart "${cartId}"
+	add "${product3}" to cart "${cartId}"
+	${cartBeforePromo2}=    get total of "${cartId}"
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}    1231.78
+	
+# Test with excluded products
+Test_Apply_Percentage_Threshold_Promotion_With_Excluded_Products_Udno
+	[Documentation]     Apply threshold promotion with excluded products.
+	...					Cart mixed products and check total value after removing not excluded products. 
+	
+	# Configuring rules and drools engine
+	import electronicsstore sampledata
+	initialize rule engine with rule from and maxAllowedRuns    orderThresholdDiscountExcludingPowershotA480    1
+	configure promotionengine
+	
+	# Setting variables
+	${cartId}=    Set Variable    "020100"
+	${product1}=    get product by code "1934793"
+	${product2}=    get product by code "1382080"
+	${product3}=    get product by code "1432722"
+	
+	# Test
+    create cart "${cartId}"
+	add "${product2}" to cart "${cartId}"
+	${cartBeforePromo}=    get total of "${cartId}"
+	Should Be Equal As Numbers    ${cartBeforePromo}    574.88
+	add "${product3}" to cart "${cartId}"
+	add "${product3}" to cart "${cartId}"
+	${cartBeforePromo2}=    get total of "${cartId}"
+	${cartAfterPromo}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo}    1231.78
+	add "${product1}" to cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	add "${product1}" to cart "${cartId}"
+	${cartBeforePromo3}=    get total of "${cartId}"
+	${cartAfterPromo3}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo3}    1631.18
+	remove product "${product2}" for cart "${cartId}"
+	remove product "${product3}" for cart "${cartId}"
+	remove product "${product3}" for cart "${cartId}"
+	${cartBeforePromo4}=    get total of "${cartId}"
+	${cartAfterPromo4}=    evaluate promotion for cart "${cartId}" by promotion engine
+	Should Be Equal As Numbers    ${cartAfterPromo4}    ${cartBeforePromo4}

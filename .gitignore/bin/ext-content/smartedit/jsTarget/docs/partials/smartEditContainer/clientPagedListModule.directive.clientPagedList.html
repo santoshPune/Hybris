@@ -1,0 +1,80 @@
+<h1><code ng:non-bindable="">clientPagedList</code>
+<div><span class="hint">directive in module <code ng:non-bindable="">clientPagedListModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="clientpagedlistmodule-directive-page clientpagedlistmodule-directive-clientpagedlist-page"><p>Directive responsible for displaying a client-side paginated list of items with custom renderers. It allows the user to search and sort the list.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;client-paged-list
+       items="{Array}"
+       keys="{Array}"
+       renderers="{Object}"
+       injected-context="{Object}"
+       reversed="{Boolean}"
+       items-per-page="{Number}"
+       query="{Object}"
+       display-count="{Boolean}"&gt;
+&lt;/client-paged-list&gt;</pre>
+<h3 id="usage_directive-info">Directive info</h3>
+<div class="directive-info"><ul><li>This directive creates new scope.</li>
+</ul>
+</div>
+<h4 id="usage_directive-info_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>items</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="clientpagedlistmodule-directive-page clientpagedlistmodule-directive-clientpagedlist-page"><p>An array of item descriptors.</p>
+</div></td></tr><tr><td>keys</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="clientpagedlistmodule-directive-page clientpagedlistmodule-directive-clientpagedlist-page"><p>An array of object(s) with a property and an i18n key.
+The properties must match one at least one of the descriptors&#39; keys and will be used as the columns of the table. The related i18n keys are used for the column headers&#39; title.</p>
+</div></td></tr><tr><td>renderers</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="clientpagedlistmodule-directive-page clientpagedlistmodule-directive-clientpagedlist-page"><p>An object that contains HTML renderers for specific keys property. A renderer is a function that returns a HTML string. This function has access to the current item and key.</p>
+</div></td></tr><tr><td>injectedContext</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="clientpagedlistmodule-directive-page clientpagedlistmodule-directive-clientpagedlist-page"><p>An object that exposes values or functions to the directive. It can be used by the custom HTML renderers to bind a function to a click event for example.</p>
+</div></td></tr><tr><td>reversed</td><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="clientpagedlistmodule-directive-page clientpagedlistmodule-directive-clientpagedlist-page"><p>If set to true, the list will be sorted descending.</p>
+</div></td></tr><tr><td>itemsPerPage</td><td><a href="" class="label type-hint type-hint-number">Number</a></td><td><div class="clientpagedlistmodule-directive-page clientpagedlistmodule-directive-clientpagedlist-page"><p>The number of items to display per page.</p>
+</div></td></tr><tr><td>query</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="clientpagedlistmodule-directive-page clientpagedlistmodule-directive-clientpagedlist-page"><p>The ngModel query object used to filter the list.</p>
+</div></td></tr><tr><td>displayCount</td><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="clientpagedlistmodule-directive-page clientpagedlistmodule-directive-clientpagedlist-page"><p>If set to true the size of the filtered collection will be displayed.</p>
+</div></td></tr></tbody></table></div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="clientpagedlistmodule-directive-page clientpagedlistmodule-directive-clientpagedlist-page"><pre class="prettyprint linenums">
+&lt;client-paged-list items="pageListCtl.pages"
+            keys="[{
+                    property:'title',
+                    i18n:'pagelist.headerpagetitle'
+                    },{
+                    property:'uid',
+                    i18n:'pagelist.headerpageid'
+                    },{
+                    property:'typeCode',
+                    i18n:'pagelist.headerpagetype'
+                    },{
+                    property:'template',
+                    i18n:'pagelist.headerpagetemplate'
+                    }]"
+            renderers="pageListCtl.renderers"
+            injectedContext="pageListCtl.injectedContext"
+            sort-by="'title'"
+            reversed="true"
+            items-per-page="10"
+            query="pageListCtl.query.value"
+            display-count="true"
+  &gt;&lt;/paged-list&gt;
+</pre>
+<p><em>Example of a <strong>renderers</strong> object</em></p>
+<pre class="prettyprint linenums">
+renderers = {
+    name: function(item, key) {
+        return "&lt;a data-ng-click=\"injectedContext.onLink( item.path )\"&gt;{{ item[key.property] }}&lt;/a&gt;";
+    }
+};
+</pre>
+<p><em>Example of an <strong>injectedContext</strong> object</em>
+<pre class="prettyprint linenums">
+injectedContext = {
+    onLink: hitch(this, function(link) {
+        if (link) {
+            var experiencePath = this._buildExperiencePath();
+            iFrameManager.setCurrentLocation(link);
+            $location.path(experiencePath);
+        }
+    })
+};
+</pre>
+</div></div>
+</div>

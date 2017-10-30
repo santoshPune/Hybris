@@ -1,0 +1,20 @@
+$siteUid=apparel-uk
+$supportedUiExperienceLevels=
+$storeUid=apparel-uk
+$channel=b2c
+$solrIndexedType=apparel-ukProductType
+$addonExtensionName=commerceorgsamplesaddon
+$contentCatalog=apparel-ukContentCatalog
+$class=class de.hybris.platform.commerceservices.setup.data.ImpexMacroParameterData
+$configExtensionName=commerceorgsamplesaddon
+$productCatalog=apparelProductCatalog
+######
+## PARAMETERS REQUIRED FOR THIS SCRIPT
+##
+##   * contentCatalog   - content catalog id
+##   * addonExtensionName - extension name of the ui addon
+#######
+
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarResourceCmsCockpit=jar:de.hybris.platform.commerceorgsamplesaddon.constants.CommerceorgsamplesaddonConstants&/commerceorgsamplesaddon/import/cockpit/cmscockpit
+

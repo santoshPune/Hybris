@@ -1,0 +1,15 @@
+# This file contains sample import mappings used only for testing purposes.
+# Manual import neededin case the data is needd.
+
+$catalog=Default
+$version=Staged
+$catalogVersion=catalogVersion(catalog(id[default='$catalog']),version[default='$version'])[unique=true,default='$catalog:$version']
+
+INSERT_UPDATE ImportCockpitMapping;code[unique=true];$catalogVersion;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+;newEmployeeMapping;;text/xml/;IMPnewEmployeeMapping.xml;jar:/qa/mappings/IMPnewEmployeeMapping.xml
+;fashionMapping;;text/xml/;IMPfashionMapping.xml;jar:/qa/mappings/IMPfashionMapping.xml
+;QAEmptyMapping;;text/xml/;IMPQAEmptyMapping.xml;jar:/qa/mappings/QAEmptyMapping.xml
+
+INSERT_UPDATE ImportCockpitInputMedia;code[unique=true];$catalogVersion;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+;newEmployeeSourceFile;;text/csv;IMPnewEmployeeSource.csv;jar:/qa/mappings/IMPnewEmployeeSource.csv
+;fashionSourceFile;;text/csv;IMPfashionSource.csv;jar:/qa/mappings/IMPfashionSource.csv

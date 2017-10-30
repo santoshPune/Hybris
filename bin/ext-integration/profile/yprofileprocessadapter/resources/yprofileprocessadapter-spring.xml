@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2015 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:annotation-config/>
+
+
+	<!-- Listeners -->
+
+    <bean id="newOrderEventListener" class="com.hybris.yprofile.listeners.NewOrderEventListener" parent="abstractEventListener">
+		<property name="profileTransactionService" ref="profileTransactionService"/>
+    </bean>
+
+	<bean id="consignmentEventListener" class="com.hybris.yprofile.listeners.ConsignmentEventListener" parent="abstractEventListener">
+		<property name="profileTransactionService" ref="profileTransactionService"/>
+	</bean>
+
+	<bean id="returnOrderEventListener" class="com.hybris.yprofile.listeners.ReturnOrderEventListener" parent="abstractEventListener">
+		<property name="profileTransactionService" ref="profileTransactionService"/>
+	</bean>
+
+	<!-- Services -->
+
+	<alias name="defaultProfileTransactionService" alias="profileTransactionService"/>
+	<bean id="defaultProfileTransactionService" class="com.hybris.yprofile.services.DefaultProfileTransactionService">
+		<property name="charonFactory" ref="profileCharonFactory"/>
+		<property name="profileConfigurationService" ref="profileConfigurationService"/>
+	</bean>
+
+
+	<bean id="profilePlaceOrderMethodHook" class="com.hybris.yprofile.services.order.ProfilePlaceOrderMethodHook">
+		<property name="modelService" ref="modelService"/>
+		<property name="consentService" ref="consentService"/>
+	</bean>
+
+	<bean id="profilePlaceOrderMethodHooksMergeDirective" depends-on="commercePlaceOrderMethodHooks" parent="listMergeDirective">
+		<property name="add" ref="profilePlaceOrderMethodHook"/>
+	</bean>
+
+	<alias name="profileCustomerFacade" alias="customerFacade"/>
+	<bean id="profileCustomerFacade" class="com.hybris.yprofile.services.customer.ProfileCustomerFacade" parent="defaultCustomerFacade">
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="profileTransactionService" ref="profileTransactionService"/>
+		<property name="consentService" ref="consentService"/>
+	</bean>
+
+	<alias name="profileCustomerAccountService" alias="customerAccountService"/>
+	<bean id="profileCustomerAccountService" class="com.hybris.yprofile.services.customer.ProfileCustomerAccountService" parent="defaultCustomerAccountService">
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="profileTransactionService" ref="profileTransactionService"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="consentService" ref="consentService"/>
+	</bean>
+	
+</beans>

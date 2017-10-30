@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:context="http://www.springframework.org/schema/context" 
+		xmlns:util="http://www.springframework.org/schema/util"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- Services -->
+	<alias name="defaultComponentTypeStructureRegistry" alias="componentTypeStructureRegistry" />
+	<bean id="defaultComponentTypeStructureRegistry" class="de.hybris.platform.cmswebservices.types.service.impl.DefaultComponentTypeStructureRegistry" />
+	
+	<!-- Converter -->
+	<bean id="componentTypeStructureConverter" class="de.hybris.platform.cmswebservices.types.facade.converter.ComponentTypeStructureConverter">
+		<property name="componentTypeStructureRegistry" ref="componentTypeStructureRegistry" />
+	</bean>
+	
+	<!-- Populators -->
+	<bean id="basicComponentTypePopulator" class="de.hybris.platform.cmswebservices.types.facade.populator.BasicComponentTypePopulator" />
+	<bean id="basicComponentTypeAttributePopulator" class="de.hybris.platform.cmswebservices.types.facade.populator.BasicComponentTypeAttributePopulator" />
+	<bean id="i18nComponentTypePopulator" class="de.hybris.platform.cmswebservices.types.facade.populator.I18nComponentTypePopulator">
+		<property name="prefix" value="type" />
+		<property name="suffix" value="name" />
+	</bean>
+	<bean id="i18nComponentTypeAttributePopulator" class="de.hybris.platform.cmswebservices.types.facade.populator.I18nComponentTypeAttributePopulator">
+		<property name="prefix" value="type" />
+		<property name="suffix" value="name" />
+	</bean>
+	<bean id="cmsStructureEnumTypeComponentTypeAttributePopulator" class="de.hybris.platform.cmswebservices.types.facade.populator.CmsStructureEnumTypeComponentTypeAttributePopulator" >
+		<property name="componentEnumStructureTypes" ref="componentEnumStructureTypes"></property>
+	</bean>
+	<bean id="mediaFormatsComponentTypeAttributePopulator" class="de.hybris.platform.cmswebservices.types.facade.populator.MediaFormatsComponentTypeAttributePopulator">
+	    <property name="typeService" ref="typeService" />
+	    <property name="cmsMediaFormatService" ref="cmsMediaFormatService" />
+	</bean>
+	
+	<bean id="shortStringComponentTypeAttributePopulator" class="de.hybris.platform.cmswebservices.types.facade.populator.CmsStructureTypeComponentTypeAttributePopulator">
+		<property name="cmsStructureType" value="ShortString" />
+	</bean>
+	<bean id="richTextComponentTypeAttributePopulator" class="de.hybris.platform.cmswebservices.types.facade.populator.CmsStructureTypeComponentTypeAttributePopulator">
+		<property name="cmsStructureType" value="RichText" />
+	</bean>
+	<bean id="booleanComponentTypeAttributePopulator" class="de.hybris.platform.cmswebservices.types.facade.populator.CmsStructureTypeComponentTypeAttributePopulator">
+		<property name="cmsStructureType" value="Boolean" />
+	</bean>
+	<bean id="mediaComponentTypeAttributePopulator" class="de.hybris.platform.cmswebservices.types.facade.populator.CmsStructureTypeComponentTypeAttributePopulator">
+		<property name="cmsStructureType" value="Media" />
+	</bean>
+	<bean id="mediaContainerComponentTypeAttributePopulator" class="de.hybris.platform.cmswebservices.types.facade.populator.CmsStructureTypeComponentTypeAttributePopulator">
+		<property name="cmsStructureType" value="MediaContainer" />
+	</bean>
+	<bean id="enumComponentTypeAttributePopulator" class="de.hybris.platform.cmswebservices.types.facade.populator.CmsStructureTypeComponentTypeAttributePopulator">
+		<property name="cmsStructureType" value="Enum" />
+	</bean>
+
+	<util:set id="defaultComponentTypePopulators">
+		<ref bean="basicComponentTypePopulator" />
+		<ref bean="i18nComponentTypePopulator" />
+	</util:set>
+	
+	
+	<!-- Types -->
+	<bean class="de.hybris.platform.cmswebservices.types.service.impl.DefaultComponentTypeStructure" p:typecode="AbstractCMSComponent" p:populators-ref="defaultComponentTypePopulators" />
+	<bean class="de.hybris.platform.cmswebservices.types.service.impl.DefaultComponentTypeStructure" p:typecode="SimpleBannerComponent" p:populators-ref="defaultComponentTypePopulators" />
+	<bean class="de.hybris.platform.cmswebservices.types.service.impl.DefaultComponentTypeStructure" p:typecode="SimpleResponsiveBannerComponent" p:populators-ref="defaultComponentTypePopulators" />
+	<bean class="de.hybris.platform.cmswebservices.types.service.impl.DefaultComponentTypeStructure" p:typecode="CMSParagraphComponent" p:populators-ref="defaultComponentTypePopulators" />
+
+	
+	<!-- Paragraph Attributes -->
+	<bean class="de.hybris.platform.cmswebservices.types.service.impl.DefaultComponentTypeAttributeStructure" p:typecode="CMSParagraphComponent" p:qualifier="content">
+		<property name="populators">
+			<set>
+				<ref bean="basicComponentTypeAttributePopulator" />
+				<ref bean="i18nComponentTypeAttributePopulator" />
+				<ref bean="richTextComponentTypeAttributePopulator" />
+			</set>
+		</property>
+	</bean>
+	
+	<!-- Simple Banner Attributes -->
+	<bean class="de.hybris.platform.cmswebservices.types.service.impl.DefaultComponentTypeAttributeStructure" p:typecode="SimpleBannerComponent" p:qualifier="urlLink">
+		<property name="populators">
+			<set>
+				<ref bean="basicComponentTypeAttributePopulator" />
+				<ref bean="i18nComponentTypeAttributePopulator" />
+				<ref bean="shortStringComponentTypeAttributePopulator" />
+			</set>
+		</property>
+	</bean>
+	<bean class="de.hybris.platform.cmswebservices.types.service.impl.DefaultComponentTypeAttributeStructure" p:typecode="SimpleBannerComponent" p:qualifier="external">
+		<property name="populators">
+			<set>
+				<ref bean="basicComponentTypeAttributePopulator" />
+				<ref bean="i18nComponentTypeAttributePopulator" />
+				<ref bean="booleanComponentTypeAttributePopulator" />
+			</set>
+		</property>
+	</bean>
+	<bean class="de.hybris.platform.cmswebservices.types.service.impl.DefaultComponentTypeAttributeStructure" p:typecode="SimpleBannerComponent" p:qualifier="media">
+		<property name="populators">
+			<set>
+				<ref bean="basicComponentTypeAttributePopulator" />
+				<ref bean="i18nComponentTypeAttributePopulator" />
+				<ref bean="mediaComponentTypeAttributePopulator" />
+			</set>
+		</property>
+	</bean>
+	
+	<!-- Simple Responsive Banner Attributes -->
+	<bean class="de.hybris.platform.cmswebservices.types.service.impl.DefaultComponentTypeAttributeStructure"  p:typecode="SimpleResponsiveBannerComponent" p:qualifier="urlLink">
+		<property name="populators">
+			<set>
+				<ref bean="basicComponentTypeAttributePopulator" />
+				<ref bean="i18nComponentTypeAttributePopulator" />
+				<ref bean="shortStringComponentTypeAttributePopulator" />
+			</set>
+		</property>
+	</bean>
+	<bean class="de.hybris.platform.cmswebservices.types.service.impl.DefaultComponentTypeAttributeStructure"  p:typecode="SimpleResponsiveBannerComponent" p:qualifier="media">
+		<property name="populators">
+			<set>
+				<ref bean="basicComponentTypeAttributePopulator" />
+				<ref bean="i18nComponentTypeAttributePopulator" />
+				<ref bean="mediaContainerComponentTypeAttributePopulator" />
+				<ref bean="mediaFormatsComponentTypeAttributePopulator" />
+			</set>
+		</property>
+	</bean>
+
+	<!-- Structure Enum Type Configuration -->
+	<alias name="defaultComponentEnumStructureTypes" alias="componentEnumStructureTypes" />
+	<bean id="defaultComponentEnumStructureTypes" class="org.springframework.beans.factory.config.MapFactoryBean">
+		<property name="targetMapClass">
+			<value>java.util.HashMap</value>
+		</property>
+		<property name="sourceMap">
+			<map merge="true">
+			</map>
+		</property>
+	</bean>
+
+</beans>

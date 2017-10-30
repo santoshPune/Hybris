@@ -1,0 +1,2 @@
+UPDATE typesystemprops SET hjmpTS = NULL, ITEMTYPEPK = '8796126904402', REALNAME = 'query', TYPE1 = '1', VALUESTRING1 = '# The query for this view will be generated with the essential data # ', VALUE1 = NULL WHERE ITEMPK = '8796129493074' AND NAME = 'query' AND LANGPK = '0';
+UPDATE typesystemprops SET hjmpTS = NULL, ITEMTYPEPK = '8796126904402', REALNAME = 'query', TYPE1 = '1', VALUESTRING1 = '# The query for this view will be generated with the essential data # ', VALUE1 = NULL WHERE ITEMPK = '8796129525842' AND NAME = 'query' AND LANGPK = '0';

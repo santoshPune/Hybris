@@ -1,0 +1,33 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform 
+# 
+# Copyright (c) 2000-2015 hybris AG
+# All rights reserved.
+#  
+# This software is the confidential and proprietary information of hybris 
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with hybris.
+#
+#  
+# -----------------------------------------------------------------------
+
+# you can put key/value pairs here.
+# Use Config.getParameter(..) to retrieve the values during runtime.
+
+chineseprofileaddon.key=value
+
+# Specifies the location of the spring context file added automatically to the global platform application context.
+chineseprofileaddon.application-context=chineseprofileaddon-spring.xml
+
+yb2bacceleratorstorefront.additionalWebSpringConfigs.chineseprofileaddon=classpath:/chineseprofileaddon/web/spring/chineseprofileaddon-web-spring.xml
+
+storefront.supportedUiExperienceLevels.electronics=DESKTOP,MOBILE,RESPONSIVE
+storefront.supportedUiExperienceLevels.apparel-uk=DESKTOP,MOBILE
+storefront.supportedUiExperienceLevels.apparel-de=DESKTOP,MOBILE
+storefront.supportedUiExperienceLevels.powertools=DESKTOP
+
+chineseprofileaddon.javascript.paths.responsive=/responsive/common/js/chineseprofileaddon.js
+chineseprofileaddon.css.paths.responsive=/responsive/common/css/chineseprofileaddon.css
+
+yacceleratorstorefront.additionalWebSpringConfigs.chineseprofileaddon=classpath:/chineseprofileaddon/web/spring/chineseprofileaddon-web-spring.xml

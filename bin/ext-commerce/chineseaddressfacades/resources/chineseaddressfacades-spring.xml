@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ [y] hybris Platform
+  ~ 
+  ~ Copyright (c) 2000-2016 SAP SE
+  ~ All rights reserved.
+  ~ 
+  ~ This software is the confidential and proprietary information of SAP 
+  ~ Hybris ("Confidential Information"). You shall not disclose such 
+  ~ Confidential Information and shall use it only in accordance with the 
+  ~ terms of the license agreement you entered into with SAP Hybris.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- ************ Chinese Address Populators ************ -->
+	<bean id="cityPopulator" class="de.hybris.platform.addressfacades.populators.CityPopulator" />
+	<bean id="districtPopulator" class="de.hybris.platform.addressfacades.populators.DistrictPopulator" />
+
+	<bean id="chineseAddressFacade" class="de.hybris.platform.addressfacades.address.impl.ChineseAddressFacade" scope="tenant">
+		<property name="chineseAddressService" ref="chineseAddressService" />
+		<property name="cityPopulator" ref="cityPopulator" />
+		<property name="districtPopulator" ref="districtPopulator" />
+	</bean>
+
+	<!-- ************ name with title format ************ -->
+	<bean id="nameWithTitleFormatStrategy" class="de.hybris.platform.addressfacades.strategies.impl.ChineseNameWithTitleFormatStrategy">
+		<property name="userService" ref="userService" />
+		<property name="storeSessionFacade" ref="storeSessionFacade" />
+	</bean>
+
+	<!-- ************ Chinese Address Populators ************ -->
+	<bean id="chineseAddressPopulator" class="de.hybris.platform.addressfacades.populators.ChineseAddressPopulator">
+		<property name="i18NService" ref="i18NService"/>
+		<property name="nameWithTitleFormatStrategy" ref="nameWithTitleFormatStrategy" />
+	</bean>
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="addressConverter" />
+		<property name="add" ref="chineseAddressPopulator" />
+	</bean>
+
+	<!-- ************ Chinese Address Reverse Populators ************ -->
+	<alias alias="addressReversePopulator" name="chineseAddressReversePopulator" />
+	<bean id="chineseAddressReversePopulator" class="de.hybris.platform.addressfacades.populators.ChineseAddressReversePopulator"
+		scope="tenant" parent="defaultAddressReversePopulator">
+		<property name="chineseAddressService" ref="chineseAddressService" />
+	</bean>
+
+
+
+
+
+			
+</beans>

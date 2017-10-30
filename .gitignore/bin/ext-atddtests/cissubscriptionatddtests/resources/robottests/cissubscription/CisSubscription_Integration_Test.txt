@@ -1,0 +1,35 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+*** Settings ***
+Resource          commerce/CommerceServices_Keywords.txt
+Resource		  commerce/SubscriptionCommerce_Keywords.txt
+Resource          cissubscription/CisSubscription_Keywords.txt
+Resource          subscriptionservices/SubscriptionTerm_Keywords.txt
+Resource          subscriptionservices/SubscriptionPricePlan_Keywords.txt
+Test Setup        configure test setup
+Test Teardown     reset system
+
+*** Test Cases ***
+Test_CisSubscription_Integration_Create_Subscription
+    [Documentation]    Create new subscription for a customer using the facade layer and check if the subscriptions have been created
+	register and login customer "John" "Doe" with login "john.doe@test.com"
+	create default payment method
+	# create a subscription product and add it to the cart
+	create subscription term "T1" with renewal type "auto_renewing" and term frequency "monthly" and term number "10"
+	create product "P1"
+	set subscription term "T1" to product "P1"
+    for product "P1" add subscription priceplan "PP1" with currency "USD"
+    add product "P1" to cart
+	place order and create subscriptions
+	verify current customer has subscriptions
+
+    

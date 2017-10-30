@@ -1,0 +1,29 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+# All rights reserved.
+# 
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+*** Settings ***
+Resource         impex/Impex_Keywords.txt
+Library			  de.hybris.platform.commerceservicesatddtests.keywords.CommerceServicesKeywordLibrary
+
+*** Keywords ***
+
+entitlements test setup
+	[Documentation]    KW for test setup: sets log level to trace and imports data
+	Set Log Level    TRACE
+	import entitlement sampledata
+	
+import entitlement sampledata
+	[Documentation]    Imports the test data
+	import impex from resource "/impex/testEntitlements.csv"
+
+reset system
+	[Documentation]    Resets the system attributes to the original values
+	reset system attributes

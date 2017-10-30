@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+ [y] hybris Platform
+ 
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+ 
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="items.xsd">
+	<enumtypes>
+		<enumtype code="SalesApplication" generate="true" autocreate="false"
+			dynamic="true">
+			<description>
+				This enumeration defines the application which created the sale.
+			</description>
+			<value code="YaaS" />
+		</enumtype>
+	</enumtypes>	
+	<itemtypes>
+		<itemtype code="FractusOrderProcess" autocreate="true"
+			generate="true"
+			jaloclass="de.hybris.platform.yacceleratorfractusfulfilmentprocess.orderprocessing.jalo.FractusOrderProcess"
+			extends="OrderProcess">
+		</itemtype>
+
+		<itemtype code="FractusConsignmentProcess" autocreate="true"
+			generate="true"
+			jaloclass="de.hybris.platform.yacceleratorfractusfulfilmentprocess.consingmentprocessing.jalo.FractusConsignmentProcess"
+			extends="ConsignmentProcess">
+			<attributes>
+				<attribute qualifier="processDone" type="boolean">
+					<description>Mark process as done</description>
+					<modifiers optional="false" initial="false"/>
+					<persistence type="property" />
+					<defaultvalue>Boolean.FALSE</defaultvalue>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="YaasOrderStatusMap" autocreate="true"
+			generate="true" jaloclass="de.hybris.platform.yacceleratorfractusfulfilmentprocess.orderstatus.jalo.YaasOrderStatusMap"
+			extends="GenericItem">
+			<description>Used to map an ECP order status into it's YaaS equivalent</description>
+			<deployment table="YaasOrderStatusMap" typecode="2095"/>
+			<attributes>
+
+				<attribute qualifier="ecpOrderStatus" type="java.lang.String">
+					<description>ECP order status code</description>
+					<modifiers unique="true" optional="false" initial="true" />
+					<persistence type="property" />
+				</attribute>
+
+				<attribute qualifier="yaasOrderStatus" type="java.lang.String">
+					<modifiers read="true" write="true" search="true"
+						optional="true" />
+					<persistence type="property" />
+				</attribute>
+
+			</attributes>
+		</itemtype>
+
+	</itemtypes>
+</items>

@@ -1,0 +1,6 @@
+#% de.hybris.platform.jalo.JaloSession.getCurrentSession().getSessionContext().setAttribute( de.hybris.platform.jalo.Item.DISABLE_ITEMCHECK_BEFORE_REMOVABLE, Boolean.TRUE);
+REMOVE DynamicBannerComponent;pk[unique=true]
+;8796148270140
+;8796146369596
+#  end of pk list for DynamicBannerComponent
+#  

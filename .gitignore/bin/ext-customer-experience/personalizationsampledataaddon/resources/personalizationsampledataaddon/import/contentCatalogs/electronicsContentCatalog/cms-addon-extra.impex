@@ -1,0 +1,181 @@
+$contentCatalog=electronicsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+
+$regulargroup=regulargroup
+$customergroup=customergroup
+
+$defaultPassword=12341234
+
+
+INSERT_UPDATE CxSegment;code[unique=true];
+;segmentV1;
+;segmentV2;
+;segmentV3;
+;segmentV4;
+;segmentS1;
+;segmentS2;
+;segmentP1;
+;segmentP2;
+;segmentP3;
+;segmentP4;
+;segmentP5;
+;segmentB1;
+;segmentB2;
+;segmentB3;
+;segmentB4;
+;high;
+;mid;
+;low;
+
+INSERT_UPDATE Customer;uid[unique=true];groups(uid);password[default=$defaultPassword];name;&userref;
+;v1@hybris.com;customergroup;;Customer V1;v1@hybris.com;
+;v2@hybris.com;customergroup;;Customer V2;v2@hybris.com;
+;v3@hybris.com;customergroup;;Customer V3;v3@hybris.com;
+;v4@hybris.com;customergroup;;Customer V4;v4@hybris.com;
+;s1@hybris.com;customergroup;;Customer S1;s1@hybris.com;
+;s2@hybris.com;customergroup;;Customer S2;s2@hybris.com;
+;p1@hybris.com;customergroup;;Customer P1;p1@hybris.com;
+;p2@hybris.com;customergroup;;Customer P2;p2@hybris.com;
+;p3@hybris.com;customergroup;;Customer P3;p3@hybris.com;
+;p4@hybris.com;customergroup;;Customer P4;p4@hybris.com;
+;p5@hybris.com;customergroup;;Customer P5;p5@hybris.com;
+;b1@hybris.com;customergroup;;Customer B1;b1@hybris.com;
+;b2@hybris.com;customergroup;;Customer B2;b2@hybris.com;
+;b3@hybris.com;customergroup;;Customer B3;b3@hybris.com;
+;b4@hybris.com;customergroup;;Customer B4;b4@hybris.com;
+;alistair@hybris.com;customergroup;;Alistair;alistair@hybris.com;
+;highresolution@hybris.com;customergroup;;High Resolution;;highresolution@hybris.com;
+;midresolution@hybris.com;customergroup;;Mid Resolution;;midresolution@hybris.com;
+;lowresolution@hybris.com;customergroup;;Low Resolution;;lowresolution@hybris.com;
+
+INSERT_UPDATE CxUserToSegment;segment(code)[unique=true];user(uid)[unique=true];affinity[default=1];
+;segmentV1;v1@hybris.com;
+;segmentV1;alistair@hybris.com;
+;segmentV2;v2@hybris.com;
+;segmentV3;v3@hybris.com;
+;segmentV3;alistair@hybris.com;
+;segmentV4;v4@hybris.com;
+;segmentS1;s1@hybris.com;
+;segmentS1;alistair@hybris.com;
+;segmentS2;s2@hybris.com;
+;segmentP1;p1@hybris.com;
+;segmentP2;p2@hybris.com;
+;segmentP3;p3@hybris.com;
+;segmentP3;alistair@hybris.com;
+;segmentP4;p4@hybris.com;
+;segmentP5;p5@hybris.com;
+;segmentP5;alistair@hybris.com;
+;segmentB1;b1@hybris.com;
+;segmentB2;b2@hybris.com;
+;segmentB3;b3@hybris.com;
+;segmentB3;alistair@hybris.com;
+;segmentB4;b4@hybris.com;
+;high;highresolution@hybris.com;
+;mid;midresolution@hybris.com;
+;low;lowresolution@hybris.com;
+
+INSERT_UPDATE CxCustomizationsGroup;code;$contentCV[unique=true]
+;electronicsCustomizationGroup;;
+
+#Cx Customizations
+INSERT_UPDATE CxCustomization;code[unique=true];name;$contentCV[unique=true];group(code,$contentCV)[default='electronicsCustomizationGroup']
+;VIPCust;VIPCust;;
+;SummerSale;SummerSale;;
+;ProdLovers;ProdLovers;;
+;Banner;Banner;;
+;Resolution;Resolution;;
+
+UPDATE CxCustomizationsGroup;code[unique=true];$contentCV[unique=true];customizations(code,$contentCV)[mode=append]
+;electronicsCustomizationGroup;;Resolution,Banner,ProdLovers,SummerSale,VIPCust
+
+INSERT_UPDATE CxVariation;code[unique=true];name;$contentCV[unique=true];enabled[default=true];customization(code,$contentCV)[unique=true]
+;variationV1;variationV1;;;VIPCust
+;variationV2;variationV2;;;VIPCust
+;variationV3;variationV3;;;VIPCust
+;variationV4;variationV4;;;VIPCust
+;variationS1;variationS1;;;SummerSale
+;variationS2;variationS2;;;SummerSale
+;variationP1;variationP1;;;ProdLovers
+;variationP2;variationP2;;;ProdLovers
+;variationP3;variationP3;;;ProdLovers
+;variationP4;variationP4;;;ProdLovers
+;variationP5;variationP5;;;ProdLovers
+;variationB1;variationB1;;;Banner
+;variationB2;variationB2;;;Banner
+;variationB3;variationB3;;;Banner
+;variationB4;variationB4;;;Banner
+;variationRHigh;variationRHigh;;;Resolution
+;variationRMid;variationRMid;;;Resolution
+;variationRLow;variationRLow;;;Resolution
+
+INSERT_UPDATE CxSegmentTrigger;code[unique=true];variation(code,$contentCV)[unique=true];$contentCV[unique=true];segments(code);groupBy(code)[default='OR'];
+;trigger01;variationV1;;segmentV1;
+;trigger02;variationV2;;segmentV2;
+;trigger03;variationV3;;segmentV3;
+;trigger04;variationV4;;segmentV4;
+;trigger05;variationS1;;segmentS1;
+;trigger06;variationS2;;segmentS2;
+;trigger07;variationP1;;segmentP1;
+;trigger08;variationP2;;segmentP2;
+;trigger09;variationP3;;segmentP3;
+;trigger10;variationP4;;segmentP4;
+;trigger11;variationP5;;segmentP5;
+;trigger12;variationB1;;segmentB1;
+;trigger13;variationB2;;segmentB2;
+;trigger14;variationB3;;segmentB3;
+;trigger15;variationB4;;segmentB4;
+;trigger17;variationRHigh;;high;
+;trigger18;variationRMid;;mid;
+;trigger19;variationRLow;;low;
+
+UPDATE CxCustomization;code[unique=true];name;$contentCV[unique=true];variations(code,$contentCV)
+;VIPCust;VIPCust;;variationV1,variationV2,variationV3,variationV4;
+;SummerSale;SummerSale;;variationS1,variationS2;
+;ProdLovers;ProdLovers;;variationP1,variationP2,variationP3,variationP4,variationP5;
+;Banner;Banner;;variationB1,variationB2,variationB3,variationB4;
+;Resolution;Resolution;;variationRHigh,variationRMid,variationRLow;
+
+#Cx Models
+INSERT_UPDATE CxCmsAction;containerId;componentId;code[unique=true];type(code);target;&actionRef;$contentCV[unique=true]
+;Section1SlotHomepageCxContainer;variationB1ElectronicsHompageSplashBannerComponent;actionB1;PLAIN;cxCmsActionPerformable;actionB1;;
+;Section1SlotHomepageCxContainer;variationB2ElectronicsHompageSplashBannerComponent;actionB2;PLAIN;cxCmsActionPerformable;actionB2;;
+;Section1SlotHomepageCxContainer;variationB3ElectronicsHompageSplashBannerComponent;actionB3;PLAIN;cxCmsActionPerformable;actionB3;;
+;Section1SlotHomepageCxContainer;variationB4ElectronicsHompageSplashBannerComponent;actionB4;PLAIN;cxCmsActionPerformable;actionB4;;
+;Section2BSlotHomepageCxContainer;variationS1ElectronicsHompageCamcordersBannerComponent;actionS1a;PLAIN;cxCmsActionPerformable;actionS1a;;
+;Section2BSlotHomepageCxContainer;variationS2ElectronicsHompageCamcordersBannerComponent;actionS2a;PLAIN;cxCmsActionPerformable;actionS2a;;
+;Section4SlotHomepageCxContainer;variationS1ElectronicsHompageShipmentBannerComponent;actionS1b;PLAIN;cxCmsActionPerformable;actionS1b;;
+;Section4SlotHomepageCxContainer;variationS2ElectronicsHompageShipmentBannerComponent;actionS2b;PLAIN;cxCmsActionPerformable;actionS2b;;
+;Section2ASlotHomepageCxContainer;variationV1ElectronicsHompageLightFamBannerComponent;actionV1;PLAIN;cxCmsActionPerformable;actionV1;;
+;Section2ASlotHomepageCxContainer;variationV2ElectronicsHompageLightFamBannerComponent;actionV2;PLAIN;cxCmsActionPerformable;actionV2;;
+;Section2ASlotHomepageCxContainer;variationV3ElectronicsHompageLightFamBannerComponent;actionV3;PLAIN;cxCmsActionPerformable;actionV3;;
+;Section2ASlotHomepageCxContainer;variationV4ElectronicsHompageLightFamBannerComponent;actionV4;PLAIN;cxCmsActionPerformable;actionV4;;
+;Section4SlotHomepageCxContainer;variationP1ElectronicsHompageShipmentBannerComponent;actionP1;PLAIN;cxCmsActionPerformable;actionP1;;
+;Section4SlotHomepageCxContainer;variationP2ElectronicsHompageShipmentBannerComponent;actionP2;PLAIN;cxCmsActionPerformable;actionP2;;
+;Section4SlotHomepageCxContainer;variationP3ElectronicsHompageShipmentBannerComponent;actionP3;PLAIN;cxCmsActionPerformable;actionP3;;
+;Section4SlotHomepageCxContainer;variationP4ElectronicsHompageShipmentBannerComponent;actionP4;PLAIN;cxCmsActionPerformable;actionP4;;
+;Section4SlotHomepageCxContainer;variationP5ElectronicsHompageShipmentBannerComponent;actionP5;PLAIN;cxCmsActionPerformable;actionP5;;
+;Section2BSlotHomepageCxContainer;variationRHighComponent;actionRHigh;PLAIN;cxCmsActionPerformable;actionRHigh;;
+;Section2BSlotHomepageCxContainer;variationRMidComponent;actionRMid;PLAIN;cxCmsActionPerformable;actionRMid;;
+;Section2BSlotHomepageCxContainer;variationRLowComponent;actionRLow;PLAIN;cxCmsActionPerformable;actionRLow;;	
+	
+
+UPDATE CxVariation;code[unique=true];name;actions(&actionRef)[mode=append];enabled[default=true];customization(code,$contentCV)[unique=true]
+;variationB1;variationB1;actionB1;;Banner
+;variationB2;variationB2;actionB2;;Banner
+;variationB3;variationB3;actionB3;;Banner
+;variationB4;variationB4;actionB4;;Banner
+;variationS1;variationS1;actionS1a,actionS1b;;SummerSale
+;variationS2;variationS2;actionS2a,actionS2b;;SummerSale
+;variationV1;variationV1;actionV1;;VIPCust
+;variationV2;variationV2;actionV2;;VIPCust
+;variationV3;variationV3;actionV3;;VIPCust
+;variationV4;variationV4;actionV4;;VIPCust
+;variationP1;variationP1;actionP1;;ProdLovers
+;variationP2;variationP2;actionP2;;ProdLovers
+;variationP3;variationP3;actionP3;;ProdLovers
+;variationP4;variationP4;actionP4;;ProdLovers
+;variationP5;variationP5;actionP5;;ProdLovers
+;variationRHigh;variationRHigh;actionRHigh;;Resolution
+;variationRMid;variationRMid;actionRMid;;Resolution
+;variationRLow;variationRLow;actionRLow;;Resolution	

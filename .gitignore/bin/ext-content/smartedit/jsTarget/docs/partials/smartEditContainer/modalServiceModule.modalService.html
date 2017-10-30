@@ -1,0 +1,104 @@
+<h1><code ng:non-bindable="">modalService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">modalServiceModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="modalservicemodule-modalservice-page"><p>Convenience service to open and style a promise-based templated modal window.</p>
+<p>Simple Example:
+<pre class="prettyprint linenums">
+    angular.module('app', ['modalServiceModule'])
+        .factory('someService', function($log, modalService, MODAL_BUTTON_ACTIONS) {
+
+            modalService.open({
+                title: "My Title",
+                template: '&lt;div&gt;some content&lt;/div&gt;',
+                buttons: [{
+                    label: "Close",
+                    action: MODAL_BUTTON_ACTIONS.CLOSE
+                }]
+            }).then(function (result) {
+                $log.debug("modal closed!");
+                }, function (failure) {
+            }
+        );
+
+    });
+</pre>
+<p>More complex example:
+<pre class="prettyprint linenums">
+
+    angular.module('app', ['modalServiceModule'])
+
+     .factory('someService',
+        function($q, modalService, MODAL_BUTTON_ACTIONS, MODAL_BUTTON_STYLES) {
+
+            modalService.open({
+                title: "modal.title",
+                template: '&lt;div&gt;some content&lt;/div&gt;',
+                controller: 'modalController',
+                buttons: [
+                    {
+                        id: 'submit',
+                        label: "Submit",
+                        action: MODAL_BUTTON_ACTIONS.CLOSE
+                    },
+                    {
+                        label: "Cancel",
+                        action: MODAL_BUTTON_ACTIONS.DISMISS
+                    },
+
+                ]
+            }).then(function (result) {
+                $log.log("Modal closed with data:", result);
+            }, function (failure) {
+            });
+        }
+     )
+
+     .controller('modalController', function($scope, $q) {
+
+            function validateSomething() {
+                return true;
+            };
+
+            var buttonHandlerFn = function (buttonId) {
+                if (buttonId == 'submit') {
+                    var deferred = $q.defer();
+                    if (validateSomething()) {
+                        deferred.resolve("someResult");
+                    } else {
+                        deferred.reject();  // cancel the submit button's close action
+                    }
+                    return deferred.promise;
+                }
+            };
+
+            $scope.modalManager.setButtonHandler(buttonHandlerFn);
+
+        });
+</pre>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_open">open(conf)</h3>
+<div class="open"><div class="modalservicemodule-modalservice-open-page"><p>Open provides a simple way to open modal windows with custom content, that share a common look and feel.</p>
+<p>The modal window can be closed multiple ways, through <a href="#/smartEditContainer/modalServiceModule.object:MODAL_BUTTON_ACTIONS">button actions</a>,
+by explicitly calling the <a href="#/smartEditContainer/modalServiceModule.service:ModalManager#methods_close">close</a> or
+<a href="#/smartEditContainer/modalServiceModule.service:ModalManager#methods_close">dismiss</a> functions, etc... Depending on how you
+choose to close a modal, either the modal <a href="https://docs.angularjs.org/api/ng/service/$q">promise&#39;s</a>
+<a href="https://docs.angularjs.org/api/ng/service/$q">successCallback</a> or <a href="https://docs.angularjs.org/api/ng/service/$q">errorCallback</a>
+will be called. You can use the callbacks to return data from the modal content to the caller of this function.</p>
+</div><h5 id="methods_open_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>conf</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="modalservicemodule-modalservice-open-page"><p>configuration</p>
+</div><table><thead><tr><th>Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>title</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="modalservicemodule-modalservice-open-page"><p>(OPTIONAL) key for your modal title to be translated</p>
+</div></td></tr><tr><td>buttons</td><td><a href="" class="label type-hint type-hint-array">Array</a></td><td><div class="modalservicemodule-modalservice-open-page"><p>(OPTIONAL) Array of button configurations. See <a href="#/smartEditContainer/modalServiceModule.service:ModalManager#methods_addbutton">ModalManager.addButton()</a> for config details.</p>
+</div></td></tr><tr><td>templateUrl</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="modalservicemodule-modalservice-open-page"><p>path to an HTML fragment you mean to display in the modal window</p>
+</div></td></tr><tr><td>templateInline</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="modalservicemodule-modalservice-open-page"><p>inline HTML fragment you mean to display in the the modal window</p>
+</div></td></tr><tr><td>controller</td><td><a href="" class="label type-hint type-hint-function">function</a></td><td><div class="modalservicemodule-modalservice-open-page"><p>the piece of logic that acts as controller of your template. It can be declared through its ID in AngularJS dependency injection or through explicit function</p>
+</div></td></tr><tr><td>cssClasses</td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="modalservicemodule-modalservice-open-page"><p>space separated list of additional css classed to be added to the overall modal</p>
+</div></td></tr></tbody></table></td></tr></tbody></table><h5 id="methods_open_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-function">function</a></td><td><div class="modalservicemodule-modalservice-open-page"><p><a href="https://docs.angularjs.org/api/ng/service/$q">promise</a> that will either be resolved or
+rejected when the modal window is closed.</p>
+</div></td></tr></table></div>
+</li>
+</ul>
+</div>
+</div>

@@ -1,0 +1,5 @@
+<div data-ng-if="ctrl.getFilteredErrors().length > 0">
+    <span data-ng-repeat="error in ctrl.getFilteredErrors()" class="error-input help-block">
+        {{error | translate}}
+    </span>
+</div>

@@ -1,0 +1,5 @@
+#parse( "impex-templates/common-macros.impex.vm" )
+#[[
+INSERT_UPDATE Customer;uid[unique=true];name;password;groups(uid)
+]]#
+;${userUID};${userUID};1234;${userGroupCode}

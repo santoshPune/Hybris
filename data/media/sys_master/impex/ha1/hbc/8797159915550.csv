@@ -1,0 +1,3 @@
+
+UPDATE ContentCatalog;id[unique=true];id;name[lang=de];name[lang=en]
+,,,,no existing item found for update;apparel-ukContentCatalog;aitsContentCatalog;Aits Content Catalog;Aits Content Catalog;

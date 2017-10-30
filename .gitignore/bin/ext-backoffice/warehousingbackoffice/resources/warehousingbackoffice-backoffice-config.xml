@@ -1,0 +1,1200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2016 SAP SE or an SAP affiliate company.
+ All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+
+    <context component="perspective-chooser" principal="warehouseadministratorrole">
+        <y:perspective-chooser xmlns:y="http://www.hybris.com/cockpitng/config/perspectiveChooser">
+            <y:defaultPerspective name="warehousingBackofficePerspective"/>
+            <y:authority name="warehouseadministratorrole">
+                <y:perspective id="warehousingBackofficePerspective"/>
+                <y:perspective id="hmc2"/>
+            </y:authority>
+        </y:perspective-chooser>
+    </context>
+	<context component="perspective-chooser" principal="warehousemanagerrole">
+		<y:perspective-chooser xmlns:y="http://www.hybris.com/cockpitng/config/perspectiveChooser">
+			<y:authority name="warehousemanagerrole">
+				<y:perspective id="warehousingBackofficePerspective"/>
+			</y:authority>
+		</y:perspective-chooser>
+	</context>
+	<context component="perspective-chooser" principal="warehouseagentrole">
+		<y:perspective-chooser xmlns:y="http://www.hybris.com/cockpitng/config/perspectiveChooser">
+			<y:authority name="warehouseagentrole">
+				<y:perspective id="warehousingBackofficePerspective"/>
+			</y:authority>
+		</y:perspective-chooser>
+	</context>
+
+	<!-- Explorer Tree-->
+    <context component="warehousingbackoffice-explorer-tree">
+        <n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+            <n:navigation-node id="warehousing.treenode.order.shipping">
+                <n:type-node id="warehousing.typenode.consignments.all" code="Consignment"/>
+                <n:type-node id="warehousing.typenode.consignments.toship" code="Consignment" />
+                <n:type-node id="warehousing.typenode.consignments.topickup" code="Consignment" />
+            </n:navigation-node>
+            <n:navigation-node id="warehousing.treenode.fulfillmentlocations">
+                <n:type-node id="warehousing.typenode.pointofservices" code="PointOfService" />
+                <n:type-node id="warehousing.typenode.warehouses" code="Warehouse" />
+            </n:navigation-node>
+            <n:navigation-node id="warehousing.treenode.inventory">
+                <n:type-node id="warehousing.typenode.stocklevels" code="StockLevel" />
+            </n:navigation-node>
+            <n:navigation-node id="warehousing.treenode.returns">
+                <n:type-node id="warehousing.typenode.return.waiting.goods" />
+            </n:navigation-node>
+        </n:explorer-tree>
+    </context>
+
+    <!-- Explorer Tree for Admin perspective -->
+    <context merge-by="module" component="explorer-tree" principal="warehouseadministratorrole,admin">
+        <n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+            <n:navigation-node id="warehousing.treenode.order.management">
+                <n:type-node id="warehousing.typenode.atp.formulas" code="AtpFormula"/>
+	            <n:type-node id="warehousing.typenode.sourcing.configuration" code="SourcingConfig" />
+                <n:type-node id="warehousing.typenode.atp.restockconfig" code="RestockConfig"/>
+            </n:navigation-node>
+        </n:explorer-tree>
+    </context>
+
+    <!--Simple Search -->
+    <context merge-by="type" parent="GenericItem" type="Consignment" component="simple-search">
+        <simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+            <field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="code" />
+        </simple-search:simple-search>
+    </context>
+
+	<context parent="GenericItem" type="Consignment" component="advanced-search">
+		<as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch" connection-operator="OR">
+			<as:field-list disable-attributes-comparator="false" disable-subtypes-checkbox="false">
+				<as:field name="code" operator="equals" selected="true"/>
+				<as:field name="status" operator="equals" selected="true"/>
+			</as:field-list>
+			<as:sort-field name="code" asc="false" />
+		</as:advanced-search>
+	</context>
+
+    <context merge-by="type" parent="GenericItem" type="AtpFormula" component="simple-search">
+        <simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+            <field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="code" />
+        </simple-search:simple-search>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="AtpFormula" component="advanced-search">
+        <as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch" connection-operator="OR">
+            <as:field-list disable-attributes-comparator="false" disable-subtypes-checkbox="false">
+                <as:field name="code" operator="equals" selected="true"/>
+            </as:field-list>
+            <as:sort-field name="code" asc="false" />
+        </as:advanced-search>
+    </context>
+
+	<context merge-by="type" parent="GenericItem" type="SourcingConfig" component="simple-search">
+		<simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+			<field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="code" />
+		</simple-search:simple-search>
+	</context>
+
+	<context merge-by="type" parent="GenericItem" type="SourcingConfig" component="advanced-search">
+		<as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch" connection-operator="OR">
+			<as:field-list disable-attributes-comparator="false" disable-subtypes-checkbox="false">
+				<as:field name="code" operator="equals" selected="true"/>
+			</as:field-list>
+			<as:sort-field name="code" asc="false" />
+		</as:advanced-search>
+	</context>
+
+    <context merge-by="type" parent="GenericItem" type="RestockConfig" component="simple-search">
+        <simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+            <field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="returnedBinCode" />
+        </simple-search:simple-search>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="PointOfService" component="simple-search">
+        <simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+            <field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="name" />
+        </simple-search:simple-search>
+    </context>
+
+	<context merge-by="type" parent="GenericItem" type="PointOfService" component="advanced-search">
+		<as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch" connection-operator="OR">
+			<as:field-list disable-attributes-comparator="false" disable-subtypes-checkbox="false">
+				<as:field name="name" operator="equals" selected="true"/>
+				<as:field name="type" operator="equals" selected="true"/>
+				<as:field name="address" operator="equals" selected="true"/>
+			</as:field-list>
+			<as:sort-field name="name" asc="false" />
+		</as:advanced-search>
+	</context>
+
+    <context merge-by="type" parent="GenericItem" type="Warehouse" component="simple-search">
+        <simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+            <field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="code" />
+        </simple-search:simple-search>
+    </context>
+
+
+	<context merge-by="type" parent="GenericItem" type="Warehouse" component="advanced-search">
+		<as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch" connection-operator="OR">
+			<as:field-list disable-attributes-comparator="false" disable-subtypes-checkbox="false">
+				<as:field name="code" operator="equals" selected="true"/>
+				<as:field name="priority" operator="equals" selected="true"/>
+			</as:field-list>
+			<as:sort-field name="name" asc="false" />
+		</as:advanced-search>
+	</context>
+
+    <context merge-by="type" parent="GenericItem" type="StockLevel" component="simple-search">
+        <simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+            <field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="productCode" />
+        </simple-search:simple-search>
+    </context>
+
+	<context merge-by="type" parent="GenericItem" type="StockLevel" component="advanced-search">
+		<as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch" connection-operator="OR">
+			<as:field-list disable-attributes-comparator="false" disable-subtypes-checkbox="false">
+				<as:field name="productCode" operator="equals" selected="true"/>
+				<as:field name="available" operator="equals" selected="true"/>
+			</as:field-list>
+			<as:sort-field name="productCode" asc="false" />
+		</as:advanced-search>
+	</context>
+
+	<!-- List View for Admin perspective -->
+    <context merge-by="type" parent="GenericItem" type="AtpFormula" component="listview">
+        <list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+            <list:column qualifier="code" label="warehousingbackoffice.atpformulas.code"/>
+            <list:column qualifier="baseStores" label="warehousingbackoffice.atpformulas.baseStores"
+                         spring-bean="nullSafeListCellRenderer"/>
+        </list:list-view>
+    </context>
+
+	<context merge-by="type" parent="GenericItem" type="SourcingConfig" component="listview">
+		<list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+			<list:column qualifier="code" />
+			<list:column qualifier="baseStores" spring-bean="nullSafeListCellRenderer"/>
+		</list:list-view>
+	</context>
+
+    <context merge-by="type" parent="GenericItem" type="RestockConfig" component="listview">
+        <list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+            <list:column qualifier="returnedBinCode" label="warehousingbackoffice.restockconfig.returnedbincode"/>
+            <list:column qualifier="isUpdateStockAfterReturn" label="warehousingbackoffice.restockconfig.isupdatestockafterreturn"/>
+            <list:column qualifier="delayDaysBeforeRestock" label="warehousingbackoffice.restockconfig.delaydaysbeforerestock"/>
+        </list:list-view>
+    </context>
+
+	<!-- List View-->
+    <context type="PointOfService" component="warehousingbackofficelistview" >
+        <list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+            <list:column qualifier="name" label="warehousingbackoffice.pointofservice.name"/>
+            <list:column qualifier="address" spring-bean="nullSafeListCellRenderer"/>
+        </list:list-view>
+    </context>
+
+    <context type="Warehouse" component="warehousingbackofficelistview" >
+        <list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+            <list:column qualifier="name" label="warehousingbackoffice.warehouses.name"/>
+            <list:column qualifier="default"/>
+            <list:column qualifier="priority" />
+            <list:column qualifier="vendor.code" label="warehousingbackoffice.warehouses.vendor.name"/>
+            <list:column qualifier="pointsOfService" />
+        </list:list-view>
+    </context>
+
+	<!-- Explorer Tree for Admin perspective -->
+    <context type="AtpFormula" component="collection-browser">
+        <cb:collection-browser xmlns:cb="http://www.hybris.com/cockpitng/config/collectionbrowser">
+            <cb:available-molds>
+                <cb:mold spring-bean="listViewCollectionBrowserMoldStrategy"/>
+            </cb:available-molds>
+        </cb:collection-browser>
+    </context>
+
+	<context type="SourcingConfig" component="collection-browser">
+		<cb:collection-browser xmlns:cb="http://www.hybris.com/cockpitng/config/collectionbrowser">
+			<cb:available-molds>
+				<cb:mold spring-bean="listViewCollectionBrowserMoldStrategy"/>
+			</cb:available-molds>
+		</cb:collection-browser>
+	</context>
+
+    <context type="RestockConfig" component="collection-browser">
+        <cb:collection-browser xmlns:cb="http://www.hybris.com/cockpitng/config/collectionbrowser">
+            <cb:available-molds>
+                <cb:mold spring-bean="listViewCollectionBrowserMoldStrategy"/>
+            </cb:available-molds>
+        </cb:collection-browser>
+    </context>
+
+    <context type="PointOfService" component="collection-browser">
+      <cb:collection-browser xmlns:cb="http://www.hybris.com/cockpitng/config/collectionbrowser">
+         <cb:available-molds>
+             <cb:mold spring-bean="listViewCollectionBrowserMoldStrategy"/>
+         </cb:available-molds>
+      </cb:collection-browser>
+    </context>
+
+	<context type="Warehouse" component="collection-browser">
+      <cb:collection-browser xmlns:cb="http://www.hybris.com/cockpitng/config/collectionbrowser">
+         <cb:available-molds>
+             <cb:mold spring-bean="listViewCollectionBrowserMoldStrategy"/>
+         </cb:available-molds>
+      </cb:collection-browser>
+    </context>
+
+    <context type="Consignment" component="warehousingbackofficelistview" >
+        <list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+            <list:column qualifier="code" label="warehousingbackoffice.consignment.consignmentnumber" />
+            <list:column qualifier="order.code" label="warehousingbackoffice.consignment.order.number" />
+            <list:column qualifier="shippingDate" label="warehousingbackoffice.consignment.expectedtoship" />
+            <list:column qualifier="deliveryPointOfService" label="warehousingbackoffice.consignment.location" />
+            <list:column qualifier="deliveryMode"/>
+            <list:column qualifier="status" sortable="true" />
+        </list:list-view>
+    </context>
+
+    <context type="Consignment" component="collection-browser">
+      <cb:collection-browser xmlns:cb="http://www.hybris.com/cockpitng/config/collectionbrowser">
+         <cb:available-molds>
+             <cb:mold spring-bean="listViewCollectionBrowserMoldStrategy"/>
+         </cb:available-molds>
+      </cb:collection-browser>
+    </context>
+
+    <context type="StockLevel" component="warehousingbackofficelistview">
+        <list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+            <list:column qualifier="productCode"/>
+            <list:column qualifier="available" label="warehousingbackoffice.stocklevel.available" />
+            <list:column qualifier="releaseDate" />
+            <list:column qualifier="nextDeliveryTime" />
+            <list:column qualifier="bin"/>
+        </list:list-view>
+    </context>
+
+    <context type="StockLevel" component="collection-browser">
+      <cb:collection-browser xmlns:cb="http://www.hybris.com/cockpitng/config/collectionbrowser">
+         <cb:available-molds>
+             <cb:mold spring-bean="listViewCollectionBrowserMoldStrategy"/>
+         </cb:available-molds>
+      </cb:collection-browser>
+    </context>
+
+    <context type="StockLevel" component="warehousingbackofficelistview" principal="admin">
+        <list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+            <list:column qualifier="productCode" />
+            <list:column qualifier="inStockStatus" />
+            <list:column qualifier="warehouse.name" label="warehousingbackoffice.stocklevel.warehouse.name"/>
+            <list:column qualifier="bin"/>
+            <list:column qualifier="available" label="warehousingbackoffice.stocklevel.available" />
+            <list:column qualifier="releaseDate" />
+        </list:list-view>
+    </context>
+
+    <context type="ReturnRequest" component="warehousingbackofficelistview">
+        <list:list-view xmlns:list="http://www.hybris.com/cockpitng/component/listView">
+            <list:column qualifier="RMA" label="warehousingbackoffice.returns.listview.rma" />
+            <list:column qualifier="order.code" label="warehousingbackoffice.order.details.ordernumber"/>
+            <list:column qualifier="order.user" label="warehousingbackoffice.order.details.customer"/>
+            <list:column qualifier="creationtime" label="warehousingbackoffice.order.details.created"/>
+            <list:column qualifier="status" />
+        </list:list-view>
+    </context>
+    <context type="ReturnRequest" component="collection-browser">
+        <cb:collection-browser xmlns:cb="http://www.hybris.com/cockpitng/config/collectionbrowser">
+            <cb:available-molds>
+                <cb:mold spring-bean="listViewCollectionBrowserMoldStrategy"/>
+            </cb:available-molds>
+        </cb:collection-browser>
+    </context>
+
+    <!-- Editor Area -->
+    <context merge-by="module" parent="GenericItem" type="Consignment" component="warehousingbackoffice-editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="warehousingbackoffice.tab.consignmententries">
+                <editorArea:section name="warehousingbackoffice.section.general.dashboard" columns="3">
+                    <editorArea:customPanel name="warehousingbackoffice.product.renderer" spring-bean="productNestedAttributePanelRenderer">
+                        <editorArea:attribute qualifier="order.code" readonly="true" label="warehousingbackoffice.consignment.ordernumber"/>
+                    </editorArea:customPanel>
+                    <editorArea:panel name="warehousingbackoffice.shippingMethod.panel">
+                        <editorArea:attribute qualifier="deliveryMode" label="warehousingbackoffice.consignment.shippingmethod">
+                            <editorArea:editor-parameter>
+                                <editorArea:name>disableDisplayingDetails</editorArea:name>
+                                <editorArea:value>true</editorArea:value>
+                            </editorArea:editor-parameter>
+                        </editorArea:attribute>
+                    </editorArea:panel>
+                    <editorArea:panel name="warehousingbackoffice.shippingDate.panel">
+                        <editorArea:attribute qualifier="shippingDate" label="warehousingbackoffice.consignment.expectedshippingdate" readonly="true" />
+                    </editorArea:panel>
+                </editorArea:section>
+                <editorArea:section name="warehousingbackoffice.section.consignment.entries">
+                    <editorArea:panel name="warehousingbackoffice.consignmentEntries.panel">
+	                    <editorArea:attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="consignmentEntries" readonly="true" label="warehousingbackoffice.section.entries">
+	                        <editorArea:editor-parameter>
+	                            <editorArea:name>listConfigContext</editorArea:name>
+	                            <editorArea:value>referenceListViewConsignmentEntries</editorArea:value>
+	                        </editorArea:editor-parameter>
+	                        <editorArea:editor-parameter>
+	                            <editorArea:name>disableDisplayingDetails</editorArea:name>
+	                            <editorArea:value>true</editorArea:value>
+	                        </editorArea:editor-parameter>
+	                        <editorArea:editor-parameter>
+	                            <editorArea:name>disableRemoveReference</editorArea:name>
+	                            <editorArea:value>true</editorArea:value>
+	                        </editorArea:editor-parameter>
+	                    </editorArea:attribute>
+                    </editorArea:panel>
+                </editorArea:section>
+            </editorArea:tab>
+            <editorArea:tab name="warehousingbackoffice.tab.packageinfo">
+               <editorArea:section name="warehousingbackoffice.tab.packageinfo">
+	               <editorArea:panel name="warehousingbackoffice.packageInfo.panel">
+	                  <editorArea:attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="packaginginfos" readonly="true"
+                      label="warehousingbackoffice.section.entries">
+	                  	<editorArea:editor-parameter>
+	                        <editorArea:name>listConfigContext</editorArea:name>
+	                        <editorArea:value>referenceListViewPackagingInfoEntries</editorArea:value>
+	                     </editorArea:editor-parameter>
+	                     <editorArea:editor-parameter>
+	                     	<editorArea:name>disableDisplayingDetails</editorArea:name>
+	                     	<editorArea:value>true</editorArea:value>
+	                     </editorArea:editor-parameter>
+	                     <editorArea:editor-parameter>
+	                         <editorArea:name>disableRemoveReference</editorArea:name>
+	                         <editorArea:value>true</editorArea:value>
+	                     </editorArea:editor-parameter>
+	                  </editorArea:attribute>
+                  </editorArea:panel>
+               </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+	<context merge-by="module" parent="GenericItem" type="Packaginginfo" component="editor-area">
+	    <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+	        <editorArea:tab name="warehousingbackoffice.tab.general">
+           		<editorArea:section name="warehousingbackoffice.section.general.properties">
+	                <editorArea:attribute qualifier="width"/>
+	                <editorArea:attribute qualifier="height"/>
+	                <editorArea:attribute qualifier="length"/>
+	                <editorArea:attribute qualifier="dimensionUnit"/>
+	                <editorArea:attribute qualifier="grossWeight" />
+	                <editorArea:attribute qualifier="weightUnit" />
+	                <editorArea:attribute qualifier="insuredValue" />
+            	</editorArea:section>
+        	</editorArea:tab>
+    	</editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="ConsignmentEntry" component="referenceListViewConsignmentEntries">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+            <list-view:column qualifier="orderEntry.product.code" label="warehousingbackoffice.consignmentEntry.orderEntry.product.code" spring-bean="nullSafeListCellRenderer"/>
+            <list-view:column qualifier="orderEntry.product.name" label="warehousingbackoffice.consignmentEntry.orderEntry.product.name" spring-bean="nullSafeListCellRenderer"/>
+            <list-view:column qualifier="quantity" label="warehousingbackoffice.consignmentEntry.orderEntry.quantity"/>
+            <list-view:column qualifier="quantityPending"/>
+            <list-view:column qualifier="quantityDeclined"/>
+            <list-view:column qualifier="quantityShipped" />
+        </list-view:list-view>
+    </context>
+
+	<context merge-by="type" parent="GenericItem" type="Consignment" component="referenceListViewWarehouseConsignments">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="code"/>
+			<list-view:column qualifier="trackingID"/>
+			<list-view:column qualifier="deliveryMode.code" label="warehousingbackoffice.warehouses.deliveryMode.code"/>
+			<list-view:column qualifier="status"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" parent="GenericItem" type="PackagingInfo" component="referenceListViewPackagingInfoEntries">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="width" />
+			<list-view:column qualifier="height"/>
+			<list-view:column qualifier="length"/>
+			<list-view:column qualifier="dimensionUnit"/>
+			<list-view:column qualifier="grossWeight"/>
+			<list-view:column qualifier="weightUnit"/>
+			<list-view:column qualifier="insuredValue"/>
+			<list-view:column spring-bean="editPackageInfoButtonRenderer" label="warehousingbackoffice.tab.packageinfo.edit"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" parent="GenericItem" type="StockLevel" component="referenceListViewStockLevelEntries">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="productCode" />
+			<list-view:column qualifier="inStockStatus"/>
+			<list-view:column qualifier="warehouse.name" label="warehousingbackoffice.stocklevel.warehouse.name"/>
+			<list-view:column qualifier="bin"/>
+			<list-view:column qualifier="available"/>
+			<list-view:column qualifier="releaseDate"/>
+		</list-view:list-view>
+	</context>
+
+    <context merge-by="type" parent="GenericItem" type="ReturnEntry" component="referenceListViewRefundEntries">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+            <list-view:column qualifier="orderEntry.product.code" label="customersupportbackoffice.returnentry.orderentry.product.code" spring-bean="nullSafeListCellRenderer"/>
+            <list-view:column qualifier="orderEntry.product.name" label="warehousingbackoffice.returnentry.orderentry.product.name" spring-bean="nullSafeListCellRenderer"/>
+            <list-view:column qualifier="orderEntry.basePrice" />
+            <list-view:column qualifier="amount" spring-bean="refundEntryTotalPriceRenderer" label="customersupportbackoffice.returnentry.refundamount"/>
+            <list-view:column qualifier="expectedQuantity" />
+        </list-view:list-view>
+    </context>
+
+    <context merge-by="module" parent="GenericItem" type="ReturnRequest" component="warehousingbackoffice-editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="warehousingbackoffice.tab.general">
+                <editorArea:section name="warehousingbackoffice.section.returns.rma.properties">
+                    <editorArea:panel name="warehousingbackoffice.rma.panel">
+                        <editorArea:attribute qualifier="RMA" readonly="true" label="warehousingbackoffice.returnrequest.rma"/>
+                    </editorArea:panel>
+                    <editorArea:panel name="warehousingbackoffice.orderNumber.panel">
+                        <editorArea:attribute qualifier="order" readonly="true" label="warehousingbackoffice.returnrequest.order.number">
+                            <editorArea:editor-parameter>
+                                <editorArea:name>disableDisplayingDetails</editorArea:name>
+                                <editorArea:value>true</editorArea:value>
+                            </editorArea:editor-parameter>
+                        </editorArea:attribute>
+                    </editorArea:panel>
+                    <editorArea:customPanel name="warehousingbackoffice.panel.order.general.shipaddress" spring-bean="orderNestedAttributePanelRenderer">
+                        <editorArea:attribute qualifier="order.deliveryCost" readonly="true" />
+                    </editorArea:customPanel>
+                    <editorArea:panel name="warehousingbackoffice.refundDeliveryCost.panel">
+                        <editorArea:attribute qualifier="refundDeliveryCost" readonly="true"/>
+                    </editorArea:panel>
+                    <editorArea:customPanel name="warehousingbackoffice.panel.order.general.refundAmount" spring-bean="refundAmountRenderer"/>
+                    <editorArea:panel name="warehousingbackoffice.status.panel">
+                        <editorArea:attribute qualifier="status" readonly="true"/>
+                    </editorArea:panel>
+                </editorArea:section>
+                <editorArea:section
+                        name="warehousingbackoffice.section.returns.hierarchy.descendants">
+                    <editorArea:panel name="warehousingbackoffice.returnEntries.panel">
+                        <editorArea:attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="returnEntries" readonly="true"
+                                              label="warehousingbackoffice.section.entries">
+                            <editorArea:editor-parameter>
+                                <editorArea:name>listConfigContext</editorArea:name>
+                                <editorArea:value>referenceListViewRefundEntries</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>disableDisplayingDetails</editorArea:name>
+                                <editorArea:value>true</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>disableRemoveReference</editorArea:name>
+                                <editorArea:value>true</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>isNestedObjectCreationDisabled</editorArea:name>
+                                <editorArea:value>true</editorArea:value>
+                            </editorArea:editor-parameter>
+                        </editorArea:attribute>
+                    </editorArea:panel>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context parent="GenericItem" type="PointOfService" component="warehousingbackoffice-editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="warehousingbackoffice.tab.general">
+                <editorArea:section name="warehousingbackoffice.section.general.properties">
+                    <editorArea:panel name="warehousingbackoffice.pointOfServiceName.panel">
+                        <editorArea:attribute qualifier="name" label="warehousingbackoffice.pointofservice.name"/>
+                    </editorArea:panel>
+                    <editorArea:panel name="warehousingbackoffice.pointOfServiceType.panel">
+                    <editorArea:attribute qualifier="type" readonly="true"/>
+                    </editorArea:panel>
+                    <editorArea:panel name="warehousingbackoffice.pointOfServiceBaseStore.panel">
+                    <editorArea:attribute qualifier="basestore" readonly="true" label="warehousingbackoffice.pointofservice.basestore">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>disableDisplayingDetails</editorArea:name>
+                            <editorArea:value>true</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                    </editorArea:panel>
+                    <editorArea:panel name="warehousingbackoffice.pointOfServiceWarehouses.panel">
+                    <editorArea:attribute qualifier="warehouses">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>disableDisplayingDetails</editorArea:name>
+                            <editorArea:value>true</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                    </editorArea:panel>
+                    <editorArea:panel name="warehousingbackoffice.pointOfServiceAddress.panel">
+                    <editorArea:attribute qualifier="address">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>referenceSelected/editorArea/editorAreaConfigCtx</editorArea:name>
+                            <editorArea:value>warehousingbackoffice-editor-area</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                    </editorArea:panel>
+                    <editorArea:attribute qualifier="creationtime" readonly="true" label="warehousingbackoffice.pointofservice.creationtime"/>
+                    <editorArea:attribute qualifier="modifiedtime" readonly="true" label="warehousingbackoffice.pointofservice.modifiedtime"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+	<context parent="GenericItem" type="Warehouse" component="warehousingbackoffice-editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:tab name="warehousingbackoffice.warehouses.tab.details">
+				<editorArea:section name="warehousingbackoffice.section.general.properties">
+					<editorArea:panel name="warehouseCode">
+						<editorArea:attribute qualifier="code" readonly="true" />
+					</editorArea:panel>
+					<editorArea:panel name="warehouseName">
+						<editorArea:attribute qualifier="name" readonly="true" label="warehousingbackoffice.warehouses.name"/>
+					</editorArea:panel>
+					<editorArea:panel name="warehouseDefault">
+						<editorArea:attribute qualifier="default" />
+					</editorArea:panel>
+                    <editorArea:panel name="warehousingbackoffice.separator.panel"/>
+					<editorArea:panel name="warehousePriority">
+						<editorArea:attribute qualifier="priority" />
+					</editorArea:panel>
+					<editorArea:customPanel name="warehouseVendor" spring-bean="warehouseVendorNestedAttributePanelRenderer">
+						<editorArea:attribute qualifier="vendor.code" readonly="true" label="warehousingbackoffice.warehouses.section.vendor"/>
+					</editorArea:customPanel>
+                    <editorArea:panel name="warehousingbackoffice.warehouseSeparator.panel"/>
+                    <editorArea:panel name="pointOfService">
+                        <editorArea:attribute qualifier="pointsOfService">
+                            <editorArea:editor-parameter>
+                                <editorArea:name>isNestedObjectCreationDisabled</editorArea:name>
+                                <editorArea:value>true</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>disableDisplayingDetails</editorArea:name>
+                                <editorArea:value>true</editorArea:value>
+                            </editorArea:editor-parameter>
+                        </editorArea:attribute>
+                    </editorArea:panel>
+					<editorArea:attribute qualifier="deliveryModes">
+						<editorArea:editor-parameter>
+							<editorArea:name>isNestedObjectCreationDisabled</editorArea:name>
+							<editorArea:value>true</editorArea:value>
+						</editorArea:editor-parameter>
+						<editorArea:editor-parameter>
+							<editorArea:name>disableDisplayingDetails</editorArea:name>
+							<editorArea:value>true</editorArea:value>
+						</editorArea:editor-parameter>
+					</editorArea:attribute>
+					<editorArea:attribute qualifier="baseStores" label="warehousingbackoffice.warehouses.baseStores">
+						<editorArea:editor-parameter>
+							<editorArea:name>isNestedObjectCreationDisabled</editorArea:name>
+							<editorArea:value>true</editorArea:value>
+						</editorArea:editor-parameter>
+						<editorArea:editor-parameter>
+							<editorArea:name>disableDisplayingDetails</editorArea:name>
+							<editorArea:value>true</editorArea:value>
+						</editorArea:editor-parameter>
+					</editorArea:attribute>
+				</editorArea:section>
+			</editorArea:tab>
+			<editorArea:tab name="warehousingbackoffice.warehouses.tab.stocklevels">
+				<editorArea:section name="warehousingbackoffice.warehouses.section.stocklevels">
+					<editorArea:attribute qualifier="stockLevels" readonly="true" editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor"
+                    label="warehousingbackoffice.section.entries">
+						<editorArea:editor-parameter>
+							<editorArea:name>listConfigContext</editorArea:name>
+							<editorArea:value>referenceListViewStockLevelEntries</editorArea:value>
+						</editorArea:editor-parameter>
+						<editorArea:editor-parameter>
+							<editorArea:name>disableDisplayingDetails</editorArea:name>
+							<editorArea:value>true</editorArea:value>
+						</editorArea:editor-parameter>
+						<editorArea:editor-parameter>
+							<editorArea:name>disableRemoveReference</editorArea:name>
+							<editorArea:value>true</editorArea:value>
+						</editorArea:editor-parameter>
+					</editorArea:attribute>
+				</editorArea:section>
+			</editorArea:tab>
+			<editorArea:tab name="warehousingbackoffice.warehouses.tab.consignments">
+				<editorArea:section name="warehousingbackoffice.warehouses.section.consignments">
+					<editorArea:attribute qualifier="consignments" readonly="true" editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor"
+                    label="warehousingbackoffice.section.entries">
+						<editorArea:editor-parameter>
+							<editorArea:name>listConfigContext</editorArea:name>
+							<editorArea:value>referenceListViewWarehouseConsignments</editorArea:value>
+						</editorArea:editor-parameter>
+						<editorArea:editor-parameter>
+							<editorArea:name>disableDisplayingDetails</editorArea:name>
+							<editorArea:value>true</editorArea:value>
+						</editorArea:editor-parameter>
+						<editorArea:editor-parameter>
+							<editorArea:name>disableRemoveReference</editorArea:name>
+							<editorArea:value>true</editorArea:value>
+						</editorArea:editor-parameter>
+					</editorArea:attribute>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+
+    <context component="create-wizard" type="Address">
+        <wz:flow id="AddressWizard" title="create.title(ctx.TYPE_CODE)">
+            <wz:prepare id="addrPrepare">
+                <wz:initialize property="newAddr" type="ctx.TYPE_CODE"/>
+                <wz:assign property="newAddr.owner" value="ctx.parentObject"/>
+            </wz:prepare>
+            <wz:step id="step1" label="create.address.essential.label" sublabel="create.address.essential.sublabel">
+                <wz:content id="step1.content">
+                    <wz:property-list root="newAddr">
+                        <wz:property qualifier="owner">
+                            <wz:editor-parameter>
+                                <wz:name>restrictToType</wz:name>
+                                <wz:value>Principal</wz:value>
+                            </wz:editor-parameter>
+                        </wz:property>
+                        <wz:property qualifier="shippingAddress"/>
+                        <wz:property qualifier="billingAddress"/>
+                        <wz:property qualifier="line1" type="java.lang.String" readonly="false"/>
+                        <wz:property qualifier="line2" type="java.lang.String" readonly="false"/>
+                        <wz:property qualifier="postalcode" type="java.lang.String" readonly="false"/>
+                        <wz:property qualifier="region" type="java.lang.String" readonly="false"/>
+                        <wz:property qualifier="country" type="java.lang.String" readonly="false"/>
+                    </wz:property-list>
+                </wz:content>
+                <wz:navigation id="step1.navigation">
+                    <wz:cancel/>
+                    <wz:next visible="newAddr.owner != null and !#empty(newAddr.streetname) and !#empty(newAddr.streetnumber) and !#empty(newAddr.postalcode) and
+                    				  newAddr.region != null and newAddr.country !=null" default-target="step2"/>
+                    <wz:done visible="newAddr.owner != null and !#empty(newAddr.streetname) and !#empty(newAddr.streetnumber) and !#empty(newAddr.postalcode) and
+                    				  newAddr.region != null and newAddr.country !=null" default-target="step2">
+                        <wz:save property="newAddr"/>
+                    </wz:done>
+                </wz:navigation>
+            </wz:step>
+            <wz:step id="step2" label="create.address.additional.label" sublabel="create.address.additional.sublabel">
+                <wz:content id="step2.content">
+                    <wz:property-list root="newAddr">
+                        <wz:property qualifier="company"/>
+                        <wz:property qualifier="pobox"/>
+                        <wz:property qualifier="phone1"/>
+                        <wz:property qualifier="phone2"/>
+                        <wz:property qualifier="cellphone"/>
+                        <wz:property qualifier="fax"/>
+                        <wz:property qualifier="email"/>
+                    </wz:property-list>
+                </wz:content>
+                <wz:navigation id="step2.navigation">
+                    <wz:cancel/>
+                    <wz:back/>
+                    <wz:done>
+                        <wz:save property="newAddr"/>
+                    </wz:done>
+                </wz:navigation>
+            </wz:step>
+        </wz:flow>
+    </context>
+
+	<context component="create-wizard" type="StockLevel">
+		<wz:flow id="StockLevelWizard" title="create.title(ctx.TYPE_CODE)">
+			<wz:prepare id="stockLevelPrepare">
+				<wz:initialize property="newStockLevel" type="ctx.TYPE_CODE"/>
+				<wz:assign property="newStockLevel.productCode" value="ctx.productCode"/>
+				<wz:assign property="newStockLevel.warehouse" value="ctx.warehouse"/>
+			</wz:prepare>
+			<wz:step id="step1" label="create.stockLevel.essential.label" sublabel="create.stockLevel.essential.sublabel">
+				<wz:content id="step1.content">
+					<wz:property-list root="newStockLevel">
+						<wz:property qualifier="productCode" />
+						<wz:property qualifier="warehouse"/>
+						<wz:property qualifier="available"/>
+					</wz:property-list>
+				</wz:content>
+				<wz:navigation id="step1.navigation">
+					<wz:cancel/>
+					<wz:next visible="newStockLevel.productCode != null and newStockLevel.warehouse != null and
+					    newStockLevel.available != null" default-target="step2"/>
+					<wz:done visible="newStockLevel.productCode != null and newStockLevel.warehouse != null and
+					    newStockLevel.available != null">
+						<wz:save property="newStockLevel"/>
+					</wz:done>
+				</wz:navigation>
+			</wz:step>
+			<wz:step id="step2" label="create.stockLevel.additional.label" sublabel="create.stockLevel.additional.sublabel">
+				<wz:content id="step2.content">
+					<wz:property-list root="newStockLevel">
+						<wz:property qualifier="inStockStatus" />
+						<wz:property qualifier="nextDeliveryTime"/>
+						<wz:property qualifier="releaseDate"/>
+						<wz:property qualifier="bin"/>
+					</wz:property-list>
+				</wz:content>
+				<wz:navigation id="step2.navigation">
+					<wz:cancel/>
+					<wz:back/>
+					<wz:done>
+						<wz:save property="newStockLevel"/>
+					</wz:done>
+				</wz:navigation>
+			</wz:step>
+		</wz:flow>
+	</context>
+
+    <context component="create-wizard" type="AtpFormula">
+        <wz:flow id="AtpFormulaWizard" title="create.title(ctx.TYPE_CODE)">
+            <wz:prepare id="atpFormulaPrepare">
+                <wz:initialize property="newAtpFormula" type="ctx.TYPE_CODE"/>
+                <wz:assign property="newAtpFormula.code" value="ctx.code"/>
+            </wz:prepare>
+            <wz:step id="step1" label="create.atpFormula.essential.label" sublabel="create.atpFormula.essential.sublabel">
+                <wz:content id="step1.content">
+                    <wz:property-list root="newAtpFormula">
+                        <wz:property qualifier="code"/>
+                    </wz:property-list>
+                </wz:content>
+                <wz:navigation id="step1.navigation">
+                    <wz:cancel/>
+                    <wz:next visible="newAtpFormula.code != null" default-target="step2"/>
+                    <wz:done visible="newAtpFormula.code != null">
+                        <wz:save property="newAtpFormula"/>
+                    </wz:done>
+                </wz:navigation>
+            </wz:step>
+            <wz:step id="step2" label="create.atpFormula.additional.label" sublabel="create.atpFormula.additional.sublabel">
+                <wz:content id="step2.content">
+                    <wz:property-list root="newAtpFormula">
+                        <wz:property qualifier="baseStores"/>
+                    </wz:property-list>
+                </wz:content>
+                <wz:navigation id="step2.navigation">
+                    <wz:cancel/>
+                    <wz:back/>
+                    <wz:done>
+                        <wz:save property="newAtpFormula"/>
+                    </wz:done>
+                </wz:navigation>
+            </wz:step>
+        </wz:flow>
+    </context>
+
+    <context component="create-wizard" type="SourcingConfig">
+        <wz:flow id="SourcingConfigWizard" title="create.title(ctx.TYPE_CODE)">
+            <wz:prepare id="sourcingConfigPrepare">
+                <wz:initialize property="newSourcingConfig" type="ctx.TYPE_CODE"/>
+                <wz:assign property="newSourcingConfig.code" value="ctx.code"/>
+            </wz:prepare>
+            <wz:step id="step1" label="create.sourcingConfig.essential.label" sublabel="create.sourcingConfig.essential.sublabel">
+                <wz:content id="step1.content">
+                    <wz:property-list root="newSourcingConfig">
+                        <wz:property qualifier="code"/>
+                        <wz:property qualifier="distanceWeightFactor"/>
+                        <wz:property qualifier="allocationWeightFactor"/>
+                        <wz:property qualifier="priorityWeightFactor"/>
+                    </wz:property-list>
+                </wz:content>
+                <wz:navigation id="step1.navigation">
+                    <wz:cancel/>
+                    <wz:next visible="newSourcingConfig.code != null and newSourcingConfig.distanceWeightFactor != null and
+                        newSourcingConfig.allocationWeightFactor != null and newSourcingConfig.priorityWeightFactor != null" default-target="step2"/>
+                    <wz:done visible="newSourcingConfig.code != null and newSourcingConfig.distanceWeightFactor != null and
+                        newSourcingConfig.allocationWeightFactor != null and newSourcingConfig.priorityWeightFactor != null">
+                        <wz:save property="newSourcingConfig"/>
+                    </wz:done>
+                </wz:navigation>
+            </wz:step>
+            <wz:step id="step2" label="create.sourcingConfig.additional.label" sublabel="create.sourcingConfig.additional.sublabel">
+                <wz:content id="step2.content">
+                    <wz:property-list root="newSourcingConfig">
+                        <wz:property qualifier="baseStores"/>
+                    </wz:property-list>
+                </wz:content>
+                <wz:navigation id="step2.navigation">
+                    <wz:cancel/>
+                    <wz:back/>
+                    <wz:done>
+                        <wz:save property="newSourcingConfig"/>
+                    </wz:done>
+                </wz:navigation>
+            </wz:step>
+        </wz:flow>
+    </context>
+
+	<context merge-by="module" parent="GenericItem" type="Address" component="warehousingbackoffice-editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:tab name="warehousingbackoffice.tab.general">
+				<editorArea:section name="warehousingbackoffice.section.general.properties">
+					<editorArea:attribute qualifier="shippingAddress"/>
+					<editorArea:attribute qualifier="billingAddress"/>
+					<editorArea:attribute qualifier="line1" label="warehousingbackoffice.pointofservice.address.line1" />
+					<editorArea:attribute qualifier="line2" label="warehousingbackoffice.pointofservice.address.line2" />
+					<editorArea:attribute qualifier="region" label="warehousingbackoffice.pointofservice.address.state" />
+					<editorArea:attribute qualifier="postalcode" label="warehousingbackoffice.pointofservice.address.postalcode" />
+					<editorArea:attribute qualifier="country" />
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+
+    <context merge-by="module" parent="GenericItem" type="StockLevel" component="warehousingbackoffice-editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="warehousingbackoffice.tab.general">
+                <editorArea:section name="warehousingbackoffice.section.general.properties">
+                   <editorArea:attribute qualifier="warehouse" readonly="true">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>isNestedObjectCreationDisabled</editorArea:name>
+                            <editorArea:value>true</editorArea:value>
+                        </editorArea:editor-parameter>
+                        <editorArea:editor-parameter>
+                            <editorArea:name>disableDisplayingDetails</editorArea:name>
+                            <editorArea:value>true</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                    <editorArea:attribute qualifier="bin"/>
+                    <editorArea:attribute qualifier="available" label="warehousingbackoffice.stocklevel.available"/>
+                    <editorArea:attribute qualifier="nextDeliveryTime" label="warehousingbackoffice.stocklevel.nextDeliveryTime"/>
+                    <editorArea:attribute qualifier="releaseDate"/>
+                    <editorArea:attribute qualifier="inStockStatus"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+	<!-- Editor Area for Admin perspective -->
+    <context merge-by="module" parent="GenericItem" type="AtpFormula" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="warehousingbackoffice.tab.general">
+                <editorArea:section name="warehousingbackoffice.section.general.properties">
+                    <editorArea:attribute qualifier="code" readonly="true"/>
+                    <editorArea:attribute qualifier="baseStores">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>isNestedObjectCreationDisabled</editorArea:name>
+                            <editorArea:value>true</editorArea:value>
+                        </editorArea:editor-parameter>
+                        <editorArea:editor-parameter>
+                            <editorArea:name>disableDisplayingDetails</editorArea:name>
+                            <editorArea:value>true</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                </editorArea:section>
+                <editorArea:section name="warehousingbackoffice.section.atpformula.builder">
+                    <editorArea:customPanel name="CreateEditAtpFormula" spring-bean="atpFormulaPanelRenderer" />
+                    <editorArea:panel name="formulaString">
+                        <editorArea:attribute qualifier="formulaString" label="warehousingbackoffice.atpformula.formulastring" readonly="true"/>
+                    </editorArea:panel>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+	<context merge-by="module" parent="GenericItem" type="SourcingConfig" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:tab name="warehousingbackoffice.tab.general">
+				<editorArea:section name="warehousingbackoffice.section.sourcingConfig.weight.factors" description="Total Weight must be 100, and each Weight must not be Negative">
+					<editorArea:attribute qualifier="distanceWeightFactor" />
+					<editorArea:attribute qualifier="allocationWeightFactor" />
+					<editorArea:attribute qualifier="priorityWeightFactor" />
+					<editorArea:attribute qualifier="baseStores">
+						<editorArea:editor-parameter>
+							<editorArea:name>isNestedObjectCreationDisabled</editorArea:name>
+							<editorArea:value>true</editorArea:value>
+						</editorArea:editor-parameter>
+						<editorArea:editor-parameter>
+							<editorArea:name>disableDisplayingDetails</editorArea:name>
+							<editorArea:value>true</editorArea:value>
+						</editorArea:editor-parameter>
+					</editorArea:attribute>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+
+    <context merge-by="module" parent="GenericItem" type="RestockConfig" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="warehousingbackoffice.tab.general">
+                <editorArea:section name="warehousingbackoffice.section.general.properties" columns="1">
+                    <editorArea:attribute qualifier="isUpdateStockAfterReturn" label="warehousingbackoffice.restockconfig.isupdatestockafterreturn" readonly="false"/>
+                    <editorArea:attribute qualifier="delayDaysBeforeRestock" label="warehousingbackoffice.restockconfig.delaydaysbeforerestock" readonly="false"/>
+                    <editorArea:attribute qualifier="returnedBinCode" label="warehousingbackoffice.restockconfig.returnedbincode" readonly="false"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <!-- Actions -->
+
+    <context type="AtpFormula" component="listviewactions">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:group qualifier="common">
+                <y:label>actiongroup.common</y:label>
+                <y:action action-id="com.hybris.cockpitng.action.create" property="pageable.typeCode"/>
+                <y:action action-id="com.hybris.cockpitng.listview.action.export.csv" property="exportColumnsAndData" />
+            </y:group>
+        </y:actions>
+    </context>
+
+	<context type="SourcingConfig" component="listviewactions">
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="com.hybris.cockpitng.action.create" property="pageable.typeCode"/>
+				<y:action action-id="com.hybris.cockpitng.listview.action.export.csv" property="exportColumnsAndData" />
+			</y:group>
+		</y:actions>
+	</context>
+
+    <context type="RestockConfig" component="listviewactions">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:group qualifier="common">
+            </y:group>
+        </y:actions>
+    </context>
+
+	<context type="OrderCancelConfig" component="listviewactions">
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<!-- leave empty to disable create action or provide action-id to add custom action -->
+			</y:group>
+		</y:actions>
+	</context>
+
+	<context type="OrderCancelConfig" component="editorareaactions">
+		<y:actions>
+			<y:group qualifier="common">
+				<!-- leave empty to disable delete action or provide action-id to add custom action -->
+			</y:group>
+		</y:actions>
+	</context>
+
+	<context type="AtpFormula" component="editorareaactions">
+		<y:actions>
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="de.hybris.platform.warehousingbackoffice.actions.delete.atpformula" property="currentObject"/>
+			</y:group>
+		</y:actions>
+	</context>
+
+	<context type="SourcingConfig" component="editorareaactions">
+		<y:actions>
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="de.hybris.platform.warehousingbackoffice.actions.delete.sourcingconfig" property="currentObject"/>
+			</y:group>
+		</y:actions>
+	</context>
+
+    <context type="RestockConfig" component="editorareaactions">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <y:group qualifier="common">
+                <!-- leave empty to disable delete action or provide action-id to add custom action -->
+            </y:group>
+        </y:actions>
+    </context>
+
+    <context component="warehouseListviewActions" type="PointOfService">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:group qualifier="common">
+                <y:label>actiongroup.common</y:label>
+                <y:action action-id="com.hybris.cockpitng.listview.action.export.csv" property="exportColumnsAndData" />
+            </y:group>
+        </y:actions>
+    </context>
+
+	<context component="warehouseListviewActions" type="StockLevel">
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="com.hybris.cockpitng.action.create" property="pageable.typeCode"/>
+				<y:action action-id="com.hybris.cockpitng.listview.action.export.csv" property="exportColumnsAndData"/>
+			</y:group>
+		</y:actions>
+	</context>
+
+    <context component="warehouseListviewActions" type="Consignment">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:group qualifier="common">
+                <y:label>actiongroup.common</y:label>
+                <y:action action-id="com.hybris.cockpitng.listview.action.export.csv" property="exportColumnsAndData" />
+            </y:group>
+        </y:actions>
+    </context>
+
+    <context type="Consignment" component="base" merge-by="type" parent="GenericItem">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>'Consignment#: ' +code</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="Consignment" merge-by="type" component="warehouseEditorAreaActions">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:group qualifier="common">
+                <y:label>actiongroup.common</y:label>
+                <y:action action-id="de.hybris.platform.warehousingbackoffice.actions.printpickslipaction" property="currentObject" />
+                <y:action action-id="de.hybris.platform.warehousingbackoffice.actions.printpackaction" property="currentObject" />
+                <y:action action-id="de.hybris.platform.warehousingbackoffice.actions.printshippinglabelaction" property="currentObject" />
+                <y:action action-id="de.hybris.platform.warehousingbackoffice.actions.shipaction" property="currentObject" />
+                <y:action action-id="de.hybris.platform.warehousingbackoffice.actions.confirmpickupaction" property="currentObject" />
+                <y:action action-id="de.hybris.platform.warehousingbackoffice.actions.reallocateaction" property="currentObject" />
+            </y:group>
+        </y:actions>
+    </context>
+
+    <context type="ReturnRequest" component="warehouseEditorAreaActions">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:group qualifier="common">
+                <y:label>actiongroup.common</y:label>
+                <y:action action-id="de.hybris.platform.warehousingbackoffice.actions.returns.acceptgoods" property="currentObject" />
+                <y:action action-id="de.hybris.platform.warehousingbackoffice.actions.returns.cancelreturnaction" property="currentObject" />
+            </y:group>
+        </y:actions>
+    </context>
+
+    <context type="StockLevel" component="warehouseEditorAreaActions">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:group qualifier="common">
+                <y:label>actiongroup.common</y:label>
+                <y:action action-id="de.hybris.platform.warehousingbackoffice.actions.stock.adjustment" property="currentObject"/>
+            </y:group>
+        </y:actions>
+    </context>
+
+    <context type="Address" component="collectioneditorareaactions">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <y:group qualifier="common">
+            	<!-- leave empty to disable delete action or provide action-id to add custom action -->
+            </y:group>
+        </y:actions>
+    </context>
+
+    <context type="PackagingInfo" component="collectioneditorareaactions">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <y:group qualifier="common">
+            	<!-- leave empty to disable delete action or provide action-id to add custom action -->
+            </y:group>
+        </y:actions>
+    </context>
+
+
+    <!-- Default labels for Items-->
+
+    <context type="BaseStore" component="base" merge-by="module">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>name</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="Warehouse" component="base">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>name</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="PointOfService" component="base" merge-by="module">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>name</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="OpeningSchedule" component="base" merge-by="module">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>code</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="CockpitItemTemplate" component="base" merge-by="module">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>code</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="StoreLocatorFeature" component="base" merge-by="module">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>code</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="StockLevel" component="base" merge-by="module">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>productCode</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="AtpFormula" component="base" merge-by="module">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>code</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+    <context type="RestockConfig" component="base" merge-by="module">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>'Restock Configuration'</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+
+	<!--Start Config for Customersupportbackoffice-->
+	<context parent="GenericItem" type="OrderEntry" component="referenceListViewOrderEntries">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="product.code" label="customersupportbackoffice.order.hierarchy.productcode" />
+			<list-view:column qualifier="product.name" label="customersupportbackoffice.order.hierarchy.productname" />
+			<list-view:column qualifier="currency"  spring-bean="currencyTypeRenderer"  label="customersupportbackoffice.order.hierarchy.currency" />
+			<list-view:column qualifier="basePrice" label="customersupportbackoffice.order.hierarchy.itemprice" />
+			<list-view:column qualifier="quantity" label="customersupportbackoffice.order.hierarchy.qty" />
+			<list-view:column qualifier="totalPrice" label="customersupportbackoffice.order.hierarchy.totalprice" />
+			<list-view:column qualifier="quantityAllocated" label="customersupportbackoffice.order.hierarchy.allocated"  />
+			<list-view:column qualifier="quantityPending" label="customersupportbackoffice.order.hierarchy.pending" />
+			<list-view:column qualifier="quantityReturned" label="customersupportbackoffice.order.hierarchy.returned" />
+			<list-view:column qualifier="quantityCancelled" label="customersupportbackoffice.order.hierarchy.cancelled" />
+			<list-view:column qualifier="quantityShipped" label="customersupportbackoffice.order.hierarchy.shipped" />
+		</list-view:list-view>
+	</context>
+
+	<context component="cseditorareaactions" type="ReturnRequest" merge-by="type">
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="de.hybris.ordermanagementbackoffice.actions.returns.approvereturnaction" property="currentObject" />
+				<y:action action-id="de.hybris.ordermanagementbackoffice.actions.returns.cancelreturnaction" property="currentObject" />
+				<y:action action-id="de.hybris.ordermanagementbackoffice.actions.returns.manualrefundaction" property="currentObject" />
+				<y:action action-id="de.hybris.ordermanagementbackoffice.actions.returns.manualtaxreverseaction" property="currentObject" />
+			</y:group>
+		</y:actions>
+	</context>
+
+	<context component="cseditorareaactions" type="Order" merge-by="type">
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="de.hybris.ordermanagementbackoffice.actions.order.triggersourcingaction" property="currentObject" />
+			</y:group>
+		</y:actions>
+	</context>
+	<!--End Config for Customersupportbackoffice-->
+
+</config>

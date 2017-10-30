@@ -1,0 +1,40 @@
+<h1><code ng:non-bindable="">dragAndDropScrollingService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">dragAndDropScrollingModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="draganddropscrollingmodule-service-page draganddropscrollingmodule-service-draganddropscrollingservice-page"><p>The Drag and Drop Scrolling service manages the scrolling of a page while dragging a SmartEdit component. It creates,
+appends, shows and hides UI hints (regions in the page that scroll the page up or down when hovered).</p>
+<p>This service is only intended to be used by the base
+<a href="#/smartEditContainer/dragAndDropServiceInterfaceModule.DragAndDropServiceInterface">SmartEdit Drag and Drop service</a>.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_connectwithdraganddrop">connectWithDragAndDrop(dragAndDropConfiguration)</h3>
+<div class="connectwithdraganddrop"><div class="draganddropscrollingmodule-service-page draganddropscrollingmodule-service-draganddropscrollingservice-connectwithdraganddrop-page"><p>This method enables the communication between this service and the base
+<a href="#/smartEditContainer/dragAndDropServiceInterfaceModule.DragAndDropServiceInterface">SmartEdit Drag and Drop service</a>.</p>
+</div><h5 id="methods_connectwithdraganddrop_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>dragAndDropConfiguration</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="draganddropscrollingmodule-service-page draganddropscrollingmodule-service-draganddropscrollingservice-connectwithdraganddrop-page"><p>The object used to configure SmartEdit Drag and Drop service.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_disablescrolling">disableScrolling(startedInExternalFrame, isExternalFrame)</h3>
+<div class="disablescrolling"><div class="draganddropscrollingmodule-service-page draganddropscrollingmodule-service-draganddropscrollingservice-disablescrolling-page"><p>This method is executed when the dragging of a SmartEdit component stops. It hides UI hints and disables
+scrolling.</p>
+</div><h5 id="methods_disablescrolling_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>startedInExternalFrame</td><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="draganddropscrollingmodule-service-page draganddropscrollingmodule-service-draganddropscrollingservice-disablescrolling-page"><p>Flag that indicates if the drag event was started in the outer frame.</p>
+</div></td></tr><tr><td>isExternalFrame</td><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="draganddropscrollingmodule-service-page draganddropscrollingmodule-service-draganddropscrollingservice-disablescrolling-page"><p>Flag that indicates if the current method is called in the outer frame.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_enablescrolling">enableScrolling(startedInExternalFrame, isExternalFrame)</h3>
+<div class="enablescrolling"><div class="draganddropscrollingmodule-service-page draganddropscrollingmodule-service-draganddropscrollingservice-enablescrolling-page"><p>This method is executed when the dragging of SmartEdit component is started. It shows the UI hints and enables scrolling
+when the cursor hovers over them.</p>
+</div><h5 id="methods_enablescrolling_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>startedInExternalFrame</td><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="draganddropscrollingmodule-service-page draganddropscrollingmodule-service-draganddropscrollingservice-enablescrolling-page"><p>Flag that indicates if the drag event was started in the outer frame.</p>
+</div></td></tr><tr><td>isExternalFrame</td><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="draganddropscrollingmodule-service-page draganddropscrollingmodule-service-draganddropscrollingservice-enablescrolling-page"><p>Flag that indicates if the current method is called in the outer frame.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_initialize">initialize()</h3>
+<div class="initialize"><div class="draganddropscrollingmodule-service-page draganddropscrollingmodule-service-draganddropscrollingservice-initialize-page"><p>This method prepares the page to allow scrolling while a SmartEdit component is dragged. It creates
+and appends UI hints and attaches the necessary event handlers.</p>
+</div></div>
+</li>
+</ul>
+</div>
+</div>

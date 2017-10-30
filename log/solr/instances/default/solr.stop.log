@@ -1,0 +1,22 @@
+
+Mon Oct 30 11:55:40 IST 2017
+Sending stop command to Solr running on port 8983 ... waiting 5 seconds to allow Jetty process 6169 to stop gracefully.
+ [|]   [/]   [-]   [\]   [|]   [/]   [-]   [\]   [|]   [/]      
+Mon Oct 30 12:57:53 IST 2017
+Sending stop command to Solr running on port 8983 ... waiting 5 seconds to allow Jetty process 8210 to stop gracefully.
+ [|]   [/]   [-]   [\]   [|]   [/]   [-]   [\]   [|]   [/]      Solr process 8210 is still running; forcefully killing it now.
+Killed process 8210
+
+Mon Oct 30 14:36:12 IST 2017
+Sending stop command to Solr running on port 8983 ... waiting 5 seconds to allow Jetty process 9908 to stop gracefully.
+ [|]   [/]   [-]   [\]   [|]   [/]   [-]   [\]   [|]   [/]      Solr process 9908 is still running; forcefully killing it now.
+Killed process 9908
+
+Mon Oct 30 15:28:09 IST 2017
+Sending stop command to Solr running on port 8983 ... waiting 5 seconds to allow Jetty process 12110 to stop gracefully.
+ [|]   [/]   [-]   [\]   [|]   [/]   [-]   [\]   [|]   [/]      Solr process 12110 is still running; forcefully killing it now.
+Killed process 12110
+
+Mon Oct 30 16:35:36 IST 2017
+Sending stop command to Solr running on port 8983 ... waiting 5 seconds to allow Jetty process 13982 to stop gracefully.
+ [|]   [/]   [-]   [\]   [|]   [/]   [-]   [\]   [|]   [/]      

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ [y] hybris Platform
+  ~ 
+  ~ Copyright (c) 2000-2016 SAP SE
+  ~ All rights reserved.
+  ~ 
+  ~ This software is the confidential and proprietary information of SAP 
+  ~ Hybris ("Confidential Information"). You shall not disclose such 
+  ~ Confidential Information and shall use it only in accordance with the 
+  ~ terms of the license agreement you entered into with SAP Hybris.
+  -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Populators -->
+
+	<!--JSON to TrackingEvent -->
+
+	<bean id="productAwareTrackingEventPopulator"
+		  class="com.hybris.yprofile.eventtracking.populators.ProductAwareTrackingEventPopulator"
+		  parent="defaultAbstractProductAwareTrackingEventPopulator"/>
+
+	<bean id="yProfileAbstractTrackingEventPopulator"
+		  class="com.hybris.yprofile.eventtracking.populators.AbstractTrackingEventPopulator"
+		  parent="abstractTrackingEventGenericPopulator"/>
+
+	<alias name="yProfileJsonToTrackingEventConverter" alias="jsonToTrackingEventConverter"/>
+	<bean id="yProfileJsonToTrackingEventConverter" parent="defaultJsonToTrackingEventConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="productAwareTrackingEventPopulator"/>
+				<ref bean="yProfileAbstractTrackingEventPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+
+	<!--TrackingEvent to CsvData-->
+
+	<bean id="productAwareTrackingEventToCsvDataPopulator" class="com.hybris.yprofile.eventtracking.populators.ProductAwareTrackingEventToCsvDataPopulator"/>
+
+	<bean id="yProfileAbstractTrackingEventToCsvDataPopulator" class="com.hybris.yprofile.eventtracking.populators.AbstractTrackingEventToCsvDataPopulator"/>
+
+	<alias name="yProfileTrackingEventToCsvDataConverter" alias="trackingEventToCsvDataConverter"/>
+	<bean id="yProfileTrackingEventToCsvDataConverter" parent="defaultTrackingEventToCsvDataConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="productAwareTrackingEventToCsvDataPopulator"/>
+				<ref bean="yProfileAbstractTrackingEventToCsvDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="yprofileTrackingEventCsvOrderedFields" alias="trackingEventCsvOrderedFields"/>
+	<bean id="yprofileTrackingEventCsvOrderedFields" parent="defaultTrackingEventCsvOrderedFields">
+		<property name="sourceList">
+			<list merge="true">
+				<value>userAgent</value>
+				<value>accept</value>
+				<value>acceptLanguage</value>
+				<value>referer</value>
+				<value>consentReference</value>
+				<value>productPrice</value>
+				<value>idsite</value>
+				<value>cvar</value>
+				<value>res</value>
+				<value>data</value>
+				<value>search_cat</value>
+				<value>search_count</value>
+				<value>ec_id</value>
+				<value>ec_st</value>
+				<value>ec_tx</value>
+				<value>ec_dt</value>
+				<value>ec_items</value>
+			</list>
+		</property>
+	</bean>
+			
+</beans>

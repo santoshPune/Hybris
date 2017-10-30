@@ -1,0 +1,207 @@
+<h1><code ng:non-bindable="">GenericEditor</code>
+<div><span class="hint">service in module <code ng:non-bindable="">genericEditorModule</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="genericeditormodule-service-page genericeditormodule-service-genericeditor-page"><p>The Generic Editor is a class that makes it possible for SmartEdit users (CMS managers, editors, etc.) to edit components in the SmartEdit interface.
+The Generic Editor class is used by the <a href="#/smartEditContainer/genericEditorModule.directive:genericEditor">genericEditor</a> directive.
+The genericEditor directive makes a call either to a Structure API or, if the Structure API is not available, it reads the data from a local structure to request the information that it needs to build an HTML form.
+It then requests the component by its type and ID from the Content API. The genericEditor directive populates the form with the data that is has received.
+The form can now be used to edit the component. The modified data is saved using the Content API.
+<br/><br/>
+<strong>The structure and the REST structure API</strong>.
+<br/>
+The constructor of the <a href="#/smartEditContainer/genericEditorModule.service:GenericEditor">GenericEditor</a> must be provided with the pattern of a REST Structure API, which must contain the string  &quot;:smarteditComponentType&quot;, or with a local data structure.
+If the pattern, Structure API, or the local structure is not provided, the Generic Editor will fail. If the Structure API is used, it must return a JSON payload that holds an array within the attributes property.
+If the actual structure is used, it must return an array. Each entry in the array provides details about a component property to be displayed and edited. The following details are provided for each property:</p>
+<ul>
+<li><strong>qualifier:</strong> Name of the property.
+<li><strong>i18nKey:</strong> Key of the property label to be translated into the requested language.
+<li><strong>editable:</strong> Boolean that indicates if a property is editable or not. The default value is true.
+<li><strong>localized:</strong> Boolean that indicates if a property is localized or not. The default value is false.
+<li><strong>required:</strong> Boolean that indicates if a property is mandatory or not. The default value is false.
+<li><strong>cmsStructureType:</strong> Value that is used to determine which form widget to display for a specified property. The possible values are:
+    <ul>
+        <li>ShortString: Displays an input field of type text.</li>
+        <li>LongString:  Displays a textarea field.</li>
+        <li>RichText:    Displays an HTML/rich text editor.</li>
+        <li>Boolean:     Displays a checkbox field.</li>
+        <li>Date:        Displays an input field with a date picker.</li>
+        <li>Media:       Displays a filterable dropdown list of media types.</li>
+        <li>Enum:         Displays a filterable dropdown of the enum class values identified by cmsStructureEnumType property
+</ul>
+<li><strong>cmsStructureEnumType:</strong> the qualified name of the Enum class when cmsStructureType is &quot;Enum&quot;
+</li>
+<ul><br/>
+The following is an example of the JSON payload that is returned by the Structure API:
+<pre class="prettyprint linenums">
+{
+    attributes: [{
+        cmsStructureType: "ShortString",
+        qualifier: "someQualifier1",
+        i18nKey: 'i18nkeyForsomeQualifier1',
+        localized: false
+    }, {
+        cmsStructureType: "LongString",
+        qualifier: "someQualifier2",
+        i18nKey: 'i18nkeyForsomeQualifier2',
+        localized: false
+   }, {
+        cmsStructureType: "RichText",
+        qualifier: "someQualifier3",
+        i18nKey: 'i18nkeyForsomeQualifier3',
+        localized: true,
+        required: true
+    }, {
+        cmsStructureType: "Boolean",
+        qualifier: "someQualifier4",
+        i18nKey: 'i18nkeyForsomeQualifier4',
+        localized: false
+    }, {
+        cmsStructureType: "Date",
+        qualifier: "someQualifier5",
+        i18nKey: 'i18nkeyForsomeQualifier5',
+        localized: false
+    }, {
+        cmsStructureType: "Media",
+        qualifier: "someQualifier6",
+        i18nKey: 'i18nkeyForsomeQualifier6',
+        localized: true,
+        required: true
+    }, {
+        cmsStructureType: "Enum",
+        cmsStructureEnumType:'de.mypackage.Orientation'
+        qualifier: "someQualifier7",
+        i18nKey: 'i18nkeyForsomeQualifier7',
+        localized: true,
+        required: true
+    }]
+}
+</pre>
+The following is an example of the expected format of a structure:
+<pre class="prettyprint linenums">
+   [{
+        cmsStructureType: "ShortString",
+        qualifier: "someQualifier1",
+        i18nKey: 'i18nkeyForsomeQualifier1',
+        localized: false
+    }, {
+        cmsStructureType: "LongString",
+        qualifier: "someQualifier2",
+        i18nKey: 'i18nkeyForsomeQualifier2',
+        editable: false,
+        localized: false
+   }, {
+        cmsStructureType: "RichText",
+        qualifier: "someQualifier3",
+        i18nKey: 'i18nkeyForsomeQualifier3',
+        localized: true,
+        required: true
+    }, {
+        cmsStructureType: "Boolean",
+        qualifier: "someQualifier4",
+        i18nKey: 'i18nkeyForsomeQualifier4',
+        localized: false
+    }, {
+        cmsStructureType: "Date",
+        qualifier: "someQualifier5",
+        i18nKey: 'i18nkeyForsomeQualifier5',
+        editable: false,
+        localized: false
+    }, {
+        cmsStructureType: "Media",
+        qualifier: "someQualifier6",
+        i18nKey: 'i18nkeyForsomeQualifier6',
+        localized: true,
+        required: true
+    }, {
+        cmsStructureType: "Enum",
+        cmsStructureEnumType:'de.mypackage.Orientation'
+        qualifier: "someQualifier7",
+        i18nKey: 'i18nkeyForsomeQualifier7',
+        localized: true,
+        required: true
+    }]
+</pre>
+
+<strong>The REST CRUD API</strong>, is given to the constructor of <a href="#/smartEditContainer/genericEditorModule.service:GenericEditor">GenericEditor</a>.
+The CRUD API must support GET and PUT of JSON payloads.
+The PUT method must return the updated payload in its response. Specific to the GET and PUT, the payload must fulfill the following requirements:
+<ul>
+    <li>Date types: Must be serialized as long timestamps.</li>
+    <li>Media types: Must be serialized as identifier strings.</li>
+    <li>If a cmsStructureType is localized, then we expect that the CRUD API returns a map containing the type (string or map) and the map of values, where the key is the language and the value is the content that the type returns.</li>
+</ul>
+
+<p>The following is an example of a localized payload:
+<pre class="prettyprint linenums">
+{
+   content: {
+		'en': 'content in english',
+		'fr': 'content in french',
+		'hi': 'content in hindi'
+	  }
+}
+</pre>
+<p><br/><br/></p>
+<p>If a validation error occurs, the PUT method of the REST CRUD API will return a validation error object that contains an array of validation errors. The information returned for each validation error is as follows:</p>
+<ul>
+    <li><strong>subject:</strong> The qualifier that has the error</li>
+    <li><strong>message:</strong> The error message to be displayed</li>
+    <li><strong>type:</strong> The type of error returned. This is always of the type ValidationError.</li>
+    <li><strong>language:</strong> The language the error needs to be associated with. If no language property is provided, a match with regular expression /(Language: [)[a-z]{2}]/g is attempted from the message property. As a fallback, it implies that the field is not localized.</li>
+</ul>
+
+<p>The following code is an example of an error response object:
+<pre class="prettyprint linenums">
+{
+   errors: [{
+	  subject: 'qualifier1',
+	  reason: 'error message for qualifier',
+	  type: 'ValidationError'
+  }, {
+	  subject: 'qualifier2 language: [fr]',
+	  reason: 'error message for qualifier2',
+	  type: 'ValidationError'
+   }, {
+	  subject: 'qualifier3',
+	  reason: 'error message for qualifier2',
+	  type: 'ValidationError'
+   }]
+}
+
+</pre>
+<p>Whenever any sort of dropdown is used in one of the cmsStructureType widgets, it is advised using <a href="#/smartEditContainer/genericEditorModule.service:GenericEditor#methods_refreshoptions">refreshOptions method</a>. See this method documentation to learn more.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_isdirty">isDirty()</h3>
+<div class="isdirty"><div class="genericeditormodule-service-page genericeditormodule-service-genericeditor-isdirty-page"><p>A predicate function that returns true if the editor is in dirty state or false if it not.
+The state of the editor is determined by comparing the current state of the component with the state of the component when it was pristine.</p>
+</div><h5 id="methods_isdirty_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-boolean">Boolean</a></td><td><div class="genericeditormodule-service-page genericeditormodule-service-genericeditor-isdirty-page"><p>An indicator if the editor is in dirty state or not.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_refreshoptions">refreshOptions(field, qualifier, search)</h3>
+<div class="refreshoptions"><div class="genericeditormodule-service-page genericeditormodule-service-genericeditor-refreshoptions-page"><p>Is invoked by HTML field templates that update and manage dropdowns.
+It updates the dropdown list upon initialization (creates a list of one option) and when performing a search (returns a filtered list).
+To do this, the GenericEditor fetches an implementation of the  <a href="#/smartEditContainer/FetchDataHandlerInterfaceModule.FetchDataHandlerInterface">FetchDataHandlerInterface</a> using the following naming convention: 
+<pre class="prettyprint linenums">"fetch" + cmsStructureType + "DataHandler"</pre>
+The <a href="#/smartEditContainer/fetchMediaDataHandlerModule.service:FetchMediaDataHandler">FetchMediaDataHandler</a> is the only native <a href="#/smartEditContainer/FetchDataHandlerInterfaceModule.FetchDataHandlerInterface">FetchDataHandlerInterface</a> implementation shipped with the Generic Editor. It handles the &#39;Media&#39; cmsStructureType.</p>
+</div><h5 id="methods_refreshoptions_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>field</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="genericeditormodule-service-page genericeditormodule-service-genericeditor-refreshoptions-page"><p>The field in the structure that requires a dropdown to be built.</p>
+</div></td></tr><tr><td>qualifier</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="genericeditormodule-service-page genericeditormodule-service-genericeditor-refreshoptions-page"><p>For a non-localized field, it is the actual field.qualifier. For a localized field, it is the ISO code of the language.</p>
+</div></td></tr><tr><td>search</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="genericeditormodule-service-page genericeditormodule-service-genericeditor-refreshoptions-page"><p>The value of the mask to filter the dropdown entries on.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_reset">reset(componentForm)</h3>
+<div class="reset"><div class="genericeditormodule-service-page genericeditormodule-service-genericeditor-reset-page"><p>Sets the content within the editor to its original state.</p>
+</div><h5 id="methods_reset_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>componentForm</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="genericeditormodule-service-page genericeditormodule-service-genericeditor-reset-page"><p>The component form to be reset.</p>
+</div></td></tr></tbody></table></div>
+</li>
+<li><h3 id="methods_submit">submit(componentForm)</h3>
+<div class="submit"><div class="genericeditormodule-service-page genericeditormodule-service-genericeditor-submit-page"><p>Saves the content within the form for a specified component. If there are any validation errors returned by the CRUD API after saving the content, it will display the errors.</p>
+</div><h5 id="methods_submit_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>componentForm</td><td><a href="" class="label type-hint type-hint-object">Object</a></td><td><div class="genericeditormodule-service-page genericeditormodule-service-genericeditor-submit-page"><p>The component form to be saved.</p>
+</div></td></tr></tbody></table></div>
+</li>
+</ul>
+</div>
+</div>

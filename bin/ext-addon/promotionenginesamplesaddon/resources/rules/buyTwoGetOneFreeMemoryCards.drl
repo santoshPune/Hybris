@@ -1,0 +1,37 @@
+package de.hybris.platform.promotionengineservices.test
+
+import de.hybris.platform.ruleengineservices.rao.CartRAO;
+import de.hybris.platform.ruleengineservices.rao.CategoryRAO;
+import de.hybris.platform.ruleengineservices.rao.OrderEntryRAO;
+import de.hybris.platform.ruleengineservices.rao.RuleEngineResultRAO;
+import de.hybris.platform.ruleengineservices.rao.WebsiteGroupRAO;
+import de.hybris.platform.ruleengineservices.rao.EntriesSelectionStrategyRPD;
+import de.hybris.platform.ruleengineservices.rrd.RuleConfigurationRRD;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import de.hybris.platform.ruleengineservices.rule.evaluation.AddFreeProductDiscountAction;
+import de.hybris.platform.ruleengineservices.enums.OrderEntrySelectionStrategy;
+
+global AddFreeProductDiscountAction addFreeProductDiscountRAOAction;
+
+rule "buyTwoGetOneFreeMemoryCards"
+@ruleCode("buyTwoGetOneFreeMemoryCards")
+
+	salience 10
+	when
+		$result : RuleEngineResultRAO()
+        $memCardCategory : CategoryRAO(code == "902")
+        $websiteGroup : WebsiteGroupRAO( id == "electronicsPromoGrp")
+		$config : RuleConfigurationRRD(ruleCode == "buyTwoGetOneFreeMemoryCards")
+        
+        $entries : ArrayList(size > 0)
+  	              from collect(OrderEntryRAO(product.categories contains $memCardCategory, quantity > 0))
+        $count : Number(intValue >= 3) from accumulate( o : OrderEntryRAO() from $entries , sum( o.getQuantity() ) )
+        
+	then
+		EntriesSelectionStrategyRPD strategy1 = new EntriesSelectionStrategyRPD();
+		strategy1.setSelectionStrategy(OrderEntrySelectionStrategy.CHEAPEST);
+        strategy1.setOrderEntries($entries);
+        strategy1.setQuantity(Double.valueOf(Math.floor($count.intValue() / 3)).intValue());
+    	addFreeProductDiscountRAOAction.addDiscount(strategy1, Double.valueOf(Math.floor($count.intValue() / 3)).intValue(), 3, $result, kcontext);
+end
